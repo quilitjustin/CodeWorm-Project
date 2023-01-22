@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginValidationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,9 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
 
+Route::post('/login_validation', [LoginValidationController::class, 'validate_user'])->name('login_validation');
 
 Route::get('/profile', function () {
     return view('public.profile');
@@ -29,3 +31,11 @@ Route::get('/profile', function () {
 Route::get('/leaderboard', function () {
     return view('public.leaderboard');
 });
+
+Route::get('/dashboard', function () {
+    dd(Auth::user());
+})->name('dashboard');
+
+Route::resource('users', App\Http\Controllers\UsersController::class);
+
+Route::post('/logout', [LoginValidationController::class, 'logout'])->name('logout');

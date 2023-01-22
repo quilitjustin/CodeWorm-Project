@@ -20,7 +20,7 @@
 									{{-- <div class="text-center">
 										<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div> --}}
-									<form method="POST" action="#">
+									<form method="POST" action="{{ route('login_validation') }}">
 										@csrf
 										<div class="mb-3">
 											<label class="form-label">Email</label>
@@ -30,15 +30,15 @@
 											<label class="form-label">Password</label>
 											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
 											<small>
-            <a href="index.html">Forgot password?</a>
+            {{-- <a href="index.html">Forgot password?</a> --}}
           </small>
 										</div>
 										<div>
-											<label class="form-check">
+											{{-- <label class="form-check">
             <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
             <span class="form-check-label">
               Remember me next time
-            </span>
+            </span> --}}
           </label>
 										</div>
 										<div class="text-center mt-3">
@@ -46,6 +46,13 @@
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
+									@if($errors->any())
+										<ul>
+											@foreach($errors->all() as $error)
+												<li class="text-danger">{{ $error }}</li>
+											@endforeach
+										</ul>
+									@endif
 								</div>
 							</div>
 						</div>

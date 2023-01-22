@@ -2,7 +2,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="index.html">
-      <span class="align-middle">AdminKit</span>
+      <span class="align-middle">CodeWorm</span>
     </a>
 
             <ul class="sidebar-nav">
@@ -229,7 +229,11 @@
                     <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">Log out</button>
+                    </form>
                 </div>
             </li>
         </ul>

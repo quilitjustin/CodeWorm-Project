@@ -36,6 +36,7 @@
 								</tbody>
 							</table>
 						</div>
+						<a href="/" class="text-link">&#x25c0; Go back</a>
 					</div>
 				</div>
 			</div>
