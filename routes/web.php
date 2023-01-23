@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginValidationController;
+use App\Http\Controllers\AnaliticsDashboardController;
+use App\Http\Controllers\LeaderBoardController;
+use App\Http\Controllers\PublicProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,28 +17,31 @@ use App\Http\Controllers\LoginValidationController;
 |
 */
 
+// Ajax
+Route::post('analitics_dashboard', [AnaliticsDashboardController::class, 'index']);
+// End
+
 Route::get('/', function () {
     return view('public.index');
 });
+// Public
+Route::get('/public_profile/{user}', [PublicProfileController::class, 'index'])->name('public_profile');
+// End
+Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
+Route::get('/login', [LoginValidationController::class, 'index'])->name('login');
 Route::post('/login_validation', [LoginValidationController::class, 'validate_user'])->name('login_validation');
+Route::get('/profile', [LoginValidationController::class, 'profile'])->name('profile');
 
-Route::get('/profile', function () {
-    return view('public.profile');
-});
-
-Route::get('/leaderboard', function () {
-    return view('public.leaderboard');
-});
+Route::post('/profile/{user}', [LoginValidationController::class, 'profile_update'])->name('profile_update');
+Route::post('/logout', [LoginValidationController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
-    dd(Auth::user());
+    if(!Auth::check()){
+        return redirect()->route('login');
+    }
+    return view('superadmin.dashboard');
 })->name('dashboard');
 
 Route::resource('users', App\Http\Controllers\UsersController::class);
 
-Route::post('/logout', [LoginValidationController::class, 'logout'])->name('logout');

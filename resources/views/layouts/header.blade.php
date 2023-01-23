@@ -1,4 +1,4 @@
-<div class="wrapper">
+
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="index.html">
@@ -11,14 +11,15 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
+                    <a class="sidebar-link" href="{{ route('dashboard') }}">
           <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
         </a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="pages-profile.html">
-          <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                {{-- <li class="sidebar-item active"> --}}
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('users.index') }}">
+          <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
         </a>
                 </li>
 
@@ -220,10 +221,10 @@
   </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-    <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->f_name }}+{{ Auth::user()->l_name }}" class="avatar img-fluid rounded me-1" alt="pfp" />{{ Auth::user()->f_name . " " . Auth::user()->l_name }}<span class="text-dark"></span>
   </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>

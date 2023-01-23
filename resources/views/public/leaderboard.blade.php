@@ -17,7 +17,7 @@
 							<div class="card-header">
 								<h5 class="card-title mb-0">Ranking</h5>
 							</div>
-							<table class="table table-hover my-0">
+							<table id="rank-tbl" class="table table-hover my-0">
 								<thead>
 									<tr>
 										<th>Rank</th>
@@ -27,12 +27,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td class="d-none d-xl-table-cell">John Dope</td>
-										<td><span class="badge bg-success">I'm supreme!</span></td>
-										<td class="d-none d-md-table-cell">9000</td>
-									</tr>
+									@forelse ($users as $user)
+										<tr data-href="{{ route('public_profile', $user['id']) }}">
+											<td>{{ $user['id'] }}</td>
+											<td class="d-none d-xl-table-cell">{{ $user['f_name'] . $user['l_name'] }}</td>
+											<td><span class="badge bg-success">I'm supreme!</span></td>
+											<td class="d-none d-md-table-cell">0</td>
+										</tr>
+									@empty
+										<h5>No Records</h5>
+									@endforelse
 								</tbody>
 							</table>
 						</div>
@@ -47,5 +51,8 @@
 @section('scripts')
  <script>
 	// Code Goes here	
+	$("#rank-tbl tr").click(function(){
+		window.location = $(this).data('href');
+	});
  </script>
 @endsection

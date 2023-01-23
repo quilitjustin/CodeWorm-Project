@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
+// Remove later
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -18,6 +20,14 @@ class UsersController extends Controller
     public function index()
     {
         //
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        $users = User::all();
+
+        return view('superadmin.users.index', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -28,7 +38,10 @@ class UsersController extends Controller
     public function create()
     {
         //
-        return view('superadmin.register');
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        return view('superadmin.users.create');
     }
 
     protected function capitalize($data){
@@ -44,6 +57,9 @@ class UsersController extends Controller
     public function store(RegisterRequest $request)
     {
         //
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
         $data = $request->validated();
 
         $user = new User;
@@ -55,10 +71,10 @@ class UsersController extends Controller
         // $user->contact_no = $data['contact-no'];
         $user->password = Hash::make($data['password']);
         $user->save();
-        dd($user);
-        // return redirect()->route('admin.users.show', [
-        //     'user' => $user->id
-        // ])->with('msg', 'Created Successfully');
+
+        return redirect()->route('users.show', [
+            'user' => $user->id
+        ])->with('msg', 'Created Successfully');
     }
 
     /**
@@ -70,7 +86,10 @@ class UsersController extends Controller
     public function show(User $user)
     {
         //
-        return view('superadmin.update_user', [
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        return view('superadmin.users.show', [
             'user' => $user
         ]);
     }
@@ -84,7 +103,10 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         //
-        return view('superadmin.update_user', [
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        return view('superadmin.users.edit', [
             'user' => $user
         ]);
     }
@@ -99,6 +121,9 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         //
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
         $data = $request->validated();
         
         if($data['action'] == 'password'){
@@ -113,7 +138,9 @@ class UsersController extends Controller
         
         $user->save();
 
-        dd($user);
+        return redirect()->route('users.show', [
+            'user' => $user->id
+        ])->with('msg', 'Updated Successfully');
     }
 
     /**
@@ -122,8 +149,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        $user->delete();
+        
+        return redirect()->route('users.index')->with('msg', 'Deleted Successfully');
     }
 }

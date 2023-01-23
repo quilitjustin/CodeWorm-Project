@@ -24,39 +24,41 @@ Get more page examples
 						<h5 class="card-title mb-0">Profile Details</h5>
 					</div>
 					<div class="card-body text-center">
-						<img src="img/avatars/avatar-4.jpg" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
-						<h5 class="card-title mb-0">Christina Mason</h5>
-						<div class="text-muted mb-2">Lead Developer</div>
+						<img src="https://ui-avatars.com/api/?name={{ $user['f_name'] }}+{{ $user['l_name'] }}" alt="pfp" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+						<h5 class="card-title mb-0">{{ $user['f_name'] . $user['l_name'] }}</h5>
+						<div class="text-muted mb-2">{{ $user['email'] }}</div>
 
-						<div>
+						{{-- <div>
 							<a class="btn btn-primary btn-sm" href="#">Follow</a>
 							<a class="btn btn-primary btn-sm" href="#"><span data-feather="message-square"></span> Message</a>
-						</div>
+						</div> --}}
 					</div>
 					<hr class="my-0" />
 					<div class="card-body">
 						<h5 class="h6 card-title">Skills</h5>
-						<a href="#" class="badge bg-primary me-1 my-1">JavaScript</a>
+						N/A
+						{{-- <a href="#" class="badge bg-primary me-1 my-1">JavaScript</a> --}}
 					</div>
 					<hr class="my-0" />
 					<div class="card-body">
 						<h5 class="h6 card-title">About</h5>
 						<ul class="list-unstyled mb-0">
-							<li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> Lives in <a href="#">San Francisco, SA</a></li>
+							<li class="mb-1">N/A</li>
+							{{-- <li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> Lives in <a href="#">San Francisco, SA</a></li>
 
 							<li class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span> Works at <a href="#">GitHub</a></li>
-							<li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> From <a href="#">Boston</a></li>
+							<li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> From <a href="#">Boston</a></li> --}}
 						</ul>
 					</div>
 					<hr class="my-0" />
 					<div class="card-body">
 						<h5 class="h6 card-title">Elsewhere</h5>
 						<ul class="list-unstyled mb-0">
-							<li class="mb-1"><a href="#">staciehall.co</a></li>
-							<li class="mb-1"><a href="#">Twitter</a></li>
+							<li class="mb-1">N/A</li>
+							{{-- <li class="mb-1"><a href="#">Twitter</a></li>
 							<li class="mb-1"><a href="#">Facebook</a></li>
 							<li class="mb-1"><a href="#">Instagram</a></li>
-							<li class="mb-1"><a href="#">LinkedIn</a></li>
+							<li class="mb-1"><a href="#">LinkedIn</a></li> --}}
 						</ul>
 					</div>
 				</div>
@@ -64,14 +66,15 @@ Get more page examples
 
 			<div class="col-md-8 col-xl-9">
 				<div class="row">
-					<div class="col-md-4">
+					{{-- <div class="col-md-4">
 						<div class="card shadow-sm">
 							<img src="https://www.freepnglogos.com/uploads/javascript-png/javascript-logo-transparent-logo-javascript-images-3.png" class="card-img-top" alt="Image">
 							<div class="card-body bg-dark">
 								<h5 class="text-center card-title">JS Overlord</h5>
 							</div>
 						</div>
-					</div>
+					</div> --}}
+					<h5>No Records</h5>
 				</div>
 			</div>
 		</div>

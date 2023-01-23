@@ -13,12 +13,14 @@
 </head>
 
 <body>
-	@include('layouts.header')
+	<div class="wrapper">
+		@include('layouts.header')
 
-    @yield('content')
+		@yield('content')
 
-	@include('layouts.footer')
-
+		@include('layouts.footer')
+	</div>
+	<script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/adminkit.js') }}"></script>
     @yield('scripts')
 </body>

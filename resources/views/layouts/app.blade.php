@@ -12,7 +12,7 @@
 
 <body>
     @yield('content')
-
+	<script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/adminkit.js') }}"></script>
     @yield('scripts')
 </body>
