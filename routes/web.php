@@ -25,9 +25,9 @@ Route::get('/', function () {
     return view('public.index');
 });
 // Public
+Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
 Route::get('/public_profile/{user}', [PublicProfileController::class, 'index'])->name('public_profile');
 // End
-Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
 
 Route::get('/login', [LoginValidationController::class, 'index'])->name('login');
 Route::post('/login_validation', [LoginValidationController::class, 'validate_user'])->name('login_validation');
