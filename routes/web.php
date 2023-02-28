@@ -21,9 +21,9 @@ use App\Http\Controllers\PublicProfileController;
 Route::post('analitics_dashboard', [AnaliticsDashboardController::class, 'index']);
 // End
 
-Route::get('/', function () {
-    return view('public.index');
-});
+// Route::get('/', function () {
+//     return view('public.index');
+// });
 // Public
 Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
 Route::get('/public_profile/{user}', [PublicProfileController::class, 'index'])->name('public_profile');
