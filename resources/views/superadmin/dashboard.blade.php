@@ -1,506 +1,623 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('content')
-	<main class="content">
-		<div class="container-fluid p-0">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-			<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>150</h3>
 
-			<div class="row">
-				<div class="col-xl-6 col-xxl-5 d-flex">
-					<div class="w-100">
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col mt-0">
-												<h5 class="card-title">Sales</h5>
-											</div>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-											<div class="col-auto">
-												<div class="stat text-primary">
-													<i class="align-middle" data-feather="truck"></i>
-												</div>
-											</div>
-										</div>
-										<h1 class="mt-1 mb-3">2.382</h1>
-										<div class="mb-0">
-											<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-											<span class="text-muted">Since last week</span>
-										</div>
-									</div>
-								</div>
-								<div class="card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col mt-0">
-												<h5 class="card-title">Visitors</h5>
-											</div>
+                            <p>Bounce Rate</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>44</h3>
 
-											<div class="col-auto">
-												<div class="stat text-primary">
-													<i class="align-middle" data-feather="users">1400</i>
-												</div>
-											</div>
-										</div>
-										<h1 class="mt-1 mb-3" id="users-board"></h1>
-										<div class="mb-0">
-											<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-											<span class="text-muted">Since last week</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col mt-0">
-												<h5 class="card-title">Earnings</h5>
-											</div>
+                            <p>User Registrations</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>65</h3>
 
-											<div class="col-auto">
-												<div class="stat text-primary">
-													<i class="align-middle" data-feather="dollar-sign"></i>
-												</div>
-											</div>
-										</div>
-										<h1 class="mt-1 mb-3">$21.300</h1>
-										<div class="mb-0">
-											<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-											<span class="text-muted">Since last week</span>
-										</div>
-									</div>
-								</div>
-								<div class="card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col mt-0">
-												<h5 class="card-title">Orders</h5>
-											</div>
+                            <p>Unique Visitors</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-7 connectedSortable">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-pie mr-1"></i>
+                                Sales
+                            </h3>
+                            <div class="card-tools">
+                                <ul class="nav nav-pills ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <!-- Morris chart - Sales -->
+                                <div class="chart tab-pane active" id="revenue-chart"
+                                    style="position: relative; height: 300px;">
+                                    <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                </div>
+                                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                                </div>
+                            </div>
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
 
-											<div class="col-auto">
-												<div class="stat text-primary">
-													<i class="align-middle" data-feather="shopping-cart"></i>
-												</div>
-											</div>
-										</div>
-										<h1 class="mt-1 mb-3">64</h1>
-										<div class="mb-0">
-											<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-											<span class="text-muted">Since last week</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                    <!-- DIRECT CHAT -->
+                    <div class="card direct-chat direct-chat-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Direct Chat</h3>
 
-				<div class="col-xl-6 col-xxl-7">
-					<div class="card flex-fill w-100">
-						<div class="card-header">
+                            <div class="card-tools">
+                                <span title="3 New Messages" class="badge badge-primary">3</span>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                                    <i class="fas fa-comments"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <!-- Conversations are loaded here -->
+                            <div class="direct-chat-messages">
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="adminlte/dist/img/user1-128x128.jpg"
+                                        alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        Is this template really for free? That's unbelievable!
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
 
-							<h5 class="card-title mb-0">Recent Movement</h5>
-						</div>
-						<div class="card-body py-3">
-							<div class="chart chart-sm">
-								<canvas id="chartjs-dashboard-line"></canvas>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                <!-- Message to the right -->
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="adminlte/dist/img/user3-128x128.jpg"
+                                        alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        You better believe it!
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
 
-			<div class="row">
-				<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
-					<div class="card flex-fill w-100">
-						<div class="card-header">
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="adminlte/dist/img/user1-128x128.jpg"
+                                        alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        Working with AdminLTE on a great new app! Wanna join?
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
 
-							<h5 class="card-title mb-0">Browser Usage</h5>
-						</div>
-						<div class="card-body d-flex">
-							<div class="align-self-center w-100">
-								<div class="py-3">
-									<div class="chart chart-xs">
-										<canvas id="chartjs-dashboard-pie"></canvas>
-									</div>
-								</div>
+                                <!-- Message to the right -->
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="adminlte/dist/img/user3-128x128.jpg"
+                                        alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        I would love to.
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
 
-								<table class="table mb-0">
-									<tbody>
-										<tr>
-											<td>Chrome</td>
-											<td class="text-end">4306</td>
-										</tr>
-										<tr>
-											<td>Firefox</td>
-											<td class="text-end">3801</td>
-										</tr>
-										<tr>
-											<td>IE</td>
-											<td class="text-end">1689</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-					<div class="card flex-fill w-100">
-						<div class="card-header">
+                            </div>
+                            <!--/.direct-chat-messages-->
 
-							<h5 class="card-title mb-0">Real-Time</h5>
-						</div>
-						<div class="card-body px-4">
-							<div id="world_map" style="height:350px;"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
-					<div class="card flex-fill">
-						<div class="card-header">
+                            <!-- Contacts are loaded here -->
+                            <div class="direct-chat-contacts">
+                                <ul class="contacts-list">
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="adminlte/dist/img/user1-128x128.jpg"
+                                                alt="User Avatar">
 
-							<h5 class="card-title mb-0">Calendar</h5>
-						</div>
-						<div class="card-body d-flex">
-							<div class="align-self-center w-100">
-								<div class="chart">
-									<div id="datetimepicker-dashboard"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Count Dracula
+                                                    <small class="contacts-list-date float-right">2/28/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">How have you been? I was...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="adminlte/dist/img/user7-128x128.jpg"
+                                                alt="User Avatar">
 
-			<div class="row">
-				<div class="col-12 col-lg-8 col-xxl-9 d-flex">
-					<div class="card flex-fill">
-						<div class="card-header">
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Sarah Doe
+                                                    <small class="contacts-list-date float-right">2/23/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">I will be waiting for...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="adminlte/dist/img/user3-128x128.jpg"
+                                                alt="User Avatar">
 
-							<h5 class="card-title mb-0">Latest Projects</h5>
-						</div>
-						<table class="table table-hover my-0">
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th class="d-none d-xl-table-cell">Start Date</th>
-									<th class="d-none d-xl-table-cell">End Date</th>
-									<th>Status</th>
-									<th class="d-none d-md-table-cell">Assignee</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Project Apollo</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-success">Done</span></td>
-									<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-								</tr>
-								<tr>
-									<td>Project Fireball</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-danger">Cancelled</span></td>
-									<td class="d-none d-md-table-cell">William Harris</td>
-								</tr>
-								<tr>
-									<td>Project Hades</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-success">Done</span></td>
-									<td class="d-none d-md-table-cell">Sharon Lessman</td>
-								</tr>
-								<tr>
-									<td>Project Nitro</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-warning">In progress</span></td>
-									<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-								</tr>
-								<tr>
-									<td>Project Phoenix</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-success">Done</span></td>
-									<td class="d-none d-md-table-cell">William Harris</td>
-								</tr>
-								<tr>
-									<td>Project X</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-success">Done</span></td>
-									<td class="d-none d-md-table-cell">Sharon Lessman</td>
-								</tr>
-								<tr>
-									<td>Project Romeo</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-success">Done</span></td>
-									<td class="d-none d-md-table-cell">Christina Mason</td>
-								</tr>
-								<tr>
-									<td>Project Wombat</td>
-									<td class="d-none d-xl-table-cell">01/01/2021</td>
-									<td class="d-none d-xl-table-cell">31/06/2021</td>
-									<td><span class="badge bg-warning">In progress</span></td>
-									<td class="d-none d-md-table-cell">William Harris</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-12 col-lg-4 col-xxl-3 d-flex">
-					<div class="card flex-fill w-100">
-						<div class="card-header">
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Nadia Jolie
+                                                    <small class="contacts-list-date float-right">2/20/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">I'll call you back at...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="adminlte/dist/img/user5-128x128.jpg"
+                                                alt="User Avatar">
 
-							<h5 class="card-title mb-0">Monthly Sales</h5>
-						</div>
-						<div class="card-body d-flex w-100">
-							<div class="align-self-center chart chart-lg">
-								<canvas id="chartjs-dashboard-bar"></canvas>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Nora S. Vans
+                                                    <small class="contacts-list-date float-right">2/10/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">Where is your new...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="adminlte/dist/img/user6-128x128.jpg"
+                                                alt="User Avatar">
 
-		</div>
-	</main>
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    John K.
+                                                    <small class="contacts-list-date float-right">1/27/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">Can I take a look at...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="adminlte/dist/img/user8-128x128.jpg"
+                                                alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Kenneth M.
+                                                    <small class="contacts-list-date float-right">1/4/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">Never mind I found...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                </ul>
+                                <!-- /.contacts-list -->
+                            </div>
+                            <!-- /.direct-chat-pane -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <form action="#" method="post">
+                                <div class="input-group">
+                                    <input type="text" name="message" placeholder="Type Message ..."
+                                        class="form-control">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-primary">Send</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card-footer-->
+                    </div>
+                    <!--/.direct-chat -->
+
+                    <!-- TO DO List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="ion ion-clipboard mr-1"></i>
+                                To Do List
+                            </h3>
+
+                            <div class="card-tools">
+                                <ul class="pagination pagination-sm">
+                                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <ul class="todo-list" data-widget="todo-list">
+                                <li>
+                                    <!-- drag handle -->
+                                    <span class="handle">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </span>
+                                    <!-- checkbox -->
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                        <label for="todoCheck1"></label>
+                                    </div>
+                                    <!-- todo text -->
+                                    <span class="text">Design a nice theme</span>
+                                    <!-- Emphasis label -->
+                                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                    <!-- General tools such as edit or delete-->
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="handle">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </span>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
+                                        <label for="todoCheck2"></label>
+                                    </div>
+                                    <span class="text">Make the theme responsive</span>
+                                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="handle">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </span>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                                        <label for="todoCheck3"></label>
+                                    </div>
+                                    <span class="text">Let theme shine like a star</span>
+                                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="handle">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </span>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo4" id="todoCheck4">
+                                        <label for="todoCheck4"></label>
+                                    </div>
+                                    <span class="text">Let theme shine like a star</span>
+                                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="handle">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </span>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo5" id="todoCheck5">
+                                        <label for="todoCheck5"></label>
+                                    </div>
+                                    <span class="text">Check your messages and notifications</span>
+                                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="handle">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </span>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo6" id="todoCheck6">
+                                        <label for="todoCheck6"></label>
+                                    </div>
+                                    <span class="text">Let theme shine like a star</span>
+                                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add
+                                item</button>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </section>
+                <!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-5 connectedSortable">
+
+                    <!-- Map card -->
+                    <div class="card bg-gradient-primary">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                Visitors
+                            </h3>
+                            <!-- card tools -->
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
+                                    <i class="far fa-calendar-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
+                                    title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <div class="card-body">
+                            <div id="world-map" style="height: 250px; width: 100%;"></div>
+                        </div>
+                        <!-- /.card-body-->
+                        <div class="card-footer bg-transparent">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <div id="sparkline-1"></div>
+                                    <div class="text-white">Visitors</div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-4 text-center">
+                                    <div id="sparkline-2"></div>
+                                    <div class="text-white">Online</div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-4 text-center">
+                                    <div id="sparkline-3"></div>
+                                    <div class="text-white">Sales</div>
+                                </div>
+                                <!-- ./col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- solid sales graph -->
+                    <div class="card bg-gradient-info">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">
+                                <i class="fas fa-th mr-1"></i>
+                                Sales Graph
+                            </h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas class="chart" id="line-chart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer bg-transparent">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <input type="text" class="knob" data-readonly="true" value="20"
+                                        data-width="60" data-height="60" data-fgColor="#39CCCC">
+
+                                    <div class="text-white">Mail-Orders</div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-4 text-center">
+                                    <input type="text" class="knob" data-readonly="true" value="50"
+                                        data-width="60" data-height="60" data-fgColor="#39CCCC">
+
+                                    <div class="text-white">Online</div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-4 text-center">
+                                    <input type="text" class="knob" data-readonly="true" value="30"
+                                        data-width="60" data-height="60" data-fgColor="#39CCCC">
+
+                                    <div class="text-white">In-Store</div>
+                                </div>
+                                <!-- ./col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- Calendar -->
+                    <div class="card bg-gradient-success">
+                        <div class="card-header border-0">
+
+                            <h3 class="card-title">
+                                <i class="far fa-calendar-alt"></i>
+                                Calendar
+                            </h3>
+                            <!-- tools card -->
+                            <div class="card-tools">
+                                <!-- button with a dropdown -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-sm dropdown-toggle"
+                                        data-toggle="dropdown" data-offset="-52">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a href="#" class="dropdown-item">Add new event</a>
+                                        <a href="#" class="dropdown-item">Clear events</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">View calendar</a>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body pt-0">
+                            <!--The calendar -->
+                            <div id="calendar" style="width: 100%"></div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </section>
+                <!-- right col -->
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
 @endsection
 
 @section('scripts')
-	<script>
-		// Myscript
-		// $(document).ready(function(){
-        //     $.ajax({
-		// 		url: 
-		// 	});
-        // });
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-			var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-			gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-			gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-			// Line chart
-			new Chart(document.getElementById("chartjs-dashboard-line"), {
-				type: "line",
-				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					datasets: [{
-						label: "Sales ($)",
-						fill: true,
-						backgroundColor: gradient,
-						borderColor: window.theme.primary,
-						data: [
-							2115,
-							1562,
-							1584,
-							1892,
-							1587,
-							1923,
-							2566,
-							2448,
-							2805,
-							3438,
-							2917,
-							3327
-						]
-					}]
-				},
-				options: {
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					tooltips: {
-						intersect: false
-					},
-					hover: {
-						intersect: true
-					},
-					plugins: {
-						filler: {
-							propagate: false
-						}
-					},
-					scales: {
-						xAxes: [{
-							reverse: true,
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}],
-						yAxes: [{
-							ticks: {
-								stepSize: 1000
-							},
-							display: true,
-							borderDash: [3, 3],
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}]
-					}
-				}
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Pie chart
-			new Chart(document.getElementById("chartjs-dashboard-pie"), {
-				type: "pie",
-				data: {
-					labels: ["Chrome", "Firefox", "IE"],
-					datasets: [{
-						data: [4306, 3801, 1689],
-						backgroundColor: [
-							window.theme.primary,
-							window.theme.warning,
-							window.theme.danger
-						],
-						borderWidth: 5
-					}]
-				},
-				options: {
-					responsive: !window.MSInputMethodContext,
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					cutoutPercentage: 75
-				}
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Bar chart
-			new Chart(document.getElementById("chartjs-dashboard-bar"), {
-				type: "bar",
-				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					datasets: [{
-						label: "This year",
-						backgroundColor: window.theme.primary,
-						borderColor: window.theme.primary,
-						hoverBackgroundColor: window.theme.primary,
-						hoverBorderColor: window.theme.primary,
-						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-						barPercentage: .75,
-						categoryPercentage: .5
-					}]
-				},
-				options: {
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					scales: {
-						yAxes: [{
-							gridLines: {
-								display: false
-							},
-							stacked: false,
-							ticks: {
-								stepSize: 20
-							}
-						}],
-						xAxes: [{
-							stacked: false,
-							gridLines: {
-								color: "transparent"
-							}
-						}]
-					}
-				}
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var markers = [{
-					coords: [31.230391, 121.473701],
-					name: "Shanghai"
-				},
-				{
-					coords: [28.704060, 77.102493],
-					name: "Delhi"
-				},
-				{
-					coords: [6.524379, 3.379206],
-					name: "Lagos"
-				},
-				{
-					coords: [35.689487, 139.691711],
-					name: "Tokyo"
-				},
-				{
-					coords: [23.129110, 113.264381],
-					name: "Guangzhou"
-				},
-				{
-					coords: [40.7127837, -74.0059413],
-					name: "New York"
-				},
-				{
-					coords: [34.052235, -118.243683],
-					name: "Los Angeles"
-				},
-				{
-					coords: [41.878113, -87.629799],
-					name: "Chicago"
-				},
-				{
-					coords: [51.507351, -0.127758],
-					name: "London"
-				},
-				{
-					coords: [40.416775, -3.703790],
-					name: "Madrid "
-				}
-			];
-			var map = new jsVectorMap({
-				map: "world",
-				selector: "#world_map",
-				zoomButtons: true,
-				markers: markers,
-				markerStyle: {
-					initial: {
-						r: 9,
-						strokeWidth: 7,
-						stokeOpacity: .4,
-						fill: window.theme.primary
-					},
-					hover: {
-						fill: window.theme.primary,
-						stroke: window.theme.primary
-					}
-				},
-				zoomOnScroll: false
-			});
-			window.addEventListener("resize", () => {
-				map.updateSize();
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-			document.getElementById("datetimepicker-dashboard").flatpickr({
-				inline: true,
-				prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-				nextArrow: "<span title=\"Next month\">&raquo;</span>",
-				defaultDate: defaultDate
-			});
-		});
-	</script>
+    
 @endsection

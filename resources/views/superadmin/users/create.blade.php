@@ -1,68 +1,147 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('content')
-    <main class="d-flex w-100">
-        <div class="container d-flex flex-column">
-            <div class="row vh-100">
-                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                    <div class="d-table-cell align-middle">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Create new user</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/users">Users</a></li>
+                        <li class="breadcrumb-item active">Create</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-                        <div class="text-center mt-4">
-                            <h1 class="h2">Create a new Account</h1>
-                            <p class="lead">
-                                Rejoice for the birth of a new Procrastirnator!
-                            </p>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card card-indigo">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Personal Information
+                            </h3>
                         </div>
-
-                        <div class="card">
+                        <form method="POST" action="{{ route('users.store') }}">
+                            @csrf
+                            <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="m-sm-4">
-                                    <form method="POST" action="{{ route('users.store') }}">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">First Name</label>
-                                                <input class="form-control form-control-lg" type="text" name="f-name" placeholder="Enter your first name" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Middle Name</label>
-                                                <input class="form-control form-control-lg" type="text" name="m-name" placeholder="Enter your middle name" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Last Name</label>
-                                                <input class="form-control form-control-lg" type="text" name="l-name" placeholder="Enter your last name" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Email</label>
-                                                <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Password</label>
-                                                <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter password" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Confirm Password</label>
-                                                <input class="form-control form-control-lg" type="password" name="password_confirmation" placeholder="Enter re-password" />
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input class="form-control" type="text" name="f-name"
+                                                placeholder="Enter first name" value="{{ old('f-name', '') }}" />
+                                            @error('f-name')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
                                         </div>
-                                        <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-lg btn-primary">Create</button>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Middle Name</label>
+                                            <input class="form-control" type="text" name="m-name"
+                                                placeholder="Enter middle name" value="{{ old('m-name', '') }}" />
+                                            @error('m-name')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
                                         </div>
-                                    </form>
-                                    @if($errors->any())
-										<ul>
-											@foreach($errors->all() as $error)
-												<li class="text-danger">{{ $error }}</li>
-											@endforeach
-										</ul>
-									@endif
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control" type="text" name="l-name"
+                                                placeholder="Enter last name" value="{{ old('l-name', '') }}" />
+                                            @error('l-name')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input class="form-control" type="email" name="email"
+                                                placeholder="Enter email" value="{{ old('email', '') }}" />
+                                            @error('email')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Type of Account</label>
+                                            <select class="form-control select2" style="width: 100%;" name="role">
+                                                <option selected="selected">user</option>
+                                                <option>admin</option>
+                                            </select>
+                                            @error('role')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input class="form-control" type="password" name="password"
+                                                placeholder="Enter password" value="{{ old('password', '') }}" />
+                                            @error('password')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <!-- Don't change the name, it's default laravel name for password confimation -->
+                                            <input class="form-control" type="password" name="password_confirmation"
+                                                placeholder="Confirm password"
+                                                value="{{ old('password_confirmation', '') }}" />
+                                            @error('password_confirmation')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
                                 </div>
+                                <!-- /.row -->
                             </div>
-                        </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary ml-2">Create</button>
+                            </div>
+                            <!-- /.card-footer -->
+                        </form>
                     </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col -->
             </div>
+            <!-- /.row -->
         </div>
-    </main>
+        <!-- /.container-fluid -->
+    </section>
+@endsection
+
+@section('script')
 @endsection

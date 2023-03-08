@@ -21,4 +21,6 @@
 127.0.0.1 admin.codeworm.tech
 127.0.0.1 superadmin.codeworm.tech
 
+php artisan migrate --seed
+
 php artisan serve --host=codeworm.tech --port=80

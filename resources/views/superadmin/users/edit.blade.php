@@ -1,103 +1,164 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('content')
-    <main class="d-flex w-100">
-        <div class="container d-flex flex-column">
-            <div class="row vh-100">
-                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                    <div class="d-table-cell align-middle">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Update User</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/users">Users</a></li>
+                        <li class="breadcrumb-item active">Update</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-                        <div class="text-center mt-4">
-                            <h1 class="h2">Update User</h1>
-                            <p class="lead">
-                                Resume your journey as Procrastirnator!
-                            </p>
-                        </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#profile"
+                                        data-toggle="tab">Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#security" data-toggle="tab">Security</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
+                                </li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="profile">
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="m-sm-4">
-                                    <form method="POST" action="{{ route('users.update', $user['id']) }}">
+                                </div>
+                                <!-- /.tab-pane -->
+
+                                <div class="tab-pane" id="security">
+                                    <form class="form-horizontal" method="POST"
+                                        action="{{ route('users.update', $user['id']) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ $user['id'] }}">
                                         {{-- So the system would know what kind of update you want to make --}}
-                                        <input type="text" value="details" name="action" hidden>
-                                        <div class="row">
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">First Name</label>
-                                                <input class="form-control form-control-lg" type="text" name="f-name" value="{{ $user['f_name'] }}" placeholder="Enter your first name" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Middle Name</label>
-                                                <input class="form-control form-control-lg" type="text" name="m-name" value="{{ $user['m_name'] }}" placeholder="Enter your middle name" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Last Name</label>
-                                                <input class="form-control form-control-lg" type="text" name="l-name" value="{{ $user['m_name'] }}" placeholder="Enter your last name" />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Email</label>
-                                                <input class="form-control form-control-lg" type="email" name="email" value="{{ $user['email'] }}" placeholder="Enter your email" />
+                                        <input type="hidden" value="password" name="action">
+                                        <div class="form-group row">
+                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" id="password" name="password"
+                                                    placeholder="Password">
                                             </div>
                                         </div>
-                                        <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-lg btn-primary">Update</button>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
+                                        <div class="form-group row">
+                                            <label for="password" class="col-sm-2 col-form-label">Re-Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" id="re-password"
+                                                    name="password_confirmation" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
                                         </div>
                                     </form>
-                                    @if($errors->any())
-										<ul>
-                                            {{-- Since password and password_confirmation is not a part of this form, we need to separate where the error would appear. --}}
-                                            @if(!($errors->has('password') || $errors->has('password_confirmation')))
-                                                @foreach($errors->all() as $error)
-                                                    <li class="text-danger">{{ $error }}</li>
-                                                @endforeach
-                                            @endif
-										</ul>
-									@endif
+                                    @if ($errors->any())
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li class="text-danger">{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </div>
-                            </div>
-                        </div>
+                                <!-- /.tab-pane -->
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="m-sm-4">
-                                    <form method="POST" action="{{ route('users.update', $user['id']) }}">
+                                <div class="tab-pane" id="settings">
+                                    <form class="form-horizontal" method="POST"
+                                        action="{{ route('users.update', $user['id']) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ $user['id'] }}">
                                         {{-- So the system would know what kind of update you want to make --}}
-                                        <input type="text" value="password" name="action" hidden>
-                                        <div class="row">
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label">Password</label>
-                                                <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter password" />
-                                            </div>
-                                            <div class="mb-3  col-md-6">
-                                                <label class="form-label">Confirm New Password</label>
-                                                <input class="form-control form-control-lg" type="password" name="password_confirmation" placeholder="Enter re-password" />
+                                        <input type="hidden" value="details" name="action">
+                                        <div class="form-group row">
+                                            <label for="inputFirsttName" class="col-sm-2 col-form-label">First
+                                                Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputFirstName"
+                                                    placeholder="First Name" name="f-name"
+                                                    value="{{ old('f-name', $user['f_name']) }}">
                                             </div>
                                         </div>
-                                        <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-lg btn-primary">Update</button>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
+                                        <div class="form-group row">
+                                            <label for="inputMiddleName" class="col-sm-2 col-form-label">Middle
+                                                Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputMiddleName"
+                                                    placeholder="Middle Name" name="m-name"
+                                                    value="{{ old('m-name', $user['m_name']) }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputLastName"
+                                                    placeholder="Last Name" name="l-name"
+                                                    value="{{ old('l-name', $user['l_name']) }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email" name="email"
+                                                    value="{{ old('email', $user['email']) }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputType" class="col-sm-2 col-form-label">Type of Account</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="inputType" name="role">
+                                                    <option selected="selected">user</option>
+                                                    <option>admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
                                         </div>
                                     </form>
-                                    @error('password')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                    @error('password_confirmation')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
+                                    @if ($errors->any())
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li class="text-danger">{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </div>
+                                <!-- /.tab-pane -->
                             </div>
-                        </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col -->
             </div>
-        </div>
-    </main>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 @endsection

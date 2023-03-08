@@ -23,7 +23,12 @@ class UsersController extends Controller
         if(!Auth::check()){
             return redirect()->route('login');
         }
-        $users = User::all();
+        $users = User::where([
+            // Don't show the current user because he can edit his details in his own settings 
+            ['id', '!=', Auth::user()->id],
+            // Don't get the superadmin
+            // ['role', '!=', 'superadmin'],
+        ])->get();
 
         return view('superadmin.users.index', [
             'users' => $users
@@ -66,10 +71,13 @@ class UsersController extends Controller
         $user->f_name = $this->capitalize($data['f-name']);
         $user->l_name = $this->capitalize($data['l-name']);
         $user->m_name = $this->capitalize($data['m-name']);
+        $user->role = $data['role'];
         // $user->gender = $this->capitalize($data['gender']);
         $user->email = $data['email'];
         // $user->contact_no = $data['contact-no'];
         $user->password = Hash::make($data['password']);
+        $user->created_by = Auth::user()->id;
+        $user->updated_by = Auth::user()->id;
         $user->save();
 
         return redirect()->route('users.show', [
@@ -134,8 +142,9 @@ class UsersController extends Controller
             $user->l_name = $this->capitalize($data['l-name']);
             $user->m_name = $this->capitalize($data['m-name']);
             $user->email = $data['email'];
+            $user->role = $data['role'];
         }
-        
+        $user->updated_by = Auth::user()->id;
         $user->save();
 
         return redirect()->route('users.show', [

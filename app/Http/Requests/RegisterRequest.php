@@ -29,8 +29,10 @@ class RegisterRequest extends FormRequest
             'l-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
             'm-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
             'email' => ['required', 'email', 'unique:users'],
+            'role' => ['required', 'in:admin,user'],
             //confirmed-password
             'password' => ['required', 'confirmed', 'min:8'],
+            'password_confirmation' => ['required'],
         ];
     }
 
@@ -40,6 +42,7 @@ class RegisterRequest extends FormRequest
             'l-name' => strip_tags($this['l-name']),
             'm-name' => strip_tags($this['m-name']),
             'email' => strip_tags($this['email']),
+            'role' => strip_tags($this['role']),
             'password' => strip_tags($this['password']),
         ]);
     }

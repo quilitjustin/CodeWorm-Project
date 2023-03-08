@@ -33,6 +33,7 @@ class UpdateUserRequest extends FormRequest
                     'l-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
                     'm-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
                     'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($id)],
+                    'role' => ['required', 'in:admin,user'],
                     'action' => ['required', 'in:details'],
             ];
         }
@@ -40,6 +41,7 @@ class UpdateUserRequest extends FormRequest
         if($this->rule == 'password'){
             return [
                 'password' => ['required', 'confirmed', 'min:8'],
+                'password_confirmation' => ['required'],
                 'action' => ['required', 'in:password'],
             ];
         }

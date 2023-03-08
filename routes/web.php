@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginValidationController;
 use App\Http\Controllers\AnaliticsDashboardController;
 use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\SplashPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +57,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('users', App\Http\Controllers\UsersController::class);
 
+Route::controller(SplashPageController::class)->group(function () {
+    Route::get('/splash', 'index')->name('splash.index');
+    Route::get('/splash/show', 'show')->name('splash.show');
+});

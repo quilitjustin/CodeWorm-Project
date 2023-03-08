@@ -1,27 +1,8 @@
-<footer class="footer">
-    <div class="container-fluid">
-        <div class="row text-muted">
-            <div class="col-6 text-start">
-                <p class="mb-0">
-                    &copy; <strong>2023 CodeWorm PH, Inc. All rights reserved.</strong> 
-                </p>
-            </div>
-            <div class="col-6 text-end">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="#" target="_blank">Support</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="#" target="_blank">Help Center</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="#" target="_blank">Privacy</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="#" target="_blank">Terms</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <strong>Copyright &copy; 2023 <a href="/">CodeWorm PH, Inc</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
     </div>
 </footer>
