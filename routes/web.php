@@ -6,6 +6,7 @@ use App\Http\Controllers\AnaliticsDashboardController;
 use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\SplashPageController;
+use App\Http\Controllers\Public\SplashPageController as PublicSplash;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,8 @@ use App\Http\Controllers\SplashPageController;
 Route::post('analitics_dashboard', [AnaliticsDashboardController::class, 'index']);
 // End
 
-Route::get('/', function () {
-    return view('public.index');
-});
 // Public
+Route::get('/', [PublicSplash::class, 'index']);
 Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
 Route::get('/public_profile/{user}', [PublicProfileController::class, 'index'])->name('public_profile');
 // End
@@ -59,5 +58,7 @@ Route::resource('users', App\Http\Controllers\UsersController::class);
 
 Route::controller(SplashPageController::class)->group(function () {
     Route::get('/splash', 'index')->name('splash.index');
-    Route::get('/splash/show', 'show')->name('splash.show');
+    Route::get('/splash/show/{id}', 'show')->name('splash.show');
+    Route::post('/splash/store', 'store')->name('splash.store');
+    Route::delete('/splash/destroy/{id}', 'destroy')->name('splash.destroy');
 });

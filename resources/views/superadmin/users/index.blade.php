@@ -44,11 +44,13 @@
                                     @forelse ($users as $user)
                                         <tr>
                                             <td>{{ $user['id'] }}</td>
-                                            <td class="text-center"><a
-                                                    href="{{ route('users.show', $user['id']) }}"></a>{{ $user['f_name'] . ' ' . $user['l_name'] }}</a>
+                                            <td class="text-center">
+                                                <a href="{{ route('users.show', $user['id']) }}">
+                                                    {{ $user['f_name'] . ' ' . $user['l_name'] }}
+                                                </a>
                                             </td>
                                             <td class="text-center"><span class="badge bg-success">Active</span></td>
-                                            <td class="d-none d-md-table-cell text-center">{{ $user['created_at'] }}</td>
+                                            <td class="d-none d-md-table-cell text-center">{{ \Carbon\Carbon::parse($user['created_at'])->diffForHumans() }}</td>
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('users.show', $user['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>

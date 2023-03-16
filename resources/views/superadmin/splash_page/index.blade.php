@@ -34,14 +34,39 @@
                                 <thead>
                                     <tr>
                                         <th>Version ID</th>
-                                        <th>Name</th>
                                         <th>Date</th>
-                                        <th class="d-none d-md-table-cell">Updated By</th>
+                                        <th class="d-none d-md-table-cell">Created By</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    @forelse ($splashs as $splash)
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('splash.show', $splash['id']) }}">
+                                                Version {{ $splash['id'] }}</a> 
+                                                @if($splash['id'] == $latest['id'])
+                                                    <span class="badge bg-primary">Latest</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ \Carbon\Carbon::parse($splash['created_at'])->diffForHumans() }}</td>
+                                            <td class="d-none d-md-table-cell text-center">{{ $splash['created_by'] }}</td>
+                                            <td class="d-none d-xl-table-cell">
+                                                <a class="text-link" href="{{ route('splash.show', $splash['id']) }}">
+                                                    <i class="far fa-eye"></i> View</a>
+                                                <form class="d-inline" action="{{ route('splash.destroy', $splash['id']) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('You are about to delete splash ID: {{ $splash['id'] }}s record. \n Are you sure?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-danger">
+                                                        <i class="fas fa-trash"></i> Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <h5 class="text-center">No records</h5>
+                                    @endforelse
                                 </tbody>
                                 <tfoot>
 
@@ -64,6 +89,5 @@
 @section('scripts')
     <script>
         // Code Goes here
-        	
     </script>
 @endsection

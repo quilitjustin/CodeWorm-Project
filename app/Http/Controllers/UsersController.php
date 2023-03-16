@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
-// Remove later
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
