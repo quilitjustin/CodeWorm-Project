@@ -121,7 +121,7 @@
             }
         });
 
-        $("clear").click(function() {
+        $("#clear").click(function() {
             imageFile.val("");
             imageFile.next(".custom-file-label").html("Choose Image");
             preview.addClass("d-none");
