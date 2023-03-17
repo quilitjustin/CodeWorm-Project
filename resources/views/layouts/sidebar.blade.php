@@ -40,7 +40,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link">
+                    <a href="/dashboard" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -48,7 +48,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/users" class="nav-link">
+                    <a href="/users" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
@@ -56,16 +56,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/splash" class="nav-link">
+                    <a href="/splash" class="nav-link {{ request()->is('splash*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>
                             Splash Page
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-gamepad"></i>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-gamepad {{ request()->is('game*') ? 'active' : '' }}"></i>
                         <p>
                             Game
                             <i class="right fas fa-angle-left"></i>
@@ -73,15 +73,50 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="chartjs.html" class="nav-link active">
+                            <a href="chartjs.html" class="nav-link {{ request()->is('proglang*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ChartJS</p>
+                                <p>Programming Language</p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="chartjs.html" class="nav-link {{ request()->is('bg-img*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>BG Image</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="chartjs.html" class="nav-link {{ request()->is('bgms*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>BGM</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link {{ request()->is('effects*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Effects
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link {{ request()->is('sound*') ? 'active' : '' }}">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>Sound</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link {{ request()->is('visual*') ? 'active' : '' }}">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>Visual</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="/profile" class="nav-link">
+                    <a href="/profile" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>
                             Profile

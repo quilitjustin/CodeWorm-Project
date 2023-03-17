@@ -44,12 +44,13 @@
                                         <tr>
                                             <td>
                                                 <a href="{{ route('splash.show', $splash['id']) }}">
-                                                Version {{ $splash['id'] }}</a> 
-                                                @if($splash['id'] == $latest['id'])
+                                                    Version {{ $splash['id'] }}</a>
+                                                @if ($splash['id'] == $latest['id'])
                                                     <span class="badge bg-primary">Latest</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ \Carbon\Carbon::parse($splash['created_at'])->diffForHumans() }}</td>
+                                            <td class="text-center">
+                                                {{ \Carbon\Carbon::parse($splash['created_at'])->diffForHumans() }}</td>
                                             <td class="d-none d-md-table-cell text-center">{{ $splash['created_by'] }}</td>
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('splash.show', $splash['id']) }}">
@@ -72,6 +73,16 @@
 
                                 </tfoot>
                             </table>
+                            <div class="d-flex justify-content-between align-content-center mt-3">
+                                {{-- Hide for mobile --}}
+                                <div class="d-none d-md-inline">
+                                    Viewing {{ $splashs->firstItem() }} - {{ $splashs->lastItem() }} of {{ $splashs->total() }}
+                                    entries.
+                                </div>
+                                <div>
+                                    {{ $splashs->onEachSide(0.5)->links() }}
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
