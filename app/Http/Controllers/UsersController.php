@@ -27,7 +27,7 @@ class UsersController extends Controller
             ['id', '!=', Auth::user()->id],
             // Don't get the superadmin
             // ['role', '!=', 'superadmin'],
-        ])->get();
+        ])->paginate(7);
 
         return view('superadmin.users.index', [
             'users' => $users

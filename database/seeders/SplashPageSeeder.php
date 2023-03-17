@@ -15,7 +15,7 @@ class SplashPageSeeder extends Seeder
      */
     public function run()
     {
-        $json = file_get_contents(base_path('public/json/content.json'));
+        $json = file_get_contents(base_path('public/json/SplashContent.json'));
 
         DB::table('splash_pages')->insert([
             'content' => $json,

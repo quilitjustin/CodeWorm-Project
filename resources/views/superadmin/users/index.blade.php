@@ -36,7 +36,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Status</th>
-                                        <th class="d-none d-md-table-cell">Creation</th>
+                                        <th class="d-none d-md-table-cell">Type</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
                                 </thead>
@@ -50,7 +50,8 @@
                                                 </a>
                                             </td>
                                             <td class="text-center"><span class="badge bg-success">Active</span></td>
-                                            <td class="d-none d-md-table-cell text-center">{{ \Carbon\Carbon::parse($user['created_at'])->diffForHumans() }}</td>
+                                            <td class="d-none d-md-table-cell text-center">
+                                                {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('users.show', $user['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
@@ -74,6 +75,16 @@
 
                                 </tfoot>
                             </table>
+                            <div class="d-flex justify-content-between align-content-center mt-3">
+                                {{-- Hide for mobile --}}
+                                <div class="d-none d-md-inline">
+                                    Viewing {{ $users->firstItem() }} - {{ $users->lastItem() }} of {{ $users->total() }}
+                                    entries.
+                                </div>
+                                <div>
+                                    {{ $users->onEachSide(0.5)->links() }}
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
