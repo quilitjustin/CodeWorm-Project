@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Splash Page</h1>
+                    <h1 class="m-0">Visual Effects</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">Splash</li>
+                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -26,38 +26,35 @@
                 <div class="col-12">
                     <div class="card card-indigo">
                         <div class="card-header">
-                            <h3 class="card-title">List of Current Versions</h3>
+                            <h3 class="card-title">List of Current Visual Effects</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Version ID</th>
-                                        <th>Date</th>
-                                        <th class="d-none d-md-table-cell">Created By</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($splashs as $splash)
+                                    @forelse ($vfxs as $vfx)
                                         <tr>
-                                            <td>
-                                                <a href="{{ route('splash.show', $splash['id']) }}">
-                                                    Version {{ $splash['id'] }}</a>
-                                                @if ($splash['id'] == $latest['id'])
-                                                    <span class="badge bg-primary">Latest</span>
-                                                @endif
-                                            </td>
+                                            <td>{{ $vfx['id'] }}</td>
                                             <td class="text-center">
-                                                {{ \Carbon\Carbon::parse($splash['created_at'])->diffForHumans() }}</td>
-                                            <td class="d-none d-md-table-cell text-center">{{ $splash['created_by'] }}</td>
+                                                <a href="{{ route('vfxs.show', $vfx['id']) }}">
+                                                    {{ $vfx['name'] }}
+                                                </a>
+                                            </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('splash.show', $splash['id']) }}">
+                                                <a class="text-link" href="{{ route('vfxs.show', $vfx['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <form class="d-inline" action="{{ route('splash.destroy', $splash['id']) }}"
+                                                <a class="text-success" href="{{ route('vfxs.edit', $vfx['id']) }}">
+                                                    <i class="fas fa-pen-square"></i> Edit</a>
+                                                <form class="d-inline" action="{{ route('vfxs.destroy', $vfx['id']) }}"
                                                     method="POST"
-                                                    onsubmit="return confirm('You are about to delete splash ID: {{ $splash['id'] }}s record. \n Are you sure?');">
+                                                    onsubmit="return confirm('You are about to delete vfx ID: {{ $vfx['id'] }}s record. \n Are you sure?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -76,16 +73,19 @@
                             <div class="d-flex justify-content-between align-content-center mt-3">
                                 {{-- Hide for mobile --}}
                                 <div class="d-none d-md-inline">
-                                    Viewing {{ $splashs->firstItem() }} - {{ $splashs->lastItem() }} of
-                                    {{ $splashs->total() }}
+                                    Viewing {{ $vfxs->firstItem() }} - {{ $vfxs->lastItem() }} of {{ $vfxs->total() }}
                                     entries.
                                 </div>
                                 <div>
-                                    {{ $splashs->onEachSide(0.5)->links() }}
+                                    {{ $vfxs->onEachSide(0.5)->links() }}
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <a href="{{ route('vfxs.create') }}" class="btn btn-primary">Create New vfx</a>
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -100,6 +100,6 @@
 
 @section('scripts')
     <script>
-        // Code Goes here
+        // Code Goes here	
     </script>
 @endsection

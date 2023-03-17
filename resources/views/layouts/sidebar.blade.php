@@ -100,13 +100,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {{ request()->is('sound*') ? 'active' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('sfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Sound</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {{ request()->is('visual*') ? 'active' : '' }}">
+                                    <a href="{{ route('vfxs.index') }}" class="nav-link {{ request()->is('vfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Visual</p>
                                     </a>

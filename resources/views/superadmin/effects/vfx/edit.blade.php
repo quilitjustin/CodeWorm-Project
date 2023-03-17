@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Background Image</h1>
+                    <h1 class="m-0">Visual Effects</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('bgims.index') }}">Bgims</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
@@ -28,11 +28,10 @@
                     <div class="card card-indigo">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Background Image Details
+                                Visual Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('bgims.update', $bgim['id']) }}"
-                            enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('vfxs.update', $vfx['id']) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" value="false" id="action" name="action">
@@ -43,7 +42,7 @@
                                         <div class="form-group">
                                             <label>Name</label>
                                             <input class="form-control" type="text" name="name"
-                                                placeholder="Enter name" value="{{ old('name', $bgim['name']) }}" />
+                                                placeholder="Enter name" value="{{ old('name', $vfx['name']) }}" />
                                             @error('name')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror

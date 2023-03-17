@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Update User</h1>
+                    <h1 class="m-0">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -152,6 +152,10 @@
                             </div>
                             <!-- /.tab-content -->
                         </div><!-- /.card-body -->
+                        <div class="card-footer">
+                            <button id="cancel" type="button" class="btn btn-warning"><i
+                                    class="right fas fa-angle-left"></i> Go Back</button>
+                        </div>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -161,4 +165,12 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('script')
+    <script>
+        $("#cancel").click(function() {
+            window.history.back();
+        });
+    </script>
 @endsection

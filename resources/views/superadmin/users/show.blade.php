@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Show User</h1>
+                    <h1 class="m-0">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -73,7 +73,8 @@
                                         <div class="col-md-3">
                                             <label>Created By</label>
                                             <br>
-                                            <a href="{{ route('users.show', $user['created_by']) }}">{{ $user['created_by'] }}</a>
+                                            <a
+                                                href="{{ route('users.show', $user['created_by']) }}">{{ $user['created_by'] }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Created</label>
@@ -84,12 +85,14 @@
                                             <label>Updated By</label>
                                             <br>
                                             {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                            <a href="{{ is_null($user['updated_by']) ? '#' : route('users.show', $user['updated_by']) }}">{{ $user['updated_by'] }}</a>
+                                            <a
+                                                href="{{ is_null($user['updated_by']) ? '#' : route('users.show', $user['updated_by']) }}">{{ $user['updated_by'] }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Updated</label>
                                             <br>
-                                            <p>{{ is_null($user['updated_by']) ? '' : \Carbon\Carbon::parse($user['updated_at'])->diffForHumans() }}</p>
+                                            <p>{{ is_null($user['updated_by']) ? '' : \Carbon\Carbon::parse($user['updated_at'])->diffForHumans() }}
+                                            </p>
                                         </div>
                                     </div>
                                     <!-- /.row -->
@@ -99,6 +102,8 @@
                             <!-- /.tab-content -->
                         </div><!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
+                            <button id="cancel" type="button" class="btn btn-warning"><i
+                                    class="right fas fa-angle-left"></i> Go Back</button>
                             <a href="{{ route('users.edit', $user['id']) }}" class="btn btn-primary">Update</a>
                             <form class="d-inline" action="{{ route('users.destroy', $user['id']) }}" method="POST"
                                 onsubmit="return confirm('You are about to delete User ID: {{ $user['id'] }}s record. \n Are you sure?');">
@@ -117,4 +122,12 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('script')
+    <script>
+        $("#cancel").click(function() {
+            window.history.back();
+        });
+    </script>
 @endsection

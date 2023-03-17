@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create new user</h1>
+                    <h1 class="m-0">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -128,6 +128,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
+                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
                                 <button type="submit" class="btn btn-primary ml-2">Create</button>
                             </div>
                             <!-- /.card-footer -->
@@ -144,4 +145,9 @@
 @endsection
 
 @section('script')
+    <script>
+        $("#cancel").click(function() {
+            window.history.back();
+        });
+    </script>
 @endsection

@@ -12,6 +12,7 @@ use App\Http\Controllers\BGImgController;
 use App\Http\Controllers\SoundEffectController;
 use App\Http\Controllers\VisualEffectController;
 use App\Http\Controllers\Public\SplashPageController as PublicSplash;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +60,13 @@ Route::get('/dashboard', function () {
     return view('superadmin.dashboard');
 })->name('dashboard');
 
-Route::resource('users', App\Http\Controllers\UsersController::class);
+Route::resource('users', UsersController::class);
 // Game Routes
 // Route::resource('game/proglangs', App\Http\Controllers\ProgLang::class);
-Route::resource('game/bgms', App\Http\Controllers\BGMController::class);
-Route::resource('game/bgims', App\Http\Controllers\BGImgController::class);
-Route::resource('game/soundeffs', App\Http\Controllers\SoundEffectController::class);
-Route::resource('game/visuals', App\Http\Controllers\VisualEffectController::class);
+Route::resource('game/bgms', BGMController::class);
+Route::resource('game/bgims', BGImgController::class);
+Route::resource('game/effects/sfxs', SoundEffectController::class);
+Route::resource('game/effects/vfxs', VisualEffectController::class);
 // End game
 
 

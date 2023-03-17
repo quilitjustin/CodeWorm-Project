@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Background Image</h1>
+                    <h1 class="m-0">Visual Effects</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('bgims.index') }}">Bgims</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,14 +28,11 @@
                     <div class="card card-indigo">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Background Image Details
+                                Visual Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('bgims.update', $bgim['id']) }}"
-                            enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('vfxs.store') }}" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
-                            <input type="hidden" value="false" id="action" name="action">
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
@@ -43,7 +40,7 @@
                                         <div class="form-group">
                                             <label>Name</label>
                                             <input class="form-control" type="text" name="name"
-                                                placeholder="Enter name" value="{{ old('name', $bgim['name']) }}" />
+                                                placeholder="Enter name" value="{{ old('name', '') }}" />
                                             @error('name')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
@@ -66,8 +63,6 @@
                                                         class="btn btn-outline-secondary">Clear</button>
                                                 </div>
                                             </div>
-                                            <span class="text-sm text-danger">Note: only upload image if you want to update
-                                                the picture</span>
                                             @error('image')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
@@ -80,8 +75,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
-                                <button type="submit" class="btn btn-primary ml-2">Update</button>
+                                <button type="submit" class="btn btn-primary ml-2">Create</button>
                             </div>
                             <!-- /.card-footer -->
                         </form>
@@ -105,14 +99,10 @@
 
 @section('script')
     <script>
-        const rule = $("#action");
         const imageFile = $("#image");
         const preview = $("#img-preview");
 
         imageFile.on("change", function(e) {
-            // The image has been updated
-            rule.val("true");
-
             // Replace label inside input 
             const fileName = $(this).val();
             $(this).next(".custom-file-label").html(fileName);
@@ -131,17 +121,11 @@
             }
         });
 
-        $("#clear").click(function(e) {
-            // The image has been removed
-            rule.val("false");
+        $("clear").click(function() {
             imageFile.val("");
             imageFile.next(".custom-file-label").html("Choose Image");
             preview.addClass("d-none");
             preview.attr("src", "#");
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection

@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create new Background Image</h1>
+                    <h1 class="m-0">Background Image</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -59,7 +59,8 @@
                                                         aria-describedby="inputGroupFileAddon02">Choose Image</label>
                                                 </div>
                                                 <div class="input-group-append">
-                                                    <button type="button" id="clear" class="btn btn-outline-secondary">Clear</button>
+                                                    <button type="button" id="clear"
+                                                        class="btn btn-outline-secondary">Clear</button>
                                                 </div>
                                             </div>
                                             @error('image')
@@ -74,6 +75,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
+                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
                                 <button type="submit" class="btn btn-primary ml-2">Create</button>
                             </div>
                             <!-- /.card-footer -->
@@ -110,21 +112,25 @@
             const item = e.target.files[0];
             const reader = new FileReader();
 
-            reader.addEventListener("load", function(){
+            reader.addEventListener("load", function() {
                 preview.attr("src", reader.result);
                 preview.removeClass("d-none");
             }, false);
-            
-            if(item){
+
+            if (item) {
                 reader.readAsDataURL(item);
             }
         });
 
-        $("clear").click(function(e){
+        $("clear").click(function() {
             imageFile.val("");
             imageFile.next(".custom-file-label").html("Choose Image");
-            preview.addClass("d-none");  
+            preview.addClass("d-none");
             preview.attr("src", "#");
+        });
+
+        $("#cancel").click(function() {
+            window.history.back();
         });
     </script>
 @endsection
