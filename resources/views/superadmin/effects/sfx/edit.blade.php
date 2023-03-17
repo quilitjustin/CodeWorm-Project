@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Visual Effects</h1>
+                    <h1 class="m-0">Sound Effects</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
-                        <li class="breadcrumb-item active">Create</li>
+                        <li class="breadcrumb-item"><a href="{{ route('sfxs.index') }}">Sfx</a></li>
+                        <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,11 +28,13 @@
                     <div class="card card-indigo">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Visual Effect Details
+                                Sound Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('vfxs.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('sfxs.update', $sfx['id']) }}" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
+                            <input type="hidden" value="false" id="action" name="action">
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
@@ -40,7 +42,7 @@
                                         <div class="form-group">
                                             <label>Name</label>
                                             <input class="form-control" type="text" name="name"
-                                                placeholder="Enter name" value="{{ old('name', '') }}" />
+                                                placeholder="Enter name" value="{{ old('name', $sfx['name']) }}" />
                                             @error('name')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
@@ -50,20 +52,22 @@
                                     <!-- /.col -->
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Image</label>
+                                            <label>Audio</label>
                                             <div class="input-group mb-3">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="image"
-                                                        name="image" accept="image/*">
-                                                    <label class="custom-file-label" for="image"
-                                                        aria-describedby="inputGroupFileAddon02">Choose Image</label>
+                                                    <input type="file" class="custom-file-input" id="audio"
+                                                        name="audio" accept="audio/*">
+                                                    <label class="custom-file-label" for="audio"
+                                                        aria-describedby="inputGroupFileAddon02">Choose Audio</label>
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button type="button" id="clear"
                                                         class="btn btn-outline-secondary">Clear</button>
                                                 </div>
                                             </div>
-                                            @error('image')
+                                            <span class="text-sm text-danger">Note: only upload audio if you want to update
+                                                the audio</span>
+                                            @error('audio')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -76,7 +80,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
                                 <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
-                                <button type="submit" class="btn btn-primary ml-2">Create</button>
+                                <button type="submit" class="btn btn-primary ml-2">Update</button>
                             </div>
                             <!-- /.card-footer -->
                         </form>
@@ -86,8 +90,8 @@
                 <!-- /.col -->
                 <div class="col-md-8">
                     <div class="card p-2">
-                        <label for="img-preview">Preview</label>
-                        <img src="#" id="img-preview" class="img-fluid d-none" alt="preview">
+                        <label for="audio-preview">Preview</label>
+                        <audio src="#" id="audio-preview" class="d-none w-100" controls></audio>
                     </div>
                 </div>
                 <!-- /.col -->
@@ -100,15 +104,19 @@
 
 @section('script')
     <script>
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
+        const rule = $("#action");
+        const audioFile = $("#audio");
+        const preview = $("#audio-preview");
 
-        imageFile.on("change", function(e) {
+        audioFile.on("change", function(e) {
+            // The audio has been updated
+            rule.val("true");
+
             // Replace label inside input 
             const fileName = $(this).val();
             $(this).next(".custom-file-label").html(fileName);
 
-            // Show image preview
+            // Show audio preview
             const item = e.target.files[0];
             const reader = new FileReader();
 
@@ -122,9 +130,11 @@
             }
         });
 
-        $("#clear").click(function() {
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
+        $("#clear").click(function(e) {
+            // The audio has been removed
+            rule.val("false");
+            audioFile.val("");
+            audioFile.next(".custom-file-label").html("Choose audio");
             preview.addClass("d-none");
             preview.attr("src", "#");
         });

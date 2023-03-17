@@ -62,11 +62,11 @@ class VisualEffectController extends Controller
         // To avoid having a file with the same name
         $newImageName = time() . '-' . $vfx['name'] . '.' . $request['image']->extension();
         // Where to store the image
-        $path = 'game/BackgroundImage';
+        $path = 'game/Effects/VisualEffects';
         // Store the image in public directory
         $request['image']->move(public_path($path), $newImageName);
-        // Output would be like: game/BackgroundImage/image.png
-        // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
+        // Output would be like: game/Effects/VisualEffects/image.png
+        // So we can just do something like asset($foo['path']) than asset(game/Effects/VisualEffects/$foo['path'])
         $vfx->path = $path . '/' . $newImageName;
         $vfx->created_by = Auth::user()->id;
         $vfx->save();
@@ -125,7 +125,7 @@ class VisualEffectController extends Controller
 
         $vfx->name = $this->capitalize($request->name);
 
-        // For more clarity
+        // For more clarity I use == 'true'
         if ($rule == 'true') {
             $request->validate([
                 'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
@@ -138,11 +138,11 @@ class VisualEffectController extends Controller
             // To avoid having a file with the same name
             $newImageName = time() . '-' . $vfx['name'] . '.' . $request['image']->extension();
             // Where to store the image
-            $path = 'game/BackgroundImage';
+            $path = 'game/Effects/VisualEffects';
             // Store the image in public directory
             $request['image']->move(public_path($path), $newImageName);
-            // Output would be like: game/BackgroundImage/image.png
-            // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
+            // Output would be like: game/Effects/VisualEffects/image.png
+            // So we can just do something like asset($foo['path']) than asset(game/Effects/VisualEffects/$foo['path'])
             $vfx->path = $path . '/' . $newImageName;
         }
 
@@ -154,7 +154,7 @@ class VisualEffectController extends Controller
             ->route('vfxs.show', [
                 'vfx' => $vfx->id,
             ])
-            ->with('msg', 'Created Successfully');
+            ->with('msg', 'Updated Successfully');
     }
 
     /**

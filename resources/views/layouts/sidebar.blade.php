@@ -100,7 +100,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {{ request()->is('sfxs*') ? 'active' : '' }}">
+                                    <a href="{{ route('sfxs.index') }}" class="nav-link {{ request()->is('sfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Sound</p>
                                     </a>

@@ -125,7 +125,7 @@ class BGImgController extends Controller
 
         $bgim->name = $this->capitalize($request->name);
 
-        // For more clarity
+        // For more clarity I use == 'true'
         if ($rule == 'true') {
             $request->validate([
                 'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
@@ -154,7 +154,7 @@ class BGImgController extends Controller
             ->route('bgims.show', [
                 'bgim' => $bgim->id,
             ])
-            ->with('msg', 'Created Successfully');
+            ->with('msg', 'Updated Successfully');
     }
 
     /**

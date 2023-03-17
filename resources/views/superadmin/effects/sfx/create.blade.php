@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Visual Effects</h1>
+                    <h1 class="m-0">Sound Effects</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('sfxs.index') }}">Sfx</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -28,10 +28,10 @@
                     <div class="card card-indigo">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Visual Effect Details
+                                Sound Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('vfxs.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('sfxs.store') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -50,20 +50,20 @@
                                     <!-- /.col -->
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Image</label>
+                                            <label>Audio</label>
                                             <div class="input-group mb-3">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="image"
-                                                        name="image" accept="image/*">
-                                                    <label class="custom-file-label" for="image"
-                                                        aria-describedby="inputGroupFileAddon02">Choose Image</label>
+                                                    <input type="file" class="custom-file-input" id="audio"
+                                                        name="audio" accept="audio/*">
+                                                    <label class="custom-file-label" for="audio"
+                                                        aria-describedby="inputGroupFileAddon02">Choose Audio</label>
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button type="button" id="clear"
                                                         class="btn btn-outline-secondary">Clear</button>
                                                 </div>
                                             </div>
-                                            @error('image')
+                                            @error('audio')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -86,8 +86,8 @@
                 <!-- /.col -->
                 <div class="col-md-8">
                     <div class="card p-2">
-                        <label for="img-preview">Preview</label>
-                        <img src="#" id="img-preview" class="img-fluid d-none" alt="preview">
+                        <label for="audio-preview">Preview</label>
+                        <audio src="#" id="audio-preview" class="d-none w-100" controls></audio>
                     </div>
                 </div>
                 <!-- /.col -->
@@ -100,15 +100,15 @@
 
 @section('script')
     <script>
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
+        const audioFile = $("#audio");
+        const preview = $("#audio-preview");
 
-        imageFile.on("change", function(e) {
+        audioFile.on("change", function(e) {
             // Replace label inside input 
             const fileName = $(this).val();
             $(this).next(".custom-file-label").html(fileName);
 
-            // Show image preview
+            // Show audio preview
             const item = e.target.files[0];
             const reader = new FileReader();
 
@@ -123,8 +123,8 @@
         });
 
         $("#clear").click(function() {
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
+            audioFile.val("");
+            audioFile.next(".custom-file-label").html("Choose Audio");
             preview.addClass("d-none");
             preview.attr("src", "#");
         });
