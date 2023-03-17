@@ -89,7 +89,7 @@
                                         <div class="col-md-3">
                                             <label>Date Updated</label>
                                             <br>
-                                            <p>{{ \Carbon\Carbon::parse($user['updated_at'])->diffForHumans() }}</p>
+                                            <p>{{ is_null($user['updated_by']) ? '' : \Carbon\Carbon::parse($user['updated_at'])->diffForHumans() }}</p>
                                         </div>
                                     </div>
                                     <!-- /.row -->

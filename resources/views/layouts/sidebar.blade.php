@@ -79,7 +79,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="chartjs.html" class="nav-link {{ request()->is('bg-img*') ? 'active' : '' }}">
+                            <a href="{{ route('bgims.index') }}" class="nav-link {{ request()->is('bg-img*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>BG Image</p>
                             </a>

@@ -6,6 +6,11 @@ use App\Http\Controllers\AnaliticsDashboardController;
 use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\SplashPageController;
+// use App\Http\Controllers\ProgrammingLanguageController as ProgLang;
+use App\Http\Controllers\BGMController;
+use App\Http\Controllers\BGImgController;
+use App\Http\Controllers\SoundEffectController;
+use App\Http\Controllers\VisualEffectController;
 use App\Http\Controllers\Public\SplashPageController as PublicSplash;
 
 /*
@@ -55,6 +60,14 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('users', App\Http\Controllers\UsersController::class);
+// Game Routes
+// Route::resource('game/proglangs', App\Http\Controllers\ProgLang::class);
+Route::resource('game/bgms', App\Http\Controllers\BGMController::class);
+Route::resource('game/bgims', App\Http\Controllers\BGImgController::class);
+Route::resource('game/soundeffs', App\Http\Controllers\SoundEffectController::class);
+Route::resource('game/visuals', App\Http\Controllers\VisualEffectController::class);
+// End game
+
 
 Route::controller(SplashPageController::class)->group(function () {
     Route::get('/splash', 'index')->name('splash.index');
