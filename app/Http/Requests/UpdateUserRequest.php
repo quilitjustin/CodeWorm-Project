@@ -25,20 +25,20 @@ class UpdateUserRequest extends FormRequest
     {
         $this->rule = $this->request->get('action');
         $id = strip_tags($this->request->get('id'));
-        
-        if($this->rule == 'details'){
+
+        if ($this->rule == 'details') {
             return [
                 //
-                'f-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-                    'l-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-                    'm-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-                    'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($id)],
-                    'role' => ['required', 'in:admin,user'],
-                    'action' => ['required', 'in:details'],
+                'f-name' => ['required', 'regex:/^[a-zA-Z ]*$/', 'max:255'],
+                'l-name' => ['required', 'regex:/^[a-zA-Z ]*$/', 'max:255'],
+                'm-name' => ['required', 'regex:/^[a-zA-Z ]*$/', 'max:255'],
+                'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($id), 'max:255'],
+                'role' => ['required', 'in:admin,user'],
+                'action' => ['required', 'in:details'],
             ];
         }
 
-        if($this->rule == 'password'){
+        if ($this->rule == 'password') {
             return [
                 'password' => ['required', 'confirmed', 'min:8'],
                 'password_confirmation' => ['required'],
@@ -50,8 +50,9 @@ class UpdateUserRequest extends FormRequest
         abort(404);
     }
 
-    protected function prepareForValidation(){
-        if($this->rule == 'details'){
+    protected function prepareForValidation()
+    {
+        if ($this->rule == 'details') {
             $this->merge([
                 'f-name' => strip_tags($this['f-name']),
                 'l-name' => strip_tags($this['l-name']),
@@ -60,7 +61,7 @@ class UpdateUserRequest extends FormRequest
                 'action' => strip_tags($this['action']),
             ]);
         }
-        if($this->rule == 'password'){
+        if ($this->rule == 'password') {
             $this->merge([
                 'password' => strip_tags($this['password']),
                 'action' => strip_tags($this['action']),

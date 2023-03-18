@@ -52,7 +52,7 @@ class ProgrammingLanguageController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'unique:programming_languages', 'max:255'],
         ]);
 
         $proglang = new ProgLang();
@@ -107,7 +107,7 @@ class ProgrammingLanguageController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'unique:programming_languages', 'max:255'],
         ]);
 
         $proglang->name = $this->capitalize($request->name);

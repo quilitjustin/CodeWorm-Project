@@ -52,7 +52,7 @@ class SoundEffectController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'max:255'],
             'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
         ]);
 
@@ -117,7 +117,7 @@ class SoundEffectController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'max:255'],
             'action' => ['required', 'in:true,false'],
         ]);
 

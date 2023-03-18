@@ -25,10 +25,10 @@ class RegisterRequest extends FormRequest
     {
         return [
             //
-            'f-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-            'l-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-            'm-name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-            'email' => ['required', 'email', 'unique:users'],
+            'f-name' => ['required', 'regex:/^[a-zA-Z ]*$/', 'max:255'],
+            'l-name' => ['required', 'regex:/^[a-zA-Z ]*$/', 'max:255'],
+            'm-name' => ['required', 'regex:/^[a-zA-Z ]*$/', 'max:255'],
+            'email' => ['required', 'email', 'unique:users', 'max:255'],
             'role' => ['required', 'in:admin,user'],
             //confirmed-password
             'password' => ['required', 'confirmed', 'min:8'],

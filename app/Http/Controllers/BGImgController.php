@@ -52,7 +52,7 @@ class BGImgController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'max:255'],
             'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
         ]);
 
@@ -117,7 +117,7 @@ class BGImgController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'max:255'],
             'action' => ['required', 'in:true,false'],
         ]);
 
