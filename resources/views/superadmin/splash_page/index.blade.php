@@ -73,14 +73,14 @@
 
                                 </tfoot>
                             </table>
-                            <div class="d-flex justify-content-between align-content-center mt-3">
+                            <div class="row mt-3">
                                 {{-- Hide for mobile --}}
-                                <div class="d-none d-md-inline">
+                                <div class="col-md-6 mb-2">
                                     Viewing {{ $splashs->firstItem() }} - {{ $splashs->lastItem() }} of
                                     {{ $splashs->total() }}
                                     entries.
                                 </div>
-                                <div>
+                                <div class="col-md-6">
                                     {{ $splashs->onEachSide(0.5)->links() }}
                                 </div>
                             </div>
