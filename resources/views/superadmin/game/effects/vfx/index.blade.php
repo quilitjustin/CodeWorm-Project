@@ -77,7 +77,7 @@
                                     entries.
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $vfxs->onEachSide(0.5)->links() }}
+                                    {{ $vfxs->onEachSide(3)->links() }}
                                 </div>
                             </div>
                         </div>

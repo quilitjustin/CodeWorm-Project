@@ -82,7 +82,7 @@
                                     entries.
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $users->onEachSide(0.5)->links() }}
+                                    {{ $users->onEachSide(3)->links() }}
                                 </div>
                             </div>
                         </div>

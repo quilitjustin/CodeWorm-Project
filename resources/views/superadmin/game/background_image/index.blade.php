@@ -77,7 +77,7 @@
                                     entries.
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $bgims->onEachSide(0.5)->links() }}
+                                    {{ $bgims->onEachSide(3)->links() }}
                                 </div>
                             </div>
                         </div>

@@ -81,7 +81,7 @@
                                     entries.
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $splashs->onEachSide(0.5)->links() }}
+                                    {{ $splashs->onEachSide(3)->links() }}
                                 </div>
                             </div>
                         </div>

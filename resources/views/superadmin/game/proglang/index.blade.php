@@ -77,7 +77,7 @@
                                     entries.
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $proglangs->onEachSide(0.5)->links() }}
+                                    {{ $proglangs->onEachSide(3)->links() }}
                                 </div>
                             </div>
                         </div>
