@@ -18,7 +18,7 @@ class BGMController extends Controller
         //
         $bgms = BGM::paginate(7);
 
-        return view('superadmin.bgm.index', [
+        return view('superadmin.game.bgm.index', [
             'bgms' => $bgms,
         ]);
     }
@@ -31,7 +31,7 @@ class BGMController extends Controller
     public function create()
     {
         //
-        return view('superadmin.bgm.create');
+        return view('superadmin.game.bgm.create');
     }
 
     protected function capitalize($data)
@@ -87,7 +87,7 @@ class BGMController extends Controller
     public function show(BGM $bgm)
     {
         //
-        return view('superadmin.bgm.show', [
+        return view('superadmin.game.bgm.show', [
             'bgm' => $bgm,
         ]);
     }
@@ -101,7 +101,7 @@ class BGMController extends Controller
     public function edit(BGM $bgm)
     {
         //
-        return view('superadmin.bgm.edit', [
+        return view('superadmin.game.bgm.edit', [
             'bgm' => $bgm,
         ]);
     }

@@ -73,7 +73,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="chartjs.html" class="nav-link {{ request()->is('proglang*') ? 'active' : '' }}">
+                            <a href="{{ route('proglangs.index') }}" class="nav-link {{ request()->is('proglang*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Programming Language</p>
                             </a>

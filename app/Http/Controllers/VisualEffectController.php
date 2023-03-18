@@ -18,7 +18,7 @@ class VisualEffectController extends Controller
         //
         $vfxs = VisualEffect::paginate(7);
 
-        return view('superadmin.effects.vfx.index', [
+        return view('superadmin.game.effects.vfx.index', [
             'vfxs' => $vfxs,
         ]);
     }
@@ -31,7 +31,7 @@ class VisualEffectController extends Controller
     public function create()
     {
         //
-        return view('superadmin.effects.vfx.create');
+        return view('superadmin.game.effects.vfx.create');
     }
 
     protected function capitalize($data)
@@ -87,7 +87,7 @@ class VisualEffectController extends Controller
     public function show(VisualEffect $vfx)
     {
         //
-        return view('superadmin.effects.vfx.show', [
+        return view('superadmin.game.effects.vfx.show', [
             'vfx' => $vfx,
         ]);
     }
@@ -101,7 +101,7 @@ class VisualEffectController extends Controller
     public function edit(VisualEffect $vfx)
     {
         //
-        return view('superadmin.effects.vfx.edit', [
+        return view('superadmin.game.effects.vfx.edit', [
             'vfx' => $vfx,
         ]);
     }

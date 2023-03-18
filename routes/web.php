@@ -6,7 +6,7 @@ use App\Http\Controllers\AnaliticsDashboardController;
 use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\SplashPageController;
-// use App\Http\Controllers\ProgrammingLanguageController as ProgLang;
+use App\Http\Controllers\ProgrammingLanguageController as ProgLang;
 use App\Http\Controllers\BGMController;
 use App\Http\Controllers\BGImgController;
 use App\Http\Controllers\SoundEffectController;
@@ -62,7 +62,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('users', UsersController::class);
 // Game Routes
-// Route::resource('game/proglangs', App\Http\Controllers\ProgLang::class);
+Route::resource('game/proglangs', ProgLang::class);
 Route::resource('game/bgms', BGMController::class);
 Route::resource('game/bgims', BGImgController::class);
 Route::resource('game/effects/sfxs', SoundEffectController::class);

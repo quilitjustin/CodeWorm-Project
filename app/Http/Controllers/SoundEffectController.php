@@ -18,7 +18,7 @@ class SoundEffectController extends Controller
         //
         $sfxs = SoundEffect::paginate(7);
 
-        return view('superadmin.effects.sfx.index', [
+        return view('superadmin.game.effects.sfx.index', [
             'sfxs' => $sfxs,
         ]);
     }
@@ -31,7 +31,7 @@ class SoundEffectController extends Controller
     public function create()
     {
         //
-        return view('superadmin.effects.sfx.create');
+        return view('superadmin.game.effects.sfx.create');
     }
 
     protected function capitalize($data)
@@ -87,7 +87,7 @@ class SoundEffectController extends Controller
     public function show(SoundEffect $sfx)
     {
         //
-        return view('superadmin.effects.sfx.show', [
+        return view('superadmin.game.effects.sfx.show', [
             'sfx' => $sfx,
         ]);
     }
@@ -101,7 +101,7 @@ class SoundEffectController extends Controller
     public function edit(SoundEffect $sfx)
     {
         //
-        return view('superadmin.effects.sfx.edit', [
+        return view('superadmin.game.effects.sfx.edit', [
             'sfx' => $sfx,
         ]);
     }

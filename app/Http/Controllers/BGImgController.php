@@ -18,7 +18,7 @@ class BGImgController extends Controller
         //
         $bgims = BGImg::paginate(7);
 
-        return view('superadmin.background_image.index', [
+        return view('superadmin.game.background_image.index', [
             'bgims' => $bgims,
         ]);
     }
@@ -31,7 +31,7 @@ class BGImgController extends Controller
     public function create()
     {
         //
-        return view('superadmin.background_image.create');
+        return view('superadmin.game.background_image.create');
     }
 
     protected function capitalize($data)
@@ -87,7 +87,7 @@ class BGImgController extends Controller
     public function show(BGImg $bgim)
     {
         //
-        return view('superadmin.background_image.show', [
+        return view('superadmin.game.background_image.show', [
             'bgim' => $bgim,
         ]);
     }
@@ -101,7 +101,7 @@ class BGImgController extends Controller
     public function edit(BGImg $bgim)
     {
         //
-        return view('superadmin.background_image.edit', [
+        return view('superadmin.game.background_image.edit', [
             'bgim' => $bgim,
         ]);
     }
