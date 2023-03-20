@@ -48,6 +48,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/announcements" class="nav-link {{ request()->is('announcements*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-box-open"></i>
+                        <p>
+                            Announcements
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/users" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>

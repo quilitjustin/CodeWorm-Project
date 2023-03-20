@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/codemirror/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/codemirror/theme/monokai.css') }}">
+
     <style>
         /* Remove Default WhiteSpace */
         html,
@@ -73,6 +79,13 @@
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
+    <!-- Summernote -->
+    <script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <!-- CodeMirror -->
+    <script src="{{ asset('adminlte/plugins/codemirror/codemirror.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/codemirror/mode/css/css.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/codemirror/mode/xml/xml.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
 
     <script>
         $.ajaxSetup({
@@ -80,8 +93,26 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        $(document).ready(function() {
+            // Summernote
+            // $('#summernote').summernote({
+            //         height: 150,
+            //         focus: true,
+            //         placeholder: "Write something here",
+            //         codeviewIframeFilter: true,
+            //         spellCheck: true
+            //     }
+            // );
+
+            // CodeMirror
+            // CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            //     mode: "htmlmixed",
+            //     theme: "monokai"
+            // });
+        });
     </script>
-    
+
     @yield('script')
 
 </body>

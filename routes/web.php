@@ -14,6 +14,8 @@ use App\Http\Controllers\VisualEffectController;
 use App\Http\Controllers\Public\SplashPageController as PublicSplash;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\LiveSearchController;
+use App\Http\Controllers\AnnouncementsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +71,7 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('/users', UsersController::class);
+Route::resource('/announcements', AnnouncementsController::class);
 // Game Routes
 Route::resource('/game/proglangs', ProgLang::class);
 Route::resource('/game/bgms', BGMController::class);
