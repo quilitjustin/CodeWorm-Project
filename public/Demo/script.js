@@ -9,7 +9,13 @@ window.addEventListener('load', function(){
     const enemyName = 'Antagonist';
     let gameOver = false;
     const fullScreen = this.document.getElementById('fullScreenButton');
-    
+    // We do this first we don't overwrite the default console.log 
+    console.compile = console.log;
+    // Asign the value of console.log to window.$log
+    console.log = function(data){
+        console.compile(data);
+        window.$log = data;
+    }
 
 $("#playBtn button").click(function(){
     $(this).prop("hidden", true);
@@ -19,47 +25,84 @@ $("#playBtn button").click(function(){
     bgm.volume = 0.3;
     bgm.play();
 });
-
+// function evaluateCode(code) {
+//     try {
+//       let result = eval(`!!(` + code + `)`);
+//       $("#err-console").text("");
+//       return true;
+//     } catch (error) {
+//       $("#err-console").text("Syntax error: " + error.message);
+//       return false;
+//     }
+// }
     class InputHandler{
         constructor(player, enemy){
             this.keys = [];
             // lexical scoping
-            window.addEventListener('keydown', e => {
-                if(e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
-                e.key === 'ArrowLeft' || e.key === 'ArrowRight' && this.keys.indexOf(e.key) === -1){
-                    this.keys.push(e.key);
-                }
-            });
-            window.addEventListener('keyup', e => {
-                if(e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
-                e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
-                    this.keys.splice(this.keys.indexOf(e.key), 1);
-                }
-            });
+            // window.addEventListener('keydown', e => {
+            //     if(e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
+            //     e.key === 'ArrowLeft' || e.key === 'ArrowRight' && this.keys.indexOf(e.key) === -1){
+            //         this.keys.push(e.key);
+            //     }
+            // });
+            // window.addEventListener('keyup', e => {
+            //     if(e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
+            //     e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+            //         this.keys.splice(this.keys.indexOf(e.key), 1);
+            //     }
+            // });
             $("#tackle").click(function(){
-                $(this).prop("disabled", true);
                 player.tackle = true;
                 player.sp -= 5;
             });
             const givenAnswer = "print()";
+
             $("#submit").click(function(){
-                const tiles = $("#answer .tile");
-                let myAnswer = [];
-                for(let i = 0; i < tiles.length; i++){
-                    myAnswer.push($(tiles[i]).text().trim());
-                }
-                if(myAnswer.join("") == givenAnswer){
-                    player.sp++;
-                } else {
+                const givenAnswer = "Hello World";
+                const code = editor.getValue();
+                console.log(code);
+                try { 
+                    "use strict";
+                    eval(`${code}`);
+
+                    if(window.$log == givenAnswer){
+                        $("#msg").text("Right Answer!");
+                        player.sp++;
+                    } else {
+                        $("#msg").text("Wrong Answer!");
+                        enemy.sp++;
+                    }
+                 // eval("!!(" + "alert('Hello World');" + ")");
+                 // alert("No error!");
+                } catch (error) {
+                    $("#err-console").text("Syntax error: " + error.message);
+                    $("#msg").text("There's an error!");
                     enemy.sp++;
                 }
-                for(let i = 0; i < tiles.length; i++){
-                    $(tiles[i]).appendTo("#tiles");
-                    $(tiles[i]).removeClass("h-100 selected col-sm-1 rounded");
-                    $(tiles[i]).addClass("h-25 col-sm-1");
-                }
+                // if(evaluateCode(code)){
+                //     player.sp++;
+                // } else {
+                //     enemy.sp++;
+                // }
+                // const tiles = $("#answer .tile");
+                // let myAnswer = [];
+                // for(let i = 0; i < tiles.length; i++){
+                //     myAnswer.push($(tiles[i]).text().trim());
+                // }
+                // if(myAnswer.join("") == givenAnswer){
+                //     player.sp++;
+                // } else {
+                //     enemy.sp++;
+                // }
+                // for(let i = 0; i < tiles.length; i++){
+                //     $(tiles[i]).appendTo("#tiles");
+                //     $(tiles[i]).removeClass("h-100 selected col-sm-1 rounded");
+                //     $(tiles[i]).addClass("h-25 col-sm-1");
+                // }
             });
         }
+        
+          
         // generateRandomLetters(word) {
         //     const alphabet = "abcdefghijklmnopqrstuvwxyz";
         //     let word = word.splice();
@@ -93,7 +136,7 @@ $("#playBtn button").click(function(){
             this.speed = 0;
             this.vy = 0;
             this.weight = 1;
-            this.sp = 10;
+            this.sp = 99999;
             this.myBtn = document.getElementById('tackle');
             this.lives = 99999;
             this.heart = document.getElementById('life');
@@ -143,6 +186,7 @@ $("#playBtn button").click(function(){
             //     }
             // });
             if(this.tackle){
+                $("#tackle").prop("disabled", true);
                 this.speed = 20;
                 this.x+= this.speed;
             } 
@@ -171,6 +215,7 @@ $("#playBtn button").click(function(){
             if(this.x < 0){
                 this.x = 0;
             } else if (this.x > this.gameWith - this.width) {
+                
                 this.x = this.gameWith - this.width;
                 enemies.lives-=5;
                 this.tackle = false;
@@ -183,6 +228,7 @@ $("#playBtn button").click(function(){
                 explosions[0].draw();
                 explosions.splice(0, 1);
                 this.onHit = false;
+                $("#tackle").prop("disabled", false);
             }
             // Vertical Movement
             this.y += this.vy;
@@ -354,17 +400,16 @@ $("#playBtn button").click(function(){
             this.height = this.spriteHeight * 0.7;
             this.x = x;
             this.y = y;
-            this.image = new Image();
-            this.image.src = 'boom.png';
+            this.image = document.getElementById("boom");
             this.frame = 0;
             this.timer = 0;
             this.angle = Math.random() * 6.2;
-            this.sound = new Audio();
-            this.sound.src = 'boom.wav';
+            this.sound = document.getElementById("sfx");
             this.markedForDeletion = false;
         }
         update(){
             if(this.frame === 0 ){
+                this.sound.currentTime = 0;
                 this.sound.play();
             }
             this.timer++;

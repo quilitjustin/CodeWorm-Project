@@ -86,3 +86,7 @@ Route::controller(SplashPageController::class)->group(function () {
     Route::post('/splash/store', 'store')->name('splash.store');
     Route::delete('/splash/destroy/{id}', 'destroy')->name('splash.destroy');
 });
+
+Route::get('play', function(){
+    return view('layouts.play');
+});

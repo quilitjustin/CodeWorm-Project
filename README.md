@@ -13,7 +13,7 @@
 
 <VirtualHost *:80>
     ServerAdmin admin@codeworm.tech
-    DocumentRoot "C:\Users\Student\Documents\xampp\htdocs\CodeWorm-Project"
+    DocumentRoot "C:\path\htdocs\CodeWorm-Project"
     ServerName superadmin.codeworm.tech
 </VirtualHost>
 
