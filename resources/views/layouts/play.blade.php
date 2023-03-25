@@ -91,9 +91,14 @@
             mode: "javascript",
             theme: "monokai",
         });
+        const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
+        const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js') }}"></script>
+    <script>
+        
+    </script>
 </body>
 
 </html>
