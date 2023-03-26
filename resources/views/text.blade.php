@@ -14,7 +14,8 @@
     </style>
 </head>
 <body>
-    
+    {{ encrypt("Hello world") }}
+    {{ decrypt("eyJpdiI6IkZXWk53SXhjTGJmSzN4dW1EeEFqdEE9PSIsInZhbHVlIjoiak0yazJFUHlMeisraWZqZ25PcXA3aGg3U0FZZnNCc3pCNldwM3kyTXN4MD0iLCJtYWMiOiI3NjA5NGQ1ZjlmMDA4YTFhODNjNmQzODlhNjI0ZDMzZDI5ZGI2NmEwN2Y1YjU2YTY1YmRiOTQzMTg5Y2YyNmI5IiwidGFnIjoiIn0=") }}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script>
         $.ajaxSetup({

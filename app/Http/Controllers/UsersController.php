@@ -22,13 +22,26 @@ class UsersController extends Controller
         if(!Auth::check()){
             return redirect()->route('login');
         }
-        $users = User::where([
+        $users = User::select('id', 'f_name', 'l_name', 'role')
+        ->where([
             // Don't show the current user because he can edit his details in his own settings 
             ['id', '!=', Auth::user()->id],
             // Don't get the superadmin
             // ['role', '!=', 'superadmin'],
-        ])->paginate(7);
-
+        ])
+        ->paginate(7);
+        // Encrypt the ids
+        // $users = $users->map(function ($user) {
+        //     try {
+        //         $encryptedId = encrypt($user->id);
+        //         $user->encrypted_id = $encryptedId;
+        //     } catch (EncryptException $e) {
+        //         $user->encrypted_id = null;
+        //     }
+        //     return $user;
+        // });
+       
+        // dd($users[0]->encrypted_id);
         return view('superadmin.users.index', [
             'users' => $users
         ]);
@@ -80,7 +93,7 @@ class UsersController extends Controller
         $user->save();
 
         return redirect()->route('users.show', [
-            'user' => $user->id
+            'user' => encrypt($user->id)
         ])->with('msg', 'Created Successfully');
     }
 
@@ -90,13 +103,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
+        $uid = decrypt($user);
+        $user = User::findorfail($uid);
+        $encrypted_id = encrypt($user->id);
+
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
         return view('superadmin.users.show', [
+            'id' => $encrypted_id,
             'user' => $user
         ]);
     }
@@ -107,13 +122,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($user)
     {
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
+        $uid = decrypt($user);
+        $user = User::findorfail($uid);
+        $encrypted_id = encrypt($user->id);
+
         return view('superadmin.users.edit', [
+            'id' => $encrypted_id,
             'user' => $user
         ]);
     }
@@ -125,12 +142,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $user)
     {
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
+        $uid = decrypt($user);
+        $user = User::findorfail($uid);
+        
         $data = $request->validated();
         
         if($data['action'] == 'password'){
@@ -145,9 +162,10 @@ class UsersController extends Controller
         }
         $user->updated_by = Auth::user()->id;
         $user->save();
+        $encrypted_id = encrypt($user->id);
 
         return redirect()->route('users.show', [
-            'user' => $user->id
+            'user' => $encrypted_id
         ])->with('msg', 'Updated Successfully');
     }
 
@@ -157,12 +175,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
+        $uid = decrypt($user);
+        $user = User::findorfail($uid);
         $user->delete();
         
         return redirect()->route('users.index')->with('msg', 'Deleted Successfully');

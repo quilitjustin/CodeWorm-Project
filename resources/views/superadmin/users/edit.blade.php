@@ -44,11 +44,11 @@
 
                                 <div class="tab-pane" id="security">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $user['id']) }}">
+                                        action="{{ route('users.update', $id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ $user['id'] }}">
+                                        <input type="hidden" name="id" value="{{ $id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="password" name="action">
                                         <div class="form-group row">
@@ -83,11 +83,11 @@
 
                                 <div class="tab-pane" id="settings">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $user['id']) }}">
+                                        action="{{ route('users.update', $id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ $user['id'] }}">
+                                        <input type="hidden" name="id" value="{{ $id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="details" name="action">
                                         <div class="form-group row">

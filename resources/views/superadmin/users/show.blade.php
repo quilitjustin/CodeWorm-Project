@@ -104,9 +104,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('users.edit', $user['id']) }}" class="btn btn-primary">Update</a>
-                            <form class="d-inline" action="{{ route('users.destroy', $user['id']) }}" method="POST"
-                                onsubmit="return confirm('You are about to delete User ID: {{ $user['id'] }}s record. \n Are you sure?');">
+                            <a href="{{ route('users.edit', $id) }}" class="btn btn-primary">Update</a>
+                            <form class="d-inline" action="{{ route('users.destroy', $id) }}" method="POST"
+                                onsubmit="return confirm('You are about to delete User ID: {{ $id }}s record. \n Are you sure?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

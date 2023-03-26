@@ -33,7 +33,6 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th class="d-none d-md-table-cell">Type</th>
@@ -43,9 +42,8 @@
                                 <tbody>
                                     @forelse ($users as $user)
                                         <tr>
-                                            <td>{{ $user['id'] }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('users.show', $user['id']) }}">
+                                                <a href="{{ route('users.show', encrypt($user['id'])) }}">
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
                                             </td>
@@ -53,13 +51,13 @@
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('users.show', $user['id']) }}">
+                                                <a class="text-link" href="{{ route('users.show', encrypt($user['id'])) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('users.edit', $user['id']) }}">
+                                                <a class="text-success" href="{{ route('users.edit', encrypt($user['id'])) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="d-inline" action="{{ route('users.destroy', $user['id']) }}"
+                                                <form class="d-inline" action="{{ route('users.destroy', encrypt($user['id'])) }}"
                                                     method="POST"
-                                                    onsubmit="return confirm('You are about to delete User ID: {{ $user['id'] }}s record. \n Are you sure?');">
+                                                    onsubmit="return confirm('You are about to delete {{ $user['f_name'] . ' ' . $user['l_name'] }}\'s record. \n Are you sure?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">

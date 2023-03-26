@@ -24,8 +24,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $this->rule = $this->request->get('action');
-        $id = strip_tags($this->request->get('id'));
-
+        $raw_id = strip_tags($this->request->get('id'));
+        $id = decrypt($raw_id);
         if ($this->rule == 'details') {
             return [
                 //
