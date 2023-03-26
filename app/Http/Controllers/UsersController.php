@@ -29,7 +29,7 @@ class UsersController extends Controller
             // Don't get the superadmin
             // ['role', '!=', 'superadmin'],
         ])
-        ->paginate(7);
+        ->get();
         // Encrypt the ids
         // $users = $users->map(function ($user) {
         //     try {

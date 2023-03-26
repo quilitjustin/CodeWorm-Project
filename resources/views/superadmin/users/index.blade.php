@@ -30,7 +30,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-hover">
+                            <table id="data-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -53,11 +53,12 @@
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('users.show', encrypt($user['id'])) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('users.edit', encrypt($user['id'])) }}">
+                                                <a class="text-success"
+                                                    href="{{ route('users.edit', encrypt($user['id'])) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="d-inline" action="{{ route('users.destroy', encrypt($user['id'])) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('You are about to delete {{ $user['f_name'] . ' ' . $user['l_name'] }}\'s record. \n Are you sure?');">
+                                                <form class="delete d-inline"
+                                                    action="{{ route('users.destroy', encrypt($user['id'])) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -73,16 +74,16 @@
 
                                 </tfoot>
                             </table>
-                            <div class="row mt-3">
-                                {{-- Hide for mobile --}}
-                                <div class="col-md-6 mb-2">
+                            {{-- <div class="row mt-3"> --}}
+                            {{-- Hide for mobile --}}
+                            {{-- <div class="col-md-6 mb-2">
                                     Viewing {{ $users->firstItem() }} - {{ $users->lastItem() }} of {{ $users->total() }}
                                     entries.
                                 </div>
                                 <div class="col-md-6">
                                     {{ $users->onEachSide(3)->links() }}
-                                </div>
-                            </div>
+                                </div> --}}
+                            {{-- </div> --}}
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
@@ -97,12 +98,111 @@
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
+        <div class="modal fade" id="confirm-delete">
+            <div class="modal-dialog">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirm Deletion</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Are you sure you want to delete this record?
+                            <br>
+                            Important Reminder: Deleting records are extremely risky and not recommended.
+                        </p>
+
+                        <div class="form-group">
+                            <label>
+                                If you understand the risks and still wish to proceed.
+                                <br>
+                                Please type "I understand"
+                            </label>
+                            <input class="form-control" type="text" id="confirmation" placeholder="Please confirm" />
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-light">Confirm</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
     </section>
     <!-- /.content -->
 @endsection
 
-@section('scripts')
+@section('script')
     <script>
-        // Code Goes here	
+        $(document).ready(function() {
+            $(".delete").submit(function(e) {
+                e.preventDefault();
+                $("#confirm-delete").modal("show");
+                const route = $(this).attr("action");
+                const type = $(this).attr("method");
+                const data = $(this).serialize();
+                $.ajax({
+                    url: route,
+                    type: type,
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+            $(function() {
+                $("#data-table").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    // "copy", "csv", "excel", "pdf", "print"
+                    "buttons": [{
+                            "extend": "copyHtml5",
+                            "title": "Export Data",
+                            "exportOptions": {
+                                "columns": [0, 1, 2]
+                            }
+                        },
+                        {
+                            "extend": "csvHtml5",
+                            "title": "Export Data",
+                            "exportOptions": {
+                                "columns": [0, 1, 2]
+                            }
+                        },
+                        {
+                            "extend": "excelHtml5",
+                            "title": "Export Data",
+                            "exportOptions": {
+                                "columns": [0, 1, 2]
+                            }
+                        },
+                        {
+                            "extend": "pdfHtml5",
+                            "title": "Export Data",
+                            "exportOptions": {
+                                "columns": [0, 1, 2],
+                            }
+                        },
+                        {
+                            "extend": "print",
+                            "title": "Export Data",
+                            "exportOptions": {
+                                "columns": [0, 1, 2]
+                            }
+                        },
+                    ]
+                }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
+            });
+        });
     </script>
 @endsection

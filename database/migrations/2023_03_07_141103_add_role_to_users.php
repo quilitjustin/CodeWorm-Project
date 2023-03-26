@@ -49,8 +49,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->dropColumn('role');
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by')->default(NULL);
+            $table->dropColumn('created_by');
+            $table->dropColumn('updated_by');
         });
     }
 };
