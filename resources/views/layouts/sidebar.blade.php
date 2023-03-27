@@ -64,6 +64,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/badges" class="nav-link {{ request()->is('badges*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-id-badge"></i>
+                        <p>
+                            Badges
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/splash" class="nav-link {{ request()->is('splash*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>
