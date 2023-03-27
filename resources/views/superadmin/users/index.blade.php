@@ -61,6 +61,14 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
+                                                    <button type="submit" class="text-warning">
+                                                        <i class="fas fa-ban"></i> Ban</button>
+                                                </form>
+                                                <form class="delete d-inline"
+                                                    action="{{ route('users.destroy', encrypt($user['id'])) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>
                                                 </form>
@@ -118,15 +126,16 @@
                             <label>
                                 If you understand the risks and still wish to proceed.
                                 <br>
-                                Please type "I understand"
+                                Please type "<span id="condition">I understand</span>"
                             </label>
                             <input class="form-control" type="text" id="confirmation" placeholder="Please confirm" />
+                            <span id="err-msg"></span>
                         </div>
                         <!-- /.form-group -->
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-outline-light">Confirm</button>
+                        <button id="confirm-btn" type="button" class="btn btn-outline-light">Confirm</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -141,24 +150,41 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            let route = "";
+            let data = "";
+            let toBeRemoved = "";
             $(".delete").submit(function(e) {
                 e.preventDefault();
+                $("#err-msg").text("");
+                $("#confirmation").val("")
                 $("#confirm-delete").modal("show");
-                const route = $(this).attr("action");
-                const type = $(this).attr("method");
-                const data = $(this).serialize();
-                $.ajax({
-                    url: route,
-                    type: type,
-                    data: data,
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                });
+                route = $(this).attr("action");
+                data = $(this).serialize();
+                // Select the parent <tr>
+                toBeRemoved = $(this).parent().parent();
             });
+            $("#confirm-btn").click(function() {
+                const answer = $("#confirmation").val();
+                const condition = $("#condition").text();
+                if (answer == condition) {
+                    $.post({
+                        url: route,
+                        data: data,
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                    // window.reload();
+                    toBeRemoved.remove();
+                    $("#confirm-delete").modal("hide");
+                } else {
+                    $("#err-msg").text("Incorrect, please try again.");
+                }
+            });
+            // Datatable
             $(function() {
                 $("#data-table").DataTable({
                     "responsive": true,

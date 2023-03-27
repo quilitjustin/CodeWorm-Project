@@ -181,7 +181,7 @@ class UsersController extends Controller
         $uid = decrypt($user);
         $user = User::findorfail($uid);
         $user->delete();
-        
-        return redirect()->route('users.index')->with('msg', 'Deleted Successfully');
+
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }
