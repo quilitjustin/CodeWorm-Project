@@ -45,36 +45,15 @@ Route::controller(PublicProfileController::class)->group(function () {
 // End
 
 Route::controller(LoginValidationController::class)->group(function () {
-    Route::get('/login', 'index')->name('login');
-    Route::post('/login_validation', 'validate_user')->name('login_validation');
-    Route::get('/profile', 'profile')->name('profile');
-    Route::post('/profile/{user}', 'profile_update')->name('profile_update');
-    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/login', 'index');
+    Route::post('/login_validation', 'validate_user');
+    Route::get('/profile', 'profile');
+    Route::post('/profile/{user}', 'profile_update');
+    Route::post('/logout', 'logout');
 });
 
 Route::get('/dashboard', function () {
-    if (!Auth::check()) {
-        return redirect()->route('login');
-    }
     return view('superadmin.dashboard');
-})->name('dashboard');
-
-Route::resource('/users', UsersController::class);
-Route::resource('/badges', BadgesController::class);
-Route::resource('/announcements', AnnouncementsController::class);  
-// Game Routes
-Route::resource('/game/proglangs', ProgLang::class);
-Route::resource('/game/bgms', BGMController::class);
-Route::resource('/game/bgims', BGImgController::class);
-Route::resource('/game/effects/sfxs', SoundEffectController::class);
-Route::resource('/game/effects/vfxs', VisualEffectController::class);
-// End game
-
-Route::controller(SplashPageController::class)->group(function () {
-    Route::get('/splash', 'index')->name('splash.index');
-    Route::get('/splash/show/{id}', 'show')->name('splash.show');
-    Route::post('/splash/store', 'store')->name('splash.store');
-    Route::delete('/splash/destroy/{id}', 'destroy')->name('splash.destroy');
 });
 
 Route::get('play', function(){

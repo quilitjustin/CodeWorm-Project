@@ -46,9 +46,9 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        @include('layouts.nav')
+        @include('layouts.admin.nav')
 
-        @include('layouts.sidebar')
+        @include('layouts.admin.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
