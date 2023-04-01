@@ -8,8 +8,11 @@ $data = $_POST['data'];
 function run_code($data)
 {
     try {
+        ob_start();
+        eval($data);
+        $reponse['result'] = ob_get_contents();
+        ob_end_clean();
         $reponse['success'] = true;
-        $reponse['result'] = eval($data);
         return $reponse;
     } catch (Throwable $e) {
         $reponse['success'] = false;

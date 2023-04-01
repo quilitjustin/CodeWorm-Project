@@ -15,7 +15,7 @@ use App\Http\Middleware\IsLoggedIn;
 */
 
 Route::get('/', function(){
-    return view('superadmin.index');
+    return redirect()->route('dashboard');
 });
 
 Route::middleware([IsLoggedIn::class])->group(function () {

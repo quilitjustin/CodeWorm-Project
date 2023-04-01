@@ -1,5 +1,4 @@
-@extends('layouts.admin')
-
+@extends('layouts.superadmin.app')
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">

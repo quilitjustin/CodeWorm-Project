@@ -68,7 +68,6 @@ window.addEventListener("load", function () {
                     },
                     success: function (response) {
                         // console.log(response);
-                        console.log(response)
                         if(response['success'] == true){
                             if (response['result'] == givenAnswer) {
                                 $("#msg").text("Right Answer!");

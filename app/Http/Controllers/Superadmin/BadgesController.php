@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Superadmin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\BGM;
+use App\Models\Badges;
 use Illuminate\Support\Facades\Auth;
 
-class BGMController extends Controller
+class BadgesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,10 @@ class BGMController extends Controller
     public function index()
     {
         //
-        $bgms = BGM::paginate(7);
+        $badges = Badges::paginate(7);
 
-        return view('superadmin.game.bgm.index', [
-            'bgms' => $bgms,
+        return view('superadmin.badges.index', [
+            'badges' => $badges,
         ]);
     }
 
@@ -31,7 +32,7 @@ class BGMController extends Controller
     public function create()
     {
         //
-        return view('superadmin.game.bgm.create');
+        return view('superadmin.badges.create');
     }
 
     protected function capitalize($data)
@@ -53,27 +54,27 @@ class BGMController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
-            'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
         ]);
 
-        $bgm = new BGM();
-        $bgm->name = $this->capitalize($request['name']);
+        $badge = new Badges();
+        $badge->name = $this->capitalize($request['name']);
 
         // To avoid having a file with the same name
-        $newAudioName = time() . '-' . $bgm['name'] . '.' . $request['audio']->extension();
+        $newImageName = time() . '-' . $badge['name'] . '.' . $request['image']->extension();
         // Where to store the image
-        $path = 'game/Effects/BGM';
+        $path = 'game/Effects/Badgess';
         // Store the image in public directory
-        $request['audio']->move(public_path($path), $newAudioName);
-        // Output would be like: game/Effects/BGM/image.png
-        // So we can just do something like asset($foo['path']) than asset(game/Effects/BGM/$foo['path'])
-        $bgm->path = $path . '/' . $newAudioName;
-        $bgm->created_by = Auth::user()->id;
-        $bgm->save();
+        $request['image']->move(public_path($path), $newImageName);
+        // Output would be like: game/Effects/Badgess/image.png
+        // So we can just do something like asset($foo['path']) than asset(game/Effects/Badgess/$foo['path'])
+        $badge->path = $path . '/' . $newImageName;
+        $badge->created_by = Auth::user()->id;
+        $badge->save();
 
         return redirect()
-            ->route('bgms.show', [
-                'bgm' => $bgm->id,
+            ->route('badges.show', [
+                'badge' => encrypt($badge->id),
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -84,11 +85,16 @@ class BGMController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BGM $bgm)
+    public function show($badge)
     {
         //
-        return view('superadmin.game.bgm.show', [
-            'bgm' => $bgm,
+        $uid = decrypt($badge);
+        $badge = Badges::findorfail($uid);
+        $encrypted_id = encrypt($badge->id);
+
+        return view('superadmin.badges.show', [
+            'id' => $encrypted_id,
+            'badge' => $badge,
         ]);
     }
 
@@ -98,11 +104,16 @@ class BGMController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BGM $bgm)
+    public function edit($badge)
     {
         //
-        return view('superadmin.game.bgm.edit', [
-            'bgm' => $bgm,
+        $uid = decrypt($badge);
+        $badge = Badges::findorfail($uid);
+        $encrypted_id = encrypt($badge->id);
+
+        return view('superadmin.badges.edit', [
+            'id' => $encrypted_id,
+            'badge' => $badge,
         ]);
     }
 
@@ -113,7 +124,7 @@ class BGMController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BGM $bgm)
+    public function update(Request $request, $badge)
     {
         //
         $request->validate([
@@ -121,38 +132,41 @@ class BGMController extends Controller
             'action' => ['required', 'in:true,false'],
         ]);
 
+        $uid = decrypt($badge);
+        $badge = Badges::findorfail($uid);
+
         $rule = strip_tags($request['action']);
 
-        $bgm->name = $this->capitalize($request->name);
+        $badge->name = $this->capitalize($request->name);
 
         // For more clarity I use == 'true'
         if ($rule == 'true') {
             $request->validate([
-                'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
+                'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
-            if (file_exists($bgm['path'])) {
-                $foo = unlink($bgm['path']);
+            if (file_exists($badge['path'])) {
+                $foo = unlink($badge['path']);
             }
             // To avoid having a file with the same name
-            $newAudioName = time() . '-' . $bgm['name'] . '.' . $request['audio']->extension();
+            $newImageName = time() . '-' . $badge['name'] . '.' . $request['image']->extension();
             // Where to store the image
-            $path = 'game/Effects/BGM';
+            $path = 'game/Effects/Badgess';
             // Store the image in public directory
-            $request['audio']->move(public_path($path), $newAudioName);
-            // Output would be like: game/Effects/BGM/image.png
-            // So we can just do something like asset($foo['path']) than asset(game/Effects/BGM/$foo['path'])
-            $bgm->path = $path . '/' . $newAudioName;
+            $request['image']->move(public_path($path), $newImageName);
+            // Output would be like: game/Effects/Badgess/image.png
+            // So we can just do something like asset($foo['path']) than asset(game/Effects/Badgess/$foo['path'])
+            $badge->path = $path . '/' . $newImageName;
         }
 
-        $bgm->updated_by = Auth::user()->id;
+        $badge->updated_by = Auth::user()->id;
 
-        $bgm->save();
+        $badge->save();
 
         return redirect()
-            ->route('bgms.show', [
-                'bgm' => $bgm->id,
+            ->route('badges.show', [
+                'badge' => $badge->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -163,18 +177,20 @@ class BGMController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BGM $bgm)
+    public function destroy($badge)
     {
+        $uid = decrypt($badge);
+        $badge = Badges::findorfail($uid);
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
-        if (file_exists($bgm['path'])) {
-            $foo = unlink($bgm['path']);
+        if (file_exists($badge['path'])) {
+            $foo = unlink($badge['path']);
         }
 
-        $bgm->delete();
+        $badge->delete();
 
         return redirect()
-            ->route('bgms.index')
+            ->route('badges.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

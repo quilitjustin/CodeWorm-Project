@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Superadmin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\BGImg;
+use App\Models\BGM;
 use Illuminate\Support\Facades\Auth;
 
-class BGImgController extends Controller
+class BGMController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,10 @@ class BGImgController extends Controller
     public function index()
     {
         //
-        $bgims = BGImg::paginate(7);
+        $bgms = BGM::paginate(7);
 
-        return view('superadmin.game.background_image.index', [
-            'bgims' => $bgims,
+        return view('superadmin.game.bgm.index', [
+            'bgms' => $bgms,
         ]);
     }
 
@@ -31,7 +32,7 @@ class BGImgController extends Controller
     public function create()
     {
         //
-        return view('superadmin.game.background_image.create');
+        return view('superadmin.game.bgm.create');
     }
 
     protected function capitalize($data)
@@ -53,27 +54,27 @@ class BGImgController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
-            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
         ]);
 
-        $bgim = new BGImg();
-        $bgim->name = $this->capitalize($request['name']);
+        $bgm = new BGM();
+        $bgm->name = $this->capitalize($request['name']);
 
         // To avoid having a file with the same name
-        $newImageName = time() . '-' . $bgim['name'] . '.' . $request['image']->extension();
+        $newAudioName = time() . '-' . $bgm['name'] . '.' . $request['audio']->extension();
         // Where to store the image
-        $path = 'game/BackgroundImage';
+        $path = 'game/Effects/BGM';
         // Store the image in public directory
-        $request['image']->move(public_path($path), $newImageName);
-        // Output would be like: game/BackgroundImage/image.png
-        // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
-        $bgim->path = $path . '/' . $newImageName;
-        $bgim->created_by = Auth::user()->id;
-        $bgim->save();
+        $request['audio']->move(public_path($path), $newAudioName);
+        // Output would be like: game/Effects/BGM/image.png
+        // So we can just do something like asset($foo['path']) than asset(game/Effects/BGM/$foo['path'])
+        $bgm->path = $path . '/' . $newAudioName;
+        $bgm->created_by = Auth::user()->id;
+        $bgm->save();
 
         return redirect()
-            ->route('bgims.show', [
-                'bgim' => $bgim->id,
+            ->route('bgms.show', [
+                'bgm' => $bgm->id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -84,11 +85,11 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BGImg $bgim)
+    public function show(BGM $bgm)
     {
         //
-        return view('superadmin.game.background_image.show', [
-            'bgim' => $bgim,
+        return view('superadmin.game.bgm.show', [
+            'bgm' => $bgm,
         ]);
     }
 
@@ -98,11 +99,11 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BGImg $bgim)
+    public function edit(BGM $bgm)
     {
         //
-        return view('superadmin.game.background_image.edit', [
-            'bgim' => $bgim,
+        return view('superadmin.game.bgm.edit', [
+            'bgm' => $bgm,
         ]);
     }
 
@@ -113,7 +114,7 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BGImg $bgim)
+    public function update(Request $request, BGM $bgm)
     {
         //
         $request->validate([
@@ -123,36 +124,36 @@ class BGImgController extends Controller
 
         $rule = strip_tags($request['action']);
 
-        $bgim->name = $this->capitalize($request->name);
+        $bgm->name = $this->capitalize($request->name);
 
         // For more clarity I use == 'true'
         if ($rule == 'true') {
             $request->validate([
-                'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
-            if (file_exists($bgim['path'])) {
-                $foo = unlink($bgim['path']);
+            if (file_exists($bgm['path'])) {
+                $foo = unlink($bgm['path']);
             }
             // To avoid having a file with the same name
-            $newImageName = time() . '-' . $bgim['name'] . '.' . $request['image']->extension();
+            $newAudioName = time() . '-' . $bgm['name'] . '.' . $request['audio']->extension();
             // Where to store the image
-            $path = 'game/BackgroundImage';
+            $path = 'game/Effects/BGM';
             // Store the image in public directory
-            $request['image']->move(public_path($path), $newImageName);
-            // Output would be like: game/BackgroundImage/image.png
-            // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
-            $bgim->path = $path . '/' . $newImageName;
+            $request['audio']->move(public_path($path), $newAudioName);
+            // Output would be like: game/Effects/BGM/image.png
+            // So we can just do something like asset($foo['path']) than asset(game/Effects/BGM/$foo['path'])
+            $bgm->path = $path . '/' . $newAudioName;
         }
 
-        $bgim->updated_by = Auth::user()->id;
+        $bgm->updated_by = Auth::user()->id;
 
-        $bgim->save();
+        $bgm->save();
 
         return redirect()
-            ->route('bgims.show', [
-                'bgim' => $bgim->id,
+            ->route('bgms.show', [
+                'bgm' => $bgm->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -163,18 +164,18 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BGImg $bgim)
+    public function destroy(BGM $bgm)
     {
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
-        if (file_exists($bgim['path'])) {
-            $foo = unlink($bgim['path']);
+        if (file_exists($bgm['path'])) {
+            $foo = unlink($bgm['path']);
         }
 
-        $bgim->delete();
+        $bgm->delete();
 
         return redirect()
-            ->route('bgims.index')
+            ->route('bgms.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

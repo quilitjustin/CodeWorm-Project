@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Superadmin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SoundEffect;
+use App\Models\VisualEffect;
 use Illuminate\Support\Facades\Auth;
 
-class SoundEffectController extends Controller
+class VisualEffectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,10 @@ class SoundEffectController extends Controller
     public function index()
     {
         //
-        $sfxs = SoundEffect::paginate(7);
+        $vfxs = VisualEffect::paginate(7);
 
-        return view('superadmin.game.effects.sfx.index', [
-            'sfxs' => $sfxs,
+        return view('superadmin.game.effects.vfx.index', [
+            'vfxs' => $vfxs,
         ]);
     }
 
@@ -31,7 +32,7 @@ class SoundEffectController extends Controller
     public function create()
     {
         //
-        return view('superadmin.game.effects.sfx.create');
+        return view('superadmin.game.effects.vfx.create');
     }
 
     protected function capitalize($data)
@@ -53,27 +54,27 @@ class SoundEffectController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
-            'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
         ]);
 
-        $sfx = new SoundEffect();
-        $sfx->name = $this->capitalize($request['name']);
+        $vfx = new VisualEffect();
+        $vfx->name = $this->capitalize($request['name']);
 
         // To avoid having a file with the same name
-        $newAudioName = time() . '-' . $sfx['name'] . '.' . $request['audio']->extension();
+        $newImageName = time() . '-' . $vfx['name'] . '.' . $request['image']->extension();
         // Where to store the image
-        $path = 'game/Effects/SoundEffects';
+        $path = 'game/Effects/VisualEffects';
         // Store the image in public directory
-        $request['audio']->move(public_path($path), $newAudioName);
-        // Output would be like: game/Effects/SoundEffects/image.png
-        // So we can just do something like asset($foo['path']) than asset(game/Effects/SoundEffects/$foo['path'])
-        $sfx->path = $path . '/' . $newAudioName;
-        $sfx->created_by = Auth::user()->id;
-        $sfx->save();
+        $request['image']->move(public_path($path), $newImageName);
+        // Output would be like: game/Effects/VisualEffects/image.png
+        // So we can just do something like asset($foo['path']) than asset(game/Effects/VisualEffects/$foo['path'])
+        $vfx->path = $path . '/' . $newImageName;
+        $vfx->created_by = Auth::user()->id;
+        $vfx->save();
 
         return redirect()
-            ->route('sfxs.show', [
-                'sfx' => $sfx->id,
+            ->route('vfxs.show', [
+                'vfx' => $vfx->id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -84,11 +85,11 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SoundEffect $sfx)
+    public function show(VisualEffect $vfx)
     {
         //
-        return view('superadmin.game.effects.sfx.show', [
-            'sfx' => $sfx,
+        return view('superadmin.game.effects.vfx.show', [
+            'vfx' => $vfx,
         ]);
     }
 
@@ -98,11 +99,11 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SoundEffect $sfx)
+    public function edit(VisualEffect $vfx)
     {
         //
-        return view('superadmin.game.effects.sfx.edit', [
-            'sfx' => $sfx,
+        return view('superadmin.game.effects.vfx.edit', [
+            'vfx' => $vfx,
         ]);
     }
 
@@ -113,7 +114,7 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SoundEffect $sfx)
+    public function update(Request $request, VisualEffect $vfx)
     {
         //
         $request->validate([
@@ -123,36 +124,36 @@ class SoundEffectController extends Controller
 
         $rule = strip_tags($request['action']);
 
-        $sfx->name = $this->capitalize($request->name);
+        $vfx->name = $this->capitalize($request->name);
 
         // For more clarity I use == 'true'
         if ($rule == 'true') {
             $request->validate([
-                'audio' => ['required', 'mimes:application/audio/mpeg,mpga,mp3,wav'],
+                'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
-            if (file_exists($sfx['path'])) {
-                $foo = unlink($sfx['path']);
+            if (file_exists($vfx['path'])) {
+                $foo = unlink($vfx['path']);
             }
             // To avoid having a file with the same name
-            $newAudioName = time() . '-' . $sfx['name'] . '.' . $request['audio']->extension();
+            $newImageName = time() . '-' . $vfx['name'] . '.' . $request['image']->extension();
             // Where to store the image
-            $path = 'game/Effects/SoundEffects';
+            $path = 'game/Effects/VisualEffects';
             // Store the image in public directory
-            $request['audio']->move(public_path($path), $newAudioName);
-            // Output would be like: game/Effects/SoundEffects/image.png
-            // So we can just do something like asset($foo['path']) than asset(game/Effects/SoundEffects/$foo['path'])
-            $sfx->path = $path . '/' . $newAudioName;
+            $request['image']->move(public_path($path), $newImageName);
+            // Output would be like: game/Effects/VisualEffects/image.png
+            // So we can just do something like asset($foo['path']) than asset(game/Effects/VisualEffects/$foo['path'])
+            $vfx->path = $path . '/' . $newImageName;
         }
 
-        $sfx->updated_by = Auth::user()->id;
+        $vfx->updated_by = Auth::user()->id;
 
-        $sfx->save();
+        $vfx->save();
 
         return redirect()
-            ->route('sfxs.show', [
-                'sfx' => $sfx->id,
+            ->route('vfxs.show', [
+                'vfx' => $vfx->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -163,18 +164,18 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SoundEffect $sfx)
+    public function destroy(VisualEffect $vfx)
     {
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
-        if (file_exists($sfx['path'])) {
-            $foo = unlink($sfx['path']);
+        if (file_exists($vfx['path'])) {
+            $foo = unlink($vfx['path']);
         }
 
-        $sfx->delete();
+        $vfx->delete();
 
         return redirect()
-            ->route('sfxs.index')
+            ->route('vfxs.index')
             ->with('msg', 'Deleted Successfully');
     }
 }
