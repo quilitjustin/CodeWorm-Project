@@ -178,8 +178,17 @@
                         }
                     });
                     // window.reload();
-                    toBeRemoved.remove();
+                    // toBeRemoved.remove();
                     $("#confirm-delete").modal("hide");
+                    const table = $('#data-table').DataTable();
+                    const currentPage = table.page();
+                    table.row(toBeRemoved).remove().draw();
+                    const info = table.page.info();
+                    const totalEntries = table.rows().count();
+                    $('#data-table_info').html('Showing ' + (info.start + 1) + ' to ' + info.end + ' of ' +
+                        totalEntries + ' entries');
+
+                    table.page(currentPage).draw('page');
                 } else {
                     $("#err-msg").text("Incorrect, please try again.");
                 }

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsLoggedIn
+class SuperIsLoggedIn
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class IsLoggedIn
     public function handle(Request $request, Closure $next)
     {
         if (!Auth()->check()){
-            return redirect()->route('login');
+            return redirect()->route('superadmin.login');
         }
 
         return $next($request);

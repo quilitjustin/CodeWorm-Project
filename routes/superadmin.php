@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\IsLoggedIn;
+use App\Http\Middleware\SuperIsLoggedIn;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,18 +18,18 @@ Route::get('/', function(){
     return redirect()->route('dashboard');
 });
 
-Route::middleware([IsLoggedIn::class])->group(function () {
+Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::controller(LoginValidationController::class)->group(function () {
-        Route::get('/login', 'index')->name('login')->withoutMiddleware([IsLoggedIn::class]);
-        Route::post('/login_validation', 'validate_user')->name('login_validation')->withoutMiddleware([IsLoggedIn::class]);
-        Route::get('/profile', 'profile')->name('profile');
-        Route::post('/profile/{user}', 'profile_update')->name('profile_update');
-        Route::post('/logout', 'logout')->name('logout');
+        Route::get('/login', 'index')->name('super.login')->withoutMiddleware([IsLoggedIn::class]);
+        Route::post('/authenticate', 'authenticate')->name('super.authenticate')->withoutMiddleware([IsLoggedIn::class]);
+        Route::get('/profile', 'profile')->name('super.profile');
+        Route::post('/profile/{user}', 'profile_update')->name('super.profile_update');
+        Route::post('/logout', 'logout')->name('super.logout');
     });
     
     Route::get('/dashboard', function () {
         return view('superadmin.dashboard');
-    })->name('dashboard');
+    })->name('super.dashboard');
     
     Route::resource('/users', UsersController::class);
     Route::resource('/badges', BadgesController::class);

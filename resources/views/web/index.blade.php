@@ -2,15 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    {{-- CSRF Token --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Codeworm</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    @include('layouts.meta')
     <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Google fonts-->
@@ -316,17 +308,7 @@
     <script>
         const content = $(".editable-content");
 
-        // Check if valid JSON
-        function isJson(data) {
-            try {
-                return JSON.parse(data);
-            } catch (e) {
-                alert("Opps, something went wrong!");
-            }
-        }
-
         let items = {!! $content !!};
-        items = isJson(items[0]["content"]);
 
         for (i = 0; i < content.length; i++) {
             $(content[i]).text(items[i]["text"]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Public;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,11 +10,11 @@ class PublicProfileController extends Controller
 {
     //
     public function index(){
-        return view('public.profile.index');
+        return view('web.profile.index');
     }
 
     public function show(User $user){
-        return view('public.profile.show', [
+        return view('web.profile.show', [
             'user' => $user
         ]);
     }

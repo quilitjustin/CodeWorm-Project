@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\WebIsLoggedIn;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,19 +24,19 @@ use Illuminate\Support\Facades\Route;
 | Check app/Providers/RouteServiceProvider.php for more details
 */
 
-Route::get('test', function(){
+Route::get('test', function () {
     return view('text');
 });
 
 // Ajax
-Route::controller(LiveSearchController::class)->group(function(){
+Route::controller(LiveSearchController::class)->group(function () {
     Route::get('/search/portfolio', 'public_portfolio')->name('search.portfolio');
 });
 Route::post('analitics_dashboard', [AnaliticsDashboardController::class, 'index']);
 // End
 
 // Public
-Route::get('/', [App\Http\Controllers\Public\SplashPageController::class, 'index']);
+Route::get('/', [App\Http\Controllers\Web\SplashPageController::class, 'index']);
 Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
 Route::controller(PublicProfileController::class)->group(function () {
     Route::get('public_profile', 'index')->name('public_profile.index');
@@ -44,18 +45,28 @@ Route::controller(PublicProfileController::class)->group(function () {
 
 // End
 
-Route::controller(LoginValidationController::class)->group(function () {
-    Route::get('/login', 'index');
-    Route::post('/login_validation', 'validate_user');
-    Route::get('/profile', 'profile');
-    Route::post('/profile/{user}', 'profile_update');
-    Route::post('/logout', 'logout');
-});
+Route::middleware([WebIsLoggedIn::class])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('superadmin.dashboard');
+    })->name('web.dashboard');
 
-Route::get('/dashboard', function () {
-    return view('superadmin.dashboard');
-});
+    Route::get('intended', function(){
+        return "working";
+    });
 
-Route::get('play', function(){
-    return view('layouts.play');
+    Route::controller(LoginValidationController::class)->group(function () {
+        Route::get('/login', 'index')
+            ->name('web.login')
+            ->withoutMiddleware([WebIsLoggedIn::class]);
+        Route::post('/authenticate', 'authenticate')
+            ->name('web.authenticate')
+            ->withoutMiddleware([WebIsLoggedIn::class]);
+        Route::get('/profile', 'profile')->name('web.profile');
+        Route::post('/profile/{user}', 'profile_update')->name('web.profile_update');
+        Route::post('/logout', 'logout')->name('logout');
+    });
+
+    Route::get('play', function () {
+        return view('layouts.play');
+    });
 });

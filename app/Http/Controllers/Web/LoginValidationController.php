@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Superadmin;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,20 +13,13 @@ use App\Http\Requests\UpdateUserRequest;
 
 class LoginValidationController extends Controller
 {
-    private function isLoggedIn($req)
-    {
-        if ($req == 'check_if_in') {
-            return redirect()->intended('super.dashboard');
-        }
-        if ($req == 'check_if_out') {
-            return redirect()->intended('super.dashboard');
-        }
-    }
 
     public function index()
     {
-        $this->isLoggedIn('check_if_in');
-        return view('superadmin.auth.login');
+        if (Auth::check()) {
+            return redirect()->intended();
+        }
+        return view('web.auth.login');
     }
 
     public function authenticate(LoginRequest $request)
@@ -35,18 +28,16 @@ class LoginValidationController extends Controller
 
         if (Auth::attempt($credentials)) {
             return redirect()
-                ->intended('dashboard')
-                ->with('msg', 'Created Successfully');
+                ->intended();
         }
         return redirect()
-            ->route('login')
+            ->route('web.login')
             ->withErrors(['Invalid Credentials']);
     }
 
     public function profile()
     {
-        $this->isLoggedIn('check_if_out');
-        return view('superadmin.auth.profile');
+        return view('web.auth.profile');
     }
 
     protected function capitalize($data)
@@ -56,8 +47,6 @@ class LoginValidationController extends Controller
 
     public function profile_update(UpdateUserRequest $request, User $user)
     {
-        //
-        $this->isLoggedIn('check_if_out');
         $data = $request->validated();
 
         if ($data['action'] == 'password') {
@@ -73,13 +62,12 @@ class LoginValidationController extends Controller
         $user->save();
 
         return redirect()
-            ->route('profile')
+            ->route('web.profile')
             ->with('msg', 'Updated Successfully');
     }
 
     public function logout()
     {
-        $this->isLoggedIn('check_if_out');
         Session::flush();
         Auth::logout();
 
