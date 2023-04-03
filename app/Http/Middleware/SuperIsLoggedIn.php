@@ -17,7 +17,7 @@ class SuperIsLoggedIn
     public function handle(Request $request, Closure $next)
     {
         if (!Auth()->check()){
-            return redirect()->route('superadmin.login');
+            return redirect()->route('super.login');
         }
 
         return $next($request);

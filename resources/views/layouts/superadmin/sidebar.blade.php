@@ -95,6 +95,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('stages.index') }}" class="nav-link {{ request()->is('stages*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stages</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('bgims.index') }}" class="nav-link {{ request()->is('bg-img*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>BG Image</p>
@@ -141,7 +147,7 @@
                 </li>
                 <hr class="border border-primary w-100">
                 <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('super.logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-danger w-100"><i
                                 class="nav-icon fa-arrow-alt-circle-right"></i> Log out</button>

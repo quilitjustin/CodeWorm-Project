@@ -59,7 +59,7 @@
                     <a href="/users" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Users
+                            Forum
                         </p>
                     </a>
                 </li>
@@ -72,64 +72,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/splash" class="nav-link {{ request()->is('splash*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-box-open"></i>
+                    <a href="/leaderboards" class="nav-link {{ request()->is('leaderboards*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-search fa-fw"></i>
                         <p>
-                            Splash Page
+                            Stalk
                         </p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-gamepad {{ request()->is('game*') ? 'active' : '' }}"></i>
-                        <p>
-                            Game
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('proglangs.index') }}" class="nav-link {{ request()->is('proglang*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Programming Language</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('bgims.index') }}" class="nav-link {{ request()->is('bg-img*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>BG Image</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('bgms.index') }}" class="nav-link {{ request()->is('bgms*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>BGM</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('effects*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>
-                                    Effects
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('sfxs.index') }}" class="nav-link {{ request()->is('sfxs*') ? 'active' : '' }}">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Sound</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('vfxs.index') }}" class="nav-link {{ request()->is('vfxs*') ? 'active' : '' }}">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Visual</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="/profile" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">

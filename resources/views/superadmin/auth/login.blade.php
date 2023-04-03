@@ -20,7 +20,7 @@
 									{{-- <div class="text-center">
 										<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div> --}}
-									<form method="POST" action="{{ route('login_validation') }}">
+									<form method="POST" action="{{ route('super.authenticate') }}">
 										@csrf
 										<div class="mb-3">
 											<label class="form-label">Email</label>

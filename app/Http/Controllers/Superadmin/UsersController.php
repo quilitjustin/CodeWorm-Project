@@ -90,7 +90,6 @@ class UsersController extends Controller
         // $user->contact_no = $data['contact-no'];
         $user->password = Hash::make($data['password']);
         $user->created_by = Auth::user()->id;
-        $user->updated_by = Auth::user()->id;
         $user->save();
 
         return redirect()->route('users.show', [

@@ -50,9 +50,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         return view('superadmin.dashboard');
     })->name('web.dashboard');
 
-    Route::get('intended', function(){
-        return "working";
-    });
+    Route::get('announcements', [App\Http\Controllers\Web\AnnouncementsController::class, 'index'])->name('web.announcements.index');
 
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')
@@ -63,10 +61,15 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
             ->withoutMiddleware([WebIsLoggedIn::class]);
         Route::get('/profile', 'profile')->name('web.profile');
         Route::post('/profile/{user}', 'profile_update')->name('web.profile_update');
-        Route::post('/logout', 'logout')->name('logout');
+        Route::post('/logout', 'logout')->name('web.logout');
     });
 
-    Route::get('play', function () {
-        return view('layouts.play');
+    Route::controller(PlayController::class)->group(function(){
+        Route::get('/play', 'index')->name('web.play.index');
+        Route::get('/play/{id}/stages', 'stages')->name('web.play.stages');
     });
+
+    // Route::get('play', function () {
+    //     return view('layouts.play');
+    // });
 });

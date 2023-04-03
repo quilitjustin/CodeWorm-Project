@@ -13,19 +13,11 @@ use App\Http\Requests\UpdateUserRequest;
 
 class LoginValidationController extends Controller
 {
-    private function isLoggedIn($req)
-    {
-        if ($req == 'check_if_in') {
-            return redirect()->intended('super.dashboard');
-        }
-        if ($req == 'check_if_out') {
-            return redirect()->intended('super.dashboard');
-        }
-    }
-
     public function index()
     {
-        $this->isLoggedIn('check_if_in');
+        if (Auth::check()) {
+            return redirect()->route('super.dashboard');
+        }
         return view('superadmin.auth.login');
     }
 
@@ -34,18 +26,15 @@ class LoginValidationController extends Controller
         $credentials = $request->validated();
 
         if (Auth::attempt($credentials)) {
-            return redirect()
-                ->intended('dashboard')
-                ->with('msg', 'Created Successfully');
+            return redirect()->route('super.dashboard');
         }
         return redirect()
-            ->route('login')
+            ->route('super.login')
             ->withErrors(['Invalid Credentials']);
     }
 
     public function profile()
     {
-        $this->isLoggedIn('check_if_out');
         return view('superadmin.auth.profile');
     }
 
@@ -57,7 +46,6 @@ class LoginValidationController extends Controller
     public function profile_update(UpdateUserRequest $request, User $user)
     {
         //
-        $this->isLoggedIn('check_if_out');
         $data = $request->validated();
 
         if ($data['action'] == 'password') {
@@ -79,7 +67,6 @@ class LoginValidationController extends Controller
 
     public function logout()
     {
-        $this->isLoggedIn('check_if_out');
         Session::flush();
         Auth::logout();
 

@@ -15,13 +15,13 @@ use App\Http\Middleware\SuperIsLoggedIn;
 */
 
 Route::get('/', function(){
-    return redirect()->route('dashboard');
+    return redirect()->route('super.dashboard');
 });
 
 Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::controller(LoginValidationController::class)->group(function () {
-        Route::get('/login', 'index')->name('super.login')->withoutMiddleware([IsLoggedIn::class]);
-        Route::post('/authenticate', 'authenticate')->name('super.authenticate')->withoutMiddleware([IsLoggedIn::class]);
+        Route::get('/login', 'index')->name('super.login')->withoutMiddleware([SuperIsLoggedIn::class]);
+        Route::post('/authenticate', 'authenticate')->name('super.authenticate')->withoutMiddleware([SuperIsLoggedIn::class]);
         Route::get('/profile', 'profile')->name('super.profile');
         Route::post('/profile/{user}', 'profile_update')->name('super.profile_update');
         Route::post('/logout', 'logout')->name('super.logout');
@@ -35,7 +35,8 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::resource('/badges', BadgesController::class);
     Route::resource('/announcements', AnnouncementsController::class);  
     // Game Routes
-    Route::resource('/game/proglangs', ProgLang::class);
+    Route::resource('/game/proglangs', ProgrammingLanguageController::class);
+    Route::resource('/game/stages', StagesController::class);
     Route::resource('/game/bgms', BGMController::class);
     Route::resource('/game/bgims', BGImgController::class);
     Route::resource('/game/effects/sfxs', SoundEffectController::class);
