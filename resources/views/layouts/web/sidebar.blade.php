@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/leaderboards" class="nav-link {{ request()->is('leaderboards*') ? 'active' : '' }}">
+                    <a href="/leaderboard" class="nav-link {{ request()->is('leaderboard*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-id-badge"></i>
                         <p>
                             Leaderboards

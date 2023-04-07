@@ -33,25 +33,35 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Programming Language</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($stages as $stage)
                                         <tr>
-                                            <td class="text-center">
-                                                <a href="{{ route('stages.show', encrypt($stage['id'])) }}">
-                                                    {{ $stage['name'] }}
+                                            <td>
+                                                <a href="{{ route('stages.show', encrypt($stage->id)) }}">
+                                                    {{ $stage->name }}
+                                                </a>
+
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('proglangs.show', encrypt($stage->proglang_id)) }}">
+                                                    {{ $stage->proglang_name }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('stages.show', encrypt($stage['id'])) }}">
+                                                <a class="text-link"
+                                                    href="{{ route('stages.show', encrypt($stage->id)) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('stages.edit', encrypt($stage['id'])) }}">
+                                                <a class="text-success"
+                                                    href="{{ route('stages.edit', encrypt($stage->id)) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="d-inline" action="{{ route('stages.destroy', encrypt($stage['id'])) }}"
+                                                <form class="d-inline"
+                                                    action="{{ route('stages.destroy', encrypt($stage->id)) }}"
                                                     method="POST"
-                                                    onsubmit="return confirm('You are about to delete {{ $stage['name'] }}s record. \n Are you sure?');">
+                                                    onsubmit="return confirm('You are about to delete {{ $stage->name }}s record. \n Are you sure?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -70,7 +80,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('stages.create') }}" class="btn btn-primary">Create New Stage</a>
+                            <a href="{{ route('stages.redirect') }}" class="btn btn-primary">Create New Stage</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

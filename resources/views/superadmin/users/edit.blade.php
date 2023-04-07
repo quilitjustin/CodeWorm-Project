@@ -44,11 +44,11 @@
 
                                 <div class="tab-pane" id="security">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $id) }}">
+                                        action="{{ route('users.update', $user->id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ $id }}">
+                                        <input type="hidden" name="id" value="{{ $user->id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="password" name="action">
                                         <div class="form-group row">
@@ -83,11 +83,11 @@
 
                                 <div class="tab-pane" id="settings">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $id) }}">
+                                        action="{{ route('users.update', $user->id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ $id }}">
+                                        <input type="hidden" name="id" value="{{ $user->id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="details" name="action">
                                         <div class="form-group row">
@@ -96,7 +96,7 @@
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="inputFirstName"
                                                     placeholder="First Name" name="f-name"
-                                                    value="{{ old('f-name', $user['f_name']) }}">
+                                                    value="{{ old('f-name', $user->f_name) }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -105,7 +105,7 @@
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="inputMiddleName"
                                                     placeholder="Middle Name" name="m-name"
-                                                    value="{{ old('m-name', $user['m_name']) }}">
+                                                    value="{{ old('m-name', $user->m_name) }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -113,7 +113,7 @@
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="inputLastName"
                                                     placeholder="Last Name" name="l-name"
-                                                    value="{{ old('l-name', $user['l_name']) }}">
+                                                    value="{{ old('l-name', $user->l_name) }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -121,7 +121,7 @@
                                             <div class="col-sm-10">
                                                 <input type="email" class="form-control" id="inputEmail"
                                                     placeholder="Email" name="email"
-                                                    value="{{ old('email', $user['email']) }}">
+                                                    value="{{ old('email', $user->email) }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">

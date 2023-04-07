@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stages;
+use App\Models\ProgrammingLanguages as Proglang;
 use Illuminate\Support\Facades\Auth;
 
 class StagesController extends Controller
@@ -16,11 +17,33 @@ class StagesController extends Controller
      */
     public function index()
     {
-        //
-        $stages = Stages::select('id', 'name')->get();
-        
+        // I'm using '\DB' because I'm only using it in index(), but if you want to use it to multiple part of this controller, import it instead using 'use DB'
+        // This will return a std class so use ->property_name instead of ['property_name'] 
+        // If you really want to return an array, use json_decode true which is commented down below
+        // Warning: using json_decode may affect the performance, but it will get the job done so yey?
+        $stages = \DB::table('stages')
+            ->join('programming_languages', 'stages.proglang_id', '=', 'programming_languages.id')
+            ->select('stages.id', 'stages.name', 'programming_languages.id as proglang_id', 'programming_languages.name as proglang_name')
+            ->get();
+
+        // $stages = json_decode($stages, true);
         return view('superadmin.game.stages.index', [
-            'stages' => $stages
+            'stages' => $stages,
+        ]);
+    }
+
+    /**
+     * Display available programming language for creation of stage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirect()
+    {
+        //
+        $proglangs = Proglang::select('id', 'name')->get();
+
+        return view('superadmin.game.stages.redirect', [
+            'proglangs' => $proglangs,
         ]);
     }
 
@@ -29,10 +52,12 @@ class StagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($proglang)
     {
         //
-        return view('superadmin.game.stages.create');
+        return view('superadmin.game.stages.create', [
+            'proglang' => $proglang,
+        ]);
     }
 
     protected function capitalize($data)
@@ -54,11 +79,13 @@ class StagesController extends Controller
         //
         $request->validate([
             'name' => ['required', 'unique:stages', 'max:255'],
+            'proglang' => ['required'],
         ]);
+        $proglang = Proglang::findorfail($request['proglang']);
 
         $stage = new Stages();
         $stage->name = $this->capitalize($request['name']);
-
+        $stage->proglang_id = $proglang->id;
         $stage->created_by = Auth::user()->id;
         $stage->save();
 
@@ -85,7 +112,7 @@ class StagesController extends Controller
         //
         return view('superadmin.game.stages.show', [
             'id' => $encrypted_id,
-            'stage' => $stage
+            'stage' => $stage,
         ]);
     }
 
@@ -104,7 +131,7 @@ class StagesController extends Controller
 
         return view('superadmin.game.stages.edit', [
             'id' => $encrypted_id,
-            'stage' => $stage
+            'stage' => $stage,
         ]);
     }
 
@@ -115,9 +142,25 @@ class StagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $stage)
     {
         //
+        $uid = decrypt($stage);
+        $stage = Stages::findorfail($uid);
+        
+        $request->validate([
+            'name' => ['required', 'unique:stages', 'max:255'],
+        ]);
+
+        $stage->name = $this->capitalize($request['name']);
+        $stage->updated_by = Auth::user()->id;
+        $stage->save();
+
+        return redirect()
+            ->route('stages.show', [
+                'stage' => encrypt($stage->id),
+            ])
+            ->with('msg', 'Updated Successfully');
     }
 
     /**
@@ -126,8 +169,13 @@ class StagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($stage)
     {
         //
+        $uid = decrypt($stage);
+        $user = Stages::findorfail($uid);
+        $user->delete();
+
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

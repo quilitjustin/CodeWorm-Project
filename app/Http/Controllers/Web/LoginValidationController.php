@@ -17,7 +17,7 @@ class LoginValidationController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return redirect()->intended();
+            return redirect()->route('web.announcements.index');
         }
         return view('web.auth.login');
     }
@@ -28,7 +28,7 @@ class LoginValidationController extends Controller
 
         if (Auth::attempt($credentials)) {
             return redirect()
-                ->intended();
+                ->route('web.announcements.index');
         }
         return redirect()
             ->route('web.login')
@@ -71,6 +71,6 @@ class LoginValidationController extends Controller
         Session::flush();
         Auth::logout();
 
-        return redirect('/');
+        return redirect()->route('web.login');
     }
 }

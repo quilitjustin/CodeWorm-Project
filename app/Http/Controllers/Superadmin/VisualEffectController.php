@@ -74,7 +74,7 @@ class VisualEffectController extends Controller
 
         return redirect()
             ->route('vfxs.show', [
-                'vfx' => $vfx->id,
+                'vfx' => encrypt($vfx->id),
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -85,11 +85,15 @@ class VisualEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(VisualEffect $vfx)
+    public function show($vfx)
     {
         //
+        $uid = decrypt($vfx);
+        $data = VisualEffect::findorfail($uid);
+
         return view('superadmin.game.effects.vfx.show', [
-            'vfx' => $vfx,
+            'vfx' => $data,
+            'id' => $vfx,
         ]);
     }
 
@@ -169,7 +173,7 @@ class VisualEffectController extends Controller
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
         if (file_exists($vfx['path'])) {
-            $foo = unlink($vfx['path']);
+            unlink($vfx['path']);
         }
 
         $vfx->delete();

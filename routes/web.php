@@ -46,9 +46,6 @@ Route::controller(PublicProfileController::class)->group(function () {
 // End
 
 Route::middleware([WebIsLoggedIn::class])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('superadmin.dashboard');
-    })->name('web.dashboard');
 
     Route::get('announcements', [App\Http\Controllers\Web\AnnouncementsController::class, 'index'])->name('web.announcements.index');
 

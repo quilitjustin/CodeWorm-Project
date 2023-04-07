@@ -45,7 +45,8 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ route('proglangs.show', $proglang['created_by']) }}">{{ $proglang['created_by'] }}</a>
+                                    <a
+                                        href="{{ route('proglangs.show', $proglang['created_by']) }}">{{ $proglang['created_by'] }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -79,6 +80,37 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
                             </form>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-8">
+                    <div class="card card-indigo">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                List of Stages
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                @forelse($stages as $stage)
+                                    <div class="col-12 p-2">
+                                        <a href="{{ route('stages.show', encrypt($stage['id'])) }}"
+                                            class="btn btn-secondary py-3 w-100">{{ $stage['name'] }}</a>
+                                    </div>
+                                @empty
+                                    <p>Empty</p>
+                                @endforelse
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer d-flex justify-content-end">
+                            <a href="{{ route('stages.create', $proglang['id']) }}" class="btn btn-primary">Create New
+                                Stage</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

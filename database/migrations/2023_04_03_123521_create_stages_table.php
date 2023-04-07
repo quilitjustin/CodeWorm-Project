@@ -16,12 +16,17 @@ return new class extends Migration
         Schema::create('stages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->unsignedBigInteger('proglang_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
         
         Schema::table('stages', function (Blueprint $table) {
+            $table->foreign('proglang_id')
+                ->references('id')
+                ->on('programming_languages')
+                ->onDelete('cascade');
             $table->foreign('created_by')
                 ->references('id')
                 ->on('users')

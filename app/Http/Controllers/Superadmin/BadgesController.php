@@ -184,7 +184,7 @@ class BadgesController extends Controller
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
         if (file_exists($badge['path'])) {
-            $foo = unlink($badge['path']);
+            unlink($badge['path']);
         }
 
         $badge->delete();

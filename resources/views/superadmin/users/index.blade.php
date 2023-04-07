@@ -43,7 +43,7 @@
                                     @forelse ($users as $user)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('users.show', encrypt($user['id'])) }}">
+                                                <a href="{{ route('users.show', $user['id']) }}">
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
                                             </td>
@@ -51,13 +51,13 @@
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('users.show', encrypt($user['id'])) }}">
+                                                <a class="text-link" href="{{ route('users.show', $user['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('users.edit', encrypt($user['id'])) }}">
+                                                    href="{{ route('users.edit', $user['id']) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('users.destroy', encrypt($user['id'])) }}"
+                                                    action="{{ route('users.destroy', $user['id']) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -65,7 +65,7 @@
                                                         <i class="fas fa-ban"></i> Ban</button>
                                                 </form>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('users.destroy', encrypt($user['id'])) }}"
+                                                    action="{{ route('users.destroy', $user['id']) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -177,7 +177,7 @@
                             console.log(xhr.responseText);
                         }
                     });
-                    // window.reload();
+                    // window.location.reload();
                     // toBeRemoved.remove();
                     $("#confirm-delete").modal("hide");
                     const table = $('#data-table').DataTable();

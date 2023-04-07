@@ -77,9 +77,14 @@ class ProgrammingLanguageController extends Controller
      */
     public function show(ProgLang $proglang)
     {
-        //
+        
+        // You can import this above with use statement
+        // But since I'm only going to use it once here so I won't
+        $stages = \App\Models\Stages::select('id', 'name')->where('proglang_id', $proglang->id)->get();
+        
         return view('superadmin.game.proglang.show', [
             'proglang' => $proglang,
+            'stages' => $stages,
         ]);
     }
 

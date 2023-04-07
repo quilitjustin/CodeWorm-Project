@@ -33,6 +33,7 @@
                         </div>
                         <form method="POST" action="{{ route('stages.store') }}" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="proglang" value="{{ $proglang }}">
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">

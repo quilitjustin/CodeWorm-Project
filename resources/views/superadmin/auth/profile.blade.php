@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.superadmin.app')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -118,7 +118,7 @@
 
                                 <div class="tab-pane" id="security">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('profile_update', Auth::user()->id) }}">
+                                        action="{{ route('super.profile_update', Auth::user()->id) }}">
                                         @csrf
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
@@ -156,7 +156,7 @@
 
                                 <div class="tab-pane" id="settings">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('profile_update', Auth::user()->id) }}">
+                                        action="{{ route('super.profile_update', Auth::user()->id) }}">
                                         @csrf
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">

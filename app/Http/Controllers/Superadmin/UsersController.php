@@ -12,6 +12,26 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    // Decrypt the id of current user so we know who create and update the record
+    protected $cr_user;
+
+    public function __construct()
+    {
+        // $this->cr_user = decrypt(Auth::user()->id);
+    }
+
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($data)
+    {
+        $data = $this->findRecord($user);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        return ucwords(strtolower($data));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,31 +40,19 @@ class UsersController extends Controller
     public function index()
     {
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
         $users = User::select('id', 'f_name', 'l_name', 'role')
-        ->where([
-            // Don't show the current user because he can edit his details in his own settings 
-            ['id', '!=', Auth::user()->id],
-            // Don't get the superadmin
-            // ['role', '!=', 'superadmin'],
-        ])
-        ->get();
-        // Encrypt the ids
-        // $users = $users->map(function ($user) {
-        //     try {
-        //         $encryptedId = encrypt($user->id);
-        //         $user->encrypted_id = $encryptedId;
-        //     } catch (EncryptException $e) {
-        //         $user->encrypted_id = null;
-        //     }
-        //     return $user;
-        // });
-       
-        // dd($users[0]->encrypted_id);
+            ->where([
+                // Don't show the current user because he can edit his details in his own settings
+                ['id', '!=', $this->cr_user],
+                // Don't get the superadmin
+                // This user should be the only superadmin so there is no need for this statement
+                // Actually this is better since we can also see if there would be another superadmin that shouldn't exist (backdoor for example)
+                // ['role', '!=', 'superadmin'],
+            ])
+            ->get();
+
         return view('superadmin.users.index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -56,14 +64,7 @@ class UsersController extends Controller
     public function create()
     {
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
         return view('superadmin.users.create');
-    }
-
-    protected function capitalize($data){
-        return ucwords(strtolower($data));
     }
 
     /**
@@ -75,26 +76,25 @@ class UsersController extends Controller
     public function store(RegisterRequest $request)
     {
         //
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
-        $data = $request->validated();
+        $request = $request->validated();
 
-        $user = new User;
-        $user->f_name = $this->capitalize($data['f-name']);
-        $user->l_name = $this->capitalize($data['l-name']);
-        $user->m_name = $this->capitalize($data['m-name']);
-        $user->role = $data['role'];
+        $data = new User();
+        $data->f_name = $this->capitalize($request['f-name']);
+        $data->l_name = $this->capitalize($request['l-name']);
+        $data->m_name = $this->capitalize($request['m-name']);
+        $data->role = $request['role'];
         // $user->gender = $this->capitalize($data['gender']);
-        $user->email = $data['email'];
+        $data->email = $request['email'];
         // $user->contact_no = $data['contact-no'];
-        $user->password = Hash::make($data['password']);
-        $user->created_by = Auth::user()->id;
-        $user->save();
+        $data->password = Hash::make($request['password']);
+        $data->created_by = $this->cr_user;
+        $data->save();
 
-        return redirect()->route('users.show', [
-            'user' => encrypt($user->id)
-        ])->with('msg', 'Created Successfully');
+        return redirect()
+            ->route('users.show', [
+                'user' => $data->id,
+            ])
+            ->with('msg', 'Created Successfully');
     }
 
     /**
@@ -105,14 +105,10 @@ class UsersController extends Controller
      */
     public function show($user)
     {
-        $uid = decrypt($user);
-        $user = User::findorfail($uid);
-        $encrypted_id = encrypt($user->id);
-
+        $data = $this->findRecord($user);
         //
         return view('superadmin.users.show', [
-            'id' => $encrypted_id,
-            'user' => $user
+            'user' => $data,
         ]);
     }
 
@@ -125,13 +121,10 @@ class UsersController extends Controller
     public function edit($user)
     {
         //
-        $uid = decrypt($user);
-        $user = User::findorfail($uid);
-        $encrypted_id = encrypt($user->id);
+        $data = $this->findRecord($user);
 
         return view('superadmin.users.edit', [
-            'id' => $encrypted_id,
-            'user' => $user
+            'user' => $data,
         ]);
     }
 
@@ -145,28 +138,28 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, $user)
     {
         //
-        $uid = decrypt($user);
-        $user = User::findorfail($uid);
-        
-        $data = $request->validated();
-        
-        if($data['action'] == 'password'){
-            $user->password = Hash::make($data['password']);
-        }
-        if($data['action'] == 'details'){
-            $user->f_name = $this->capitalize($data['f-name']);
-            $user->l_name = $this->capitalize($data['l-name']);
-            $user->m_name = $this->capitalize($data['m-name']);
-            $user->email = $data['email'];
-            $user->role = $data['role'];
-        }
-        $user->updated_by = Auth::user()->id;
-        $user->save();
-        $encrypted_id = encrypt($user->id);
+        $data = $this->findRecord($user);
 
-        return redirect()->route('users.show', [
-            'user' => $encrypted_id
-        ])->with('msg', 'Updated Successfully');
+        $request = $request->validated();
+
+        if ($request['action'] == 'password') {
+            $data->password = Hash::make($request['password']);
+        }
+        if ($request['action'] == 'details') {
+            $data->f_name = $this->capitalize($request['f-name']);
+            $data->l_name = $this->capitalize($request['l-name']);
+            $data->m_name = $this->capitalize($request['m-name']);
+            $data->email = $request['email'];
+            $data->role = $request['role'];
+        }
+        $data->updated_by = $this->cr_user;
+        $data->save();
+
+        return redirect()
+            ->route('users.show', [
+                'user' => $user,
+            ])
+            ->with('msg', 'Updated Successfully');
     }
 
     /**
@@ -178,8 +171,7 @@ class UsersController extends Controller
     public function destroy($user)
     {
         //
-        $uid = decrypt($user);
-        $user = User::findorfail($uid);
+        $data = $this->findRecord($user);
         $user->delete();
 
         return response()->json(['message' => 'Deleted successfully']);
