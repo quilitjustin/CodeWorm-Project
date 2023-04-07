@@ -12,18 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    // Decrypt the id of current user so we know who create and update the record
-    protected $cr_user;
-
-    public function __construct()
-    {
-        // $this->cr_user = decrypt(Auth::user()->id);
-    }
-
     // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
-    protected function findRecord($data)
+    protected function findRecord($id)
     {
-        $data = $this->findRecord($user);
+        $id = decrypt($id);
+        $data = User::findorfail($id);
         return $data;
     }
 
@@ -43,7 +36,7 @@ class UsersController extends Controller
         $users = User::select('id', 'f_name', 'l_name', 'role')
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
-                ['id', '!=', $this->cr_user],
+                ['id', '!=', decrypt(Auth::user()->id)],
                 // Don't get the superadmin
                 // This user should be the only superadmin so there is no need for this statement
                 // Actually this is better since we can also see if there would be another superadmin that shouldn't exist (backdoor for example)
@@ -87,7 +80,7 @@ class UsersController extends Controller
         $data->email = $request['email'];
         // $user->contact_no = $data['contact-no'];
         $data->password = Hash::make($request['password']);
-        $data->created_by = $this->cr_user;
+        $data->created_by = decrypt(Auth::user()->id);
         $data->save();
 
         return redirect()
@@ -152,7 +145,7 @@ class UsersController extends Controller
             $data->email = $request['email'];
             $data->role = $request['role'];
         }
-        $data->updated_by = $this->cr_user;
+        $data->updated_by = decrypt(Auth::user()->id);
         $data->save();
 
         return redirect()

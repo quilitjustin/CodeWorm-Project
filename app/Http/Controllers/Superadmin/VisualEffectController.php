@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class VisualEffectController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = VisualEffect::findorfail($id);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        // Because we are not using request this time
+        // I will strip tags here instead
+        $data = strip_tags($data);
+        return ucwords(strtolower($data));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +33,7 @@ class VisualEffectController extends Controller
     public function index()
     {
         //
-        $vfxs = VisualEffect::paginate(7);
+        $vfxs = VisualEffect::select('id', 'name')->get();
 
         return view('superadmin.game.effects.vfx.index', [
             'vfxs' => $vfxs,
@@ -33,14 +49,6 @@ class VisualEffectController extends Controller
     {
         //
         return view('superadmin.game.effects.vfx.create');
-    }
-
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
     }
 
     /**
@@ -74,7 +82,7 @@ class VisualEffectController extends Controller
 
         return redirect()
             ->route('vfxs.show', [
-                'vfx' => encrypt($vfx->id),
+                'vfx' => $vfx->id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -88,12 +96,10 @@ class VisualEffectController extends Controller
     public function show($vfx)
     {
         //
-        $uid = decrypt($vfx);
-        $data = VisualEffect::findorfail($uid);
+        $data = $this->findRecord($vfx);
 
         return view('superadmin.game.effects.vfx.show', [
             'vfx' => $data,
-            'id' => $vfx,
         ]);
     }
 
@@ -103,9 +109,11 @@ class VisualEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(VisualEffect $vfx)
+    public function edit($vfx)
     {
         //
+        $vfx = $this->findRecord($vfx);
+        $vfx = $vfx->select('id', 'name', 'path')->get();
         return view('superadmin.game.effects.vfx.edit', [
             'vfx' => $vfx,
         ]);
@@ -118,13 +126,14 @@ class VisualEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VisualEffect $vfx)
+    public function update(Request $request, $vfx)
     {
-        //
         $request->validate([
             'name' => ['required', 'max:255'],
             'action' => ['required', 'in:true,false'],
         ]);
+
+        $vfx = $this->findRecord($vfx);
 
         $rule = strip_tags($request['action']);
 
@@ -168,8 +177,9 @@ class VisualEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VisualEffect $vfx)
+    public function destroy($vfx)
     {
+        $vfx = $this->findRecord($vfx);
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
         if (file_exists($vfx['path'])) {
