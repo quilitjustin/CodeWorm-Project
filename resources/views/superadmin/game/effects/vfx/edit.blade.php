@@ -142,5 +142,7 @@
         $("#cancel").click(function() {
             window.history.back();
         });
+
+        
     </script>
 @endsection

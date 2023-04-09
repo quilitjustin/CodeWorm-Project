@@ -9,15 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class SplashPageController extends Controller
 {
-    //
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = SplashPage::findorfail($id);
+        return $data;
+    }
+
     public function index()
     {
-        $splash_pages = SplashPage::paginate(7);
-        $latest = SplashPage::select('id')->latest()->first();
+        $splash_pages = SplashPage::select('id', 'created_at', 'created_by')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('superadmin.splash_page.index', [
             'splashs' => $splash_pages,
-            'latest' => $latest
         ]);
     }
 
@@ -26,7 +33,7 @@ class SplashPageController extends Controller
         // $content = SplashPage::select('content')->latest()->first();
 
         return view('superadmin.splash_page.show', [
-            'content' => $id
+            'content' => $id,
         ]);
     }
 
@@ -39,7 +46,7 @@ class SplashPageController extends Controller
 
             $splash = new SplashPage();
             $splash->content = $request->content;
-            $splash->created_by = Auth::user()->id;
+            $splash->created_by = decrypt(Auth::user()->id);
             $splash->save();
 
             // Return a success response
@@ -47,12 +54,11 @@ class SplashPageController extends Controller
         }
     }
 
-    public function destroy(SplashPage $id)
+    public function destroy($id)
     {
-        $id->delete();
+        $splash = $this->findRecord($id);
+        $splash->delete();
 
-        return redirect()
-            ->route('users.index')
-            ->with('msg', 'Deleted Successfully');
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

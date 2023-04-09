@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/users" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
+                    <a href="/forums" class="nav-link {{ request()->is('forums*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Forum

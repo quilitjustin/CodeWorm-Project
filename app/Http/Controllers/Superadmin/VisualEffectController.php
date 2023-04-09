@@ -77,7 +77,7 @@ class VisualEffectController extends Controller
         // Output would be like: game/Effects/VisualEffects/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/VisualEffects/$foo['path'])
         $vfx->path = $path . '/' . $newImageName;
-        $vfx->created_by = Auth::user()->id;
+        $vfx->created_by = decrypt(Auth::user()->id);
         $vfx->save();
 
         return redirect()
@@ -113,7 +113,7 @@ class VisualEffectController extends Controller
     {
         //
         $vfx = $this->findRecord($vfx);
-        $vfx = $vfx->select('id', 'name', 'path')->get();
+
         return view('superadmin.game.effects.vfx.edit', [
             'vfx' => $vfx,
         ]);
@@ -160,7 +160,7 @@ class VisualEffectController extends Controller
             $vfx->path = $path . '/' . $newImageName;
         }
 
-        $vfx->updated_by = Auth::user()->id;
+        $vfx->updated_by = decrypt(Auth::user()->id);
 
         $vfx->save();
 

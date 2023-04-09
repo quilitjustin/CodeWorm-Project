@@ -30,10 +30,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-hover">
+                            <table id="data-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Name</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
@@ -41,7 +40,6 @@
                                 <tbody>
                                     @forelse ($vfxs as $vfx)
                                         <tr>
-                                            <td>{{ $vfx['id'] }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('vfxs.show', $vfx['id']) }}">
                                                     {{ $vfx['name'] }}
@@ -52,9 +50,8 @@
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success" href="{{ route('vfxs.edit', $vfx['id']) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="d-inline" action="{{ route('vfxs.destroy', $vfx['id']) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('You are about to delete vfx ID: {{ $vfx['id'] }}s record. \n Are you sure?');">
+                                                <form class="delete d-inline" action="{{ route('vfxs.destroy', $vfx['id']) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -70,16 +67,6 @@
 
                                 </tfoot>
                             </table>
-                            <div class="row mt-3">
-                                {{-- Hide for mobile --}}
-                                <div class="col-md-6 mb-2">
-                                    Viewing {{ $vfxs->firstItem() }} - {{ $vfxs->lastItem() }} of {{ $vfxs->total() }}
-                                    entries.
-                                </div>
-                                <div class="col-md-6">
-                                    {{ $vfxs->onEachSide(3)->links() }}
-                                </div>
-                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
@@ -98,8 +85,6 @@
     <!-- /.content -->
 @endsection
 
-@section('scripts')
-    <script>
-        // Code Goes here	
-    </script>
+@section('script')
+    @include('layouts.superadmin.index_component')
 @endsection

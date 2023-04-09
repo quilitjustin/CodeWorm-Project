@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class BGImgController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = BGImg::findorfail($id);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        // Because we are not using request this time
+        // I will strip tags here instead
+        $data = strip_tags($data);
+        return ucwords(strtolower($data));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +33,7 @@ class BGImgController extends Controller
     public function index()
     {
         //
-        $bgims = BGImg::paginate(7);
+        $bgims = BGImg::select('id', 'name')->get();
 
         return view('superadmin.game.background_image.index', [
             'bgims' => $bgims,
@@ -33,14 +49,6 @@ class BGImgController extends Controller
     {
         //
         return view('superadmin.game.background_image.create');
-    }
-
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
     }
 
     /**
@@ -61,7 +69,7 @@ class BGImgController extends Controller
         $bgim->name = $this->capitalize($request['name']);
 
         // To avoid having a file with the same name
-        $newImageName = time() . '-' . $bgim['name'] . '.' . $request['image']->extension();
+        $newImageName = time() . '-' . $bgim->name . '.' . $request['image']->extension();
         // Where to store the image
         $path = 'game/BackgroundImage';
         // Store the image in public directory
@@ -69,7 +77,7 @@ class BGImgController extends Controller
         // Output would be like: game/BackgroundImage/image.png
         // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
         $bgim->path = $path . '/' . $newImageName;
-        $bgim->created_by = Auth::user()->id;
+        $bgim->created_by = decrypt(Auth::user()->id);
         $bgim->save();
 
         return redirect()
@@ -85,11 +93,12 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BGImg $bgim)
+    public function show($bgim)
     {
-        //
+        $data = $this->findRecord($bgim);
+
         return view('superadmin.game.background_image.show', [
-            'bgim' => $bgim,
+            'bgim' => $data,
         ]);
     }
 
@@ -99,11 +108,12 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BGImg $bgim)
+    public function edit($bgim)
     {
-        //
+        $data = $this->findRecord($bgim);
+
         return view('superadmin.game.background_image.edit', [
-            'bgim' => $bgim,
+            'bgim' => $data,
         ]);
     }
 
@@ -114,17 +124,18 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BGImg $bgim)
+    public function update(Request $request, $bgim)
     {
         //
         $request->validate([
             'name' => ['required', 'max:255'],
             'action' => ['required', 'in:true,false'],
         ]);
+        $data = $this->findRecord($bgim);
 
         $rule = strip_tags($request['action']);
 
-        $bgim->name = $this->capitalize($request->name);
+        $data->name = $this->capitalize($request->name);
 
         // For more clarity I use == 'true'
         if ($rule == 'true') {
@@ -133,27 +144,27 @@ class BGImgController extends Controller
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
-            if (file_exists($bgim['path'])) {
-                $foo = unlink($bgim['path']);
+            if (file_exists($data->path)) {
+                unlink($data->path);
             }
             // To avoid having a file with the same name
-            $newImageName = time() . '-' . $bgim['name'] . '.' . $request['image']->extension();
+            $newImageName = time() . '-' . $data->name . '.' . $request['image']->extension();
             // Where to store the image
             $path = 'game/BackgroundImage';
             // Store the image in public directory
             $request['image']->move(public_path($path), $newImageName);
             // Output would be like: game/BackgroundImage/image.png
             // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
-            $bgim->path = $path . '/' . $newImageName;
+            $data->path = $path . '/' . $newImageName;
         }
 
-        $bgim->updated_by = Auth::user()->id;
+        $data->updated_by = decrypt(Auth::user()->id);
 
-        $bgim->save();
+        $data->save();
 
         return redirect()
             ->route('bgims.show', [
-                'bgim' => $bgim->id,
+                'bgim' => $data->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -164,15 +175,17 @@ class BGImgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BGImg $bgim)
+    public function destroy($bgim)
     {
+        $data = $this->findRecord($bgim);
+
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
-        if (file_exists($bgim['path'])) {
-            unlink($bgim['path']);
+        if (file_exists($data->path)) {
+            unlink($data->path);
         }
 
-        $bgim->delete();
+        $data->delete();
 
         return redirect()
             ->route('bgims.index')

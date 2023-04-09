@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class StagesController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = Stages::findorfail($id);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        // Because we are not using request this time
+        // I will strip tags here instead
+        $data = strip_tags($data);
+        return ucwords(strtolower($data));
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -60,14 +76,6 @@ class StagesController extends Controller
         ]);
     }
 
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -81,17 +89,18 @@ class StagesController extends Controller
             'name' => ['required', 'unique:stages', 'max:255'],
             'proglang' => ['required'],
         ]);
-        $proglang = Proglang::findorfail($request['proglang']);
+        $proglang_id = decrypt($request['proglang']);
+        $proglang = Proglang::findorfail($proglang_id);
 
         $stage = new Stages();
         $stage->name = $this->capitalize($request['name']);
-        $stage->proglang_id = $proglang->id;
-        $stage->created_by = Auth::user()->id;
+        $stage->proglang_id = $proglang_id;
+        $stage->created_by = decrypt(Auth::user()->id);
         $stage->save();
 
         return redirect()
             ->route('stages.show', [
-                'stage' => encrypt($stage->id),
+                'stage' => $stage->id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -104,15 +113,10 @@ class StagesController extends Controller
      */
     public function show($stage)
     {
-        //
-        $uid = decrypt($stage);
-        $stage = Stages::findorfail($uid);
-        $encrypted_id = encrypt($stage->id);
-
-        //
+        $data = $this->findRecord($stage);
+        
         return view('superadmin.game.stages.show', [
-            'id' => $encrypted_id,
-            'stage' => $stage,
+            'stage' => $data,
         ]);
     }
 
@@ -125,13 +129,10 @@ class StagesController extends Controller
     public function edit($stage)
     {
         //
-        $uid = decrypt($stage);
-        $stage = Stages::select('id', 'name')->findorfail($uid);
-        $encrypted_id = encrypt($stage->id);
+        $data = $this->findRecord($stage);
 
         return view('superadmin.game.stages.edit', [
-            'id' => $encrypted_id,
-            'stage' => $stage,
+            'stage' => $data,
         ]);
     }
 
@@ -143,22 +144,20 @@ class StagesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $stage)
-    {
-        //
-        $uid = decrypt($stage);
-        $stage = Stages::findorfail($uid);
-        
+    {   
         $request->validate([
             'name' => ['required', 'unique:stages', 'max:255'],
         ]);
 
-        $stage->name = $this->capitalize($request['name']);
-        $stage->updated_by = Auth::user()->id;
-        $stage->save();
+        $data = $this->findRecord($stage);
+
+        $data->name = $this->capitalize($request['name']);
+        $data->updated_by = decrypt(Auth::user()->id);
+        $data->save();
 
         return redirect()
             ->route('stages.show', [
-                'stage' => encrypt($stage->id),
+                'stage' => $data->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -172,9 +171,8 @@ class StagesController extends Controller
     public function destroy($stage)
     {
         //
-        $uid = decrypt($stage);
-        $user = Stages::findorfail($uid);
-        $user->delete();
+        $data = $this->findRecord($stage);
+        $data->delete();
 
         return response()->json(['message' => 'Deleted successfully']);
     }

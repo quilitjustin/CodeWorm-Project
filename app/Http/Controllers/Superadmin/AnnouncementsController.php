@@ -11,6 +11,22 @@ use HTMLPurifier_Config;
 
 class AnnouncementsController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = Announcements::findorfail($id);
+        return $data;
+    }
+
+    private function sanitize($content)
+    {
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', 'p,b,i,u,pre,font[style],br');
+        $purifier = new HTMLPurifier($config);
+        return $purifier->purify($content);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,14 +53,6 @@ class AnnouncementsController extends Controller
         return view('superadmin.announcements.create');
     }
 
-    private function sanitize($content)
-    {
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', 'p,b,i,u,pre,font[style],br');
-        $purifier = new HTMLPurifier($config);
-        return $purifier->purify($content);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -62,7 +70,7 @@ class AnnouncementsController extends Controller
         $announcement = new Announcements();
         $announcement->title = strip_tags($request['title']);
         $announcement->contents = $this->sanitize($request['content']);
-        $announcement->created_by = Auth::user()->id;
+        $announcement->created_by = decrypt(Auth::user()->id);
         $announcement->save();
 
         return redirect()
@@ -78,11 +86,12 @@ class AnnouncementsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Announcements $announcement)
+    public function show($announcement)
     {
-        //
+        $data = $this->findRecord($announcement);
+
         return view('superadmin.announcements.show', [
-            'announcement' => $announcement
+            'announcement' => $data
         ]);
     }
 
@@ -92,11 +101,12 @@ class AnnouncementsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Announcements $announcement)
+    public function edit($announcement)
     {
-        //
+        $data = $this->findRecord($announcements);
+
         return view('superadmin.announcements.edit', [
-            'announcement' => $announcement
+            'announcement' => $data
         ]);
     }
 
@@ -107,22 +117,23 @@ class AnnouncementsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Announcements $announcement)
+    public function update(Request $request, $announcement)
     {
         //
         $request->validate([
             'title' => ['required', 'max:255'],
             'content' => ['required'],
         ]);
+        $data = $this->findRecord($announcement);
 
-        $announcement->title = strip_tags($request['title']);
-        $announcement->contents = $this->sanitize($request['content']);
-        $announcement->updated_by = Auth::user()->id;
-        $announcement->save();
+        $data->title = strip_tags($request['title']);
+        $data->contents = $this->sanitize($request['content']);
+        $data->updated_by = decrypt(Auth::user()->id);
+        $data->save();
 
         return redirect()
             ->route('announcements.show', [
-                'announcement' => $announcement->id,
+                'announcement' => $data->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -133,10 +144,10 @@ class AnnouncementsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Announcements $announcement)
+    public function destroy($announcement)
     {
-        //
-        $announcement->delete();
+        $data = $this->findRecord($announcement);
+        $data->delete();
 
         return redirect()
             ->route('announcements.index')

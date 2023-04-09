@@ -29,10 +29,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-hover">
+                            <table id="data-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Name</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
@@ -40,7 +39,6 @@
                                 <tbody>
                                     @forelse ($proglangs as $proglang)
                                         <tr>
-                                            <td>{{ $proglang['id'] }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('proglangs.show', $proglang['id']) }}">
                                                     {{ $proglang['name'] }}
@@ -49,12 +47,12 @@
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('proglangs.show', $proglang['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('proglangs.edit', $proglang['id']) }}">
+                                                <a class="text-success"
+                                                    href="{{ route('proglangs.edit', $proglang['id']) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="d-inline" action="{{ route('proglangs.destroy', $proglang['id']) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('You are about to delete proglang ID: {{ $proglang['id'] }}s record. \n Are you sure?');">
-                                                    @csrf
+                                                <form class="delete d-inline"
+                                                    action="{{ route('proglangs.destroy', $proglang['id']) }}"
+                                                    method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>
@@ -69,16 +67,6 @@
 
                                 </tfoot>
                             </table>
-                            <div class="row mt-3">
-                                {{-- Hide for mobile --}}
-                                <div class="col-md-6 mb-2">
-                                    Viewing {{ $proglangs->firstItem() }} - {{ $proglangs->lastItem() }} of {{ $proglangs->total() }}
-                                    entries.
-                                </div>
-                                <div class="col-md-6">
-                                    {{ $proglangs->onEachSide(3)->links() }}
-                                </div>
-                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
@@ -97,8 +85,6 @@
     <!-- /.content -->
 @endsection
 
-@section('scripts')
-    <script>
-        // Code Goes here	
-    </script>
+@section('script')
+    @include('layouts.superadmin.index_component')
 @endsection

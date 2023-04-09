@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class BadgesController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = Badges::findorfail($id);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        // Because we are not using request this time
+        // I will strip tags here instead
+        $data = strip_tags($data);
+        return ucwords(strtolower($data));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +33,7 @@ class BadgesController extends Controller
     public function index()
     {
         //
-        $badges = Badges::paginate(7);
+        $badges = Badges::select('id', 'name')->get();
 
         return view('superadmin.badges.index', [
             'badges' => $badges,
@@ -33,14 +49,6 @@ class BadgesController extends Controller
     {
         //
         return view('superadmin.badges.create');
-    }
-
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
     }
 
     /**
@@ -69,12 +77,12 @@ class BadgesController extends Controller
         // Output would be like: game/Effects/Badgess/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/Badgess/$foo['path'])
         $badge->path = $path . '/' . $newImageName;
-        $badge->created_by = Auth::user()->id;
+        $badge->created_by = decrypt(Auth::user()->id);
         $badge->save();
 
         return redirect()
             ->route('badges.show', [
-                'badge' => encrypt($badge->id),
+                'badge' => $badge->id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -87,14 +95,10 @@ class BadgesController extends Controller
      */
     public function show($badge)
     {
-        //
-        $uid = decrypt($badge);
-        $badge = Badges::findorfail($uid);
-        $encrypted_id = encrypt($badge->id);
+        $data = $this->findRecord($badge);
 
         return view('superadmin.badges.show', [
-            'id' => $encrypted_id,
-            'badge' => $badge,
+            'badge' => $data,
         ]);
     }
 
@@ -106,14 +110,10 @@ class BadgesController extends Controller
      */
     public function edit($badge)
     {
-        //
-        $uid = decrypt($badge);
-        $badge = Badges::findorfail($uid);
-        $encrypted_id = encrypt($badge->id);
+        $data = $this->findRecord($badge);
 
         return view('superadmin.badges.edit', [
-            'id' => $encrypted_id,
-            'badge' => $badge,
+            'badge' => $data,
         ]);
     }
 
@@ -131,13 +131,11 @@ class BadgesController extends Controller
             'name' => ['required', 'max:255'],
             'action' => ['required', 'in:true,false'],
         ]);
-
-        $uid = decrypt($badge);
-        $badge = Badges::findorfail($uid);
+        $data = $this->findRecord($badge);
 
         $rule = strip_tags($request['action']);
 
-        $badge->name = $this->capitalize($request->name);
+        $data->name = $this->capitalize($request->name);
 
         // For more clarity I use == 'true'
         if ($rule == 'true') {
@@ -146,27 +144,27 @@ class BadgesController extends Controller
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
-            if (file_exists($badge['path'])) {
-                $foo = unlink($badge['path']);
+            if (file_exists($data->path)) {
+                unlink($data->path);
             }
             // To avoid having a file with the same name
-            $newImageName = time() . '-' . $badge['name'] . '.' . $request['image']->extension();
+            $newImageName = time() . '-' . $data->name . '.' . $request['image']->extension();
             // Where to store the image
             $path = 'game/Effects/Badgess';
             // Store the image in public directory
             $request['image']->move(public_path($path), $newImageName);
             // Output would be like: game/Effects/Badgess/image.png
             // So we can just do something like asset($foo['path']) than asset(game/Effects/Badgess/$foo['path'])
-            $badge->path = $path . '/' . $newImageName;
+            $data->path = $path . '/' . $newImageName;
         }
 
-        $badge->updated_by = Auth::user()->id;
+        $data->updated_by = decrypt(Auth::user()->id);
 
-        $badge->save();
+        $data->save();
 
         return redirect()
             ->route('badges.show', [
-                'badge' => $badge->id,
+                'badge' => $data->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -179,15 +177,14 @@ class BadgesController extends Controller
      */
     public function destroy($badge)
     {
-        $uid = decrypt($badge);
-        $badge = Badges::findorfail($uid);
+        $data = $this->findRecord($badge);
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
-        if (file_exists($badge['path'])) {
-            unlink($badge['path']);
+        if (file_exists($data['path'])) {
+            unlink($data['path']);
         }
 
-        $badge->delete();
+        $data->delete();
 
         return redirect()
             ->route('badges.index')

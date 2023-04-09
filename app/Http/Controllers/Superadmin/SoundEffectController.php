@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class SoundEffectController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = SoundEffect::findorfail($id);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        // Because we are not using request this time
+        // I will strip tags here instead
+        $data = strip_tags($data);
+        return ucwords(strtolower($data));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +33,7 @@ class SoundEffectController extends Controller
     public function index()
     {
         //
-        $sfxs = SoundEffect::paginate(7);
+        $sfxs = SoundEffect::select('id', 'name')->get();
 
         return view('superadmin.game.effects.sfx.index', [
             'sfxs' => $sfxs,
@@ -33,14 +49,6 @@ class SoundEffectController extends Controller
     {
         //
         return view('superadmin.game.effects.sfx.create');
-    }
-
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
     }
 
     /**
@@ -61,7 +69,7 @@ class SoundEffectController extends Controller
         $sfx->name = $this->capitalize($request['name']);
 
         // To avoid having a file with the same name
-        $newAudioName = time() . '-' . $sfx['name'] . '.' . $request['audio']->extension();
+        $newAudioName = time() . '-' . $sfx->name . '.' . $request['audio']->extension();
         // Where to store the image
         $path = 'game/Effects/SoundEffects';
         // Store the image in public directory
@@ -69,7 +77,7 @@ class SoundEffectController extends Controller
         // Output would be like: game/Effects/SoundEffects/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/SoundEffects/$foo['path'])
         $sfx->path = $path . '/' . $newAudioName;
-        $sfx->created_by = Auth::user()->id;
+        $sfx->created_by = decrypt(Auth::user()->id);
         $sfx->save();
 
         return redirect()
@@ -85,11 +93,12 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SoundEffect $sfx)
+    public function show($sfx)
     {
-        //
+        $data = $this->findRecord($sfx);
+
         return view('superadmin.game.effects.sfx.show', [
-            'sfx' => $sfx,
+            'sfx' => $data,
         ]);
     }
 
@@ -99,11 +108,12 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SoundEffect $sfx)
+    public function edit($sfx)
     {
-        //
+        $data = $this->findRecord($sfx);
+
         return view('superadmin.game.effects.sfx.edit', [
-            'sfx' => $sfx,
+            'sfx' => $data,
         ]);
     }
 
@@ -114,17 +124,18 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SoundEffect $sfx)
+    public function update(Request $request, $sfx)
     {
         //
         $request->validate([
             'name' => ['required', 'max:255'],
             'action' => ['required', 'in:true,false'],
         ]);
+        $data = $this->findRecord($sfx);
 
         $rule = strip_tags($request['action']);
 
-        $sfx->name = $this->capitalize($request->name);
+        $data->name = $this->capitalize($request->name);
 
         // For more clarity I use == 'true'
         if ($rule == 'true') {
@@ -133,27 +144,27 @@ class SoundEffectController extends Controller
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
-            if (file_exists($sfx['path'])) {
-                $foo = unlink($sfx['path']);
+            if (file_exists($data->path)) {
+                unlink($data->path);
             }
             // To avoid having a file with the same name
-            $newAudioName = time() . '-' . $sfx['name'] . '.' . $request['audio']->extension();
+            $newAudioName = time() . '-' . $data->name . '.' . $request['audio']->extension();
             // Where to store the image
             $path = 'game/Effects/SoundEffects';
             // Store the image in public directory
             $request['audio']->move(public_path($path), $newAudioName);
             // Output would be like: game/Effects/SoundEffects/image.png
             // So we can just do something like asset($foo['path']) than asset(game/Effects/SoundEffects/$foo['path'])
-            $sfx->path = $path . '/' . $newAudioName;
+            $data->path = $path . '/' . $newAudioName;
         }
 
-        $sfx->updated_by = Auth::user()->id;
+        $data->updated_by = decrypt(Auth::user()->id);
 
-        $sfx->save();
+        $data->save();
 
         return redirect()
             ->route('sfxs.show', [
-                'sfx' => $sfx->id,
+                'sfx' => $data->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -164,15 +175,17 @@ class SoundEffectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SoundEffect $sfx)
+    public function destroy($sfx)
     {
+        $data = $this->findRecord($sfx);
+
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
-        if (file_exists($sfx['path'])) {
-            unlink($sfx['path']);
+        if (file_exists($data->path)) {
+            unlink($data->path);
         }
 
-        $sfx->delete();
+        $data->delete();
 
         return redirect()
             ->route('sfxs.index')

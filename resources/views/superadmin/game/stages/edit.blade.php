@@ -31,7 +31,7 @@
                                 Stage Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('stages.update', $id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('stages.update', $stage->id) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->

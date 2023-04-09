@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class ProgrammingLanguageController extends Controller
 {
+    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
+    protected function findRecord($id)
+    {
+        $id = decrypt($id);
+        $data = ProgLang::findorfail($id);
+        return $data;
+    }
+
+    protected function capitalize($data)
+    {
+        // Because we are not using request this time
+        // I will strip tags here instead
+        $data = strip_tags($data);
+        return ucwords(strtolower($data));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +33,7 @@ class ProgrammingLanguageController extends Controller
     public function index()
     {
         //
-        $proglangs = ProgLang::paginate(7);
+        $proglangs = ProgLang::select('id', 'name')->get();
 
         return view('superadmin.game.proglang.index', [
             'proglangs' => $proglangs,
@@ -33,14 +49,6 @@ class ProgrammingLanguageController extends Controller
     {
         //
         return view('superadmin.game.proglang.create');
-    }
-
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
     }
 
     /**
@@ -59,7 +67,7 @@ class ProgrammingLanguageController extends Controller
         $proglang = new ProgLang();
         $proglang->name = $this->capitalize($request['name']);
 
-        $proglang->created_by = Auth::user()->id;
+        $proglang->created_by = decrypt(Auth::user()->id);
         $proglang->save();
 
         return redirect()
@@ -75,15 +83,15 @@ class ProgrammingLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ProgLang $proglang)
+    public function show($proglang)
     {
-        
+        $data = $this->findRecord($proglang);
         // You can import this above with use statement
         // But since I'm only going to use it once here so I won't
-        $stages = \App\Models\Stages::select('id', 'name')->where('proglang_id', $proglang->id)->get();
+        $stages = \App\Models\Stages::select('id', 'name')->where('proglang_id', $data->id)->get();
         
         return view('superadmin.game.proglang.show', [
-            'proglang' => $proglang,
+            'proglang' => $data,
             'stages' => $stages,
         ]);
     }
@@ -94,11 +102,12 @@ class ProgrammingLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProgLang $proglang)
+    public function edit($proglang)
     {
-        //
+        $data = $this->findRecord($proglang);
+
         return view('superadmin.game.proglang.edit', [
-            'proglang' => $proglang,
+            'proglang' => $data,
         ]);
     }
 
@@ -109,22 +118,23 @@ class ProgrammingLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProgLang $proglang)
+    public function update(Request $request, $proglang)
     {
         //
         $request->validate([
             'name' => ['required', 'unique:programming_languages', 'max:255'],
         ]);
+        $data = $this->findRecord($proglang);
 
-        $proglang->name = $this->capitalize($request->name);
+        $data->name = $this->capitalize($request->name);
 
-        $proglang->updated_by = Auth::user()->id;
+        $data->updated_by = decrypt(Auth::user()->id);
 
-        $proglang->save();
+        $data->save();
 
         return redirect()
             ->route('proglangs.show', [
-                'proglang' => $proglang->id,
+                'proglang' => $data->id,
             ])
             ->with('msg', 'Updated Successfully');
     }
@@ -135,9 +145,11 @@ class ProgrammingLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProgLang $proglang)
+    public function destroy($proglang)
     {
-        $proglang->delete();
+        $data = $this->findRecord($proglang);
+
+        $data->delete();
 
         return redirect()
             ->route('proglangs.index')

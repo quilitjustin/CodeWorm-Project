@@ -30,7 +30,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-hover">
+                            <table id="data-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Version ID</th>
@@ -44,8 +44,8 @@
                                         <tr>
                                             <td>
                                                 <a href="{{ route('splash.show', $splash['id']) }}">
-                                                    Version {{ $splash['id'] }}</a>
-                                                @if ($splash['id'] == $latest['id'])
+                                                    Version {{ $splash->id }}</a>
+                                                @if ($loop->first)
                                                     <span class="badge bg-primary">Latest</span>
                                                 @endif
                                             </td>
@@ -55,9 +55,8 @@
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('splash.show', $splash['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <form class="d-inline" action="{{ route('splash.destroy', $splash['id']) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('You are about to delete splash ID: {{ $splash['id'] }}s record. \n Are you sure?');">
+                                                <form class="delete d-inline"
+                                                    action="{{ route('splash.destroy', $splash['id']) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -73,17 +72,6 @@
 
                                 </tfoot>
                             </table>
-                            <div class="row mt-3">
-                                {{-- Hide for mobile --}}
-                                <div class="col-md-6 mb-2">
-                                    Viewing {{ $splashs->firstItem() }} - {{ $splashs->lastItem() }} of
-                                    {{ $splashs->total() }}
-                                    entries.
-                                </div>
-                                <div class="col-md-6">
-                                    {{ $splashs->onEachSide(3)->links() }}
-                                </div>
-                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -98,8 +86,6 @@
     <!-- /.content -->
 @endsection
 
-@section('scripts')
-    <script>
-        // Code Goes here
-    </script>
+@section('script')
+    @include('layouts.superadmin.index_component')
 @endsection

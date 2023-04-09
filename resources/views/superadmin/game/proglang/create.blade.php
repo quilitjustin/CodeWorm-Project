@@ -31,7 +31,7 @@
                                 Programming Language Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('proglangs.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('proglangs.store') }}">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

@@ -66,6 +66,10 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::get('/play/{id}/stages', 'stages')->name('web.play.stages');
     });
 
+    Route::get('/forums', function(){
+        return view('web.construction');
+    });
+
     // Route::get('play', function () {
     //     return view('layouts.play');
     // });

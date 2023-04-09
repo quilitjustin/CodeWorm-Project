@@ -29,7 +29,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-hover">
+                            <table id="data-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -52,17 +52,14 @@
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link"
-                                                    href="{{ route('stages.show', encrypt($stage->id)) }}">
+                                                <a class="text-link" href="{{ route('stages.show', encrypt($stage->id)) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
                                                     href="{{ route('stages.edit', encrypt($stage->id)) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="d-inline"
+                                                <form class="delete d-inline"
                                                     action="{{ route('stages.destroy', encrypt($stage->id)) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('You are about to delete {{ $stage->name }}s record. \n Are you sure?');">
-                                                    @csrf
+                                                    method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>
@@ -95,8 +92,6 @@
     <!-- /.content -->
 @endsection
 
-@section('scripts')
-    <script>
-        // Code Goes here	
-    </script>
+@section('script')
+    @include('layouts.superadmin.index_component')
 @endsection

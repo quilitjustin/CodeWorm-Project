@@ -31,7 +31,7 @@
                                 Programming Language Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('proglangs.update', $proglang['id']) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('proglangs.update', $proglang['id']) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->

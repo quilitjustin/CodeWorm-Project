@@ -335,7 +335,7 @@
                 Currently editing the page. Version {{ $content['id'] }}
             </div>
             <div>
-                <a href="#" class="btn btn-warning">Cancel</a>
+                <button id="cancel" class="btn btn-warning">Cancel</button>
                 <button id="save-content" class="btn btn-primary">Save</button>
             </div>
         </div>
@@ -368,6 +368,10 @@
                 // Cancel the event
                 return false;
             }
+        });
+
+        $("#cancel").click(function() {
+            window.history.back();
         });
 
         // Check if valid JSON
@@ -411,6 +415,9 @@
                 dataType: "json",
                 success: function(response) {
                     console.log(response.message);
+                },
+                error: function(request, status, error) {
+                    console.log(request.responseText);
                 }
             });
         });
