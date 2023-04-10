@@ -108,7 +108,7 @@ class BGMController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BGM $bgm)
+    public function edit($bgm)
     {
         $data = $this->findRecord($bgm);
 

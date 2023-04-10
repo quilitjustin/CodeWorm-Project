@@ -30,7 +30,7 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                    src="https://ui-avatars.com/api/?name={{ $user['f_name'] }}+{{ $user['l_name'] }}"
+                                    src="{{ !is_null($user->profile_picture) ? $user->profile_picture : 'https://ui-avatars.com/api/?name=' . $user->f_name . '+' . $user->l_name }}"
                                     alt="User profile picture">
                             </div>
 

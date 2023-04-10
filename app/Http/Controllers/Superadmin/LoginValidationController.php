@@ -26,7 +26,9 @@ class LoginValidationController extends Controller
         $credentials = $request->validated();
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('super.dashboard');
+            return redirect()
+                ->route('super.dashboard')
+                ->with('msg', 'Login Successfully');
         }
         return redirect()
             ->route('super.login')

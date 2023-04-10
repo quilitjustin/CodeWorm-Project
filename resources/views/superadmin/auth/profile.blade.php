@@ -23,81 +23,8 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
-
-                    <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                    src="https://ui-avatars.com/api/?name={{ Auth::user()->f_name }}+{{ Auth::user()->l_name }}"
-                                    alt="User profile picture">
-                            </div>
-
-                            <h3 class="profile-username text-center">{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}
-                            </h3>
-
-                            <p class="text-muted text-center">
-                                Student
-                                <br>
-                                {{ Auth::user()->email }}
-                            </p>
-
-                            {{-- <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Followers</b> <a class="float-right">1,322</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Following</b> <a class="float-right">543</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Friends</b> <a class="float-right">13,287</a>
-                                </li>
-                            </ul>
-
-                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-
-                    <!-- About Me Box -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">About Me</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i> Introduction</strong>
-
-                            <p class="text-muted">
-                                B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>
-
-                            <hr>
-
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                            <p>
-                                <span class="badge badge-info">UI Design</span>
-                                <span class="badge badge-info">Coding</span>
-                                <span class="badge badge-info">Javascript</span>
-                                <span class="badge badge-info">PHP</span>
-                                <span class="badge badge-info">Node.js</span>
-                            </p>
-
-                            <hr>
-
-                            <strong><i class="far fa-file-alt mr-1"></i> Elseware</strong>
-                            <br>
-                            <a class="text-info" href="#">Github</a>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
                 <!-- /.col -->
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
@@ -112,7 +39,46 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="profile">
+                                    <form class="form-horizontal" method="POST"
+                                        action="{{ route('super.profile_update', Auth::user()->id) }}">
+                                        @csrf
+                                        {{-- So the system would know what email it would ignore because email must be unique --}}
+                                        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                        {{-- So the system would know what kind of update you want to make --}}
+                                        <input type="hidden" value="picture" name="action">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Profile Picture</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group mb-3">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="image"
+                                                            name="image" accept="image/*">
+                                                        <label class="custom-file-label" for="image"
+                                                            aria-describedby="inputGroupFileAddon02">Choose Image</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <button type="button" id="clear"
+                                                            class="btn btn-outline-secondary">Clear</button>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="card p-2">
+                                                        <label for="img-preview">Preview</label>
+                                                        <img src="{{ !is_null(Auth::user()->profile_picture) ? Auth::user()->profile_picture : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
+                                                            width="150" height="150" id="img-preview"
+                                                            class="img-fluid img-circle mx-auto" alt="preview">
+                                                    </div>
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                        </div>
 
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <!-- /.tab-pane -->
 
@@ -124,6 +90,13 @@
                                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="password" name="action">
+                                        <div class="form-group row">
+                                            <label for="password" class="col-sm-2 col-form-label">Old Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" id="old-password"
+                                                    name="old-assword" placeholder="Old Password">
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
@@ -223,4 +196,37 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('script')
+    <script>
+        const imageFile = $("#image");
+        const preview = $("#img-preview");
+
+        imageFile.on("change", function(e) {
+            // Replace label inside input 
+            const fileName = $(this).val();
+            $(this).next(".custom-file-label").html(fileName);
+
+            // Show image preview
+            const item = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+                preview.attr("src", reader.result);
+                preview.removeClass("d-none");
+            }, false);
+
+            if (item) {
+                reader.readAsDataURL(item);
+            }
+        });
+
+        $("#clear").click(function() {
+            imageFile.val("");
+            imageFile.next(".custom-file-label").html("Choose Image");
+            preview.addClass("d-none");
+            preview.attr("src", "#");
+        });
+    </script>
 @endsection

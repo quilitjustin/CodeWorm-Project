@@ -33,11 +33,12 @@ Route::controller(LiveSearchController::class)->group(function () {
     Route::get('/search/portfolio', 'public_portfolio')->name('search.portfolio');
 });
 Route::post('analitics_dashboard', [AnaliticsDashboardController::class, 'index']);
+Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.store');
 // End
 
 // Public
-Route::get('/', [App\Http\Controllers\Web\SplashPageController::class, 'index']);
-Route::get('/leaderboard', [LeaderBoardController::class, 'index']);
+Route::get('/', 'SplashPageController@index');
+Route::get('/leaderboard', 'LeaderBoardController@index');
 Route::controller(PublicProfileController::class)->group(function () {
     Route::get('public_profile', 'index')->name('public_profile.index');
     Route::get('/public_profile/{user}', 'show')->name('public_profile.show');
@@ -47,7 +48,7 @@ Route::controller(PublicProfileController::class)->group(function () {
 
 Route::middleware([WebIsLoggedIn::class])->group(function () {
 
-    Route::get('announcements', [App\Http\Controllers\Web\AnnouncementsController::class, 'index'])->name('web.announcements.index');
+    Route::get('announcements', 'AnnouncementsController@index')->name('web.announcements.index');
 
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')

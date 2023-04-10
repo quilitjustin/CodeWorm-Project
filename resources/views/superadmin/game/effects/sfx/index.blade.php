@@ -59,7 +59,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <h5 class="text-center">No records</h5>
+                                        
                                     @endforelse
                                 </tbody>
                                 <tfoot>

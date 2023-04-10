@@ -27,7 +27,8 @@
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('public_profile.index') }}">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('public_profile.index') }}">Portfolio</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -213,25 +214,19 @@
             </div>
             <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                 <div class="col-lg-6">
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- * * SB Forms Contact Form * *-->
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- This form is pre-integrated with SB Forms.-->
-                    <!-- To make this form functional, sign up at-->
-                    <!-- https://startbootstrap.com/solution/contact-forms-->
-                    <!-- to get an API token!-->
-                    <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <form id="contact-form" action="{{ route('web.inquiries.store') }}" method="POST">
+                        @csrf
                         <!-- Name input-->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="name" type="text"
+                            <input class="form-control" id="name" type="text" name="name"
                                 placeholder="Enter your name..." data-sb-validations="required" />
                             <label for="name">Full name</label>
                             <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                         </div>
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="email" type="email" placeholder="name@example.com"
-                                data-sb-validations="required,email" />
+                            <input class="form-control" id="email" type="email" name="email"
+                                placeholder="name@example.com" data-sb-validations="required,email" />
                             <label for="email">Email address</label>
                             <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.
                             </div>
@@ -239,7 +234,7 @@
                         </div>
                         <!-- Phone number input-->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890"
+                            <input class="form-control" id="phone" name="phone" placeholder="09123456789"
                                 data-sb-validations="required" />
                             <label for="phone">Phone number</label>
                             <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is
@@ -247,35 +242,20 @@
                         </div>
                         <!-- Message input-->
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..."
-                                style="height: 10rem" data-sb-validations="required"></textarea>
+                            <textarea class="form-control" id="message" type="text" name="message"
+                                placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea>
                             <label for="message">Message</label>
                             <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
                             </div>
                         </div>
-                        <!-- Submit success message-->
-                        <!---->
-                        <!-- This is what your users will see when the form-->
-                        <!-- has successfully submitted-->
-                        <div class="d-none" id="submitSuccessMessage">
-                            <div class="text-center mb-3">
-                                <div class="fw-bolder">Form submission successful!</div>
-                                To activate this form, sign up at
-                                <br />
-                                <a
-                                    href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                            </div>
-                        </div>
-                        <!-- Submit error message-->
-                        <!---->
-                        <!-- This is what your users will see when there is-->
-                        <!-- an error submitting the form-->
-                        <div class="d-none" id="submitErrorMessage">
-                            <div class="text-center text-danger mb-3">Error sending message!</div>
+                        <div class="form-floating mb-3">
+                            <ul id="errors">
+
+                            </ul>
                         </div>
                         <!-- Submit Button-->
-                        <div class="d-grid"><button class="btn btn-primary btn-xl disabled" id="submitButton"
-                                type="submit">Submit</button></div>
+                        <div class="d-grid"><button class="btn btn-primary btn-xl" type="submit">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -286,6 +266,13 @@
                         (555) 123-4567</p>
                 </div>
             </div>
+        </div>
+    </section>
+    <!-- Call to action-->
+    <section id="inquiry-success" class="page-section bg-success text-white" hidden>
+        <div class="container px-4 px-lg-5 text-center">
+            <h2 class="mb-4">Submitted Successfully</h2>
+            <p class="text-light">We would send a response to you as soon as possible. Thank you!</p>
         </div>
     </section>
     <!-- Footer-->
@@ -313,6 +300,35 @@
         for (i = 0; i < content.length; i++) {
             $(content[i]).text(items[i]["text"]);
         }
+        
+        const contactForm = $("#contact-form");
+
+        contactForm.submit(function(e) {
+            e.preventDefault();
+            const route = $(this).attr("action");
+            const data = $(this).serialize();
+            $.post({
+                url: route,
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                    contactForm.prop("hidden", true);
+                    $("#inquiry-success").prop("hidden", false);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // validation error during request
+                    if (jqXHR.status === 422) {
+                        const errors = jqXHR.responseJSON.errors;
+                        const errField = $("#errors");
+                        errField.empty();
+                        $.each(errors, function(key, value) {
+                            errField.append("<li class='text-danger''>" + value +
+                                "</li>");
+                        });
+                    }
+                }
+            });
+        });
     </script>
 </body>
 

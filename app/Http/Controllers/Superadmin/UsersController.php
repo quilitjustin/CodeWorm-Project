@@ -130,11 +130,21 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, $user)
     {
-        //
-        $data = $this->findRecord($user);
-
         $request = $request->validated();
 
+        $data = $this->findRecord($user);
+
+        if ($request['action'] == 'picture') {
+            // To avoid having a file with the same name
+            $newImageName = time() . '-' . $data->l_name . '.' . $request['image']->extension();
+            // Where to store the image
+            $path = 'profile';
+            // Store the image in public directory
+            $request['image']->move(public_path($path), $newImageName);
+            // Output would be like: game/BackgroundImage/image.png
+            // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
+            $bgim->profile_picture = $path . '/' . $newImageName;
+        }
         if ($request['action'] == 'password') {
             $data->password = Hash::make($request['password']);
         }
@@ -153,6 +163,13 @@ class UsersController extends Controller
                 'user' => $user,
             ])
             ->with('msg', 'Updated Successfully');
+    }
+
+    // Ban or unban user
+    public function update_status($user){
+        $data = $this->findRecord($user);
+        
+        return response()->json(['message' => 'Status updated successfully']);
     }
 
     /**

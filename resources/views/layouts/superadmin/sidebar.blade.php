@@ -12,7 +12,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="https://ui-avatars.com/api/?name={{ Auth::user()->f_name }}+{{ Auth::user()->l_name }}"
+                <img src="{{ !is_null(Auth::user()->profile_picture) ? Auth::user()->profile_picture : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
                     class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
@@ -138,7 +138,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="/profile" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
+                    <a href="{{ route('super.profile') }}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>
                             Profile

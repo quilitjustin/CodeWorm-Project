@@ -5,4 +5,4 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Codeworm</title>
 {{-- Favicon --}}
-<link rel="icon" href="https://images.pexels.com/photos/2312369/pexels-photo-2312369.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+<link rel="icon" href="{{ asset('assets/favicons/fav4.png') }}">

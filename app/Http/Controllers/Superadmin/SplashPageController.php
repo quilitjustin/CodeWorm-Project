@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SplashPageController extends Controller
 {
-    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
-    protected function findRecord($id)
-    {
-        $id = decrypt($id);
-        $data = SplashPage::findorfail($id);
-        return $data;
-    }
-
     public function index()
     {
         $splash_pages = SplashPage::select('id', 'created_at', 'created_by')
@@ -54,10 +46,9 @@ class SplashPageController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(SplashPage $id)
     {
-        $splash = $this->findRecord($id);
-        $splash->delete();
+        $id->delete();
 
         return response()->json(['message' => 'Deleted successfully']);
     }
