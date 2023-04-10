@@ -135,6 +135,11 @@ class UsersController extends Controller
         $data = $this->findRecord($user);
 
         if ($request['action'] == 'picture') {
+            // Make sure you delete the file first before deleting the record in db
+            // But before that, you need to make sure that the file still exist in the first place
+            if (!is_null($data->profile_picture) && file_exists($data->profile_picture)) {
+                unlink($data->profile_picture);
+            }
             // To avoid having a file with the same name
             $newImageName = time() . '-' . $data->l_name . '.' . $request['image']->extension();
             // Where to store the image
@@ -143,7 +148,7 @@ class UsersController extends Controller
             $request['image']->move(public_path($path), $newImageName);
             // Output would be like: game/BackgroundImage/image.png
             // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
-            $bgim->profile_picture = $path . '/' . $newImageName;
+            $data->profile_picture = $path . '/' . $newImageName;
         }
         if ($request['action'] == 'password') {
             $data->password = Hash::make($request['password']);
@@ -166,9 +171,10 @@ class UsersController extends Controller
     }
 
     // Ban or unban user
-    public function update_status($user){
+    public function update_status($user)
+    {
         $data = $this->findRecord($user);
-        
+
         return response()->json(['message' => 'Status updated successfully']);
     }
 

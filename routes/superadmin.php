@@ -22,8 +22,8 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')->name('super.login')->withoutMiddleware([SuperIsLoggedIn::class]);
         Route::post('/authenticate', 'authenticate')->name('super.authenticate')->withoutMiddleware([SuperIsLoggedIn::class]);
-        Route::get('/profile', 'profile')->name('super.profile');
-        Route::post('/profile/{user}', 'profile_update')->name('super.profile_update');
+        Route::get('/profile/edit', 'profile')->name('super.profile');
+        Route::put('/profile/{user}', 'profile_update')->name('super.profile_update');
         Route::post('/logout', 'logout')->name('super.logout');
     });
     

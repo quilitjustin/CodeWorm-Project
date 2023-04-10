@@ -40,8 +40,10 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="profile">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('super.profile_update', Auth::user()->id) }}">
+                                        action="{{ route('super.profile_update', Auth::user()->id) }}"
+                                        enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
@@ -61,11 +63,19 @@
                                                             class="btn btn-outline-secondary">Clear</button>
                                                     </div>
                                                 </div>
+                                                @if ($errors->any())
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li class="text-danger">{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
                                                 <div>
                                                     <div class="card p-2">
                                                         <label for="img-preview">Preview</label>
-                                                        <img src="{{ !is_null(Auth::user()->profile_picture) ? Auth::user()->profile_picture : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
-                                                            width="150" height="150" id="img-preview"
+                                                        <img src="{{ !is_null(Auth::user()->profile_picture) ? asset(Auth::user()->profile_picture) : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
+                                                            id="img-preview"
+                                                            style="width: 150px; height: 150px; max-width: 150px; max-height: 150px;"
                                                             class="img-fluid img-circle mx-auto" alt="preview">
                                                     </div>
                                                 </div>
@@ -86,6 +96,7 @@
                                     <form class="form-horizontal" method="POST"
                                         action="{{ route('super.profile_update', Auth::user()->id) }}">
                                         @csrf
+                                        @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
@@ -94,7 +105,7 @@
                                             <label for="password" class="col-sm-2 col-form-label">Old Password</label>
                                             <div class="col-sm-10">
                                                 <input type="password" class="form-control" id="old-password"
-                                                    name="old-assword" placeholder="Old Password">
+                                                    name="old_password" placeholder="Old Password">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -131,6 +142,7 @@
                                     <form class="form-horizontal" method="POST"
                                         action="{{ route('super.profile_update', Auth::user()->id) }}">
                                         @csrf
+                                        @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
                                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                                         {{-- So the system would know what kind of update you want to make --}}

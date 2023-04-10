@@ -40,7 +40,7 @@ Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.stor
 Route::get('/', 'SplashPageController@index');
 Route::get('/leaderboard', 'LeaderBoardController@index');
 Route::controller(PublicProfileController::class)->group(function () {
-    Route::get('public_profile', 'index')->name('public_profile.index');
+    Route::get('/public_profile', 'index')->name('public_profile.index');
     Route::get('/public_profile/{user}', 'show')->name('public_profile.show');
 });
 
@@ -57,7 +57,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::post('/authenticate', 'authenticate')
             ->name('web.authenticate')
             ->withoutMiddleware([WebIsLoggedIn::class]);
-        Route::get('/profile', 'profile')->name('web.profile');
+        Route::get('/profile/edit', 'profile')->name('web.profile');
         Route::post('/profile/{user}', 'profile_update')->name('web.profile_update');
         Route::post('/logout', 'logout')->name('web.logout');
     });
