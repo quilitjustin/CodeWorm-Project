@@ -24,15 +24,17 @@ class LoginValidationController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->validated();
-
+        $credentials['status'] = 'active';
+        $credentials['role'] = 'superadmin';
         if (Auth::attempt($credentials)) {
             return redirect()
                 ->route('super.dashboard')
                 ->with('msg', 'Login Successfully');
-        }
+        } 
+
         return redirect()
             ->route('super.login')
-            ->withErrors(['Invalid Credentials']);
+            ->withErrors(['Invalid Credentials or your account may have been banned.']);
     }
 
     public function profile()

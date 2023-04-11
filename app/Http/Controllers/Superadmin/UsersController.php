@@ -33,7 +33,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::select('id', 'f_name', 'l_name', 'role')
+        $users = User::select('id', 'f_name', 'l_name', 'status', 'role')
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
                 ['id', '!=', decrypt(Auth::user()->id)],
@@ -171,11 +171,41 @@ class UsersController extends Controller
     }
 
     // Ban or unban user
-    public function update_status($user)
+    public function ban_user(Request $request, $user)
     {
-        $data = $this->findRecord($user);
+        $request->validate([
+            'duration' => ['required', 'in:hour,day,week,month,year,forever'],
+        ]);
 
-        return response()->json(['message' => 'Status updated successfully']);
+        $data = $this->findRecord($user);
+        $data->status = 'banned';
+        $carbon = new \Carbon\Carbon;
+        switch ($request['duration']) {
+            case 'hour':
+                $data->banned_until = $carbon::now()->addHour();
+                break;
+            case 'day':
+                $data->banned_until = $carbon::now()->addDay();
+                break;
+            case 'week':
+                $data->banned_until = $carbon::now()->addWeek();
+                break;
+            case 'month':
+                $data->banned_until = $carbon::now()->addMonth();
+                break;
+            case 'year':
+                $data->banned_until = $carbon::now()->addYear();
+                break;
+            case 'forever':
+                $data->banned_until = $carbon::now()->addYears(1000);
+                break;
+            default:
+                $data->banned_until = null;
+                break;
+        }
+        $data->save();
+
+        return response()->json(['message' => 'Banned successfully']);
     }
 
     /**

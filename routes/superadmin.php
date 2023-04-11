@@ -14,14 +14,18 @@ use App\Http\Middleware\SuperIsLoggedIn;
 |
 */
 
-Route::get('/', function(){
+Route::get('/', function () {
     return redirect()->route('super.dashboard');
 });
 
 Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::controller(LoginValidationController::class)->group(function () {
-        Route::get('/login', 'index')->name('super.login')->withoutMiddleware([SuperIsLoggedIn::class]);
-        Route::post('/authenticate', 'authenticate')->name('super.authenticate')->withoutMiddleware([SuperIsLoggedIn::class]);
+        Route::get('/login', 'index')
+            ->name('super.login')
+            ->withoutMiddleware([SuperIsLoggedIn::class]);
+        Route::post('/authenticate', 'authenticate')
+            ->name('super.authenticate')
+            ->withoutMiddleware([SuperIsLoggedIn::class]);
         Route::get('/profile/edit', 'profile')->name('super.profile');
         Route::put('/profile/{user}', 'profile_update')->name('super.profile_update');
         Route::post('/logout', 'logout')->name('super.logout');
@@ -31,14 +35,15 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::get('/export', 'index')->name('super.export.index');
         Route::get('/export/export_db', 'export_db')->name('super.export.export_db');
     });
-    
+
     Route::get('/dashboard', function () {
         return view('superadmin.dashboard');
     })->name('super.dashboard');
-    
+
+    Route::put('/users/ban/{user}', 'UsersController@ban_user')->name('super.user.ban');
     Route::resource('/users', UsersController::class);
     Route::resource('/badges', BadgesController::class);
-    Route::resource('/announcements', AnnouncementsController::class);  
+    Route::resource('/announcements', AnnouncementsController::class);
     // Game Routes
     Route::resource('/game/proglangs', ProgrammingLanguageController::class);
     Route::get('/game/stages/create/{proglang}', 'StagesController@create')->name('stages.create');
@@ -49,7 +54,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::resource('/game/effects/sfxs', SoundEffectController::class);
     Route::resource('/game/effects/vfxs', VisualEffectController::class);
     // End game
-    
+
     Route::controller(SplashPageController::class)->group(function () {
         Route::get('/splash', 'index')->name('splash.index');
         Route::get('/splash/show/{id}', 'show')->name('splash.show');
