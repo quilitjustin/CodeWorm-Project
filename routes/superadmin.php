@@ -26,6 +26,11 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::put('/profile/{user}', 'profile_update')->name('super.profile_update');
         Route::post('/logout', 'logout')->name('super.logout');
     });
+
+    Route::controller(ExportController::class)->group(function () {
+        Route::get('/export', 'index')->name('super.export.index');
+        Route::get('/export/export_db', 'export_db')->name('super.export.export_db');
+    });
     
     Route::get('/dashboard', function () {
         return view('superadmin.dashboard');
