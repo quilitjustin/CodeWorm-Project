@@ -71,7 +71,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         return view('web.construction');
     });
 
-    // Route::get('play', function () {
-    //     return view('layouts.play');
-    // });
+    Route::get('play', function () {
+        return view('layouts.play');
+    });
 });
