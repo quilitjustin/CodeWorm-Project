@@ -13,7 +13,10 @@ class PublicProfileController extends Controller
         return view('web.profile.index');
     }
 
-    public function show(User $user){
+    public function show($user)
+    {
+        $user = User::findorfail($user)->select()->get();
+
         return view('web.profile.show', [
             'user' => $user
         ]);

@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/leaderboards" class="nav-link {{ request()->is('leaderboards*') ? 'active' : '' }}">
+                    <a href="{{ route('public_profile.index') }}" class="nav-link {{ request()->is('public_profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-search fa-fw"></i>
                         <p>
                             Stalk
@@ -80,7 +80,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/profile" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
+                    <a href="{{ route('web.profile') }}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>
                             Profile
