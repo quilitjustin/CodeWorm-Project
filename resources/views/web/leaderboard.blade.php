@@ -6,7 +6,9 @@
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 mx-auto d-table h-100">
 					<div class="d-table-cell align-middle">
-
+						<div class="col-sm-6">
+							<button onclick="history.back();" class="text-info"><i class="right fas fa-angle-left"></i> Go Back</button>
+						</div><!-- /.col -->
 						<div class="text-center mt-4">
 							<h1 class="h2">Leaderboards</h1>
 							<p class="lead">

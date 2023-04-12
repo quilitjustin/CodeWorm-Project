@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <a href="/" class="text-info"><i class="right fas fa-angle-left"></i> Go Back</a>
+                    <button onclick="history.back();" class="text-info"><i class="right fas fa-angle-left"></i> Go Back</button>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     {{-- <ol class="breadcrumb float-sm-right">
