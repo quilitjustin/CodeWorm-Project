@@ -1,19 +1,19 @@
 ## Setting up V-Host
 <VirtualHost *:80>
     ServerAdmin admin@codeworm.tech
-    DocumentRoot "C:\Users\Student\Documents\xampp\htdocs\CodeWorm-Project"
+    DocumentRoot "C:\xampp\htdocs\CodeWorm-Project"
     ServerName codeworm.tech
 </VirtualHost>
 
 <VirtualHost *:80>
     ServerAdmin admin@codeworm.tech
-    DocumentRoot "C:\Users\Student\Documents\xampp\htdocs\CodeWorm-Project"
+    DocumentRoot "C:\xampp\htdocs\CodeWorm-Project"
     ServerName admin.codeworm.tech
 </VirtualHost>
 
 <VirtualHost *:80>
     ServerAdmin admin@codeworm.tech
-    DocumentRoot "C:\path\htdocs\CodeWorm-Project"
+    DocumentRoot "C:\xampp\htdocs\CodeWorm-Project"
     ServerName superadmin.codeworm.tech
 </VirtualHost>
 

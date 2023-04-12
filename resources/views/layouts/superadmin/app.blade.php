@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <style>
         /* Remove Default WhiteSpace */
         html,
@@ -125,7 +127,7 @@
 
     @yield('script')
 
-    @if(session()->has('msg'))
+    @if (session()->has('msg'))
         <script>
             toastr.success("{{ session()->get('msg') }}");
         </script>

@@ -31,6 +31,11 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::post('/logout', 'logout')->name('super.logout');
     });
 
+    Route::controller(InquiriesController::class)->group(function () {
+        Route::get('/inquiries', 'index')->name('super.inquiries.index');
+        Route::get('/inquiries/{inquiries}', 'show')->name('super.inquiries.show');
+    });
+
     Route::controller(ExportController::class)->group(function () {
         Route::get('/export', 'index')->name('super.export.index');
         Route::get('/export/export_db', 'export_db')->name('super.export.export_db');

@@ -99,9 +99,13 @@ class UsersController extends Controller
     public function show($user)
     {
         $data = $this->findRecord($user);
-        //
+        $created_by = User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
+        $updated_by = User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
+        $other = $created_by->unionAll($updated_by)->get();
+ 
         return view('superadmin.users.show', [
             'user' => $data,
+            'other' => $other,
         ]);
     }
 
@@ -179,7 +183,7 @@ class UsersController extends Controller
 
         $data = $this->findRecord($user);
         $data->status = 'banned';
-        $carbon = new \Carbon\Carbon;
+        $carbon = new \Carbon\Carbon();
         switch ($request['duration']) {
             case 'hour':
                 $data->banned_until = $carbon::now()->addHour();
@@ -203,6 +207,7 @@ class UsersController extends Controller
                 $data->banned_until = null;
                 break;
         }
+        $data->updated_by = decrypt(Auth::user()->id);
         $data->save();
 
         return response()->json(['message' => 'Banned successfully']);

@@ -15,7 +15,7 @@
 						</div>
 						<div class="card flex-fill">
 							<div class="card-header">
-								<h5 class="card-title mb-0">Ranking</h5>
+								<h5 class="card-title mb-0">Top 100</h5>
 							</div>
 							<table id="rank-tbl" class="table table-hover my-0">
 								<thead>
@@ -23,13 +23,13 @@
 										<th>Rank</th>
 										<th class="d-none d-xl-table-cell">Name</th>
 										<th class="d-none d-xl-table-cell">Flex</th>
-										<th class="d-none d-md-table-cell">Level</th>
+										<th class="d-none d-md-table-cell">Time</th>
 									</tr>
 								</thead>
 								<tbody>
 									@forelse ($users as $user)
-										<tr data-href="{{ route('public_profile', $user['id']) }}">
-											<td>{{ $user['id'] }}</td>
+										<tr data-href="{{ route('public_profile.index', $user['id']) }}">
+											<td>{{ $loop->index +  1 }}</td>
 											<td class="d-none d-xl-table-cell">{{ $user['f_name'] . $user['l_name'] }}</td>
 											<td><span class="badge bg-success">I'm supreme!</span></td>
 											<td class="d-none d-md-table-cell">0</td>

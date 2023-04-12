@@ -138,6 +138,14 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('super.inquiries.index') }}" class="nav-link {{ request()->is('inquiries*') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-comments"></i>
+                        <p>
+                            Inquiries
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('super.export.index') }}" class="nav-link {{ request()->is('export*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>

@@ -43,14 +43,19 @@
         </div>
         <div class="d-flex justify-content-center">
             <div id="content" class="row">
-                <div class="col-md-3 bg-blurr rounded" style="padding: 0;">
-                    <button id="tackle" class="btn btn-primary w-100 shadow-sm fw-bold">
-                        Tackle
-                        <br>
-                        <span class="fw-normal">
-                            DMG 5 SP 5
-                        </span>
-                    </button>
+                <div class="col-md-3 bg-blurr rounded d-flex flex-column justify-content-between" style="padding: 0;">
+                    <div>
+                        <button id="tackle" class="btn btn-primary w-100 shadow-sm font-weight-bold">
+                            Tackle
+                            <br>
+                            <span class="font-weight-normal">
+                                DMG 5 SP 5
+                            </span>
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                    </div>
                 </div>
                 <div class="col-md-6 p-0">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
