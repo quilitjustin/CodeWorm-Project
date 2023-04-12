@@ -8,6 +8,7 @@ window.addEventListener("load", function () {
     const name = "Protagonist";
     const enemyName = "Antagonist";
     let gameOver = false;
+    let timer = 0;
     const fullScreen = this.document.getElementById("fullScreenButton");
     // We do this first we don't overwrite the default console.log
     console.compile = console.log;
@@ -24,6 +25,7 @@ window.addEventListener("load", function () {
         const bgm = document.getElementById("bgm");
         bgm.volume = 0.3;
         bgm.play();
+        animate(0);
     });
     // function evaluateCode(code) {
     //     try {
@@ -224,7 +226,7 @@ window.addEventListener("load", function () {
             //     }
             // });
             if (this.tackle) {
-                $("#tackle").prop("disabled", true);
+                $(".skills").prop("disabled", true);
                 this.speed = 20;
                 this.x += this.speed;
             }
@@ -355,23 +357,26 @@ window.addEventListener("load", function () {
             ctx.fillText(enemyName, canvas.width, 52);
             // for(let i = 0; i < this.lives; i++){
             //     if(i > 2){
+                ctx.textAlign = "end";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
-            ctx.fillText("HP: " + this.lives, canvas.width - 160, 80);
+            ctx.fillText("HP: " + this.lives, canvas.width, 80);
+            ctx.textAlign = "end";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
-            ctx.fillText("HP: " + this.lives, canvas.width - 160, 82);
+            ctx.fillText("HP: " + this.lives, canvas.width, 82);
             //         break;
             //     }
             //     ctx.drawImage(this.heart, 20 * i + 20, 60, 25, 25);
             // }
-
+            ctx.textAlign = "end";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
-            ctx.fillText("SP: " + this.sp, canvas.width - 160, 105);
+            ctx.fillText("SP: " + this.sp, canvas.width, 105);
+            ctx.textAlign = "end";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
-            ctx.fillText("SP: " + this.sp, canvas.width - 160, 107);
+            ctx.fillText("SP: " + this.sp, canvas.width, 107);
         }
         update(deltaTime) {
             if (this.frameTimer > this.frameInterval) {
@@ -413,12 +418,15 @@ window.addEventListener("load", function () {
         ctx.fillStyle = "white";
         ctx.font = "30px Helvetica";
         ctx.fillText(name, 22, 52);
+        ctx.textAlign = "end";
         ctx.fillStyle = "black";
         ctx.font = "30px Helvetica";
-        ctx.fillText(enemyName, canvas.width - 160, 50);
+        ctx.fillText(enemyName, canvas.width, 50);
+        ctx.textAlign = "end";
         ctx.fillStyle = "white";
         ctx.font = "30px Helvetica";
-        ctx.fillText(enemyName, canvas.width - 160, 52);
+        ctx.fillText(enemyName, canvas.width, 52);
+
         if (gameOver) {
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
@@ -510,13 +518,27 @@ window.addEventListener("load", function () {
         if (boom.length < 5) {
             boom.push(new Explotion(enemy.x, enemy.y));
         }
+
+        timer+= deltaTime;
+        const formattedTime = (timer * 0.001).toFixed(1); 
+        
+        ctx.textAlign = "center";
+        ctx.fillStyle = "black";
+        ctx.font = "30px Helvetica";
+        ctx.fillText(formattedTime, canvas.width / 2, 50);
+        ctx.textAlign = "center";
+        ctx.fillStyle = "white";
+        ctx.font = "30px Helvetica";
+        ctx.fillText(formattedTime, canvas.width / 2, 52);
+        console.log(deltaTime)
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
         if (!gameOver) {
+            console.log();
             requestAnimationFrame(animate);
         }
     }
-    animate(0);
+    
 
     $(".tile").click(function () {
         let selected = $(this).hasClass("selected");

@@ -45,7 +45,7 @@
             <div id="content" class="row">
                 <div class="col-md-3 bg-blurr rounded d-flex flex-column justify-content-between" style="padding: 0;">
                     <div>
-                        <button id="tackle" class="btn btn-primary w-100 shadow-sm font-weight-bold">
+                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
