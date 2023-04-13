@@ -5,7 +5,7 @@ window.addEventListener("load", function () {
     canvas.height = 360;
     let enemies = [];
     let score = 0;
-    const name = "Protagonist";
+    let paused = false;
     const enemyName = "Antagonist";
     let gameOver = false;
     let timer = 0;
@@ -27,6 +27,7 @@ window.addEventListener("load", function () {
         bgm.play();
         animate(0);
     });
+
     // function evaluateCode(code) {
     //     try {
     //       let result = eval(`!!(` + code + `)`);
@@ -57,11 +58,17 @@ window.addEventListener("load", function () {
                 player.tackle = true;
                 player.sp -= 5;
             });
-            const givenAnswer = "print()";
+
+            $("#tasks button").click(function(){
+                $("#tasks").prop("hidden", true);
+                $("#code-editor").prop("hidden", false);
+                editor.getDoc().setValue(`// Print Hello World\nconsole.log("Hello World");`);
+            });
 
             $("#submit").click(function () {
-                const givenAnswer = "Hello World";
-                const code = editor.getValue();
+                let givenAnswer = "Hello World";
+                let code = editor.getValue();
+                if(language == "php"){
                 $.post({
                     url: phpRoute,
                     data: {
@@ -74,6 +81,8 @@ window.addEventListener("load", function () {
                             if (response['result'] == givenAnswer) {
                                 $("#msg").text("Right Answer!");
                                 player.sp++;
+                                $("#tasks").prop("hidden", false);
+                                $("#code-editor").prop("hidden", true);
                             } else {
                                 $("#msg").text("Wrong Answer!");
                                 enemy.sp++;
@@ -92,24 +101,27 @@ window.addEventListener("load", function () {
                         enemy.sp++;
                     },
                 });
-                // try {
-                //     "use strict";
-                //     eval(`${code}`);
+            } else if(language == 'js'){
+                try {
+                    "use strict";
+                    eval(`${code}`);
 
-                //     if(window.$log == givenAnswer){
-                //         $("#msg").text("Right Answer!");
-                //         player.sp++;
-                //     } else {
-                //         $("#msg").text("Wrong Answer!");
-                //         enemy.sp++;
-                //     }
-                // eval("!!(" + "alert('Hello World');" + ")");
-                // alert("No error!");
-                // } catch (error) {
-                //     $("#err-console").text("Syntax error: " + error.message);
-                //     $("#msg").text("There's an error!");
-                //     enemy.sp++;
-                // }
+                    if(window.$log == givenAnswer){
+                        $("#msg").text("Right Answer!");
+                        $("#tasks").prop("hidden", false);
+                        $("#code-editor").prop("hidden", true);
+                        player.sp++;
+                    } else {
+                        $("#msg").text("Wrong Answer!");
+                        enemy.sp++;
+                    }
+
+                } catch (error) {
+                    $("#err-console").text("Syntax error: " + error.message);
+                    $("#msg").text("There's an error!");
+                    enemy.sp++;
+                }
+            }
                 // if(evaluateCode(code)){
                 //     player.sp++;
                 // } else {
@@ -192,9 +204,11 @@ window.addEventListener("load", function () {
 
             // for(let i = 0; i < this.lives; i++){
             //     if(i > 2){
+                ctx.textAlign = "start";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, 20, 80);
+            ctx.textAlign = "start";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, 20, 82);
@@ -202,10 +216,11 @@ window.addEventListener("load", function () {
             //     }
             //     ctx.drawImage(this.heart, 20 * i + 20, 60, 25, 25);
             // }
-
+            ctx.textAlign = "start";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("SP: " + this.sp, 20, 105);
+            ctx.textAlign = "start";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
             ctx.fillText("SP: " + this.sp, 20, 105);
@@ -323,7 +338,7 @@ window.addEventListener("load", function () {
             this.width = 160;
             this.height = 119;
             this.image = document.getElementById("enemyImage");
-            this.x = this.gameWidth;
+            this.x = this.gameWidth - this.width;
             this.y = this.gameHeight - this.height;
             this.frameX = 0;
             this.maxFrame = 5;
@@ -336,6 +351,14 @@ window.addEventListener("load", function () {
             this.lives = 99999;
             this.heart = document.getElementById("life");
             this.maxLifeShow = 3;
+            this.rage = false;
+            this.rageTimer = 300000;
+            this.damage = 5;
+            this.atkTimer = 0;
+            this.atkInterval = 5000 / this.fps;
+            this.atkCondition = false;
+            this.onHit = false;
+            this.sound = document.getElementById("sfx2");
         }
         draw(ctx) {
             ctx.drawImage(
@@ -344,43 +367,77 @@ window.addEventListener("load", function () {
                 0,
                 this.width,
                 this.height,
-                canvas.width - this.width,
+                this.x,
                 canvas.height - this.height,
                 this.width,
                 this.height
             );
-            ctx.fillStyle = "black";
-            ctx.font = "30px Helvetica";
-            ctx.fillText(enemyName, canvas.width, 50);
-            ctx.fillStyle = "white";
-            ctx.font = "30px Helvetica";
-            ctx.fillText(enemyName, canvas.width, 52);
+            
             // for(let i = 0; i < this.lives; i++){
             //     if(i > 2){
-                ctx.textAlign = "end";
+
+            ctx.textAlign = "end";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
-            ctx.fillText("HP: " + this.lives, canvas.width, 80);
+            ctx.fillText("HP: " + this.lives, canvas.width - 20, 80);
             ctx.textAlign = "end";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
-            ctx.fillText("HP: " + this.lives, canvas.width, 82);
-            //         break;
+            ctx.fillText("HP: " + this.lives, canvas.width - 22, 82);
+            //         break;   
             //     }
             //     ctx.drawImage(this.heart, 20 * i + 20, 60, 25, 25);
             // }
             ctx.textAlign = "end";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
-            ctx.fillText("SP: " + this.sp, canvas.width, 105);
+            ctx.fillText("SP: " + this.sp, canvas.width - 20, 105);
             ctx.textAlign = "end";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
-            ctx.fillText("SP: " + this.sp, canvas.width, 107);
+            ctx.fillText("SP: " + this.sp, canvas.width - 22, 107);
+
+            ctx.textAlign = "end";
+            ctx.fillStyle = "black";
+            ctx.font = "20px Helvetica";
+            ctx.fillText("Damage: " + this.damage, canvas.width - 20, 125);
+            ctx.textAlign = "end";
+            ctx.fillStyle = "white";
+            ctx.font = "20px Helvetica";
+            ctx.fillText("Damage: " + this.damage, canvas.width - 22, 127);
+
+            
+            const formattedTime = (this.rageTimer * 0.001).toFixed(1); 
+            if (!this.rage){
+                ctx.textAlign = "end";
+                ctx.fillStyle = "black";
+                ctx.font = "20px Helvetica";
+                ctx.fillText("Rage: " + formattedTime, canvas.width - 20, 145);
+                ctx.textAlign = "end";
+                ctx.fillStyle = "white";
+                ctx.font = "20px Helvetica";
+                ctx.fillText("Rage: " + formattedTime, canvas.width - 22, 147);
+            } else {
+                ctx.textAlign = "end";
+                ctx.fillStyle = "black";
+                ctx.font = "20px Helvetica";
+                ctx.fillText("Rage: Activated", canvas.width - 20, 145);
+                ctx.textAlign = "end";
+                ctx.fillStyle = "white";
+                ctx.font = "20px Helvetica";
+                ctx.fillText("Rage: Activated", canvas.width - 22, 147);
+            }
+            
         }
-        update(deltaTime) {
+        update(deltaTime, player) {
+            if(this.atkCondition){
+                this.atkTimer = 0;
+                this.speed = 20; 
+                this.x -= this.speed;
+            }
             if (this.frameTimer > this.frameInterval) {
                 if (this.frameX >= this.maxFrame) {
+                    
                     this.frameX = 0;
                 } else {
                     this.frameX++;
@@ -389,11 +446,47 @@ window.addEventListener("load", function () {
             } else {
                 this.frameTimer += deltaTime;
             }
-            this.x -= this.speed;
-            if (this.x < 0 - this.width) {
-                this.markedForDeletion = true;
-                score++;
+            this.atkTimer++;
+            if (!this.atkCondition && this.atkTimer > this.atkInterval){
+                this.atkCondition = true;
+                this.atkTimer = 0;
+                if (this.rage && this.damage < 1000){
+                    this.damage *= this.damage;
+                } 
             }
+
+            // if (this.x < 0 - this.width) {
+            //     this.markedForDeletion = true;
+            //     score++;
+            // }
+            if (!this.rage){
+                this.rageTimer-= deltaTime;
+                if (this.rageTimer <= 0){
+                    this.rage = true;
+                }
+            }   
+            // Vertical
+            if (this.x < 0) {
+                this.sound.currentTime = 0;
+                this.sound.play();
+                this.x = this.gameWidth - this.width;
+                player.lives -= this.damage;
+                this.speed = 0;
+                this.onHit = true;
+                this.atkCondition = false;
+                this.speed = 0;
+            } 
+            if (this.sp >= 5){
+                this.sp-= 5;
+                this.damage++;
+            }
+            // if (this.onHit) {
+            //     explosions[0].update();
+            //     explosions[0].draw();
+            //     explosions.splice(0, 1);
+            //     this.onHit = false;
+            //     $("#tackle").prop("disabled", false);
+            // }    
         }
     }
 
@@ -412,20 +505,22 @@ window.addEventListener("load", function () {
         enemies = enemies.filter((enemy) => !enemy.markedForDeletion);
     }
     function displayStatusText(ctx) {
+        ctx.textAlign = "start";
         ctx.fillStyle = "black";
         ctx.font = "30px Helvetica";
         ctx.fillText(name, 20, 50);
+        ctx.textAlign = "start";
         ctx.fillStyle = "white";
         ctx.font = "30px Helvetica";
         ctx.fillText(name, 22, 52);
         ctx.textAlign = "end";
         ctx.fillStyle = "black";
         ctx.font = "30px Helvetica";
-        ctx.fillText(enemyName, canvas.width, 50);
+        ctx.fillText(enemyName, canvas.width - 20, 50);
         ctx.textAlign = "end";
         ctx.fillStyle = "white";
         ctx.font = "30px Helvetica";
-        ctx.fillText(enemyName, canvas.width, 52);
+        ctx.fillText(enemyName, canvas.width - 22, 52);
 
         if (gameOver) {
             ctx.textAlign = "center";
@@ -502,7 +597,7 @@ window.addEventListener("load", function () {
     let enemyTimer = 0;
     let enemyInterval = 1000;
     let randomEnemyInterval = Math.random() * 1000 + 500;
-    let paused = false;
+
     let boom = [];
 
     function animate(timeStamp) {
@@ -513,7 +608,7 @@ window.addEventListener("load", function () {
         // background.update();
         // handleEnemies(deltaTime);
         enemy.draw(ctx);
-        enemy.update(deltaTime);
+        enemy.update(deltaTime, player);
         player.draw(ctx);
         if (boom.length < 5) {
             boom.push(new Explotion(enemy.x, enemy.y));
@@ -530,11 +625,10 @@ window.addEventListener("load", function () {
         ctx.fillStyle = "white";
         ctx.font = "30px Helvetica";
         ctx.fillText(formattedTime, canvas.width / 2, 52);
-        console.log(deltaTime)
+
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
-        if (!gameOver) {
-            console.log();
+        if (!(gameOver || paused)) {
             requestAnimationFrame(animate);
         }
     }
@@ -565,5 +659,15 @@ window.addEventListener("load", function () {
             $(tiles[i]).removeClass("h-100 selected col-sm-1 rounded");
             $(tiles[i]).addClass("h-25 col-sm-1");
         }
+    });
+
+    $("#pause").click(function () {
+        if(paused){
+            paused = false;
+            animate(timer);
+        } else {
+            paused = true;
+        }
+        
     });
 });
