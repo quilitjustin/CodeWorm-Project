@@ -2,10 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    @include('layouts.meta')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- CodeMirror -->
@@ -32,6 +29,7 @@
             <img id="boom" src="{{ asset('demo/boom.png') }}" alt="boom">
             <audio id="bgm" src="{{ asset('demo/bgm2.mp3') }}" controls loop></audio>
             <audio id="sfx" src="{{ asset('demo/boom.wav') }}" controls></audio>
+            <audio id="sfx2" src="{{ asset('demo/ice.wav') }}" controls></audio>
             <button hidden id="fullScreenButton">Full Screen</button>
             <div id="overlay" class="d-flex justify-content-center">
                 <div class="text-center">
@@ -54,15 +52,23 @@
                         </button>
                     </div>
                     <div>
-                        <button class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                        <button id="pause" class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
-                <div class="col-md-6 p-0">
+                <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
-                    
-                    <textarea name="" id="codeMirrorDemo" cols="30" rows="10">// Print Hello World</textarea>
-                    <button id="submit" class="btn btn-primary w-100">Submit</button>
+                    <div id="tasks" class="h-100">
+                        <button class="btn btn-outline-info h-25 w-100">Print "Hello World"</button>
+                        <button class="btn btn-outline-info h-25 w-100">Print the Sume</button>
+                        <button class="btn btn-outline-info h-25 w-100">Complete the function</button>
+                        <button class="btn btn-outline-info h-25 w-100">Fix the function</button>
+                    </div>
+                    <div id="code-editor" hidden>
+                        <textarea name="" id="codeMirrorDemo" style="text-align: left">// Print Hello World</textarea>
+                        <button id="submit" class="btn btn-primary w-100 py-3">Submit</button>
+                    </div>
+                
                 </div>
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
                     <p>Error Console:</p>
@@ -90,20 +96,23 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
     <!-- CodeMirror -->
     <script src="{{ asset('adminlte/plugins/codemirror/codemirror.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/codemirror/mode/javascript/javascript.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/codemirror/mode/php/php.js') }}"></script>
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            mode: "javascript",
+            mode: {
+                name: 'application/x-httpd-php',
+                startOpen: true,
+            },
             theme: "monokai",
         });
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
+        const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
+        const language = 'php';
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js') }}"></script>
-    <script>
-        
-    </script>
+    <script></script>
 </body>
 
 </html>

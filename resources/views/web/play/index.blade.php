@@ -25,14 +25,22 @@
             <div class="row">
                 <div class="col-12 px-5">
                     <div class="row">
-                        @forelse ($proglangs as $proglang)
+                        <div class="col-md-4 p-2">
+                            <a href="{{ route('web.play.php') }}"
+                                class="btn btn-secondary w-100 py-3">PHP</a>
+                        </div>
+                        <div class="col-md-4 p-2">
+                            <a href="{{ route('web.play.js') }}"
+                                class="btn btn-secondary w-100 py-3">Javascript</a>
+                        </div>
+                        {{-- @forelse ($proglangs as $proglang)
                             <div class="col-md-4 p-2">
                                 <a href="{{ route('web.play.stages', encrypt($proglang['id'])) }}"
                                     class="btn btn-secondary w-100 py-3">{{ $proglang['name'] }}</a>
                             </div>
                         @empty
                             <h5 class="text-center">No records</h5>
-                        @endforelse
+                        @endforelse --}}
                     </div>
                 </div>
                 <!-- /.col -->

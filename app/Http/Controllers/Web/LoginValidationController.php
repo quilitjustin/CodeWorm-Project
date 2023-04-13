@@ -25,7 +25,7 @@ class LoginValidationController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->validated();
-
+        $credentials['status'] = 'active';
         if (Auth::attempt($credentials)) {
             return redirect()
                 ->route('web.announcements.index');
