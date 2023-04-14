@@ -6,8 +6,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- CodeMirror -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/codemirror/codemirror.css') }}">
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/codemirror/theme/monokai.css') }}">
+    <link rel="stylesheet" href="{{ asset('codemirror/lib/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('codemirror/theme/monokai.css') }}">
     {{-- Game --}}
     <link rel="stylesheet" href="{{ asset('demo/style.css') }}">
     <style>
@@ -52,7 +52,8 @@
                         </button>
                     </div>
                     <div>
-                        <button id="pause" class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                        <button id="pause"
+                            class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
@@ -65,10 +66,10 @@
                         <button class="btn btn-outline-info h-25 w-100">Fix the function</button>
                     </div>
                     <div id="code-editor" hidden>
-                        <textarea name="" id="codeMirrorDemo" style="text-align: left">// Print Hello World</textarea>
+                        <textarea name="" id="codeMirrorDemo">// Print Hello World</textarea>
                         <button id="submit" class="btn btn-primary w-100 py-3">Submit</button>
                     </div>
-                
+
                 </div>
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
                     <p>Error Console:</p>
@@ -95,14 +96,24 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
     <!-- CodeMirror -->
-    <script src="{{ asset('adminlte/plugins/codemirror/codemirror.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/codemirror/mode/php/php.js') }}"></script>
+    <script src="{{ asset('codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ asset('codemirror/addon/edit/matchbrackets.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/xml/xml.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/javascript/javascript.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/css/css.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/clike/clike.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            // lineNumbers: true,
+            // matchBrackets: true,
             mode: {
-                name: 'application/x-httpd-php',
+                name: "application/x-httpd-php",
                 startOpen: true,
             },
+            // indentUnit: 4,
+            // indentWithTabs: true,
             theme: "monokai",
         });
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";

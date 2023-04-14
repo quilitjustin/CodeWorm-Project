@@ -109,6 +109,12 @@
                                         <p>Stages</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('tasks.index') }}" class="nav-link {{ request()->is('game/programming/tasks*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tasks</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         

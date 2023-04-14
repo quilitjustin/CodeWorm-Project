@@ -19,6 +19,11 @@ Route::get('/', function () {
 });
 
 Route::middleware([SuperIsLoggedIn::class])->group(function () {
+    //ajax 
+    Route::controller(FetchController::class)->group(function(){
+        Route::get('/fetch/languages', 'languages')->name('fetch.languages');
+    });
+    
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')
             ->name('super.login')
@@ -54,6 +59,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::get('/game/programming/stages/create/{proglang}', 'StagesController@create')->name('stages.create');
     Route::get('/game/programming/stages/redirect', 'StagesController@redirect')->name('stages.redirect');
     Route::resource('/game/programming/stages', StagesController::class)->except(['create']);
+    Route::resource('/game/programming/tasks', TasksController::class);
     Route::resource('/game/bgms', BGMController::class);
     Route::resource('/game/bgims', BGImgController::class);
     Route::resource('/game/effects/sfxs', SoundEffectController::class);
