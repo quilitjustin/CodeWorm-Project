@@ -80,8 +80,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-gamepad {{ request()->is('game*') ? 'active' : '' }}"></i>
+                    <a href="#" class="nav-link {{ request()->is('game*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-gamepad"></i>
                         <p>
                             Game
                             <i class="right fas fa-angle-left"></i>
@@ -89,31 +89,44 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('proglangs.index') }}" class="nav-link {{ request()->is('proglang*') ? 'active' : '' }}">
+                            <a href="#" class="nav-link {{ request()->is('game/programming*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Programming Language</p>
+                                <p>
+                                    Programming
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('proglangs.index') }}" class="nav-link {{ request()->is('game/programming/proglang*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Programming Language</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('stages.index') }}" class="nav-link {{ request()->is('game/programming/stages*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Stages</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+                        
+
                         <li class="nav-item">
-                            <a href="{{ route('stages.index') }}" class="nav-link {{ request()->is('stages*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Stages</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('bgims.index') }}" class="nav-link {{ request()->is('bg-img*') ? 'active' : '' }}">
+                            <a href="{{ route('bgims.index') }}" class="nav-link {{ request()->is('game/bgims*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>BG Image</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('bgms.index') }}" class="nav-link {{ request()->is('bgms*') ? 'active' : '' }}">
+                            <a href="{{ route('bgms.index') }}" class="nav-link {{ request()->is('game/bgms*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>BGM</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('effects*') ? 'active' : '' }}">
+                            <a href="#" class="nav-link {{ request()->is('game/effects*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Effects
@@ -122,13 +135,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('sfxs.index') }}" class="nav-link {{ request()->is('sfxs*') ? 'active' : '' }}">
+                                    <a href="{{ route('sfxs.index') }}" class="nav-link {{ request()->is('game/effects/sfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Sound</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('vfxs.index') }}" class="nav-link {{ request()->is('vfxs*') ? 'active' : '' }}">
+                                    <a href="{{ route('vfxs.index') }}" class="nav-link {{ request()->is('game/effects/vfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Visual</p>
                                     </a>

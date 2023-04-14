@@ -50,10 +50,10 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::resource('/badges', BadgesController::class);
     Route::resource('/announcements', AnnouncementsController::class);
     // Game Routes
-    Route::resource('/game/proglangs', ProgrammingLanguageController::class);
-    Route::get('/game/stages/create/{proglang}', 'StagesController@create')->name('stages.create');
-    Route::get('/game/stages/redirect', 'StagesController@redirect')->name('stages.redirect');
-    Route::resource('/game/stages', StagesController::class)->except(['create']);
+    Route::resource('/game/programming/proglangs', ProgrammingLanguageController::class);
+    Route::get('/game/programming/stages/create/{proglang}', 'StagesController@create')->name('stages.create');
+    Route::get('/game/programming/stages/redirect', 'StagesController@redirect')->name('stages.redirect');
+    Route::resource('/game/programming/stages', StagesController::class)->except(['create']);
     Route::resource('/game/bgms', BGMController::class);
     Route::resource('/game/bgims', BGImgController::class);
     Route::resource('/game/effects/sfxs', SoundEffectController::class);
