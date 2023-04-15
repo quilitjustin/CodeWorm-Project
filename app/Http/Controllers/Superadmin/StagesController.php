@@ -18,14 +18,6 @@ class StagesController extends Controller
         return $data;
     }
 
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -42,24 +34,9 @@ class StagesController extends Controller
             ->select('stages.id', 'stages.name', 'programming_languages.id as proglang_id', 'programming_languages.name as proglang_name')
             ->get();
 
-        // $stages = json_decode($stages, true);
+        // $stage = json_decode($stage, true);
         return view('superadmin.game.stages.index', [
             'stages' => $stages,
-        ]);
-    }
-
-    /**
-     * Display available programming language for creation of stage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirect()
-    {
-        //
-        $proglangs = Proglang::select('id', 'name')->get();
-
-        return view('superadmin.game.stages.redirect', [
-            'proglangs' => $proglangs,
         ]);
     }
 
@@ -68,12 +45,9 @@ class StagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($proglang)
+    public function create()
     {
-        //
-        return view('superadmin.game.stages.create', [
-            'proglang' => $proglang,
-        ]);
+        return view('superadmin.game.stages.create');
     }
 
     /**
@@ -86,14 +60,15 @@ class StagesController extends Controller
     {
         //
         $request->validate([
-            'name' => ['required', 'unique:stages', 'max:255'],
+            'name' => ['required', 'max:255'],
             'proglang' => ['required'],
         ]);
+
         $proglang_id = decrypt($request['proglang']);
         $proglang = Proglang::findorfail($proglang_id);
 
         $stage = new Stages();
-        $stage->name = $this->capitalize($request['name']);
+        $stage->name = strip_tags($request['name']);
         $stage->proglang_id = $proglang_id;
         $stage->created_by = decrypt(Auth::user()->id);
         $stage->save();
@@ -117,10 +92,10 @@ class StagesController extends Controller
         $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
         $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
         $other = $created_by->unionAll($updated_by)->get();
-
+    
         return view('superadmin.game.stages.show', [
             'stage' => $data,
-            'other' => $other
+            'other' => $other,
         ]);
     }
 
@@ -150,15 +125,20 @@ class StagesController extends Controller
     public function update(Request $request, $stage)
     {   
         $request->validate([
-            'name' => ['required', 'unique:stages', 'max:255'],
+            'name' => ['required', 'max:255'],
+            'proglang' => ['required'],
         ]);
-
+        
+        $proglang_id = decrypt($request['proglang']);
+        $proglang = Proglang::findorfail($proglang_id);
+        
         $data = $this->findRecord($stage);
 
-        $data->name = $this->capitalize($request['name']);
+        $data->name = strip_tags($request['name']);
+        $data->proglang_id = $proglang_id;
         $data->updated_by = decrypt(Auth::user()->id);
         $data->save();
-
+   
         return redirect()
             ->route('stages.show', [
                 'stage' => $data->id,

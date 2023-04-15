@@ -33,7 +33,6 @@
                         </div>
                         <form method="POST" action="{{ route('stages.store') }}">
                             @csrf
-                            <input type="hidden" name="proglang" value="{{ $proglang }}">
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
@@ -43,6 +42,17 @@
                                             <input class="form-control" type="text" name="name"
                                                 placeholder="Enter name" value="{{ old('name', '') }}" />
                                             @error('name')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Language</label>
+                                            <select class="form-control select2" style="width: 100%;" id="proglang"
+                                                name="proglang">
+
+                                            </select>
+                                            @error('proglang')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -74,6 +84,25 @@
     <script>
         $("#cancel").click(function() {
             window.history.back();
+        });
+        
+        $(document).ready(function() {
+            const route = "{{ route('fetch.languages') }}";
+            $.get({
+                url: route,
+                method: 'GET',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    let html = '';
+                    $.each(response, function(index, data) {
+                        html +=
+                            `<option value="` + data.id + `">` + data.name + `</option>`;
+                    });
+                    $("#proglang").html(html);
+                }
+            });
         });
     </script>
 @endsection

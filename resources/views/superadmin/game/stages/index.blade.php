@@ -77,7 +77,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('stages.redirect') }}" class="btn btn-primary">Create New Stage</a>
+                            <a href="{{ route('stages.create') }}" class="btn btn-primary">Create New Stage</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

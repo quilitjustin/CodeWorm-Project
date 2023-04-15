@@ -34,11 +34,14 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label>Name</label>
                                     <p>{{ $stage['name'] }}</p>
                                 </div>
                                 <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>{{ $stage->proglang }}</label>
+                                </div>
                                 <div class="col-sm-12">
                                     <hr class="border border-primary w-100">
                                 </div>
@@ -60,7 +63,7 @@
                                     @if(!is_null($stage->updated_by))
                                     <a href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
                                     @endif
-                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
