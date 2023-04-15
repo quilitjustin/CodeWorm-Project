@@ -59,24 +59,25 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ route('tasks.show', $task['created_by']) }}">{{ $task['created_by'] }}</a>
+                                    <a
+                                        href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($task['created_at'])->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($task->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                     <a
-                                        href="{{ is_null($task['updated_by']) ? '#' : route('tasks.show', $task['updated_by']) }}">{{ $task['updated_by'] }}</a>
+                                        href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($task['updated_by']) ? '' : \Carbon\Carbon::parse($task['updated_at'])->diffForHumans() }}
+                                    <p>{{ is_null($task->updated_at) ? '' : \Carbon\Carbon::parse($task->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>

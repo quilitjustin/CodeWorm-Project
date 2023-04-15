@@ -47,6 +47,12 @@ Route::controller(PublicProfileController::class)->group(function () {
 // End
 
 Route::middleware([WebIsLoggedIn::class])->group(function () {
+    // Ajax
+    Route::controller(FetchController::class)->group(function(){
+        Route::get('/fetch/php', 'fetch_task_php')->name('fetch.php');
+        Route::get('/fetch/js', 'fetch_task_js')->name('fetch.js');
+    });
+    // End Ajax
 
     Route::get('announcements', 'AnnouncementsController@index')->name('web.announcements.index');
 

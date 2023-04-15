@@ -109,9 +109,13 @@ class TasksController extends Controller
     public function show($task)
     {
         $data = $this->findRecord($task);
-        
+        $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
+        $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
+        $other = $created_by->unionAll($updated_by)->get();
+    
         return view('superadmin.game.tasks.show', [
             'task' => $data,
+            'other' => $other,
         ]);
     }
 
@@ -142,23 +146,23 @@ class TasksController extends Controller
     {   
         $request->validate([
             'name' => ['required', 'max:255'],
-            'task' => ['required', 'max:255'],
+            'snippet' => ['required', 'max:255'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
         ]);
-
+        
         $proglang_id = decrypt($request['proglang']);
         $proglang = Proglang::findorfail($proglang_id);
         
         $data = $this->findRecord($task);
 
-        $data->name = $this->capitalize($request['name']);
+        $data->name = strip_tags($request['name']);
         $data->snippet = $this->sanitize($request['snippet']);
-        $task->answer = strip_tags($request['answer']);
-        $task->proglang_id = $proglang_id;
+        $data->answer = strip_tags($request['answer']);
+        $data->proglang_id = $proglang_id;
         $data->updated_by = decrypt(Auth::user()->id);
         $data->save();
-
+   
         return redirect()
             ->route('tasks.show', [
                 'task' => $data->id,

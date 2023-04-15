@@ -60,10 +60,7 @@
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
                     <div id="tasks" class="h-100">
-                        <button class="btn btn-outline-info h-25 w-100">Print "Hello World"</button>
-                        <button class="btn btn-outline-info h-25 w-100">Print the Sume</button>
-                        <button class="btn btn-outline-info h-25 w-100">Complete the function</button>
-                        <button class="btn btn-outline-info h-25 w-100">Fix the function</button>
+
                     </div>
                     <div id="code-editor" hidden>
                         <textarea name="" id="codeMirrorDemo">// Print Hello World</textarea>
@@ -72,7 +69,7 @@
 
                 </div>
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
-                    <p>Error Console:</p>
+                    <p>Console:</p>
                     <p id="err-console"></p>
                 </div>
             </div>
@@ -116,6 +113,34 @@
             // indentWithTabs: true,
             theme: "monokai",
         });
+
+        function showTask(idx) {
+            $("#tasks").prop("hidden", true);
+            $("#code-editor").prop("hidden", false);
+            editor.getDoc().setValue(arr[idx]);
+        };
+
+        let arr = [];
+
+        $.get({
+            url: "{{ route('fetch.php') }}",
+            method: 'GET',
+            data: {
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                let html = '';
+                $.each(response, function(index, data) {
+                    html +=
+                        `<button onclick="showTask(` + index +
+                        `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
+                    arr.push(data.snippet);
+                });
+                $("#tasks").append(html);
+
+            }
+        });
+
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
         const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';

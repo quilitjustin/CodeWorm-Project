@@ -6,7 +6,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- CodeMirror -->
-    <link rel="stylesheet" href="{{ asset('codemirror/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('codemirror/lib/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('codemirror/theme/monokai.css') }}">
     {{-- Game --}}
     <link rel="stylesheet" href="{{ asset('demo/style.css') }}">
@@ -52,26 +52,24 @@
                         </button>
                     </div>
                     <div>
-                        <button id="pause" class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                        <button id="pause"
+                            class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
                     <div id="tasks" class="h-100">
-                        <button class="btn btn-outline-info h-25 w-100">Print "Hello World"</button>
-                        <button class="btn btn-outline-info h-25 w-100">Print the Sume</button>
-                        <button class="btn btn-outline-info h-25 w-100">Complete the function</button>
-                        <button class="btn btn-outline-info h-25 w-100">Fix the function</button>
+
                     </div>
                     <div id="code-editor" hidden>
-                        <textarea name="" id="codeMirrorDemo" style="text-align: left">// Print Hello World</textarea>
+                        <textarea name="" id="codeMirrorDemo">// Print Hello World</textarea>
                         <button id="submit" class="btn btn-primary w-100 py-3">Submit</button>
                     </div>
-                
+
                 </div>
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
-                    <p>Error Console:</p>
+                    <p>Console:</p>
                     <p id="err-console"></p>
                 </div>
             </div>
@@ -95,13 +93,54 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
     <!-- CodeMirror -->
-    <script src="{{ asset('adminlte/plugins/codemirror/codemirror.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/codemirror/mode/javascript/javascript.js') }}"></script>
+    <script src="{{ asset('codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ asset('codemirror/addon/edit/matchbrackets.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/xml/xml.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/javascript/javascript.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/css/css.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/clike/clike.js') }}"></script>
+    <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            mode: "javascript",
+            // lineNumbers: true,
+            // matchBrackets: true,
+            mode: {
+                name: "application/x-httpd-php",
+                startOpen: true,
+            },
+            // indentUnit: 4,
+            // indentWithTabs: true,
             theme: "monokai",
         });
+
+        function showTask(idx) {
+            $("#tasks").prop("hidden", true);
+            $("#code-editor").prop("hidden", false);
+            editor.getDoc().setValue(arr[idx]);
+        };
+
+        let arr = [];
+
+        $.get({
+            url: "{{ route('fetch.js') }}",
+            method: 'GET',
+            data: {
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                let html = '';
+                $.each(response, function(index, data) {
+                    html +=
+                        `<button onclick="showTask(` + index +
+                        `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
+                    arr.push(data.snippet);
+                });
+                $("#tasks").append(html);
+
+            }
+        });
+
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
         const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';

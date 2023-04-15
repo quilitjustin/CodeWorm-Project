@@ -59,12 +59,6 @@ window.addEventListener("load", function () {
                 player.sp -= 5;
             });
 
-            $("#tasks button").click(function(){
-                $("#tasks").prop("hidden", true);
-                $("#code-editor").prop("hidden", false);
-                editor.getDoc().setValue(`// Print Hello World\nconsole.log("Hello World");`);
-            });
-
             $("#submit").click(function () {
                 let givenAnswer = "Hello World";
                 let code = editor.getValue();
@@ -87,6 +81,7 @@ window.addEventListener("load", function () {
                                 $("#msg").text("Wrong Answer!");
                                 enemy.sp++;
                             }
+                            $("#err-console").text("Output: " + response['result']);
                         } else {
                             $("#err-console").text("Syntax error: " + response['result']);
                             $("#msg").text("There's an error!");
@@ -115,7 +110,7 @@ window.addEventListener("load", function () {
                         $("#msg").text("Wrong Answer!");
                         enemy.sp++;
                     }
-
+                    $("#err-console").text("Output: " + $log);
                 } catch (error) {
                     $("#err-console").text("Syntax error: " + error.message);
                     $("#msg").text("There's an error!");
