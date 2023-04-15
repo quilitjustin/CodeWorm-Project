@@ -57,11 +57,10 @@
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    @if (!is_null($stage->updated_by))
-                                        <a
-                                            href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                    @if(!is_null($stage->updated_by))
+                                    <a href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
                                     @endif
-                                </div>
+                                    </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>

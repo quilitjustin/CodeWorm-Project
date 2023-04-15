@@ -114,9 +114,13 @@ class StagesController extends Controller
     public function show($stage)
     {
         $data = $this->findRecord($stage);
-        
+        $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
+        $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
+        $other = $created_by->unionAll($updated_by)->get();
+
         return view('superadmin.game.stages.show', [
             'stage' => $data,
+            'other' => $other
         ]);
     }
 
