@@ -8,6 +8,7 @@ window.addEventListener("load", function () {
     let paused = false;
     const enemyName = "Antagonist";
     let gameOver = false;
+    let win = false;
     let timer = 0;
     const fullScreen = this.document.getElementById("fullScreenButton");
     // We do this first we don't overwrite the default console.log
@@ -79,13 +80,13 @@ window.addEventListener("load", function () {
                                 $("#code-editor").prop("hidden", true);
                             } else {
                                 $("#msg").text("Wrong Answer!");
-                                enemy.sp++;
+                                enemy.damage++;
                             }
                             $("#err-console").text("Output: " + response['result']);
                         } else {
                             $("#err-console").text("Syntax error: " + response['result']);
                             $("#msg").text("There's an error!");
-                            enemy.sp++;
+                            enemy.damage++;
                         }
                         
                     },
@@ -93,7 +94,7 @@ window.addEventListener("load", function () {
                         console.log("Error: " + error.message);
                         $("#err-console").text("Error: Did not follow the given format");
                         $("#msg").text("There's an error!");
-                        enemy.sp++;
+                        enemy.damage++;
                     },
                 });
             } else if(language == 'js'){
@@ -108,13 +109,13 @@ window.addEventListener("load", function () {
                         player.sp++;
                     } else {
                         $("#msg").text("Wrong Answer!");
-                        enemy.sp++;
+                        enemy.damage++;
                     }
                     $("#err-console").text("Output: " + $log);
                 } catch (error) {
                     $("#err-console").text("Syntax error: " + error.message);
                     $("#msg").text("There's an error!");
-                    enemy.sp++;
+                    enemy.damage++;
                 }
             }
                 // if(evaluateCode(code)){
@@ -343,7 +344,7 @@ window.addEventListener("load", function () {
             this.speed = 8;
             this.markedForDeletion = false;
             this.sp = 0;
-            this.lives = 99999;
+            this.lives = 20;
             this.heart = document.getElementById("life");
             this.maxLifeShow = 3;
             this.rage = false;
@@ -383,23 +384,15 @@ window.addEventListener("load", function () {
             //     }
             //     ctx.drawImage(this.heart, 20 * i + 20, 60, 25, 25);
             // }
-            ctx.textAlign = "end";
-            ctx.fillStyle = "black";
-            ctx.font = "20px Helvetica";
-            ctx.fillText("SP: " + this.sp, canvas.width - 20, 105);
-            ctx.textAlign = "end";
-            ctx.fillStyle = "white";
-            ctx.font = "20px Helvetica";
-            ctx.fillText("SP: " + this.sp, canvas.width - 22, 107);
 
             ctx.textAlign = "end";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
-            ctx.fillText("Damage: " + this.damage, canvas.width - 20, 125);
+            ctx.fillText("Damage: " + this.damage, canvas.width - 20, 105);
             ctx.textAlign = "end";
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
-            ctx.fillText("Damage: " + this.damage, canvas.width - 22, 127);
+            ctx.fillText("Damage: " + this.damage, canvas.width - 22, 107);
 
             
             const formattedTime = (this.rageTimer * 0.001).toFixed(1); 
@@ -407,11 +400,11 @@ window.addEventListener("load", function () {
                 ctx.textAlign = "end";
                 ctx.fillStyle = "black";
                 ctx.font = "20px Helvetica";
-                ctx.fillText("Rage: " + formattedTime, canvas.width - 20, 145);
+                ctx.fillText("Rage: " + formattedTime, canvas.width - 20, 125);
                 ctx.textAlign = "end";
                 ctx.fillStyle = "white";
                 ctx.font = "20px Helvetica";
-                ctx.fillText("Rage: " + formattedTime, canvas.width - 22, 147);
+                ctx.fillText("Rage: " + formattedTime, canvas.width - 22, 127);
             } else {
                 ctx.textAlign = "end";
                 ctx.fillStyle = "black";
@@ -482,6 +475,10 @@ window.addEventListener("load", function () {
             //     this.onHit = false;
             //     $("#tackle").prop("disabled", false);
             // }    
+            if (this.lives <= 0){
+                this.markedForDeletion = true;
+                win = true;
+            }
         }
     }
 
@@ -525,6 +522,43 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "white";
             ctx.font = "40px Helvetica";
             ctx.fillText("Game Over", canvas.width / 2 + 2, 202);
+        }
+
+        if (win) {
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            ctx.font = "40px Helvetica";
+            ctx.fillText("You Win!", canvas.width / 2, 200);
+            ctx.fillStyle = "white";
+            ctx.font = "40px Helvetica";
+            ctx.fillText("You Win!", canvas.width / 2 + 2, 202);
+            let proglangId = "",
+            stageId = "";
+            if(language == "php"){
+                proglangId = 1;
+                stageId = 1;
+            } else if (language == "js"){
+                proglangId = 2;
+                stageId = 2;
+            }
+
+            $.post({
+                url: storeRoute,
+                data: {
+                    "_token": CSRF_TOKEN,
+                    "record": timer,
+                    "proglangId": proglangId,
+                    "stageId": stageId,
+                    "userId": userId,
+                },
+                dataType: "json",
+                success: function(response) {
+                    console.log(response.message);
+                },
+                error: function(request, status, error) {
+                    console.log(request.responseText);
+                }
+            });
         }
     }
 
@@ -623,7 +657,7 @@ window.addEventListener("load", function () {
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
-        if (!(gameOver || paused)) {
+        if (!(gameOver || paused || win)) {
             requestAnimationFrame(animate);
         }
     }

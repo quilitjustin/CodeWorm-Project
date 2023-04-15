@@ -71,6 +71,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
     Route::controller(PlayController::class)->group(function(){
         Route::get('/play', 'index')->name('web.play.index');
         Route::get('/play/{id}/stages', 'stages')->name('web.play.stages');
+        Route::post('/play/save_record', 'save_record')->name('web.play.store');
     });
 
     Route::get('/forums', function(){
