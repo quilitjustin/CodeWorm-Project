@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Stages;
 
 class PlayController extends Controller
 {
@@ -20,7 +21,18 @@ class PlayController extends Controller
     public function stages($id)
     {
         $id = decrypt($id);
-        dd($id);
+        $stages = Stages::findorfail($id)->select('id', 'name')->get();
+
+        return view('web.play.stages', [
+            'stages' => $stages
+        ]);
+    }
+
+    public function game_start($id){
+        $id = decrypt($id);
+        $stages = Stages::findorfail($id)->select('id', 'name')->get();
+
+        dd($stages);
     }
 
     public function save_record(Request $request)

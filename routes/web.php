@@ -72,6 +72,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::get('/play', 'index')->name('web.play.index');
         Route::get('/play/{id}/stages', 'stages')->name('web.play.stages');
         Route::post('/play/save_record', 'save_record')->name('web.play.store');
+        Route::get('/play/start/{id}', 'game_start')->name('web.play.start');
     });
 
     Route::get('/forums', function(){
@@ -81,10 +82,10 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
     // Route::get('play', function () {
     //     return view('layouts.play');
     // });
-    Route::get('play/js', function () {
-        return view('layouts.play_js');
-    })->name('web.play.js');
-    Route::get('play/php', function () {
-        return view('layouts.play_php');
-    })->name('web.play.php');
+    // Route::get('play/js', function () {
+    //     return view('layouts.play_js');
+    // })->name('web.play.js');
+    // Route::get('play/php', function () {
+    //     return view('layouts.play_php');
+    // })->name('web.play.php');
 });

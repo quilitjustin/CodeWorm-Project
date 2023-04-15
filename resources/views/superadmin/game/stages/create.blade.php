@@ -1,5 +1,9 @@
 @extends('layouts.superadmin.app')
 
+@section('css')
+    @include('superadmin.game.stages.css')
+@endsection
+
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -48,13 +52,21 @@
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <label>Language</label>
-                                            <select class="form-control select2" style="width: 100%;" id="proglang"
-                                                name="proglang">
-
+                                            <select class="select2" style="width: 100%;"
+                                                data-placeholder="Select a Language" id="proglang" name="proglang">
+                                                
                                             </select>
                                             @error('proglang')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Tasks</label>
+                                            <select class="select2" id="tasks" multiple="multiple"
+                                                data-placeholder="Select a State" style="width: 100%;">
+                                                
+                                            </select>
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
@@ -81,28 +93,11 @@
 @endsection
 
 @section('script')
+    @include('superadmin.game.stages.script')
+    
     <script>
         $("#cancel").click(function() {
             window.history.back();
-        });
-        
-        $(document).ready(function() {
-            const route = "{{ route('fetch.languages') }}";
-            $.get({
-                url: route,
-                method: 'GET',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(response) {
-                    let html = '';
-                    $.each(response, function(index, data) {
-                        html +=
-                            `<option value="` + data.id + `">` + data.name + `</option>`;
-                    });
-                    $("#proglang").html(html);
-                }
-            });
         });
     </script>
 @endsection

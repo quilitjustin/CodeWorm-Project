@@ -133,10 +133,9 @@
             runCode(code, language.toLowerCase());  
         });
         $(document).ready(function() {
-            const route = "{{ route('fetch.languages') }}";
+            const route = "{{ route('super.fetch.languages') }}";
             $.get({
                 url: route,
-                method: 'GET',
                 data: {
                     "_token": "{{ csrf_token() }}",
                 },

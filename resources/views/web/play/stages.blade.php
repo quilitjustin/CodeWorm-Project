@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Programming Language</h1>
+                    <h1 class="m-0">Stages</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     {{-- <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('proglangs.index') }}">ProgLang</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('stages.index') }}">stage</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol> --}}
                 </div><!-- /.col -->
@@ -33,10 +33,10 @@
                             <a href="{{ route('web.play.js') }}"
                                 class="btn btn-secondary w-100 py-3">Javascript</a>
                         </div> --}}
-                        @forelse ($proglangs as $proglang)
+                        @forelse ($stages as $stage)
                             <div class="col-md-4 p-2">
-                                <a href="{{ route('web.play.stages', $proglang->id) }}"
-                                    class="btn btn-secondary w-100 py-3">{{ $proglang->name }}</a>
+                                <a href="{{ route('web.play.start', $stage->id) }}"
+                                    class="btn btn-secondary w-100 py-3">{{ $stage->name }}</a>
                             </div>
                         @empty
                             <h5 class="text-center">No records</h5>
