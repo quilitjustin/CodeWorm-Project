@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#con{
+    position: relative;
+    margin-top: 2.5em;
+}
+#canvas1{
+    position: relative;
+    width: 800px;
+    height: 360px;
+    max-width: 100%;
+    max-height: 100%;
+}
+.noLight {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.noLight:focus {
+    outline: none !important;
+}
+#overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20%;
+    height: 20%;
+    transform: translate(-50%, -50%);
+}
+audio{
+    display: none;
+}
+img{
+    display: none;
+}
+#fullScreenButton{
+    position: relative;
+    font-size: 20px;
+    padding: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#content{
+    width: 800px;
+    max-width: 100%;
+}
+.bg-blurr{
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media only screen and (max-width: 600px) {
+    #con{
+        margin-top: 0;
+    }
+}
