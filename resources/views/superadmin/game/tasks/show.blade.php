@@ -71,13 +71,14 @@
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                    @if(!is_null($task->updated_by))
+                                    <a href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                    @endif
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($task->updated_at) ? '' : \Carbon\Carbon::parse($task->updated_at)->diffForHumans() }}
+                                    <p>{{ is_null($task->updated_by) ? '' : \Carbon\Carbon::parse($task->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>

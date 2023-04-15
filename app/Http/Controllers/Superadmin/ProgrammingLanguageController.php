@@ -89,10 +89,14 @@ class ProgrammingLanguageController extends Controller
         // You can import this above with use statement
         // But since I'm only going to use it once here so I won't
         $stages = \App\Models\Stages::select('id', 'name')->where('proglang_id', $data->id)->get();
-        
+        $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
+        $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
+        $other = $created_by->unionAll($updated_by)->get();
+
         return view('superadmin.game.proglang.show', [
             'proglang' => $data,
             'stages' => $stages,
+            'other' => $other,
         ]);
     }
 
