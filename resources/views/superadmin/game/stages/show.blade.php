@@ -45,24 +45,27 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ route('stages.show', $stage['created_by']) }}">{{ $stage['created_by'] }}</a>
+                                    <a
+                                        href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($stage['created_at'])->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($stage->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($stage['updated_by']) ? '#' : route('stages.show', $stage['updated_by']) }}">{{ $stage['updated_by'] }}</a>
+                                    @if (!is_null($stage->updated_by))
+                                        <a
+                                            href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                    @endif
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($stage['updated_by']) ? '' : \Carbon\Carbon::parse($stage['updated_at'])->diffForHumans() }}
+                                    <p>{{ is_null($stage->updated_by) ? '' : \Carbon\Carbon::parse($stage->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>

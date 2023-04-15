@@ -22,4 +22,10 @@ class PlayController extends Controller
         $id = decrypt($id);
         dd($id);
     }
+
+    public function save_record(Request $request){
+        
+
+        return response()->json(['message' => 'success']);
+    }
 }
