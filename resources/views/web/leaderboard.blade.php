@@ -24,17 +24,19 @@
 									<tr>
 										<th>Rank</th>
 										<th class="d-none d-xl-table-cell">Name</th>
-										<th class="d-none d-xl-table-cell">Flex</th>
+										<th class="d-none d-xl-table-cell">Language</th>
+										<th class="d-none d-xl-table-cell">Stage</th>
 										<th class="d-none d-md-table-cell">Time</th>
 									</tr>
 								</thead>
 								<tbody>
-									@forelse ($users as $user)
-										<tr data-href="{{ route('public_profile.index', $user['id']) }}">
+									@forelse ($records as $record)
+										<tr data-href="{{ route('public_profile.index', $record->id) }}">
 											<td>{{ $loop->index +  1 }}</td>
-											<td class="d-none d-xl-table-cell">{{ $user['f_name'] . $user['l_name'] }}</td>
+											<td class="d-none d-xl-table-cell">{{ $record->f_name . $record->l_name }}</td>
 											<td><span class="badge bg-success">I'm supreme!</span></td>
-											<td class="d-none d-md-table-cell">0</td>
+											<td><span class="badge bg-success">I'm supreme!</span></td>
+											<td class="d-none d-md-table-cell">{{ $record->record }}</td>
 										</tr>
 									@empty
 										<h5>No Records</h5>

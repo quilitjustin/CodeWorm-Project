@@ -137,7 +137,6 @@
                     arr.push(data.snippet);
                 });
                 $("#tasks").append(html);
-
             }
         });
 
@@ -145,6 +144,9 @@
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
         const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
         const language = 'js';
+        const storeRoute = "{{ route('web.play.store') }}";
+        const userId = '{{ Auth::user()->id }}';
+        const CSRF_TOKEN = `{{ csrf_token() }}`;
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js') }}"></script>
