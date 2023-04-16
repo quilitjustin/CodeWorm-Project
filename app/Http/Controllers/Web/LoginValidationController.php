@@ -9,11 +9,10 @@ use Session;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateProfileRequest;
 
 class LoginValidationController extends Controller
 {
-
     public function index()
     {
         if (Auth::check()) {
@@ -28,7 +27,8 @@ class LoginValidationController extends Controller
         $credentials['status'] = 'active';
         if (Auth::attempt($credentials)) {
             return redirect()
-                ->route('web.announcements.index');
+                ->route('web.announcements.index')
+                ->with('msg', 'Login Successfully');
         }
         return redirect()
             ->route('web.login')
@@ -45,10 +45,29 @@ class LoginValidationController extends Controller
         return ucwords(strtolower($data));
     }
 
-    public function profile_update(UpdateUserRequest $request, User $user)
+    public function profile_update(UpdateProfileRequest $request, $user)
     {
         $data = $request->validated();
 
+        $id = decrypt($user);
+        $user = User::findorfail($id);
+
+        if ($data['action'] == 'picture') {
+            // Make sure you delete the file first before deleting the record in db
+            // But before that, you need to make sure that the file still exist in the first place
+            if (!is_null($user->profile_picture) && file_exists($user->profile_picture)) {
+                unlink($user->profile_picture);
+            }
+            // To avoid having a file with the same name
+            $newImageName = time() . '-' . $user->l_name . '.' . $request['image']->extension();
+            // Where to store the image
+            $path = 'profile';
+            // Store the image in public directory
+            $request['image']->move(public_path($path), $newImageName);
+            // Output would be like: game/BackgroundImage/image.png
+            // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
+            $user->profile_picture = $path . '/' . $newImageName;
+        }
         if ($data['action'] == 'password') {
             $user->password = Hash::make($data['password']);
         }
@@ -60,7 +79,7 @@ class LoginValidationController extends Controller
         }
 
         $user->save();
-
+        
         return redirect()
             ->route('web.profile')
             ->with('msg', 'Updated Successfully');

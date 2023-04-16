@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <style>
@@ -73,6 +75,8 @@
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({
@@ -102,6 +106,11 @@
 
     @yield('script')
 
+    @if (session()->has('msg'))
+        <script>
+            toastr.success("{{ session()->get('msg') }}");
+        </script>
+    @endif
 </body>
 
 </html>

@@ -64,7 +64,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
             ->name('web.authenticate')
             ->withoutMiddleware([WebIsLoggedIn::class]);
         Route::get('/profile/edit', 'profile')->name('web.profile');
-        Route::post('/profile/{user}', 'profile_update')->name('web.profile_update');
+        Route::put('/profile/{user}', 'profile_update')->name('web.profile_update');
         Route::post('/logout', 'logout')->name('web.logout');
     });
 

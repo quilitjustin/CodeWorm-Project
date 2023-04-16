@@ -15,6 +15,7 @@
                 Back</button>
         </div><!-- /.col --> --}}
         <div class="row">
+			
             <div class="col-sm-12">
                 <div class="text-center text-light mt-4">
                     <h1 class="h2 font-weight-bold">Leaderboards</h1>
@@ -57,8 +58,11 @@
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-
             </div>
+			<div class="col-sm-12">
+				<button onclick="history.back();" class="text-light"><i class="right fas fa-angle-left"></i> Go Back</button>
+			</div>
+			<!-- /.col -->
         </div>
     </div>
 @endsection
