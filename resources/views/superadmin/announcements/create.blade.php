@@ -87,7 +87,7 @@
         $(document).ready(function() {
             // Summernote
             $('#summernote').summernote({
-                    height: 150,
+                    height: 300,
                     focus: true,
                     // placeholder: 'write here...',
                     codeviewIframeFilter: true,

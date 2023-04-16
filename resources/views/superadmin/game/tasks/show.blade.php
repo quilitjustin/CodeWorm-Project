@@ -56,6 +56,12 @@
                                     <p>{{ $task->reward }}</p>
                                 </div>
                                 <!-- /.col -->
+                                <div class="col-sm-12">
+                                    <label>Description</label>
+                                    <div class="px-2 py-1 bg-light">
+                                        {!! $task->description !!}
+                                    </div>
+                                </div>
                                 <div class="col-sm-12 {{ $task->snippet == "" ? "d-none" : "" }}">
                                     <!-- /.form-group -->
                                     <label>Code Snippet</label>

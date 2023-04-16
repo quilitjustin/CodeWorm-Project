@@ -21,7 +21,7 @@ class TasksController extends Controller
     }
 
     // Clean the snippet
-    protected function sanitize($data){
+    protected function sanitize_code($data){
         $config = HTMLPurifier_Config::createDefault();
         $purifier = new HTMLPurifier($config);
         $data = $purifier->purify($data);
@@ -32,6 +32,14 @@ class TasksController extends Controller
         // Remove any remaining script tags and attributes
         $data = preg_replace('/<script\b[^>]*>(.*?)<\/script>/si', '', $data);
         return $data;
+    }
+
+    private function sanitize_description($content)
+    {
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', 'p[style],b,i,u,span[style],font[style],br,ol,ul,li[style],table,tbody,tr,td,h1,h2,h3,h4,h5,h6');
+        $purifier = new HTMLPurifier($config);
+        return $purifier->purify($content);
     }
 
     /**
@@ -90,7 +98,10 @@ class TasksController extends Controller
         $task = new Tasks();
         $task->name = strip_tags($request['name']);
         $task->difficulty = strip_tags($request['difficulty']);
-        $task->snippet = $this->sanitize($request['snippet']);
+        $task->description = $this->sanitize_description($request['description']);
+        if($request['snippet'] != ""){
+            $task->snippet = $this->sanitize_code($request['snippet']);
+        }
         $task->answer = strip_tags($request['answer']);
         $task->reward = strip_tags($request['reward']);
         $task->proglang_id = $proglang_id;
@@ -155,6 +166,7 @@ class TasksController extends Controller
         $request->validate([
             'name' => ['required', 'max:255'],
             'difficulty' => ['required', 'in:Easy,Medium,Hard'],
+            'description' => ['required', 'max:255'],
             'snippet' => ['max:255'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
@@ -168,7 +180,10 @@ class TasksController extends Controller
 
         $data->name = strip_tags($request['name']);
         $data->difficulty = strip_tags($request['difficulty']);
-        $data->snippet = $this->sanitize($request['snippet']);
+        $data->description = $this->sanitize_description($request['description']);
+        if($request['snippet'] != ""){
+            $data->snippet = $this->sanitize_code($request['snippet']);
+        }
         $data->answer = strip_tags($request['answer']);
         $data->reward = strip_tags($request['reward']);
         $data->proglang_id = $proglang_id;

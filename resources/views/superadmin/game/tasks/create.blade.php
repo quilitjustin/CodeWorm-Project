@@ -75,6 +75,16 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea id="summernote" name="description">
+                                                {{ old('description', '') }}
+                                            </textarea>
+                                            @error('description')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
                                             <label>Expected Answer</label>
                                             <input class="form-control" type="text" name="answer"
                                                 placeholder="Expected answer" value="{{ old('answer', '') }}" />

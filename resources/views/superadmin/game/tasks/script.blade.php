@@ -30,7 +30,16 @@
         }
     });
 
-    $(document).ready(function(){
+    $(document).ready(function() {
         $("#snippet").prop("hidden", true);
+
+        // Summernote
+        $("#summernote").summernote({
+            height: 300,
+            focus: true,
+            // placeholder: 'write here...',
+            codeviewIframeFilter: true,
+            spellCheck: true
+        });
     });
 </script>

@@ -55,9 +55,15 @@
                                             <label>Difficulty</label>
                                             <select class="form-control select2" style="width: 100%;" id="difficulty"
                                                 name="difficulty">
-                                                <option {{ old('difficulty', $task->difficulty) == "Easy" ? "selected" : "" }}>Easy</option>
-                                                <option {{ old('difficulty', $task->difficulty) == "Medium" ? "selected" : "" }}>Medium</option>
-                                                <option {{ old('difficulty', $task->difficulty) == "Hard" ? "selected" : "" }}>Hard</option>
+                                                <option
+                                                    {{ old('difficulty', $task->difficulty) == 'Easy' ? 'selected' : '' }}>
+                                                    Easy</option>
+                                                <option
+                                                    {{ old('difficulty', $task->difficulty) == 'Medium' ? 'selected' : '' }}>
+                                                    Medium</option>
+                                                <option
+                                                    {{ old('difficulty', $task->difficulty) == 'Hard' ? 'selected' : '' }}>
+                                                    Hard</option>
                                             </select>
                                             @error('difficulty')
                                                 <p class="text-danger my-2">{{ $message }}</p>
@@ -76,6 +82,16 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea id="summernote" name="description">
+                                                {{ old('description', $task->description) }}
+                                            </textarea>
+                                            @error('description')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
                                             <label>Expected Answer</label>
                                             <input class="form-control" type="text" name="answer"
                                                 placeholder="Expected Answer" value="{{ old('answer', $task->answer) }}" />
@@ -87,7 +103,8 @@
                                         <div class="form-group">
                                             <label>Reward (SP)</label>
                                             <input class="form-control" type="number" name="reward"
-                                                placeholder="Enter Amount of SP" value="{{ old('reward', $task->reward) }}" />
+                                                placeholder="Enter Amount of SP"
+                                                value="{{ old('reward', $task->reward) }}" />
                                             @error('reward')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
