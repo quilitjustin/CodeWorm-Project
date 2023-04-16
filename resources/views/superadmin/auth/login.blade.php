@@ -1,65 +1,79 @@
-@extends('layouts/app')
+@extends('layouts.app')
 
 @section('content')
-	<main class="d-flex w-100" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../assets/img/login.png')">
-		<div class="container d-flex flex-column">
-			<div class="row vh-100">
-				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-					<div class="d-table-cell align-middle">
+    <div class="d-flex justify-content-center align-items-center"
+        style="height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('../assets/img/login.png')">
+        <div class="register-box">
+            <div class="register-logo text-white font-weight-bold">
+                Codeworm
+            </div>
 
-						<div class="text-center mt-4">
-							<h1 class="h2">Welcome back, Procrastirnator!</h1>
-							<p class="lead">
-								Sign in to your account to continue
-							</p>
-						</div>
+            <div class="card rounded shadow-sm">
+                <div class="card-body register-card-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
 
-						<div class="card">
-							<div class="card-body">
-								<div class="m-sm-4">
-									{{-- <div class="text-center">
-										<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
-									</div> --}}
-									<form method="POST" action="{{ route('super.authenticate') }}">
-										@csrf
-										<div class="mb-3">
-											<label class="form-label">Email</label>
-											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
-										</div>
-										<div class="mb-3">
-											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
-											<small>
-            {{-- <a href="index.html">Forgot password?</a> --}}
-          </small>
-										</div>
-										<div>
-											{{-- <label class="form-check">
-            <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
-            <span class="form-check-label">
-              Remember me next time
-            </span> --}}
-          </label>
-										</div>
-										<div class="text-center mt-3">
-											<button type="submit" class="btn btn-lg btn-primary">Sign in</button>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-										</div>
-									</form>
-									@if($errors->any())
-										<ul>
-											@foreach($errors->all() as $error)
-												<li class="text-danger">{{ $error }}</li>
-											@endforeach
-										</ul>
-									@endif
-								</div>
-							</div>
-						</div>
+                    <form action="{{ route('super.authenticate') }}" method="POST">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {{-- <div class="col-8">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                    <label for="agreeTerms">
+                                        I agree to the <a href="#">terms</a>
+                                    </label>
+                                </div>
+                            </div> --}}
+                            <!-- /.col -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </div>
+                            <!-- /.col -->
+                            <div class="mt-3">
+                                @if ($errors->any())
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-danger">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+                        </div>
+                    </form>
+
+                    {{-- <div class="social-auth-links text-center">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i>
+                            Sign up using Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i>
+                            Sign up using Google+
+                        </a>
+                    </div> --}}
+
+                    {{-- <a href="login.html" class="text-center">I already have a membership</a> --}}
+                </div>
+                <!-- /.form-box -->
+            </div><!-- /.card -->
+        </div>
+        <!-- /.register-box -->
+    </div>
 @endsection

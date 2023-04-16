@@ -9,8 +9,8 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <style>
@@ -35,18 +35,7 @@
 </head>
 
 <body class="bg-light">
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="container">
-
-        <!-- Main Content-->
-
-        @yield('content')
-
-        <!-- /.content -->
-    </div>
-
-    <!-- ./wrapper -->
+    @yield('content')
 
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -68,7 +57,7 @@
             }
         });
     </script>
-    
+
     @yield('script')
 
 </body>

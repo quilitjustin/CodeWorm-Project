@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<main class="d-flex w-100"style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../assets/img/leaderboards.png')">
+	<main class="d-flex w-100"style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../assets/img/leaderboards1.png')">
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 mx-auto d-table h-100">
@@ -24,8 +24,6 @@
 									<tr>
 										<th>Rank</th>
 										<th class="d-none d-xl-table-cell">Name</th>
-										<th class="d-none d-xl-table-cell">Language</th>
-										<th class="d-none d-xl-table-cell">Stage</th>
 										<th class="d-none d-md-table-cell">Time</th>
 									</tr>
 								</thead>
@@ -34,8 +32,6 @@
 										<tr data-href="{{ route('public_profile.index', $record->id) }}">
 											<td>{{ $loop->index +  1 }}</td>
 											<td class="d-none d-xl-table-cell">{{ $record->f_name . $record->l_name }}</td>
-											<td><span class="badge bg-success">I'm supreme!</span></td>
-											<td><span class="badge bg-success">I'm supreme!</span></td>
 											<td class="d-none d-md-table-cell">{{ $record->record }}</td>
 										</tr>
 									@empty
