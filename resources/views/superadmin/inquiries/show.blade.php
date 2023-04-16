@@ -45,7 +45,7 @@
                                         class="mailbox-read-time float-right">{{ \Carbon\Carbon::parse($inquiries->created_at)->diffForHumans() }}</span>
                                 </h5>
                                 <p>
-                                    Email: {{ $inquiries->email }} 
+                                    Email: {{ $inquiries->email }}
                                     <br>
                                     Phone: {{ $inquiries->phone }}
                                 </p>
@@ -161,5 +161,6 @@
 @endsection
 
 @section('script')
-    <script></script>
+    @include('layouts.superadmin.delete')
+
 @endsection

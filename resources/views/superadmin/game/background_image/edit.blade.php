@@ -104,6 +104,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         const rule = $("#action");
         const imageFile = $("#image");
@@ -138,10 +139,6 @@
             imageFile.next(".custom-file-label").html("Choose Image");
             preview.addClass("d-none");
             preview.attr("src", "#");
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection

@@ -91,8 +91,8 @@
                         <label for="img-preview">Preview</label>
                         <div class="row d-flex justify-content-center">
                             <div id="preview" class="col-4">
-                                <img src="{{ asset($badge['path']) }}" id="img-preview" class="img-fluid border border-secondary"
-                                    alt="preview">
+                                <img src="{{ asset($badge['path']) }}" id="img-preview"
+                                    class="img-fluid border border-secondary" alt="preview">
                                 <div class="text-center">
                                     <h3>{{ $badge['name'] }}</h3>
                                     <span>Date Earned: {{ now() }}</span>
@@ -110,9 +110,6 @@
 @endsection
 
 @section('script')
-    <script>
-        $("#cancel").click(function() {
-            window.history.back();
-        });
-    </script>
+    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_component')
 @endsection

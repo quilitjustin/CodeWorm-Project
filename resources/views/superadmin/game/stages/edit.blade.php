@@ -114,7 +114,7 @@
 
 @section('script')
     @include('superadmin.game.tasks.script')
-    
+    @include('layouts.superadmin.inc_component')
     <script>
         const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
         const TOKEN = "{{ csrf_token() }}";
@@ -122,10 +122,6 @@
     {{-- Code execution --}}
     <script src="{{ asset('js/rcode.js') }}"></script>
     <script>
-        $("#cancel").click(function() {
-            window.history.back();
-        });
-        
         $("#run").click(function(){
             const language = $("#proglang option:selected").text();
             const code = editor.getValue();

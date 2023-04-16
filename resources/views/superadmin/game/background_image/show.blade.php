@@ -73,8 +73,7 @@
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
                             <a href="{{ route('bgims.edit', $bgim['id']) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="d-inline" action="{{ route('bgims.destroy', $bgim['id']) }}" method="POST"
-                                onsubmit="return confirm('You are about to delete bgim ID: {{ $bgim['id'] }}s record. \n Are you sure?');">
+                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgim['id']) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -100,9 +99,6 @@
 @endsection
 
 @section('script')
-    <script>
-        $("#cancel").click(function() {
-            window.history.back();
-        });
-    </script>
+    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_component')
 @endsection

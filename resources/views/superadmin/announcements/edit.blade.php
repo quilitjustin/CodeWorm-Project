@@ -31,7 +31,8 @@
                                 Announcements Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('announcements.update', $announcement['id']) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('announcements.update', $announcement['id']) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->
@@ -41,7 +42,8 @@
                                         <div class="form-group">
                                             <label>Title</label>
                                             <input class="form-control" type="text" name="title"
-                                                placeholder="Enter title" value="{{ old('title', $announcement['title']) }}" />
+                                                placeholder="Enter title"
+                                                value="{{ old('title', $announcement['title']) }}" />
                                             @error('title')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
@@ -84,21 +86,17 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         $(document).ready(function() {
             // Summernote
             $('#summernote').summernote({
-                    height: 300,
-                    focus: true,
-                    // placeholder: 'write here...',
-                    codeviewIframeFilter: true,
-                    spellCheck: true
-                }
-            );
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
+                height: 300,
+                focus: true,
+                // placeholder: 'write here...',
+                codeviewIframeFilter: true,
+                spellCheck: true
+            });
         });
     </script>
 @endsection

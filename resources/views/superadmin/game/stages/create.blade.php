@@ -94,10 +94,5 @@
 
 @section('script')
     @include('superadmin.game.stages.script')
-    
-    <script>
-        $("#cancel").click(function() {
-            window.history.back();
-        });
-    </script>
+    @include('layouts.superadmin.inc_component')
 @endsection

@@ -83,21 +83,17 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         $(document).ready(function() {
             // Summernote
             $('#summernote').summernote({
-                    height: 300,
-                    focus: true,
-                    // placeholder: 'write here...',
-                    codeviewIframeFilter: true,
-                    spellCheck: true
-                }
-            );
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
+                height: 300,
+                focus: true,
+                // placeholder: 'write here...',
+                codeviewIframeFilter: true,
+                spellCheck: true
+            });
         });
     </script>
 @endsection

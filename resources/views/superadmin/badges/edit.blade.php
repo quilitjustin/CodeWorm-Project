@@ -31,7 +31,8 @@
                                 Badge Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('badges.update', $badge->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('badges.update', $badge->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" value="false" id="action" name="action">
@@ -103,6 +104,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         const rule = $("#action");
         const imageFile = $("#image");
@@ -137,10 +139,6 @@
             imageFile.next(".custom-file-label").html("Choose Image");
             preview.addClass("d-none");
             preview.attr("src", "#");
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection

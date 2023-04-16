@@ -99,6 +99,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         const imageFile = $("#image");
         const preview = $("#img-preview");
@@ -127,10 +128,6 @@
             imageFile.next(".custom-file-label").html("Choose Image");
             preview.addClass("d-none");
             preview.attr("src", "#");
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection

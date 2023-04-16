@@ -89,7 +89,8 @@
                         <label for="img-preview">Preview</label>
                         <div class="row d-flex justify-content-center">
                             <div id="preview" class="col-4 d-none">
-                                <img src="#" id="img-preview" class="img-fluid border border-secondary" alt="preview">
+                                <img src="#" id="img-preview" class="img-fluid border border-secondary"
+                                    alt="preview">
                                 <div class="text-center">
                                     <h3>Untitled</h3>
                                     <span>Date Earned: {{ now() }}</span>
@@ -107,6 +108,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         const imageFile = $("#image");
         const preview = $("#img-preview");
@@ -136,10 +138,6 @@
             imageFile.next(".custom-file-label").html("Choose Image");
             previewBody.addClass("d-none");
             preview.attr("src", "#");
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection

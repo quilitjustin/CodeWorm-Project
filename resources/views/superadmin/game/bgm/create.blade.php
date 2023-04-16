@@ -99,6 +99,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_component')
     <script>
         const audioFile = $("#audio");
         const preview = $("#audio-preview");
@@ -127,10 +128,6 @@
             audioFile.next(".custom-file-label").html("Choose Audio");
             preview.addClass("d-none");
             preview.attr("src", "#");
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection
