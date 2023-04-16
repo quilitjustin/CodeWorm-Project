@@ -40,7 +40,20 @@
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-6">
-                                    <label>{{ $stage->proglang }}</label>
+                                    <label>Programming Language</label>
+                                    <a href="{{ !isset($other[2]) ? '#' : route('proglangs.show', $other[2]->id) }}">
+                                        <p>{{ !isset($other[2]) ? 'N/A' : $other[2]->f_name }}</p>
+                                    </a>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Tasks</label>
+                                    <div>
+                                        @forelse ($tasks as $task)
+                                            <a class="d-block" href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a>
+                                        @empty
+                                            <p>None</p>
+                                        @endforelse
+                                    </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <hr class="border border-primary w-100">
@@ -79,7 +92,8 @@
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
                             <a href="{{ route('stages.edit', $stage->id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('stages.destroy', $stage->id) }}" method="POST">
+                            <form class="delete d-inline" action="{{ route('stages.destroy', $stage->id) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

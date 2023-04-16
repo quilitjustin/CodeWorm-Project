@@ -26,7 +26,7 @@ class StagesController extends Controller
     public function index()
     {
         // I'm using '\DB' because I'm only using it in index(), but if you want to use it to multiple part of this controller, import it instead using 'use DB'
-        // This will return a std class so use ->property_name instead of ['property_name'] 
+        // This will return a std class so use ->property_name instead of ['property_name']
         // If you really want to return an array, use json_decode true which is commented down below
         // Warning: using json_decode may affect the performance, but it will get the job done so yey?
         $stages = \DB::table('stages')
@@ -69,6 +69,12 @@ class StagesController extends Controller
 
         $stage = new Stages();
         $stage->name = strip_tags($request['name']);
+
+        $arr = [];
+        foreach ($request['tasks'] as $task) {
+            array_push($arr, decrypt($task));
+        }
+        $stage->tasks = $arr;
         $stage->proglang_id = $proglang_id;
         $stage->created_by = decrypt(Auth::user()->id);
         $stage->save();
@@ -89,13 +95,28 @@ class StagesController extends Controller
     public function show($stage)
     {
         $data = $this->findRecord($stage);
+        $arr = [];
+        foreach ($data->tasks as $task) {
+            array_push($arr, \App\Models\Tasks::select('id', 'name')->where('id', $task));
+        }
+        $result = collect($arr)->reduce(function ($query1, $query2) {
+            if ($query1 && $query2) {
+                return $query1->union($query2);
+            } else {
+                return $query1 ?? $query2;
+            }
+        });
+        $tasks = $result->get();
+        // Just a work around to make union work or it'll throw an error ('name', 'name')
+        $proglang = Proglang::select('id', 'name as f_name', 'name as l_name')->where('id', $data->proglang_id);
         $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
         $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
         $other = $created_by->unionAll($updated_by)->get();
-    
+
         return view('superadmin.game.stages.show', [
             'stage' => $data,
             'other' => $other,
+            'tasks' => $tasks,
         ]);
     }
 
@@ -123,22 +144,22 @@ class StagesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $stage)
-    {   
+    {
         $request->validate([
             'name' => ['required', 'max:255'],
             'proglang' => ['required'],
         ]);
-        
+
         $proglang_id = decrypt($request['proglang']);
         $proglang = Proglang::findorfail($proglang_id);
-        
+
         $data = $this->findRecord($stage);
 
         $data->name = strip_tags($request['name']);
         $data->proglang_id = $proglang_id;
         $data->updated_by = decrypt(Auth::user()->id);
         $data->save();
-   
+
         return redirect()
             ->route('stages.show', [
                 'stage' => $data->id,

@@ -14,4 +14,8 @@ class Stages extends Model
     {
         return encrypt($value);
     }
+
+    protected $casts = [
+        'tasks' => 'array'
+    ];
 }

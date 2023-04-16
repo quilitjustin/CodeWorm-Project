@@ -63,7 +63,7 @@
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <label>Tasks</label>
-                                            <select class="select2" id="tasks" multiple="multiple"
+                                            <select class="select2" id="tasks" name="tasks[]" multiple="multiple"
                                                 data-placeholder="Select a State" style="width: 100%;">
                                                 
                                             </select>
