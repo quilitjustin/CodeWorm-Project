@@ -82,10 +82,10 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
     // Route::get('play', function () {
     //     return view('layouts.play');
     // });
-    // Route::get('play/js', function () {
-    //     return view('layouts.play_js');
-    // })->name('web.play.js');
-    // Route::get('play/php', function () {
-    //     return view('layouts.play_php');
-    // })->name('web.play.php');
+    Route::get('play/js', function () {
+        return view('layouts.play_js');
+    })->name('web.play.js');
+    Route::get('play/php', function () {
+        return view('layouts.play_php');
+    })->name('web.play.php');
 });

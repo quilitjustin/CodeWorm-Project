@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="{{ asset('codemirror/theme/monokai.css') }}">
     {{-- Game --}}
     <link rel="stylesheet" href="{{ asset('demo/style.css') }}">
-    <style>
-        .CodeMirror {
-            height: 300px !important;
-            padding: 20px;
-        }
-    </style>
 </head>
 
 <body style="background: #0E1525;">
@@ -50,6 +44,20 @@
                                 DMG 5 SP 5
                             </span>
                         </button>
+                        <button id="tackle" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
+                            Heal
+                            <br>
+                            <span class="font-weight-normal">
+                                HP 100 SP 100
+                            </span>
+                        </button>
+                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
+                            I'm Supreme!
+                            <br>
+                            <span class="font-weight-normal">
+                                DMG 100 SP 100
+                            </span>
+                        </button>
                     </div>
                     <div>
                         <button id="pause"
@@ -59,14 +67,28 @@
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
-                    <div id="tasks" class="h-100">
+                    <div id="tasks" class="h-100" hidden>
 
                     </div>
-                    <div id="code-editor" hidden>
-                        <textarea name="" id="codeMirrorDemo">// Print Hello World</textarea>
-                        <button id="submit" class="btn btn-primary w-100 py-3">Submit</button>
-                    </div>
+                    <div id="description" class="h-100 text-light p-3" hidden>
+                        <div class="h-75" style="overflow: auto;">
+                            <h5 style="mb-3">Task Description:</h5>
+                            <div id="task-description">
 
+                            </div>
+                        </div>
+                        <div class="h-25 d-flex justify-content-end align-items-end">
+                            <button class="btn btn-success">Start Coding</button>
+                        </div>
+                    </div>
+                    <div id="code-editor">
+                        <textarea name="" id="codeMirrorDemo"></textarea>
+                        <div class="btn-group w-100" role="group">
+                            <button id="submit" class="btn btn-warning w-25">Cancel</button>
+                            <button id="submit" class="btn btn-success w-50">Read Description</button>
+                            <button id="submit" class="btn btn-primary w-25">Submit</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
                     <p>Console:</p>
@@ -119,6 +141,10 @@
             $("#code-editor").prop("hidden", false);
             editor.getDoc().setValue(arr[idx]);
         };
+
+        function showDescription(){
+            
+        }
 
         let arr = [];
 
