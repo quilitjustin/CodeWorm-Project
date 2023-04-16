@@ -17,14 +17,6 @@ class ProgrammingLanguageController extends Controller
         return $data;
     }
 
-    protected function capitalize($data)
-    {
-        // Because we are not using request this time
-        // I will strip tags here instead
-        $data = strip_tags($data);
-        return ucwords(strtolower($data));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +57,7 @@ class ProgrammingLanguageController extends Controller
         ]);
 
         $proglang = new ProgLang();
-        $proglang->name = $this->capitalize($request['name']);
+        $proglang->name = strip_tags($request['name']);
 
         $proglang->created_by = decrypt(Auth::user()->id);
         $proglang->save();
@@ -130,7 +122,7 @@ class ProgrammingLanguageController extends Controller
         ]);
         $data = $this->findRecord($proglang);
 
-        $data->name = $this->capitalize($request->name);
+        $data->name = strip_tags($request->name);
 
         $data->updated_by = decrypt(Auth::user()->id);
 

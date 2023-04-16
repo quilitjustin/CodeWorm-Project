@@ -62,7 +62,7 @@
                     <div id="tasks" class="h-100">
 
                     </div>
-                    <div id="code-editor" hidden>
+                    <div id="code-editor">
                         <textarea name="" id="codeMirrorDemo">// Print Hello World</textarea>
                         <button id="submit" class="btn btn-primary w-100 py-3">Submit</button>
                     </div>
@@ -103,14 +103,14 @@
     <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            // lineNumbers: true,
-            // matchBrackets: true,
+            lineNumbers: true,
+            matchBrackets: true,
             mode: {
                 name: "application/x-httpd-php",
                 startOpen: true,
             },
-            // indentUnit: 4,
-            // indentWithTabs: true,
+            indentUnit: 4,
+            indentWithTabs: true,
             theme: "monokai",
         });
 
@@ -150,7 +150,12 @@
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js') }}"></script>
-    <script></script>
+    <script>
+        $(document).ready(function(){
+            // hide editor after the page load
+            $("code-editor").prop("hidden", true);
+        });
+    </script>
 </body>
 
 </html>

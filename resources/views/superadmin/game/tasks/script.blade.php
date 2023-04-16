@@ -19,4 +19,18 @@
         indentWithTabs: true,
         theme: "monokai",
     });
+
+    $("#advance").click(function() {
+        if ($("#snippet").is(":hidden")) {
+            $(this).text("Hide advanced options");
+            $("#snippet").prop("hidden", false);
+        } else {
+            $(this).text("Show advanced options");
+            $("#snippet").prop("hidden", true);
+        }
+    });
+
+    $(document).ready(function(){
+        $("#snippet").prop("hidden", true);
+    });
 </script>

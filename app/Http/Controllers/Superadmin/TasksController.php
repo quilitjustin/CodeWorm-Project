@@ -77,9 +77,11 @@ class TasksController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
-            'snippet' => ['required', 'max:255'],
+            'difficulty' => ['required', 'in:Easy,Medium,Hard'],
+            'snippet' => ['max:255'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
+            'reward' => ['required', 'integer'],
         ]);
 
         $proglang_id = decrypt($request['proglang']);
@@ -87,10 +89,14 @@ class TasksController extends Controller
 
         $task = new Tasks();
         $task->name = strip_tags($request['name']);
+        $task->difficulty = strip_tags($request['difficulty']);
         $task->snippet = $this->sanitize($request['snippet']);
         $task->answer = strip_tags($request['answer']);
+        $task->reward = strip_tags($request['reward']);
         $task->proglang_id = $proglang_id;
-        $task->created_by = decrypt(Auth::user()->id);
+        $uid = decrypt(Auth::user()->id);
+        $task->created_by = $uid;
+        $task->updated_by = $uid;
         $task->save();
 
         return redirect()
@@ -109,10 +115,12 @@ class TasksController extends Controller
     public function show($task)
     {
         $data = $this->findRecord($task);
+        // Just a work around to make union work or it'll throw an error ('name', 'name')
+        $proglang = Proglang::select('id', 'name as f_name', 'name as l_name')->where('id', $data->proglang_id);
         $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
         $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by->unionAll($updated_by)->get();
-    
+        $other = $created_by->unionAll($updated_by)->unionAll($proglang)->get();
+
         return view('superadmin.game.tasks.show', [
             'task' => $data,
             'other' => $other,
@@ -146,9 +154,11 @@ class TasksController extends Controller
     {   
         $request->validate([
             'name' => ['required', 'max:255'],
-            'snippet' => ['required', 'max:255'],
+            'difficulty' => ['required', 'in:Easy,Medium,Hard'],
+            'snippet' => ['max:255'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
+            'reward' => ['required', 'integer'],
         ]);
         
         $proglang_id = decrypt($request['proglang']);
@@ -157,8 +167,10 @@ class TasksController extends Controller
         $data = $this->findRecord($task);
 
         $data->name = strip_tags($request['name']);
+        $data->difficulty = strip_tags($request['difficulty']);
         $data->snippet = $this->sanitize($request['snippet']);
         $data->answer = strip_tags($request['answer']);
+        $data->reward = strip_tags($request['reward']);
         $data->proglang_id = $proglang_id;
         $data->updated_by = decrypt(Auth::user()->id);
         $data->save();

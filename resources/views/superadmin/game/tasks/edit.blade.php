@@ -52,6 +52,19 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
+                                            <label>Difficulty</label>
+                                            <select class="form-control select2" style="width: 100%;" id="difficulty"
+                                                name="difficulty">
+                                                <option {{ old('difficulty', $task->difficulty) == "Easy" ? "selected" : "" }}>Easy</option>
+                                                <option {{ old('difficulty', $task->difficulty) == "Medium" ? "selected" : "" }}>Medium</option>
+                                                <option {{ old('difficulty', $task->difficulty) == "Hard" ? "selected" : "" }}>Hard</option>
+                                            </select>
+                                            @error('difficulty')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
                                             <label>Language</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
@@ -63,30 +76,42 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Code Snippet</label>
-                                            <textarea name="snippet" id="codeMirrorDemo" class="form-control">{{ old('snippet', $task->snippet) }}</textarea>
-                                            @error('snippet')
-                                                <p class="text-danger my-2">{{ $message }}</p>
-                                            @enderror
-                                            <button type="button" id="run" class="btn btn-outline-success mt-3 px-5">Run</button>
-                                            <div class="px-2 py-1 mt-3 bg-dark">
-                                                <div>
-                                                    Console:
-                                                </div>
-                                                <hr class="border border-light w-100 m-0 p-0">
-                                                <div id="result">
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.form-group -->
-                                        <div class="form-group">
                                             <label>Expected Answer</label>
                                             <input class="form-control" type="text" name="answer"
                                                 placeholder="Expected Answer" value="{{ old('answer', $task->answer) }}" />
                                             @error('answer')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Reward (SP)</label>
+                                            <input class="form-control" type="number" name="reward"
+                                                placeholder="Enter Amount of SP" value="{{ old('reward', $task->reward) }}" />
+                                            @error('reward')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <button id="advance" type="button" class="text-info mb-3">Show advanced
+                                            options</button>
+                                        <div class="form-group" id="snippet">
+                                            <label>Code Snippet</label>
+                                            <textarea name="snippet" id="codeMirrorDemo" class="form-control">{{ old('snippet', $task->snippet) }}</textarea>
+                                            @error('snippet')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                            <button type="button" id="run"
+                                                class="btn btn-outline-success mt-3 px-5">Run</button>
+                                            <div class="px-2 py-1 mt-3 bg-dark">
+                                                <div>
+                                                    Console:
+                                                </div>
+                                                <hr class="border border-light w-100 m-0 p-0">
+                                                <div id="result">
+
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
@@ -114,7 +139,7 @@
 
 @section('script')
     @include('superadmin.game.tasks.script')
-    
+
     <script>
         const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
         const TOKEN = "{{ csrf_token() }}";
@@ -125,12 +150,12 @@
         $("#cancel").click(function() {
             window.history.back();
         });
-        
-        $("#run").click(function(){
+
+        $("#run").click(function() {
             const language = $("#proglang option:selected").text();
             const code = editor.getValue();
 
-            runCode(code, language.toLowerCase());  
+            runCode(code, language.toLowerCase());
         });
         $(document).ready(function() {
             const route = "{{ route('super.fetch.languages') }}";

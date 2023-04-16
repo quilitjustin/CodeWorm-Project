@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('snippet');
+            $table->string('difficulty');
+            $table->integer('reward');
+            $table->string('snippet')->nullable();
             $table->string('answer');
             $table->unsignedBigInteger('proglang_id');
             $table->unsignedBigInteger('created_by');
@@ -38,6 +40,11 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
         });
+
+        DB::statement("ALTER TABLE tasks 
+            MODIFY difficulty 
+            ENUM('Easy', 'Medium', 'Hard') 
+            NOT NULL DEFAULT 'easy'");
     }
 
     /**

@@ -36,13 +36,27 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Name</label>
-                                    <p>{{ $task['name'] }}</p>
+                                    <p>{{ $task->name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-6">
-                                    <label>{{ $task->proglang }}</label>
+                                    <label>Programming Language</label>
+                                    <a href="{{ !isset($other[2]) ? '#' : route('proglangs.show', $other[2]->id) }}">
+                                        <p>{{ !isset($other[2]) ? 'N/A' : $other[2]->f_name }}</p>
+                                    </a>
                                 </div>
-                                <div class="col-sm-12">
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Difficulty</label>
+                                    <p>{{ $task->difficulty }}</p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Reward</label>
+                                    <p>{{ $task->reward }}</p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-12 {{ $task->snippet == "" ? "d-none" : "" }}">
                                     <!-- /.form-group -->
                                     <label>Code Snippet</label>
                                     <textarea name="snippet" id="codeMirrorDemo" class="form-control">{{ $task->snippet }}</textarea>
