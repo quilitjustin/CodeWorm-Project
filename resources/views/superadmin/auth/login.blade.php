@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('content')
-	<main class="d-flex w-100">
+	<main class="d-flex w-100" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('../assets/img/login.png')">
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
