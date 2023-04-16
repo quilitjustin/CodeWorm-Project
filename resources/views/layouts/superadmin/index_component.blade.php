@@ -16,48 +16,47 @@
 <script>
     // Datatable
     $(function() {
-    $("#data-table").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        // "copy", "csv", "excel", "pdf", "print"
-        "buttons": [{
-                "extend": "copyHtml5",
-                "title": "Export Data",
-                "exportOptions": {
-                    "columns": ':not(:last-child)'
-                }
-            },
-            {
-                "extend": "csvHtml5",
-                "title": "Export Data",
-                "exportOptions": {
-                    "columns": ':not(:last-child)'
-                }
-            },
-            {
-                "extend": "excelHtml5",
-                "title": "Export Data",
-                "exportOptions": {
-                    "columns": ':not(:last-child)'
-                }
-            },
-            {
-                "extend": "pdfHtml5",
-                "title": "Export Data",
-                "exportOptions": {
-                    "columns": ':not(:last-child)',
-                }
-            },
-            {
-                "extend": "print",
-                "title": "Export Data",
-                "exportOptions": {
-                    "columns": ':not(:last-child)'
-                }
-            },
-        ]
-    }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
-    });
+        $("#data-table").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            // "copy", "csv", "excel", "pdf", "print"
+            "buttons": [{
+                    "extend": "copyHtml5",
+                    "title": "Export Data",
+                    "exportOptions": {
+                        "columns": ':not(:last-child)'
+                    }
+                },
+                {
+                    "extend": "csvHtml5",
+                    "title": "Export Data",
+                    "exportOptions": {
+                        "columns": ':not(:last-child)'
+                    }
+                },
+                {
+                    "extend": "excelHtml5",
+                    "title": "Export Data",
+                    "exportOptions": {
+                        "columns": ':not(:last-child)'
+                    }
+                },
+                {
+                    "extend": "pdfHtml5",
+                    "title": "Export Data",
+                    "exportOptions": {
+                        "columns": ':not(:last-child)',
+                    }
+                },
+                {
+                    "extend": "print",
+                    "title": "Export Data",
+                    "exportOptions": {
+                        "columns": ':not(:last-child)'
+                    }
+                },
+            ]
+        }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
     });
 </script>
