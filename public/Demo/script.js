@@ -60,8 +60,18 @@ window.addEventListener("load", function () {
                 player.sp -= 5;
             });
 
+            $("#heal").click(function () {
+                player.lives += 100;
+                player.sp -= 100;
+            });
+            
+            $("#supreme").click(function () {
+                player.supreme = true;
+                enemy.lives -= 100;
+                player.sp -= 100;
+            });
+
             $("#submit").click(function () {
-                let givenAnswer = "Hello World";
                 let code = editor.getValue();
                 if(language == "php"){
                 $.post({
@@ -73,9 +83,9 @@ window.addEventListener("load", function () {
                     success: function (response) {
                         // console.log(response);
                         if(response['success'] == true){
-                            if (response['result'] == givenAnswer) {
+                            if (response['result'] == RIGHT_ANSWER) {
                                 $("#msg").text("Right Answer!");
-                                player.sp++;
+                                player.sp+= STAKE;
                                 $("#tasks").prop("hidden", false);
                                 $("#code-editor").prop("hidden", true);
                             } else {
@@ -102,11 +112,11 @@ window.addEventListener("load", function () {
                     "use strict";
                     eval(`${code}`);
 
-                    if(window.$log == givenAnswer){
+                    if(window.$log == RIGHT_ANSWER){
                         $("#msg").text("Right Answer!");
                         $("#tasks").prop("hidden", false);
                         $("#code-editor").prop("hidden", true);
-                        player.sp++;
+                        player.sp+= STAKE;
                     } else {
                         $("#msg").text("Wrong Answer!");
                         enemy.damage++;
@@ -174,7 +184,7 @@ window.addEventListener("load", function () {
             this.speed = 0;
             this.vy = 0;
             this.weight = 1;
-            this.sp = 99999;
+            this.sp = 100;
             this.myBtn = document.getElementById("tackle");
             this.lives = 99999;
             this.heart = document.getElementById("life");
@@ -200,7 +210,7 @@ window.addEventListener("load", function () {
 
             // for(let i = 0; i < this.lives; i++){
             //     if(i > 2){
-                ctx.textAlign = "start";
+            ctx.textAlign = "start";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, 20, 80);
@@ -222,10 +232,17 @@ window.addEventListener("load", function () {
             ctx.fillText("SP: " + this.sp, 20, 105);
         }
         update(input, deltaTime, enemies, explosions) {
-            if (this.sp > 4) {
+            if (this.sp >= 5) {
                 $("#tackle").prop("disabled", false);
             } else {
                 $("#tackle").prop("disabled", true);
+            }
+            if (this.sp >= 100) {
+                $("#heal").prop("disabled", false);
+                $("#supreme").prop("disabled", false);
+            } else {
+                $("#heal").prop("disabled", true);
+                $("#supreme").prop("disabled", true);
             }
             // Colliision detection
             // enemies.forEach(enemy => {
@@ -240,6 +257,11 @@ window.addEventListener("load", function () {
                 $(".skills").prop("disabled", true);
                 this.speed = 20;
                 this.x += this.speed;
+            }
+            if (this.supreme){
+                $(".skills").prop("disabled", true);
+                explosions[0].update();
+                explosions[0].draw();       
             }
             // Sprite animation
             if (this.frameTimer > this.frameInterval) {
@@ -278,7 +300,7 @@ window.addEventListener("load", function () {
                 explosions[0].draw();
                 explosions.splice(0, 1);
                 this.onHit = false;
-                $("#tackle").prop("disabled", false);
+                $(".skills").prop("disabled", false);
             }
             // Vertical Movement
             this.y += this.vy;
@@ -344,7 +366,7 @@ window.addEventListener("load", function () {
             this.speed = 8;
             this.markedForDeletion = false;
             this.sp = 0;
-            this.lives = 20;
+            this.lives = 1000;
             this.heart = document.getElementById("life");
             this.maxLifeShow = 3;
             this.rage = false;
@@ -643,17 +665,26 @@ window.addEventListener("load", function () {
             boom.push(new Explotion(enemy.x, enemy.y));
         }
 
+        ctx.textAlign = "center";
+        ctx.fillStyle = "black";
+        ctx.font = "20px Helvetica";
+        ctx.fillText(STAGE_NAME, canvas.width / 2, 50);
+        ctx.textAlign = "center";
+        ctx.fillStyle = "white";
+        ctx.font = "20px Helvetica";
+        ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
+
         timer+= deltaTime;
         const formattedTime = (timer * 0.001).toFixed(1); 
         
         ctx.textAlign = "center";
         ctx.fillStyle = "black";
-        ctx.font = "30px Helvetica";
-        ctx.fillText(formattedTime, canvas.width / 2, 50);
+        ctx.font = "20px Helvetica";
+        ctx.fillText(formattedTime, canvas.width / 2, 70);
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
-        ctx.font = "30px Helvetica";
-        ctx.fillText(formattedTime, canvas.width / 2, 52);
+        ctx.font = "20px Helvetica";
+        ctx.fillText(formattedTime, canvas.width / 2, 72);
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);

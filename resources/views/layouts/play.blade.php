@@ -3,17 +3,17 @@
 
 <head>
     @include('layouts.meta')
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- CodeMirror -->
     <link rel="stylesheet" href="{{ asset('codemirror/lib/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('codemirror/theme/monokai.css') }}">
     {{-- Game --}}
     <link rel="stylesheet" href="{{ asset('demo/style.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
 
 <body style="background: #0E1525;">
-    <div id="game" hidden>
+    <div id="game">
         <div id="con" class="d-flex justify-content-center">
             <canvas id="canvas1"></canvas>
             <img id="playerImage" src="{{ asset('demo/player.png') }}" alt="player">
@@ -44,14 +44,14 @@
                                 DMG 5 SP 5
                             </span>
                         </button>
-                        <button id="tackle" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
+                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
                             Heal
                             <br>
                             <span class="font-weight-normal">
                                 HP 100 SP 100
                             </span>
                         </button>
-                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
+                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
@@ -67,7 +67,7 @@
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
-                    <div id="tasks" class="h-100" hidden>
+                    <div id="tasks" class="h-100">
 
                     </div>
                     <div id="description" class="h-100 text-light p-3" hidden>
@@ -78,14 +78,17 @@
                             </div>
                         </div>
                         <div class="h-25 d-flex justify-content-end align-items-end">
-                            <button class="btn btn-success">Start Coding</button>
+                            <button id="start-coding" class="btn btn-success">Start Coding</button>
                         </div>
                     </div>
                     <div id="code-editor">
                         <textarea name="" id="codeMirrorDemo"></textarea>
+                        <div class="bg-light">
+                            <p class="m-0 p-1">Expected Answer: <span id="expected-answer"></span></p>
+                        </div>
                         <div class="btn-group w-100" role="group">
-                            <button id="submit" class="btn btn-warning w-25">Cancel</button>
-                            <button id="submit" class="btn btn-success w-50">Read Description</button>
+                            <button id="cancel-task" class="btn btn-warning w-25">Cancel</button>
+                            <button id="re-description" class="btn btn-success w-50">Read Description</button>
                             <button id="submit" class="btn btn-primary w-25">Submit</button>
                         </div>
                     </div>
@@ -125,46 +128,71 @@
     <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            // lineNumbers: true,
-            // matchBrackets: true,
+            lineNumbers: true,
+            matchBrackets: true,
             mode: {
                 name: "application/x-httpd-php",
                 startOpen: true,
             },
-            // indentUnit: 4,
-            // indentWithTabs: true,
+            indentUnit: 4,
+            indentWithTabs: true,
             theme: "monokai",
         });
 
-        function showTask(idx) {
-            $("#tasks").prop("hidden", true);
-            $("#code-editor").prop("hidden", false);
-            editor.getDoc().setValue(arr[idx]);
-        };
-
-        function showDescription(){
-            
-        }
+        let RIGHT_ANSWER = "";
 
         let arr = [];
 
-        $.get({
-            url: "{{ route('fetch.php') }}",
-            method: 'GET',
-            data: {
-                "_token": "{{ csrf_token() }}",
-            },
-            success: function(response) {
-                let html = '';
-                $.each(response, function(index, data) {
-                    html +=
-                        `<button onclick="showTask(` + index +
-                        `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
-                    arr.push(data.snippet);
-                });
-                $("#tasks").append(html);
+        const tasks = {!! $tasks !!};
+   
+        let html = '';
+        for (let i = 0; i < tasks.length; i++) {
+            html +=
+                `<button onclick="showTask(` + i +
+                `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` + 
+                tasks[i]["name"] + `<br><span class="font-weight-normal">Difficulty: ` +
+                    tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>`
+                + `</button>`;
+        }
+        let STAKE = 0;
+
+        function showTask(idx) {
+            $("#tasks").prop("hidden", true);
+            $("#description").prop("hidden", false);
+            $("#task-description").text(tasks[idx]["description"]);
+            $("#expected-answer").text(tasks[idx]["answer"]);
+            console.log(tasks[idx]["answer"])
+            RIGHT_ANSWER = tasks[idx]["answer"];
+            STAKE = tasks[idx]["reward"];
+            if(tasks[idx]["snippet"]){
+                editor.getDoc().setValue(tasks[idx]["snippet"]);
             }
+        };
+
+        $("#tasks").append(html);
+
+        $("#start-coding").click(function(){
+            $("#description").prop("hidden", true);
+            $("#code-editor").prop("hidden", false);
         });
+        $("#code-editor").prop("hidden", true);
+        // $.get({
+        //     url: "{{ route('fetch.php') }}",
+        //     method: 'GET',
+        //     data: {
+        //         "_token": "{{ csrf_token() }}",
+        //     },
+        //     success: function(response) {
+        //         let html = '';
+        //         $.each(response, function(index, data) {
+        //             html +=
+        //                 `<button onclick="showTask(` + index +
+        //                 `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
+        //             arr.push(data.snippet);
+        //         });
+        //         $("#tasks").append(html);
+        //     }
+        // });
 
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
@@ -173,10 +201,15 @@
         const storeRoute = "{{ route('web.play.store') }}";
         const userId = '{{ Auth::user()->id }}';
         const CSRF_TOKEN = `{{ csrf_token() }}`;
+        const STAGE_NAME = "{{ $stage[0]->name }}";
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js') }}"></script>
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            $("#game").prop("hidden", true);
+        });
+    </script>
 </body>
 
 </html>

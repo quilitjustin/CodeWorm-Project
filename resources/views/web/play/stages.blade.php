@@ -39,7 +39,7 @@
                                     class="btn btn-secondary w-100 py-3">{{ $stage->name }}</a>
                             </div>
                         @empty
-                            <h5 class="text-center">No records</h5>
+                            <h5 class="text-center">No stages available</h5>
                         @endforelse
                     </div>
                 </div>

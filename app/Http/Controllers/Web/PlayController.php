@@ -30,9 +30,25 @@ class PlayController extends Controller
 
     public function game_start($id){
         $id = decrypt($id);
-        $stages = Stages::findorfail($id)->select('id', 'name')->get();
+        $stage = Stages::findorfail($id)->select('id', 'name', 'tasks', 'proglang_id')->where('id', $id)->get();
 
-        dd($stages);
+        $arr = [];
+        foreach ($stage[0]->tasks as $task) {
+            array_push($arr, \App\Models\Tasks::select('name', 'description', 'snippet', 'difficulty', 'answer', 'reward')->where('id', $task));
+        }
+        $result = collect($arr)->reduce(function ($query1, $query2) {
+            if ($query1 && $query2) {
+                return $query1->union($query2);
+            } else {
+                return $query1 ?? $query2;
+            }
+        });
+        $tasks = $result->get();
+        
+        return view('layouts.play', [
+            'stage' => $stage,
+            'tasks' => $tasks,
+        ]);
     }
 
     public function save_record(Request $request)
