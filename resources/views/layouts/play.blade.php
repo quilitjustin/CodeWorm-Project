@@ -161,7 +161,7 @@
             $("#description").prop("hidden", false);
             $("#task-description").text(tasks[idx]["description"]);
             $("#expected-answer").text(tasks[idx]["answer"]);
-            console.log(tasks[idx]["answer"])
+  
             RIGHT_ANSWER = tasks[idx]["answer"];
             STAKE = tasks[idx]["reward"];
             if(tasks[idx]["snippet"]){
@@ -197,7 +197,8 @@
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
         const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
-        const language = 'php';
+        const proglang = "{{ $proglang[0]->name }}";
+        const language = proglang.toLowerCase();
         const storeRoute = "{{ route('web.play.store') }}";
         const userId = '{{ Auth::user()->id }}';
         const CSRF_TOKEN = `{{ csrf_token() }}`;

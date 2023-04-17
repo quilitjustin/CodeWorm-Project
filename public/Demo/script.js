@@ -107,7 +107,7 @@ window.addEventListener("load", function () {
                         enemy.damage++;
                     },
                 });
-            } else if(language == 'js'){
+            } else if(language == 'javascript'){
                 try {
                     "use strict";
                     eval(`${code}`);
