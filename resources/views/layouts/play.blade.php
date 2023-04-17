@@ -13,21 +13,32 @@
 </head>
 
 <body style="background: #0E1525;">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader">
+            <div style="margin: auto;">
+                <img class="d-block" src="{{ asset('assets/img/logo.png') }}" alt="logo" height="150" width="150">
+                <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="game">
         <div id="con" class="d-flex justify-content-center">
             <canvas id="canvas1"></canvas>
-            <img id="playerImage" src="{{ asset('demo/player.png') }}" alt="player">
-            <img id="backgroundImage" src="{{ asset('demo/background_single.png') }}" alt="bg-image">
-            <img id="enemyImage" src="{{ asset('demo/enemy_1.png') }}" alt="enemy">
-            <img id="life" src="{{ asset('demo/heart.png') }}" alt="life">
-            <img id="boom" src="{{ asset('demo/boom.png') }}" alt="boom">
-            <audio id="bgm" src="{{ asset('demo/bgm2.mp3') }}" controls loop></audio>
-            <audio id="sfx" src="{{ asset('demo/boom.wav') }}" controls></audio>
-            <audio id="sfx2" src="{{ asset('demo/ice.wav') }}" controls></audio>
+            <img id="playerImage" class="d-none" src="{{ asset('demo/player.png') }}" alt="player">
+            <img id="backgroundImage" class="d-none" src="{{ asset('demo/background_single.png') }}" alt="bg-image">
+            <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy_1.png') }}" alt="enemy">
+            <img id="life" class="d-none" src="{{ asset('demo/heart.png') }}" alt="life">
+            <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
+            <audio id="bgm" class="d-none" src="{{ asset('demo/bgm2.mp3') }}" controls loop></audio>
+            <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
+            <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
             <button hidden id="fullScreenButton">Full Screen</button>
             <div id="overlay" class="d-flex justify-content-center">
                 <div class="text-center">
-                    <h1 id="msg" class="text-white">
+                    <h1 id="msg" class="text-light shadow">
 
                     </h1>
                 </div>
@@ -61,7 +72,7 @@
                     </div>
                     <div>
                         <button id="pause"
-                            class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                            class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Resume</button>
                     </div>
                 </div>
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
@@ -83,8 +94,8 @@
                     </div>
                     <div id="code-editor">
                         <textarea name="" id="codeMirrorDemo"></textarea>
-                        <div class="bg-light">
-                            <p class="m-0 p-1">Expected Answer: <span id="expected-answer"></span></p>
+                        <div class="bg-navy">
+                            <p class="m-0 p-1 font-weight-bold">Expected Answer: <span id="expected-answer" class="font-weight-normal"></span></p>
                         </div>
                         <div class="btn-group w-100" role="group">
                             <button id="cancel-task" class="btn btn-warning w-25">Cancel</button>
@@ -144,15 +155,15 @@
         let arr = [];
 
         const tasks = {!! $tasks !!};
-   
+
         let html = '';
         for (let i = 0; i < tasks.length; i++) {
             html +=
                 `<button onclick="showTask(` + i +
-                `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` + 
+                `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` +
                 tasks[i]["name"] + `<br><span class="font-weight-normal">Difficulty: ` +
-                    tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>`
-                + `</button>`;
+                tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>` +
+                `</button>`;
         }
         let STAKE = 0;
 
@@ -161,25 +172,25 @@
             $("#description").prop("hidden", false);
             $("#task-description").text(tasks[idx]["description"]);
             $("#expected-answer").text(tasks[idx]["answer"]);
-  
+
             RIGHT_ANSWER = tasks[idx]["answer"];
             STAKE = tasks[idx]["reward"];
             editor.getDoc().setValue("");
-            if(tasks[idx]["snippet"]){
+            if (tasks[idx]["snippet"]) {
                 editor.getDoc().setValue(tasks[idx]["snippet"]);
             }
         };
 
         $("#tasks").append(html);
-        $("#re-description").click(function(){
+        $("#re-description").click(function() {
             $("#description").prop("hidden", false);
             $("#code-editor").prop("hidden", true);
         });
-        $("#start-coding").click(function(){
+        $("#start-coding").click(function() {
             $("#description").prop("hidden", true);
             $("#code-editor").prop("hidden", false);
         });
-        $("#cancel-task").click(function(){
+        $("#cancel-task").click(function() {
             $("#tasks").prop("hidden", false);
             $("#description").prop("hidden", true);
             $("#code-editor").prop("hidden", true);

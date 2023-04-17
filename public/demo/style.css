@@ -33,12 +33,7 @@
     height: 20%;
     transform: translate(-50%, -50%);
 }
-audio{
-    display: none;
-}
-img{
-    display: none;
-}
+
 #fullScreenButton{
     position: relative;
     font-size: 20px;
