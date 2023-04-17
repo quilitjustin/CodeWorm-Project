@@ -21,7 +21,7 @@ class PlayController extends Controller
     public function stages($id)
     {
         $id = decrypt($id);
-        $stages = Stages::findorfail($id)->select('id', 'name')->get();
+        $stages = Stages::findorfail($id)->select('id', 'name')->where('id', $id)->get();
 
         return view('web.play.stages', [
             'stages' => $stages
