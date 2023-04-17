@@ -55,7 +55,7 @@
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
-                                DMG 100 SP 100
+                                DMG 1000 SP 100
                             </span>
                         </button>
                     </div>
@@ -164,16 +164,25 @@
   
             RIGHT_ANSWER = tasks[idx]["answer"];
             STAKE = tasks[idx]["reward"];
+            editor.getDoc().setValue("");
             if(tasks[idx]["snippet"]){
                 editor.getDoc().setValue(tasks[idx]["snippet"]);
             }
         };
 
         $("#tasks").append(html);
-
+        $("#re-description").click(function(){
+            $("#description").prop("hidden", false);
+            $("#code-editor").prop("hidden", true);
+        });
         $("#start-coding").click(function(){
             $("#description").prop("hidden", true);
             $("#code-editor").prop("hidden", false);
+        });
+        $("#cancel-task").click(function(){
+            $("#tasks").prop("hidden", false);
+            $("#description").prop("hidden", true);
+            $("#code-editor").prop("hidden", true);
         });
         $("#code-editor").prop("hidden", true);
         // $.get({

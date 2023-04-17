@@ -67,7 +67,7 @@ window.addEventListener("load", function () {
             
             $("#supreme").click(function () {
                 player.supreme = true;
-                enemy.lives -= 100;
+                enemy.lives -= 1000;
                 player.sp -= 100;
             });
 
@@ -84,18 +84,18 @@ window.addEventListener("load", function () {
                         // console.log(response);
                         if(response['success'] == true){
                             if (response['result'] == RIGHT_ANSWER) {
-                                $("#msg").text("Right Answer!");
+                                $("#msg").text("Right Answer!\nSP +" + STAKE);
                                 player.sp+= STAKE;
                                 $("#tasks").prop("hidden", false);
                                 $("#code-editor").prop("hidden", true);
                             } else {
-                                $("#msg").text("Wrong Answer!");
+                                $("#msg").text("Wrong Answer!\nEnemy DMG +1");
                                 enemy.damage++;
                             }
                             $("#err-console").text("Output: " + response['result']);
                         } else {
                             $("#err-console").text("Syntax error: " + response['result']);
-                            $("#msg").text("There's an error!");
+                            $("#msg").text("There's an error!\nEnemy DMG +1");
                             enemy.damage++;
                         }
                         
@@ -103,7 +103,7 @@ window.addEventListener("load", function () {
                     error: function (xhr, status, error) {
                         console.log("Error: " + error.message);
                         $("#err-console").text("Error: Did not follow the given format");
-                        $("#msg").text("There's an error!");
+                        $("#msg").text("There's an error!\nEnemy DMG +1");
                         enemy.damage++;
                     },
                 });
@@ -113,18 +113,18 @@ window.addEventListener("load", function () {
                     eval(`${code}`);
 
                     if(window.$log == RIGHT_ANSWER){
-                        $("#msg").text("Right Answer!");
+                        $("#msg").text("Right Answer!\nSP +" + STAKE);
                         $("#tasks").prop("hidden", false);
                         $("#code-editor").prop("hidden", true);
                         player.sp+= STAKE;
                     } else {
-                        $("#msg").text("Wrong Answer!");
+                        $("#msg").text("Wrong Answer!\nEnemy DMG +1");
                         enemy.damage++;
                     }
                     $("#err-console").text("Output: " + $log);
                 } catch (error) {
                     $("#err-console").text("Syntax error: " + error.message);
-                    $("#msg").text("There's an error!");
+                    $("#msg").text("There's an error!\nEnemy DMG +1");
                     enemy.damage++;
                 }
             }
@@ -232,17 +232,20 @@ window.addEventListener("load", function () {
             ctx.fillText("SP: " + this.sp, 20, 105);
         }
         update(input, deltaTime, enemies, explosions) {
-            if (this.sp >= 5) {
+            if (this.sp > 4) {
                 $("#tackle").prop("disabled", false);
             } else {
                 $("#tackle").prop("disabled", true);
             }
-            if (this.sp >= 100) {
+            if (this.sp > 99) {
                 $("#heal").prop("disabled", false);
                 $("#supreme").prop("disabled", false);
             } else {
                 $("#heal").prop("disabled", true);
                 $("#supreme").prop("disabled", true);
+            }
+            if(this.sp < 0){
+                this.sp = 0;
             }
             // Colliision detection
             // enemies.forEach(enemy => {
@@ -259,9 +262,10 @@ window.addEventListener("load", function () {
                 this.x += this.speed;
             }
             if (this.supreme){
-                $(".skills").prop("disabled", true);
                 explosions[0].update();
                 explosions[0].draw();       
+                explosions.splice(0, 1);
+                this.supreme = false;
             }
             // Sprite animation
             if (this.frameTimer > this.frameInterval) {

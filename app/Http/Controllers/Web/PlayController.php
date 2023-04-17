@@ -21,7 +21,7 @@ class PlayController extends Controller
     public function stages($id)
     {
         $id = decrypt($id);
-        $stages = Stages::findorfail($id)->select('id', 'name')->where('id', $id)->get();
+        $stages = Stages::select('id', 'name')->where('proglang_id', $id)->get();
 
         return view('web.play.stages', [
             'stages' => $stages
@@ -31,7 +31,8 @@ class PlayController extends Controller
     public function game_start($id){
         $id = decrypt($id);
         $stage = Stages::findorfail($id)->select('id', 'name', 'tasks', 'proglang_id')->where('id', $id)->get();
-        $proglang = \App\Models\ProgrammingLanguages::findorfail($id)->select('name')->where('id', $stage[0]->proglang_id)->get();
+        $proglang = \App\Models\ProgrammingLanguages::select('name')->where('id', $stage[0]->proglang_id)->get();
+
     
         $arr = [];
         foreach ($stage[0]->tasks as $task) {
