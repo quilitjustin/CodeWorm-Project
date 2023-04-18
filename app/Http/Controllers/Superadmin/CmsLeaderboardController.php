@@ -39,7 +39,7 @@ class CmsLeaderboardController extends Controller
     public function create()
     {
         //
-        return view('superadmin.cms.background_image.leaderboard..create');
+       
     }
 
     /**
@@ -74,9 +74,7 @@ class CmsLeaderboardController extends Controller
         $cmsleaderboard->created_by = decrypt(Auth::user()->id);
         $cmsleaderboard->save();
 
-        return redirect()
-            ->route('cmsleaderboards.index')
-            ->with('msg', 'Created Successfully');
+        return ;
     }
 
     /**

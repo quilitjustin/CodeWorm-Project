@@ -31,7 +31,7 @@
                                 Image Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('cmsleaderboards.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('super.cms.bgim.store') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

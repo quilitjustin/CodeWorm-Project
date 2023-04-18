@@ -98,7 +98,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('cmsleaderboards.index') }}"
+                                    <a href="{{ route('super.cms.bgim.leaderboards.index') }}"
                                         class="nav-link {{ request()->is('cms/bgim/leaderboards*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Leaderboards</p>

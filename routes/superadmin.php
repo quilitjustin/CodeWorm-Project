@@ -66,9 +66,13 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     // End game
 
     // Cms Routes
-    Route::resource('cms/bgim/cmsleaderboards', CmsLeaderboardController::class);
+    // Route::resource('cms/bgim/cmsleaderboards', CmsLeaderboardController::class);
     Route::controller(CMSController::class)->group(function(){
-        Route::post('set_leaderboard_background', 'set_leaderboard_background')->name('super.cms.leaderboard');
+        Route::post('set_leaderboard_background', 'set_leaderboard_background')->name('super.cms.bgim.leaderboard');
+        Route::get('cms/bgim/create', 'create')->name('super.cms.bgim.create');
+        Route::post('cms/bgim/store', 'store')->name('super.cms.bgim.store');
+        Route::delete('cms/bgim/destroy/{id}', 'destroy')->name('super.cms.bgim.destroy');
+        Route::get('cms/bgim/leaderboards', 'leaderboard_index')->name('super.cms.bgim.leaderboards.index');
     });
     // End Cms
 
