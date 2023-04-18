@@ -18,6 +18,21 @@ window.addEventListener("load", function () {
         console.compile(data);
         window.$log = data;
     };
+    
+    function formatTime(seconds) {
+        var hours = Math.floor(seconds / 3600);
+        var minutes = Math.floor((seconds % 3600) / 60);
+        var seconds = Math.floor(seconds % 60);
+        return (
+            hours +
+            ":" +
+            (minutes < 10 ? "0" : "") +
+            minutes +
+            ":" +
+            (seconds < 10 ? "0" : "") +
+            seconds
+        );
+    }
 
     $("#playBtn button").click(function () {
         $(this).prop("hidden", true);
@@ -58,38 +73,32 @@ window.addEventListener("load", function () {
             $("#tackle").click(function () {
                 player.tackle = true;
                 player.sp -= 5;
-                $("#msg").html(
-                    "Tackle has been used!<br>Damage 5"
-                );
+                $("#msg").html("Tackle has been used!<br>Damage 5");
                 $("#msg").fadeIn();
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#msg").fadeOut();
-                }, 1500); 
+                }, 1500);
             });
 
             $("#heal").click(function () {
                 player.lives += 100;
                 player.sp -= 100;
-                $("#msg").html(
-                    "Heal has been used!<br>HP + 100"
-                );
+                $("#msg").html("Heal has been used!<br>HP + 100");
                 $("#msg").fadeIn();
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#msg").fadeOut();
-                }, 1500); 
+                }, 1500);
             });
 
             $("#supreme").click(function () {
                 player.supreme = true;
                 enemy.lives -= 1000;
                 player.sp -= 100;
-                $("#msg").html(
-                    "Supreme has been used!<br>Damage 1000"
-                );
+                $("#msg").html("Supreme has been used!<br>Damage 1000");
                 $("#msg").fadeIn();
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#msg").fadeOut();
-                }, 1500); 
+                }, 1500);
             });
 
             $("#submit").click(function () {
@@ -163,9 +172,9 @@ window.addEventListener("load", function () {
                     }
                 }
                 $("#msg").fadeIn();
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#msg").fadeOut();
-                }, 1500); 
+                }, 1500);
             });
         }
 
@@ -250,7 +259,7 @@ window.addEventListener("load", function () {
             ctx.fillText("SP: " + this.sp, 20, 105);
         }
         update(input, deltaTime, enemies, explosions) {
-            if (this.lives <= 0){
+            if (this.lives <= 0) {
                 gameOver = true;
             }
             if (this.sp > 4) {
@@ -606,7 +615,7 @@ window.addEventListener("load", function () {
                 url: storeRoute,
                 data: {
                     _token: CSRF_TOKEN,
-                    record: timer,
+                    record: formatTime((timer * 0.001).toFixed(1)),
                     proglangId: proglangId,
                     stageId: stageId,
                     userId: userId,
@@ -714,7 +723,7 @@ window.addEventListener("load", function () {
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
 
         timer += deltaTime;
-        const formattedTime = (timer * 0.001).toFixed(1);
+        const formattedTime = formatTime((timer * 0.001).toFixed(1));
 
         ctx.textAlign = "center";
         ctx.fillStyle = "black";
