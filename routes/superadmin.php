@@ -73,12 +73,14 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::delete('cms/bgim/destroy/{id}', 'destroy')->name('super.cms.bgim.destroy');
         Route::post('set_leaderboard_background', 'set_leaderboard_background')->name('super.cms.bgim.leaderboard.set');
         Route::post('set_play_background', 'set_play_background')->name('super.cms.bgim.play.set');
+        Route::post('set_splash_background', 'set_splash_background')->name('super.cms.bgim.splash.set');
         Route::post('set_announcements_background', 'set_announcement_background')->name('super.cms.bgim.announcement.set');
         Route::post('set_stalk_background', 'set_stalk_background')->name('super.cms.bgim.stalk.set');
         Route::get('cms/bgim/leaderboards', 'leaderboard_index')->name('super.cms.bgim.leaderboards.index');
         Route::get('cms/bgim/play', 'play_index')->name('super.cms.bgim.play.index');
         Route::get('cms/bgim/announcement', 'announcement_index')->name('super.cms.bgim.announcement.index');
         Route::get('cms/bgim/stalk', 'stalk_index')->name('super.cms.bgim.stalk.index');
+        Route::get('cms/bgim/splash', 'splash_index')->name('super.cms.bgim.splash.index');
     });
     // End Cms
 

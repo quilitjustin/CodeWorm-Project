@@ -132,6 +132,19 @@ class CMSController extends Controller
         return response()->json(['message' => 'Saved successfully']);
     }
 
+    public function set_splash_background(Request $request)
+    {
+        // To avoid having a file with the same name
+        $this->file_name = 'splash.png';
+        // Where to store the image
+        $this->file_path = 'assets/bgim/';
+
+        $this->copy_file($request['path']);
+        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+
+        return response()->json(['message' => 'Saved successfully']);
+    }
+
     public function leaderboard_index()
     {
         $cmdbgims = CmsBgim::all();
@@ -164,6 +177,15 @@ class CMSController extends Controller
         $cmdbgims = CmsBgim::all();
 
         return view('superadmin.cms.background_image.stalk.index', [
+            'cmsbgims' => $cmdbgims,
+        ]);
+    }
+
+    public function splash_index()
+    {
+        $cmdbgims = CmsBgim::all();
+
+        return view('superadmin.cms.background_image.splash.index', [
             'cmsbgims' => $cmdbgims,
         ]);
     }

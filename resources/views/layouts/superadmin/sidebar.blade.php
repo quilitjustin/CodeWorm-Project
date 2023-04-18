@@ -98,6 +98,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="{{ route('super.cms.bgim.splash.index') }}"
+                                        class="nav-link {{ request()->is('cms/bgim/splash*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Splash</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('super.cms.bgim.leaderboards.index') }}"
                                         class="nav-link {{ request()->is('cms/bgim/leaderboards*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
