@@ -8,8 +8,8 @@
 @endsection
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center"
-        style="height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('../assets/img/login.png')">
+    <div class="d-flex justify-content-center align-items-center p-3"
+        style="height: 100%; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('../assets/img/login.png')">
         {{-- <div class="col-sm-6">
             <button onclick="history.back();" class="text-info"><i class="right fas fa-angle-left"></i> Go
                 Back</button>
