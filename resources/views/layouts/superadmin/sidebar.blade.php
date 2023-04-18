@@ -118,6 +118,13 @@
                                         <p>Announcement</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('super.cms.bgim.stalk.index') }}"
+                                        class="nav-link {{ request()->is('cms/bgim/stalk*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Stalk</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

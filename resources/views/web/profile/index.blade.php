@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center p-3"
-        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgim/leaderboard.png') }}')">
+        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgim/stalk.png') }}')">
 
         <div class="row">
             <div class="col-12">
