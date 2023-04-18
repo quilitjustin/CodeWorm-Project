@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center p-3"
-        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('../assets/img/login.png')">
+        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgims/leaderboard.png') }}')">
         {{-- <div class="col-sm-6">
             <button onclick="history.back();" class="text-info"><i class="right fas fa-angle-left"></i> Go
                 Back</button>

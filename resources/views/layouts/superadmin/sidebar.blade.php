@@ -2,8 +2,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/dashboard" class="brand-link">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
         <span class="brand-text font-weight-light">Codeworm</span>
     </a>
 
@@ -80,6 +80,35 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link {{ request()->is('cms*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>
+                            CMS
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link {{ request()->is('cms/bgim*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Background Image
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('cmsleaderboards.index') }}"
+                                        class="nav-link {{ request()->is('cms/bgim/leaderboards*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Leaderboards</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link {{ request()->is('game*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-gamepad"></i>
                         <p>
@@ -89,7 +118,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('game/programming*') ? 'active' : '' }}">
+                            <a href="#"
+                                class="nav-link {{ request()->is('game/programming*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Programming
@@ -98,35 +128,40 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('proglangs.index') }}" class="nav-link {{ request()->is('game/programming/proglang*') ? 'active' : '' }}">
+                                    <a href="{{ route('proglangs.index') }}"
+                                        class="nav-link {{ request()->is('game/programming/proglang*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Programming Language</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('stages.index') }}" class="nav-link {{ request()->is('game/programming/stages*') ? 'active' : '' }}">
+                                    <a href="{{ route('stages.index') }}"
+                                        class="nav-link {{ request()->is('game/programming/stages*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Stages</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('tasks.index') }}" class="nav-link {{ request()->is('game/programming/tasks*') ? 'active' : '' }}">
+                                    <a href="{{ route('tasks.index') }}"
+                                        class="nav-link {{ request()->is('game/programming/tasks*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tasks</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        
+
 
                         <li class="nav-item">
-                            <a href="{{ route('bgims.index') }}" class="nav-link {{ request()->is('game/bgims*') ? 'active' : '' }}">
+                            <a href="{{ route('bgims.index') }}"
+                                class="nav-link {{ request()->is('game/bgims*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>BG Image</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('bgms.index') }}" class="nav-link {{ request()->is('game/bgms*') ? 'active' : '' }}">
+                            <a href="{{ route('bgms.index') }}"
+                                class="nav-link {{ request()->is('game/bgms*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>BGM</p>
                             </a>
@@ -141,13 +176,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('sfxs.index') }}" class="nav-link {{ request()->is('game/effects/sfxs*') ? 'active' : '' }}">
+                                    <a href="{{ route('sfxs.index') }}"
+                                        class="nav-link {{ request()->is('game/effects/sfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Sound</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('vfxs.index') }}" class="nav-link {{ request()->is('game/effects/vfxs*') ? 'active' : '' }}">
+                                    <a href="{{ route('vfxs.index') }}"
+                                        class="nav-link {{ request()->is('game/effects/vfxs*') ? 'active' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Visual</p>
                                     </a>
@@ -157,7 +194,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('super.inquiries.index') }}" class="nav-link {{ request()->is('inquiries*') ? 'active' : '' }}">
+                    <a href="{{ route('super.inquiries.index') }}"
+                        class="nav-link {{ request()->is('inquiries*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-comments"></i>
                         <p>
                             Inquiries
@@ -165,7 +203,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('super.export.index') }}" class="nav-link {{ request()->is('export*') ? 'active' : '' }}">
+                    <a href="{{ route('super.export.index') }}"
+                        class="nav-link {{ request()->is('export*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>
                             Export
@@ -173,7 +212,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('super.profile') }}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
+                    <a href="{{ route('super.profile') }}"
+                        class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>
                         <p>
                             Profile

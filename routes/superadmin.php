@@ -65,6 +65,13 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::resource('/game/effects/vfxs', VisualEffectController::class);
     // End game
 
+    // Cms Routes
+    Route::resource('cms/bgim/cmsleaderboards', CmsLeaderboardController::class);
+    Route::controller(CMSController::class)->group(function(){
+        Route::post('set_leaderboard_background', 'set_leaderboard_background')->name('super.cms.leaderboard');
+    });
+    // End Cms
+
     Route::controller(SplashPageController::class)->group(function () {
         Route::get('/splash', 'index')->name('splash.index');
         Route::get('/splash/show/{id}', 'show')->name('splash.show');
