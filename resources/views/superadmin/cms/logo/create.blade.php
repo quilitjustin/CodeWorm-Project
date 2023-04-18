@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Background Image</h1>
+                    <h1 class="m-0">Logo</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">Bgim</li>
+                        <li class="breadcrumb-item">Logo</li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Image Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('super.cms.bgim.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('super.cms.logo.store') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

@@ -5,21 +5,19 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CmsBgim;
+use App\Models\CmsLogo;
 use Illuminate\Support\Facades\Auth;
 
 class CMSController extends Controller
 {
-    // Decrypt the id then find if it exist in db, if not: return 404, it yes: return the data
-    protected function findRecord($id)
-    {
-        $id = decrypt($id);
-        $data = CmsBgim::findorfail($id);
-        return $data;
-    }
-
     public function create()
     {
         return view('superadmin.cms.background_image.create');
+    }
+
+    public function create_logo()
+    {
+        return view('superadmin.cms.logo.create');
     }
 
     public function store(Request $request)
@@ -28,7 +26,7 @@ class CMSController extends Controller
             'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
         ]);
 
-        $cmsleaderboard = new CmsBgim();
+        $data = new CmsBgim();
         $name = \Illuminate\Support\Str::random(5);
 
         // To avoid having a file with the same name
@@ -43,16 +41,61 @@ class CMSController extends Controller
         $request['image']->move(public_path($path), $newImageName);
         // Output would be like: assets/bgim/image.png
         // So we can just do something like asset($foo['path']) than asset(assets/bgim/$foo['path'])
-        $cmsleaderboard->path = $path . '/' . $newImageName;
-        $cmsleaderboard->created_by = decrypt(Auth::user()->id);
-        $cmsleaderboard->save();
+        $data->path = $path . '/' . $newImageName;
+        $data->created_by = decrypt(Auth::user()->id);
+        $data->save();
+
+        return back()->with('msg', 'Created Successfully');
+    }
+
+    public function store_logo(Request $request)
+    {
+        $request->validate([
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+        ]);
+
+        $data = new CmsLogo();
+        $name = \Illuminate\Support\Str::random(5);
+
+        // To avoid having a file with the same name
+        $newImageName = time() . '-' . $name . '.' . $request['image']->extension();
+        // Where to store the image
+        $path = 'assets/logo';
+        // Check first if the directory exist, so we can create it first if there's none
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+        // Store the image in public directory
+        $request['image']->move(public_path($path), $newImageName);
+        // Output would be like: assets/bgim/image.png
+        // So we can just do something like asset($foo['path']) than asset(assets/bgim/$foo['path'])
+        $data->path = $path . '/' . $newImageName;
+        $data->created_by = decrypt(Auth::user()->id);
+        $data->save();
 
         return back()->with('msg', 'Created Successfully');
     }
 
     public function destroy($id)
     {
-        $data = $this->findRecord($id);
+        $data = decrypt($id);
+        $data = CmsBgim::findorfail();
+
+        // Make sure you delete the file first before deleting the record in db
+        // But before that, you need to make sure that the file still exist in the first place
+        if (file_exists($data->path)) {
+            unlink($data->path);
+        }
+
+        $data->delete();
+
+        return response()->json(['message' => 'Deleted successfully']);
+    }
+
+    public function destroy_logo($id)
+    {
+        $data = decrypt($id);
+        $data = CmsLogo::findorfail();
 
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
@@ -87,7 +130,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+        // $data->created_by = decrypt(Auth::user()->id);
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -101,7 +144,7 @@ class CMSController extends Controller
 
         $this->copy_file($request['path']);
 
-        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+        // $data->created_by = decrypt(Auth::user()->id);
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -114,7 +157,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+        // $data->created_by = decrypt(Auth::user()->id);
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -127,7 +170,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+        // $data->created_by = decrypt(Auth::user()->id);
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -140,7 +183,20 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+        // $data->created_by = decrypt(Auth::user()->id);
+
+        return response()->json(['message' => 'Saved successfully']);
+    }
+
+    public function set_logo(Request $request)
+    {
+        // To avoid having a file with the same name
+        $this->file_name = 'logo.png';
+        // Where to store the image
+        $this->file_path = 'assets/logo/';
+
+        $this->copy_file($request['path']);
+        // $data->created_by = decrypt(Auth::user()->id);
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -186,6 +242,15 @@ class CMSController extends Controller
         $cmdbgims = CmsBgim::all();
 
         return view('superadmin.cms.background_image.splash.index', [
+            'cmsbgims' => $cmdbgims,
+        ]);
+    }
+
+    public function logo_index()
+    {
+        $cmdbgims = CmsLogo::all();
+
+        return view('superadmin.cms.logo.index', [
             'cmsbgims' => $cmdbgims,
         ]);
     }
