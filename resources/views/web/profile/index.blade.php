@@ -1,47 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <button onclick="history.back();" class="text-info"><i class="right fas fa-angle-left"></i> Go Back</button>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    {{-- <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"></li>
-                        <li class="breadcrumb-item active"></li>
-                    </ol> --}}
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    <div class="d-flex justify-content-center align-items-center p-3"
+        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgim/leaderboard.png') }}')">
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <h2 class="text-center display-4">Search For Someone</h2>
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <form action="simple-results.html">
-                        <div class="input-group">
-                            <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here"
-                                id="search-box">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-lg btn-default">
-                                    <i class="fa fa-search"></i>
-                                </button>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center display-4">Search For Someone</h2>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form action="simple-results.html">
+                            <div class="input-group">
+                                <input type="search" class="form-control form-control-lg"
+                                    placeholder="Type your keywords here" id="search-box">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-lg btn-default">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                    <div id="search-suggestion" class="bg-white" style="max-height: 150px; overflow:auto">
+                        </form>
+                        <div id="search-suggestion" class="bg-white" style="max-height: 150px; overflow:auto">
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </section>
 @endsection
 
@@ -62,9 +50,9 @@
                         let html = '';
                         $.each(response, function(index, data) {
                             html +=
-                                `<a href="/public_profile/` + data.id +`)">
+                                `<a href="/public_profile/` + data.id + `)">
                                     <div class="form-control m-0">` +
-                                        data.name + `</div>
+                                data.name + `</div>
                                 </a>`;
                         });
                         $("#search-suggestion").html(html);

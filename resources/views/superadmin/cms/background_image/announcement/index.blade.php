@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Leaderboard Background Image</h1>
+                    <h1 class="m-0">Announcement Background Image</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">CMS</a></li>
-                        <li class="breadcrumb-item active">Leaderboard</li>
+                        <li class="breadcrumb-item active">Announcement</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,7 +25,7 @@
 @section('script')
     {{-- @include('layouts.superadmin.delete') --}}
     <script>
-        const route = "{{ route('super.cms.bgim.leaderboard.set') }}";
+        const route = "{{ route('super.cms.bgim.announcement.set') }}";
     </script>
     @include('superadmin.cms.background_image.script')
 @endsection

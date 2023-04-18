@@ -34,15 +34,15 @@ class CMSController extends Controller
         // To avoid having a file with the same name
         $newImageName = time() . '-' . $name . '.' . $request['image']->extension();
         // Where to store the image
-        $path = 'assets/bgims/leaderboard';
+        $path = 'assets/bgim';
         // Check first if the directory exist, so we can create it first if there's none
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
         // Store the image in public directory
         $request['image']->move(public_path($path), $newImageName);
-        // Output would be like: assets/bgims/leaderboard/image.png
-        // So we can just do something like asset($foo['path']) than asset(assets/bgims/leaderboard/$foo['path'])
+        // Output would be like: assets/bgim/image.png
+        // So we can just do something like asset($foo['path']) than asset(assets/bgim/$foo['path'])
         $cmsleaderboard->path = $path . '/' . $newImageName;
         $cmsleaderboard->created_by = decrypt(Auth::user()->id);
         $cmsleaderboard->save();
@@ -70,13 +70,51 @@ class CMSController extends Controller
         // To avoid having a file with the same name
         $image_name = 'leaderboard.png';
         // Where to store the image
-        $path = 'assets/bgims/';
+        $path = 'assets/bgim/';
 
-        // Check first if the directory exist, so we can create it first if there's none
-        // if (!is_dir($path)) {
-        //     mkdir($path, 0777, true);
-        // }
-        // Now check if file exist so we can delete the old file
+        // If there's an img set as leaderboard.png, delete it first
+        if (file_exists($path . $image_name)) {
+            unlink($path . $image_name);
+        }
+
+        // Create the copy
+        copy($request['path'], $path . $image_name);
+        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+
+        return response()->json(['message' => 'Saved successfully']);
+    }
+
+    public function set_play_background(Request $request)
+    {
+        // To avoid having a file with the same name
+        $image_name = 'play.png';
+        // Where to store the image
+        $path = 'assets/bgim/';
+
+        // If there's an img set as leaderboard.png, delete it first
+        if (file_exists($path . $image_name)) {
+            unlink($path . $image_name);
+        }
+
+        // Create the copy
+        copy($request['path'], $path . $image_name);
+        // $cmsleaderboard->created_by = decrypt(Auth::user()->id);
+
+        return response()->json(['message' => 'Saved successfully']);
+    }
+
+    
+    public function set_announcement_background(Request $request)
+    {
+        // To avoid having a file with the same name
+        $image_name = 'announcement.png';
+        // Where to store the image
+        $path = 'assets/bgim/';
+
+        // If there's an img set as leaderboard.png, delete it first
+        if (file_exists($path . $image_name)) {
+            unlink($path . $image_name);
+        }
 
         // Create the copy
         copy($request['path'], $path . $image_name);
@@ -90,6 +128,24 @@ class CMSController extends Controller
         $cmdbgims = CmsBgim::all();
 
         return view('superadmin.cms.background_image.leaderboard.index', [
+            'cmsbgims' => $cmdbgims,
+        ]);
+    }
+
+    public function play_index()
+    {
+        $cmdbgims = CmsBgim::all();
+
+        return view('superadmin.cms.background_image.play.index', [
+            'cmsbgims' => $cmdbgims,
+        ]);
+    }
+
+    public function announcement_index()
+    {
+        $cmdbgims = CmsBgim::all();
+
+        return view('superadmin.cms.background_image.announcement.index', [
             'cmsbgims' => $cmdbgims,
         ]);
     }

@@ -32,7 +32,7 @@
                 path: imgDetails[idx]['path'],
             },
             success: function(response) {
-                console.log(response);
+                toastr.success(response.message);
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -53,6 +53,9 @@
                 $.ajax({
                     url: "{{ route('super.cms.bgim.destroy', '') }}/" + imgDetails[idx]['id'],
                     method: "DELETE",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                    },
                     success: function(response) {
                         toastr.success(response.message);
                     },
