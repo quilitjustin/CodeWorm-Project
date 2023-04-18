@@ -58,17 +58,38 @@ window.addEventListener("load", function () {
             $("#tackle").click(function () {
                 player.tackle = true;
                 player.sp -= 5;
+                $("#msg").html(
+                    "Tackle has been used!<br>Damage 5"
+                );
+                $("#msg").fadeIn();
+                setTimeout(function() {
+                    $("#msg").fadeOut();
+                }, 1500); 
             });
 
             $("#heal").click(function () {
                 player.lives += 100;
                 player.sp -= 100;
+                $("#msg").html(
+                    "Heal has been used!<br>HP + 100"
+                );
+                $("#msg").fadeIn();
+                setTimeout(function() {
+                    $("#msg").fadeOut();
+                }, 1500); 
             });
 
             $("#supreme").click(function () {
                 player.supreme = true;
                 enemy.lives -= 1000;
                 player.sp -= 100;
+                $("#msg").html(
+                    "Supreme has been used!<br>Damage 1000"
+                );
+                $("#msg").fadeIn();
+                setTimeout(function() {
+                    $("#msg").fadeOut();
+                }, 1500); 
             });
 
             $("#submit").click(function () {
@@ -84,15 +105,15 @@ window.addEventListener("load", function () {
                             // console.log(response);
                             if (response["success"] == true) {
                                 if (response["result"] == RIGHT_ANSWER) {
-                                    $("#msg").text(
-                                        "Right Answer!\nSP +" + STAKE
+                                    $("#msg").html(
+                                        "Right Answer!<br>SP +" + STAKE
                                     );
                                     player.sp += STAKE;
                                     $("#tasks").prop("hidden", false);
                                     $("#code-editor").prop("hidden", true);
                                 } else {
-                                    $("#msg").text(
-                                        "Wrong Answer!\nEnemy DMG +1"
+                                    $("#msg").html(
+                                        "Wrong Answer!<br>Enemy DMG +1"
                                     );
                                     enemy.damage++;
                                 }
@@ -103,8 +124,8 @@ window.addEventListener("load", function () {
                                 $("#err-console").text(
                                     "Syntax error: " + response["result"]
                                 );
-                                $("#msg").text(
-                                    "There's an error!\nEnemy DMG +1"
+                                $("#msg").html(
+                                    "There's an error!<br>Enemy DMG +1"
                                 );
                                 enemy.damage++;
                             }
@@ -114,7 +135,7 @@ window.addEventListener("load", function () {
                             $("#err-console").text(
                                 "Error: Did not follow the given format"
                             );
-                            $("#msg").text("There's an error!\nEnemy DMG +1");
+                            $("#msg").html("There's an error!<br>Enemy DMG +1");
                             enemy.damage++;
                         },
                     });
@@ -124,12 +145,12 @@ window.addEventListener("load", function () {
                         eval(`${code}`);
 
                         if (window.$log == RIGHT_ANSWER) {
-                            $("#msg").text("Right Answer!\nSP +" + STAKE);
+                            $("#msg").html("Right Answer!<br>SP +" + STAKE);
                             $("#tasks").prop("hidden", false);
                             $("#code-editor").prop("hidden", true);
                             player.sp += STAKE;
                         } else {
-                            $("#msg").text("Wrong Answer!\nEnemy DMG +1");
+                            $("#msg").html("Wrong Answer!<br>Enemy DMG +1");
                             enemy.damage++;
                         }
                         $("#err-console").text("Output: " + $log);
@@ -137,7 +158,7 @@ window.addEventListener("load", function () {
                         $("#err-console").text(
                             "Syntax error: " + error.message
                         );
-                        $("#msg").text("There's an error!\nEnemy DMG +1");
+                        $("#msg").html("There's an error!<br>Enemy DMG +1");
                         enemy.damage++;
                     }
                 }
@@ -181,7 +202,7 @@ window.addEventListener("load", function () {
             this.speed = 0;
             this.vy = 0;
             this.weight = 1;
-            this.sp = 100;
+            this.sp = 205;
             this.myBtn = document.getElementById("tackle");
             this.lives = 20;
             this.heart = document.getElementById("life");
