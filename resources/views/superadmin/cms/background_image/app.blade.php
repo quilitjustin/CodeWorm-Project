@@ -38,7 +38,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-secondary">
-                                <img src="#" id="img-preview">
+                                <div class="d-flex justify-content-center align-content-center">
+                                    <img src="#" id="img-preview" style="max-height: 50vh; max-width: 100%;">
+                                </div>
                                 <p>
                                     Creted By:
                                     <span id="created-by"></span>

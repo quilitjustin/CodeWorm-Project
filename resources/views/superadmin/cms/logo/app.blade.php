@@ -38,7 +38,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-secondary">
-                                <img src="#" id="img-preview">
+                                <div class="img-toggle col-md-4 p-2 d-flex justify-content-center align-items-center">
+                                    <img src="{{ asset($cmsbgim->path) }}" style="height: 150px; max-height: 150px"
+                                        alt="picture">
+                                </div>
                                 <p>
                                     Creted By:
                                     <span id="created-by"></span>

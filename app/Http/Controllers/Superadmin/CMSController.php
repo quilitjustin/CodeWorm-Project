@@ -188,6 +188,19 @@ class CMSController extends Controller
         return response()->json(['message' => 'Saved successfully']);
     }
 
+    public function set_login_background(Request $request)
+    {
+        // To avoid having a file with the same name
+        $this->file_name = 'login.png';
+        // Where to store the image
+        $this->file_path = 'assets/bgim/';
+
+        $this->copy_file($request['path']);
+        // $data->created_by = decrypt(Auth::user()->id);
+
+        return response()->json(['message' => 'Saved successfully']);
+    }
+
     public function set_logo(Request $request)
     {
         // To avoid having a file with the same name
@@ -242,6 +255,15 @@ class CMSController extends Controller
         $cmdbgims = CmsBgim::all();
 
         return view('superadmin.cms.background_image.splash.index', [
+            'cmsbgims' => $cmdbgims,
+        ]);
+    }
+
+    public function login_index()
+    {
+        $cmdbgims = CmsBgim::all();
+
+        return view('superadmin.cms.background_image.login.index', [
             'cmsbgims' => $cmdbgims,
         ]);
     }

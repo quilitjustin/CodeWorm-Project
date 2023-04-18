@@ -79,12 +79,14 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::post('set_splash_background', 'set_splash_background')->name('super.cms.bgim.splash.set');
         Route::post('set_announcements_background', 'set_announcement_background')->name('super.cms.bgim.announcement.set');
         Route::post('set_stalk_background', 'set_stalk_background')->name('super.cms.bgim.stalk.set');
+        Route::post('set_login_background', 'set_login_background')->name('super.cms.bgim.login.set');
         Route::post('set_logo', 'set_logo')->name('super.cms.logo.set');
         Route::get('cms/bgim/leaderboards', 'leaderboard_index')->name('super.cms.bgim.leaderboards.index');
         Route::get('cms/bgim/play', 'play_index')->name('super.cms.bgim.play.index');
         Route::get('cms/bgim/announcement', 'announcement_index')->name('super.cms.bgim.announcement.index');
         Route::get('cms/bgim/stalk', 'stalk_index')->name('super.cms.bgim.stalk.index');
         Route::get('cms/bgim/splash', 'splash_index')->name('super.cms.bgim.splash.index');
+        Route::get('cms/bgim/login', 'login_index')->name('super.cms.bgim.login.index');
         Route::get('cms/logo', 'logo_index')->name('super.cms.logo.index');
     });
     // End Cms

@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgim/announcement.png') }}'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
+    <div class="content-wrapper" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgim/announcement.png') }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">

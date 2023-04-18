@@ -19,7 +19,8 @@
         idx = $(this).index();
 
         const reader = new FileReader();
-
+        
+        $("#img-preview").prop("src", "{{ asset('') }}" + imgDetails[idx]["path"]);
         $("#created-by").text(imgDetails[idx]["created_by"]);
         $("#created-at").text(imgDetails[idx]["created_at"]);
     });

@@ -105,6 +105,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('super.cms.bgim.login.index') }}"
+                                        class="nav-link {{ request()->is('cms/bgim/login*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Login</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('super.cms.bgim.leaderboards.index') }}"
                                         class="nav-link {{ request()->is('cms/bgim/leaderboards*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
