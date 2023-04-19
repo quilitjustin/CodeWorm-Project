@@ -622,7 +622,7 @@ window.addEventListener("load", function () {
                 },
                 dataType: "json",
                 success: function (response) {
-                    console.log(response.message);
+                    $("#win-modal").modal("show");
                 },
                 error: function (request, status, error) {
                     console.log(request.responseText);

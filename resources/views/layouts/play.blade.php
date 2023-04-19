@@ -17,7 +17,8 @@
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" src="{{ asset('assets/img/logo.png') }}" alt="logo" height="150" width="150">
+                <img class="d-block" src="{{ asset('assets/img/logo.png') }}" alt="logo" height="150"
+                    width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -95,7 +96,8 @@
                     <div id="code-editor">
                         <textarea name="" id="codeMirrorDemo"></textarea>
                         <div class="bg-navy">
-                            <p class="m-0 p-1 font-weight-bold">Expected Answer: <span id="expected-answer" class="font-weight-normal"></span></p>
+                            <p class="m-0 p-1 font-weight-bold">Expected Answer: <span id="expected-answer"
+                                    class="font-weight-normal"></span></p>
                         </div>
                         <div class="btn-group w-100" role="group">
                             <button id="cancel-task" class="btn btn-warning w-25">Cancel</button>
@@ -115,6 +117,31 @@
         style="z-index: -99999; width: 100vw; height: 100vh;">
         <button class="btn btn-primary">Play!</button>
     </div>
+
+    <div class="modal fade" id="win-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Congrats You Win!</h4>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>Rewards:&hellip;</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <a href="{{ route('web.play.index') }}" class="btn btn-default">Quit</a>
+                    @if (isset($other[1]))
+                        <a href="{{ route('web.play.start', $other[1]->id) }}" class="btn btn-primary">Next Stage: {{ $other[1]->name }}</a>
+                    @endif
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -217,7 +244,8 @@
         const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
         const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
-        const proglang = "{{ $proglang[0]->name }}";
+        const proglang = "{{ $other[0]->name }}";
+        console.log(proglang)
         const language = proglang.toLowerCase();
         const storeRoute = "{{ route('web.play.store') }}";
         const userId = '{{ Auth::user()->id }}';
@@ -225,7 +253,7 @@
         const STAGE_NAME = "{{ $stage[0]->name }}";
     </script>
     {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=3') }}"></script>
+    <script src="{{ asset('demo/script.js?v=4') }}"></script>
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);

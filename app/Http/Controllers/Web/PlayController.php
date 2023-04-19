@@ -31,9 +31,11 @@ class PlayController extends Controller
     public function game_start($id){
         $id = decrypt($id);
         $stage = Stages::findorfail($id)->select('id', 'name', 'tasks', 'proglang_id')->where('id', $id)->get();
-        $proglang = \App\Models\ProgrammingLanguages::select('name')->where('id', $stage[0]->proglang_id)->get();
-
-    
+        $proglang = \App\Models\ProgrammingLanguages::select('id', 'name')->where('id', $stage[0]->proglang_id);
+        $next_stage = Stages::select('id', 'name')->where('id', '>',  $id);
+        $other = $proglang->unionAll($next_stage);
+        $other = $other->get();
+        
         $arr = [];
         foreach ($stage[0]->tasks as $task) {
             array_push($arr, \App\Models\Tasks::select('name', 'description', 'snippet', 'difficulty', 'answer', 'reward')->where('id', $task));
@@ -50,7 +52,7 @@ class PlayController extends Controller
         return view('layouts.play', [
             'stage' => $stage,
             'tasks' => $tasks,
-            'proglang' => $proglang,
+            'other' => $other,
         ]);
     }
 

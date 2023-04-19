@@ -67,6 +67,9 @@
                                                 data-placeholder="Select a State" style="width: 100%;">
                                                 
                                             </select>
+                                            @error('tasks')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <!-- /.form-group -->
                                     </div>

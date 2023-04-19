@@ -61,6 +61,7 @@ class StagesController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
+            'tasks' => ['required', 'array'],
             'proglang' => ['required'],
         ]);
 
