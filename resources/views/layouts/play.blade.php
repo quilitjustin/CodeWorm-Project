@@ -73,7 +73,7 @@
                     </div>
                     <div>
                         <button
-                            class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Resume</button>
+                            class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
