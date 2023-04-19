@@ -32,7 +32,6 @@ Route::get('test', function () {
 Route::controller(LiveSearchController::class)->group(function () {
     Route::get('/search/portfolio', 'public_portfolio')->name('search.portfolio');
 });
-Route::post('analitics_dashboard', [AnaliticsDashboardController::class, 'index']);
 Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.store');
 // End
 

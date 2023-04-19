@@ -30,7 +30,7 @@ return new class extends Migration {
             $table
                 ->foreign('stage_id')
                 ->references('id')
-                ->on('programming_languages')
+                ->on('stages')
                 ->onDelete('cascade');
             $table
                 ->foreign('player_id')

@@ -24,7 +24,9 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::get('/fetch/languages', 'languages')->name('super.fetch.languages');
         Route::post('/fetch/tasks', 'tasks')->name('super.fetch.tasks');
     });
-    
+    Route::get('analitics_dashboard', 'AnaliticsDashboardController@index')->name('super.analytics.index');
+    // End ajax
+
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')
             ->name('super.login')

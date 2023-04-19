@@ -352,6 +352,7 @@
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);
+            $('.modal').attr('data-backdrop', 'static');
 
             $("#restart").click(function(){
                 $("#pause-modal").modal("hide");

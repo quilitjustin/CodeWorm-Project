@@ -58,14 +58,14 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3 id="user-num">0</h3>
 
-                            <p>User Registrations</p>
+                            <p>Users</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('users.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -104,6 +104,16 @@
     </section>
 @endsection
 
-@section('scripts')
-    
+@section('script')
+    <script>
+        $.get({
+            url: "{{ route('super.analytics.index') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                $("#user-num").text(response);
+            }
+        });
+    </script>
 @endsection

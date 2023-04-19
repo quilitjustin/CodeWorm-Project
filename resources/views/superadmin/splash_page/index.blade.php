@@ -55,13 +55,15 @@
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('splash.show', $splash['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <form class="delete d-inline"
-                                                    action="{{ route('splash.destroy', $splash['id']) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-danger">
-                                                        <i class="fas fa-trash"></i> Delete</button>
-                                                </form>
+                                                @if(!$loop->first)
+                                                    <form class="delete d-inline"
+                                                        action="{{ route('splash.destroy', $splash['id']) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-danger">
+                                                            <i class="fas fa-trash"></i> Delete</button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
