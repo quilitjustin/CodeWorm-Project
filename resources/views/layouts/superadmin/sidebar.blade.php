@@ -267,7 +267,11 @@
                     <form method="POST" action="{{ route('super.logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-danger w-100"><i
-                                class="nav-icon fa-arrow-alt-circle-right"></i> Log out</button>
+                                class="nav-icon fa-arrow-alt-circle-right"></i>
+                                <span class="logout-text ">
+                                    Logout
+                                </span>
+                        </button>
                     </form>
                 </li>
             </ul>

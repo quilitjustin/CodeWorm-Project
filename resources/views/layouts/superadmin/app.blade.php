@@ -46,6 +46,13 @@
             cursor: pointer;
             outline: inherit;
         }
+
+        .sidebar-collapse .logout-text{
+            display: none;
+        }
+        .sidebar:hover .logout-text{
+            display: inline;
+        }
     </style>
 </head>
 
