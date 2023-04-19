@@ -223,7 +223,7 @@ class UsersController extends Controller
     {
         //
         $data = $this->findRecord($user);
-        $user->delete();
+        $data->delete();
 
         return response()->json(['message' => 'Deleted successfully']);
     }
