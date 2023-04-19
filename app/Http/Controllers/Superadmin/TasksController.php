@@ -55,7 +55,7 @@ class TasksController extends Controller
         // Warning: using json_decode may affect the performance, but it will get the job done so yey?
         $tasks = \DB::table('tasks')
             ->join('programming_languages', 'tasks.proglang_id', '=', 'programming_languages.id')
-            ->select('tasks.id', 'tasks.name', 'programming_languages.id as proglang_id', 'programming_languages.name as proglang_name')
+            ->select('tasks.id', 'tasks.name', 'tasks.difficulty', 'programming_languages.id as proglang_id', 'programming_languages.name as proglang_name')
             ->get();
 
         // $tasks = json_decode($tasks, true);

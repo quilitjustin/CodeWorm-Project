@@ -6,10 +6,13 @@ window.addEventListener("load", function () {
     let enemies = [];
     let score = 0;
     let paused = false;
-    const enemyName = "Antagonist";
+    const enemyName = "Codeworm";
     let gameOver = false;
     let win = false;
     let timer = 0;
+    let bgm = document.getElementById("bgm");
+    let bgmVolume = 0.1;
+    bgm.volume = bgmVolume;
     const fullScreen = this.document.getElementById("fullScreenButton");
     // We do this first we don't overwrite the default console.log
     console.compile = console.log;
@@ -34,12 +37,16 @@ window.addEventListener("load", function () {
         );
     }
 
+    $("#bgm-volume").on("change", function(){
+        const volume = $(this).val();
+        bgmVolume = volume / 10;
+        bgm.volume = bgmVolume;
+    });
+
     $("#playBtn button").click(function () {
         $(this).prop("hidden", true);
         $("#game").prop("hidden", false);
         $("#playBtn").attr("style", "");
-        const bgm = document.getElementById("bgm");
-        bgm.volume = 0.1;
         bgm.play();
         animate(0);
     });
@@ -578,6 +585,7 @@ window.addEventListener("load", function () {
             ctx.font = "40px Helvetica";
             ctx.fillText("Game Over", canvas.width / 2 + 2, 202);
             $("button").prop("disabled", true);
+            $("#lose-modal").modal("show");
         }
 
         if (paused) {
@@ -588,7 +596,7 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "white";
             ctx.font = "40px Helvetica";
             ctx.fillText("Paused", canvas.width / 2 + 2, 202);
-            $("button:not(#pause)").prop("disabled", true);
+            $("button:not(.pause-btn)").prop("disabled", true);
             // $("#pause").prop("disabled", false);
         }
 
@@ -768,11 +776,13 @@ window.addEventListener("load", function () {
         }
     });
 
-    $("#pause").click(function () {
+    $(".pause-btn").click(function () {
         if (paused) {
+            $("#pause-modal").modal("hide");
             paused = false;
             animate(timer);
         } else {
+            $("#pause-modal").modal("show");
             paused = true;
         }
     });

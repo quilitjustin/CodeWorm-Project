@@ -36,12 +36,10 @@
                     "id": id,
                 },
                 success: function(response) {
-                    console.log(response)
                     let html = '';
                     $.each(response, function(index, data) {
-                        html +=
-                            `<option value="` + data.id + `">` + data.name +
-                            `</option>`;
+                        html += `<option value="${data.id}" class="${data.difficulty == 'Easy' ? 'bg-success' : data.difficulty == 'Medium' ? 'bg-warning' : data.difficulty == 'Hard' ? 'bg-danger' : ''}">
+                                    ${data.name} (${data.difficulty})</option>`;
                     });
                     $("#tasks").html(html);
                 }

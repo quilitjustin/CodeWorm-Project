@@ -21,7 +21,7 @@ class FetchController extends Controller
         if ($request->ajax()) {
             $id = decrypt($request['id']);
 
-            $data = \App\Models\Tasks::select('id', 'name')->where('proglang_id', $id)->orderBy('created_at', 'asc')->get();
+            $data = \App\Models\Tasks::select('id', 'name', 'difficulty')->where('proglang_id', $id)->orderByRaw("FIELD(difficulty, 'Easy', 'Medium', 'Hard')")->get();
 
             return response()->json($data);
         }

@@ -34,6 +34,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Programming Language</th>
+                                        <th>Difficulty</th>
                                         <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
                                 </thead>
@@ -51,6 +52,10 @@
                                                     {{ $task->proglang_name }}
                                                 </a>
                                             </td>
+                                            <td
+                                                class="{{ $task->difficulty == 'Easy' ? 'text-success' : ($task->difficulty == 'Medium' ? 'text-warning' : ($task->difficulty == 'Hard' ? 'text-danger' : '')) }}">
+                                                {{ $task->difficulty }}
+                                            </td>
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('tasks.show', encrypt($task->id)) }}">
                                                     <i class="far fa-eye"></i> View</a>
@@ -67,7 +72,6 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        
                                     @endforelse
                                 </tbody>
                                 <tfoot>

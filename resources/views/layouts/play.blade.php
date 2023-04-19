@@ -72,8 +72,8 @@
                         </button>
                     </div>
                     <div>
-                        <button id="pause"
-                            class="btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Resume</button>
+                        <button
+                            class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Resume</button>
                     </div>
                 </div>
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
@@ -131,10 +131,59 @@
                     <p>Rewards:&hellip;</p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <a href="{{ route('web.play.index') }}" class="btn btn-default">Quit</a>
+                    <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit</a>
                     @if (isset($other[1]))
                         <a href="{{ route('web.play.start', $other[1]->id) }}" class="btn btn-primary">Next Stage: {{ $other[1]->name }}</a>
                     @endif
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade" id="lose-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nice Try!</h4>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>You lost, want to try again?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit</a>
+                    <a href="#" onclick="location.reload();" class="btn btn-primary">Yes</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade" id="pause-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Paused!</h4>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Background Music</label>
+                        <input type="range" min="0" max="10" value="1" id="bgm-volume" class="slider form-control" id="slider">
+                    </div>
+                    <button class="pause-btn btn btn-primary w-100">Resume</button>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <a href="{{ route('web.play.index') }}" class="btn btn-danger w-100">Quit</a>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -245,7 +294,6 @@
         const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
         const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
         const proglang = "{{ $other[0]->name }}";
-        console.log(proglang)
         const language = proglang.toLowerCase();
         const storeRoute = "{{ route('web.play.store') }}";
         const userId = '{{ Auth::user()->id }}';
@@ -253,7 +301,7 @@
         const STAGE_NAME = "{{ $stage[0]->name }}";
     </script>
     {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=4') }}"></script>
+    <script src="{{ asset('demo/script.js?v=5') }}"></script>
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);
