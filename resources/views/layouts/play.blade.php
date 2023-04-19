@@ -131,7 +131,7 @@
                     <p>Rewards:&hellip;</p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit</a>
+                    <button class="quit-btn btn btn-danger">Quit</button>
                     @if (isset($other[1]))
                         <a href="{{ route('web.play.start', $other[1]->id) }}" class="btn btn-primary">Next Stage: {{ $other[1]->name }}</a>
                     @endif
@@ -156,7 +156,7 @@
                     <p>You lost, want to try again?</p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit</a>
+                    <a class="quit-btn btn btn-danger">Quit</a>
                     <a href="#" onclick="location.reload();" class="btn btn-primary">Yes</a>
                 </div>
             </div>
@@ -180,10 +180,57 @@
                         <label for="">Background Music</label>
                         <input type="range" min="0" max="10" value="1" id="bgm-volume" class="slider form-control" id="slider">
                     </div>
+                    <button id="restart" class="btn btn-warning w-100 mb-3">Restart</button>
                     <button class="pause-btn btn btn-primary w-100">Resume</button>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <a href="{{ route('web.play.index') }}" class="btn btn-danger w-100">Quit</a>
+                    <button class="quit-btn btn btn-danger w-100">Quit</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal" id="restart-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Restart</h4>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to restart? <br>You may lose your current progress</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="back-btn btn btn-default">Back</button>
+                    <a href="#" onclick="location.reload();" class="btn btn-warning">Restart Anyway</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal" id="quit-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Quit</h4>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to quit the game?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="back-btn btn btn-default">Back</button>
+                    <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit </a>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -305,6 +352,26 @@
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);
+
+            $("#restart").click(function(){
+                $("#pause-modal").modal("hide");
+                $("#restart-modal").modal("show");
+            });
+
+            $("#restart-modal .back-btn").click(function(){
+                $("#pause-modal").modal("show");
+                $("#restart-modal").modal("hide");
+            });
+
+            $(".quit-btn").click(function(){
+                $("#pause-modal").modal("hide");
+                $("#quit-modal").modal("show");
+            });
+
+            $("#quit-modal .back-btn").click(function(){
+                $("#pause-modal").modal("show");
+                $("#quit-modal").modal("hide");
+            });
         });
     </script>
 </body>

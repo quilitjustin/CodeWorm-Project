@@ -584,7 +584,7 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "white";
             ctx.font = "40px Helvetica";
             ctx.fillText("Game Over", canvas.width / 2 + 2, 202);
-            $("button").prop("disabled", true);
+            $("#game *").prop("disabled", true);
             $("#lose-modal").modal("show");
         }
 
@@ -596,8 +596,10 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "white";
             ctx.font = "40px Helvetica";
             ctx.fillText("Paused", canvas.width / 2 + 2, 202);
-            $("button:not(.pause-btn)").prop("disabled", true);
+            $("#game *").prop("disabled", true);
             // $("#pause").prop("disabled", false);
+        } else {
+            $("#game *").prop("disabled", false);
         }
 
         if (win) {
@@ -608,7 +610,7 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "white";
             ctx.font = "40px Helvetica";
             ctx.fillText("You Win!", canvas.width / 2 + 2, 202);
-            $("button").prop("disabled", true);
+            $("#game *").prop("enabled", true);
             let proglangId = "",
                 stageId = "";
             if (language == "php") {
