@@ -59,7 +59,7 @@ class ProgrammingLanguageController extends Controller
         $proglang = new ProgLang();
         $proglang->name = strip_tags($request['name']);
 
-        $proglang->created_by = decrypt(Auth::user()->id);
+        $proglang->created_by = decrypt(Auth::user()->encrypted_id);
         $proglang->save();
 
         return redirect()
@@ -124,7 +124,7 @@ class ProgrammingLanguageController extends Controller
 
         $data->name = strip_tags($request->name);
 
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
 
         $data->save();
 

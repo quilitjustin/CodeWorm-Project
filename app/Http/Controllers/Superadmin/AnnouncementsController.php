@@ -70,7 +70,7 @@ class AnnouncementsController extends Controller
         $announcement = new Announcements();
         $announcement->title = strip_tags($request['title']);
         $announcement->contents = $this->sanitize($request['content']);
-        $announcement->created_by = decrypt(Auth::user()->id);
+        $announcement->created_by = decrypt(Auth::user()->encrypted_id);
         $announcement->save();
 
         return redirect()
@@ -128,7 +128,7 @@ class AnnouncementsController extends Controller
 
         $data->title = strip_tags($request['title']);
         $data->contents = $this->sanitize($request['content']);
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
         $data->save();
 
         return redirect()

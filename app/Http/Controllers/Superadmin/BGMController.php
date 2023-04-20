@@ -77,7 +77,7 @@ class BGMController extends Controller
         // Output would be like: game/Effects/BGM/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/BGM/$foo['path'])
         $bgm->path = $path . '/' . $newAudioName;
-        $bgm->created_by = decrypt(Auth::user()->id);
+        $bgm->created_by = decrypt(Auth::user()->encrypted_id);
         $bgm->save();
 
         return redirect()
@@ -158,7 +158,7 @@ class BGMController extends Controller
             $data->path = $path . '/' . $newAudioName;
         }
 
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
 
         $data->save();
 

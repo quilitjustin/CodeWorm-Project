@@ -70,7 +70,7 @@ dd($stages->proglang->name);
         }
         $stage->tasks = $arr;
         $stage->proglang_id = $proglang_id;
-        $stage->created_by = decrypt(Auth::user()->id);
+        $stage->created_by = decrypt(Auth::user()->encrypted_id);
         $stage->save();
 
         return redirect()
@@ -151,7 +151,7 @@ dd($stages->proglang->name);
 
         $data->name = strip_tags($request['name']);
         $data->proglang_id = $proglang_id;
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
         $data->save();
 
         return redirect()

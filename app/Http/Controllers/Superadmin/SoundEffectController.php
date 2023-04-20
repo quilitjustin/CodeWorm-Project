@@ -77,7 +77,7 @@ class SoundEffectController extends Controller
         // Output would be like: game/Effects/SoundEffects/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/SoundEffects/$foo['path'])
         $sfx->path = $path . '/' . $newAudioName;
-        $sfx->created_by = decrypt(Auth::user()->id);
+        $sfx->created_by = decrypt(Auth::user()->encrypted_id);
         $sfx->save();
 
         return redirect()
@@ -158,7 +158,7 @@ class SoundEffectController extends Controller
             $data->path = $path . '/' . $newAudioName;
         }
 
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
 
         $data->save();
 

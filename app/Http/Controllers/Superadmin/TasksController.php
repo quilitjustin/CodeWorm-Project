@@ -97,7 +97,7 @@ class TasksController extends Controller
         $task->answer = strip_tags($request['answer']);
         $task->reward = strip_tags($request['reward']);
         $task->proglang_id = $proglang_id;
-        $uid = decrypt(Auth::user()->id);
+        $uid = decrypt(Auth::user()->encrypted_id);
         $task->created_by = $uid;
         $task->updated_by = $uid;
         $task->save();
@@ -179,7 +179,7 @@ class TasksController extends Controller
         $data->answer = strip_tags($request['answer']);
         $data->reward = strip_tags($request['reward']);
         $data->proglang_id = $proglang_id;
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
         $data->save();
    
         return redirect()

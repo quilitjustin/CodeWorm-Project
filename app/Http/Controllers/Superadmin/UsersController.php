@@ -36,7 +36,7 @@ class UsersController extends Controller
         $users = User::select('id', 'f_name', 'l_name', 'status', 'role')
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
-                ['id', '!=', Auth::user()->id],
+                ['id', '!=', Auth::user()->encrypted_id],
                 // Don't get the superadmin
                 // This user should be the only superadmin so there is no need for this statement
                 // Actually this is better since we can also see if there would be another superadmin that shouldn't exist (backdoor for example)
@@ -80,7 +80,7 @@ class UsersController extends Controller
         $data->email = $request['email'];
         // $user->contact_no = $data['contact-no'];
         $data->password = Hash::make($request['password']);
-        $data->created_by = decrypt(Auth::user()->id);
+        $data->created_by = decrypt(Auth::user()->encrypted_id);
         $data->save();
 
         return redirect()
@@ -164,7 +164,7 @@ class UsersController extends Controller
             $data->email = $request['email'];
             $data->role = $request['role'];
         }
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
         $data->save();
 
         return redirect()
@@ -207,7 +207,7 @@ class UsersController extends Controller
                 $data->banned_until = null;
                 break;
         }
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
         $data->save();
 
         return response()->json(['message' => 'Banned successfully']);

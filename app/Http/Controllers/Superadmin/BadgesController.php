@@ -77,7 +77,7 @@ class BadgesController extends Controller
         // Output would be like: game/Effects/Badgess/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/Badgess/$foo['path'])
         $badge->path = $path . '/' . $newImageName;
-        $badge->created_by = decrypt(Auth::user()->id);
+        $badge->created_by = decrypt(Auth::user()->encrypted_id);
         $badge->save();
 
         return redirect()
@@ -158,7 +158,7 @@ class BadgesController extends Controller
             $data->path = $path . '/' . $newImageName;
         }
 
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
 
         $data->save();
 

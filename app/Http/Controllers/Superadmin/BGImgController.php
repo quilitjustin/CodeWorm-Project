@@ -77,7 +77,7 @@ class BGImgController extends Controller
         // Output would be like: game/BackgroundImage/image.png
         // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
         $bgim->path = $path . '/' . $newImageName;
-        $bgim->created_by = decrypt(Auth::user()->id);
+        $bgim->created_by = decrypt(Auth::user()->encrypted_id);
         $bgim->save();
 
         return redirect()
@@ -158,7 +158,7 @@ class BGImgController extends Controller
             $data->path = $path . '/' . $newImageName;
         }
 
-        $data->updated_by = decrypt(Auth::user()->id);
+        $data->updated_by = decrypt(Auth::user()->encrypted_id);
 
         $data->save();
 
