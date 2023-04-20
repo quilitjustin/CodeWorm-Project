@@ -23,7 +23,8 @@ class CMSController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            // 'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            'image' => ['required', 'mimes:jpg,png,jpeg'],
         ]);
 
         $data = new CmsBgim();
@@ -51,7 +52,8 @@ class CMSController extends Controller
     public function store_logo(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            // 'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            'image' => ['required', 'mimes:jpg,png,jpeg'],
         ]);
 
         $data = new CmsLogo();
