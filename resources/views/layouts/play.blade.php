@@ -33,7 +33,7 @@
             <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy_1.png') }}" alt="enemy">
             <img id="life" class="d-none" src="{{ asset('demo/heart.png') }}" alt="life">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
-            <audio id="bgm" class="d-none" src="{{ asset('demo/bgm2.mp3') }}" controls loop></audio>
+            <audio id="bgm" class="d-none" src="{{ asset('demo/bgm.mp3') }}" controls loop></audio>
             <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
             <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
             <button hidden id="fullScreenButton">Full Screen</button>

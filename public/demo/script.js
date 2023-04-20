@@ -271,6 +271,7 @@ window.addEventListener("load", function () {
             }
             if (this.sp > 4) {
                 $("#tackle").prop("disabled", false);
+                
             } else {
                 $("#tackle").prop("disabled", true);
             }
@@ -599,7 +600,7 @@ window.addEventListener("load", function () {
             $("#game *").prop("disabled", true);
             // $("#pause").prop("disabled", false);
         } else {
-            $("#game *").prop("disabled", false);
+            $("#game *:not(.skills)").prop("disabled", false);
         }
 
         if (win) {
