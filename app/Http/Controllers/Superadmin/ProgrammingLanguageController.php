@@ -64,7 +64,7 @@ class ProgrammingLanguageController extends Controller
 
         return redirect()
             ->route('proglangs.show', [
-                'proglang' => $proglang->id,
+                'proglang' => $proglang->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -130,7 +130,7 @@ class ProgrammingLanguageController extends Controller
 
         return redirect()
             ->route('proglangs.show', [
-                'proglang' => $data->id,
+                'proglang' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

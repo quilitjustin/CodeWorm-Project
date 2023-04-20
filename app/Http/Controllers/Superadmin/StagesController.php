@@ -75,7 +75,7 @@ dd($stages->proglang->name);
 
         return redirect()
             ->route('stages.show', [
-                'stage' => $stage->id,
+                'stage' => $stage->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -156,7 +156,7 @@ dd($stages->proglang->name);
 
         return redirect()
             ->route('stages.show', [
-                'stage' => $data->id,
+                'stage' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

@@ -50,7 +50,7 @@
                         let html = '';
                         $.each(response, function(index, data) {
                             html +=
-                                `<a href="/public_profile/` + data.id + `)">
+                                `<a href="/public_profile/` + data.encrypted_id + `)">
                                     <div class="form-control m-0">` +
                                 data.name + `</div>
                                 </a>`;

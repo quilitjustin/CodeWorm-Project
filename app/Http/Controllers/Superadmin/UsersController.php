@@ -36,7 +36,7 @@ class UsersController extends Controller
         $users = User::select('id', 'f_name', 'l_name', 'status', 'role')
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
-                ['id', '!=', decrypt(Auth::user()->id)],
+                ['id', '!=', Auth::user()->id],
                 // Don't get the superadmin
                 // This user should be the only superadmin so there is no need for this statement
                 // Actually this is better since we can also see if there would be another superadmin that shouldn't exist (backdoor for example)
@@ -85,7 +85,7 @@ class UsersController extends Controller
 
         return redirect()
             ->route('users.show', [
-                'user' => $data->id,
+                'user' => $data->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -169,7 +169,7 @@ class UsersController extends Controller
 
         return redirect()
             ->route('users.show', [
-                'user' => $user,
+                'user' => $encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

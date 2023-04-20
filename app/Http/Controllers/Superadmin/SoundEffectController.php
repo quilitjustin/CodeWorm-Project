@@ -82,7 +82,7 @@ class SoundEffectController extends Controller
 
         return redirect()
             ->route('sfxs.show', [
-                'sfx' => $sfx->id,
+                'sfx' => $sfx->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -164,7 +164,7 @@ class SoundEffectController extends Controller
 
         return redirect()
             ->route('sfxs.show', [
-                'sfx' => $data->id,
+                'sfx' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

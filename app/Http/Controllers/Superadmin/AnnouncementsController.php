@@ -75,7 +75,7 @@ class AnnouncementsController extends Controller
 
         return redirect()
             ->route('announcements.show', [
-                'announcement' => $announcement->id,
+                'announcement' => $announcement->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -133,7 +133,7 @@ class AnnouncementsController extends Controller
 
         return redirect()
             ->route('announcements.show', [
-                'announcement' => $data->id,
+                'announcement' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

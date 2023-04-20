@@ -82,7 +82,7 @@ class VisualEffectController extends Controller
 
         return redirect()
             ->route('vfxs.show', [
-                'vfx' => $vfx->id,
+                'vfx' => $vfx->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -166,7 +166,7 @@ class VisualEffectController extends Controller
 
         return redirect()
             ->route('vfxs.show', [
-                'vfx' => $vfx->id,
+                'vfx' => $vfx->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

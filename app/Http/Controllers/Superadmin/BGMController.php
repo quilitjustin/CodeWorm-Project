@@ -82,7 +82,7 @@ class BGMController extends Controller
 
         return redirect()
             ->route('bgms.show', [
-                'bgm' => $bgm->id,
+                'bgm' => $bgm->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -164,7 +164,7 @@ class BGMController extends Controller
 
         return redirect()
             ->route('bgms.show', [
-                'bgm' => $data->id,
+                'bgm' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

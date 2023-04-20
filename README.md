@@ -30,3 +30,8 @@ php artisan key:generate
 php artisan migrate --seed
 
 php artisan serve --host=codeworm.tech --port=80
+
+## References
+https://laravel.com/docs/9.x/encryption
+https://laravel.com/docs/9.x/eloquent-mutators
+https://laravel.com/docs/9.x/eloquent-mutators

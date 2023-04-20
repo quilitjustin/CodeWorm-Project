@@ -104,7 +104,7 @@ class TasksController extends Controller
 
         return redirect()
             ->route('tasks.show', [
-                'task' => $task->id,
+                'task' => $task->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -184,7 +184,7 @@ class TasksController extends Controller
    
         return redirect()
             ->route('tasks.show', [
-                'task' => $data->id,
+                'task' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

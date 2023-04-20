@@ -82,7 +82,7 @@ class BGImgController extends Controller
 
         return redirect()
             ->route('bgims.show', [
-                'bgim' => $bgim->id,
+                'bgim' => $bgim->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -164,7 +164,7 @@ class BGImgController extends Controller
 
         return redirect()
             ->route('bgims.show', [
-                'bgim' => $data->id,
+                'bgim' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }

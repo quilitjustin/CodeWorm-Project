@@ -82,7 +82,7 @@ class BadgesController extends Controller
 
         return redirect()
             ->route('badges.show', [
-                'badge' => $badge->id,
+                'badge' => $badge->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
     }
@@ -164,7 +164,7 @@ class BadgesController extends Controller
 
         return redirect()
             ->route('badges.show', [
-                'badge' => $data->id,
+                'badge' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
     }
