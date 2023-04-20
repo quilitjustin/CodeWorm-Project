@@ -41,17 +41,17 @@
                                     @forelse ($bgims as $bgim)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('bgims.show', $bgim['id']) }}">
+                                                <a href="{{ route('bgims.show', $bgim->encrypted_id) }}">
                                                     {{ $bgim['name'] }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('bgims.show', $bgim['id']) }}">
+                                                <a class="text-link" href="{{ route('bgims.show', $bgim->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('bgims.edit', $bgim['id']) }}">
+                                                <a class="text-success" href="{{ route('bgims.edit', $bgim->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('bgims.destroy', $bgim['id']) }}" method="POST"> @csrf
+                                                    action="{{ route('bgims.destroy', $bgim->encrypted_id) }}" method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>

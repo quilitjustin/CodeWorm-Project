@@ -9,13 +9,20 @@ class Stages extends Model
 {
     use HasFactory;
 
+    protected $appends = ['encrypted_id'];
+
     // This will automatically encrypt every id that is retrieved from the database
-    public function getIdAttribute($value)
+    public function getEncryptedIdAttribute()
     {
-        return encrypt($value);
+        return encrypt($this->attributes['id']);
     }
 
     protected $casts = [
         'tasks' => 'array'
     ];
+
+    public function proglang()
+    {
+        return $this->belongsTo(ProgrammingLanguages::class, 'proglang_id');
+    }
 }

@@ -35,7 +35,7 @@
                                 Task Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('tasks.update', $task->id) }}">
+                        <form method="POST" action="{{ route('tasks.update', $task->encrypted_id) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->

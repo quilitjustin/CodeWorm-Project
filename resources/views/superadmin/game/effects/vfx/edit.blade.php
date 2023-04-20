@@ -31,7 +31,7 @@
                                 Visual Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('vfxs.update', $vfx['id']) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('vfxs.update', $vfx->encrypted_id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" value="false" id="action" name="action">

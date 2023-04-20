@@ -31,7 +31,7 @@
                                 Badge Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('badges.update', $badge->id) }}"
+                        <form method="POST" action="{{ route('badges.update', $badge->encrypted_id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

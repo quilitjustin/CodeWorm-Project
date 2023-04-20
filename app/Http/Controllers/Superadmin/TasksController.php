@@ -49,16 +49,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        // I'm using '\DB' because I'm only using it in index(), but if you want to use it to multiple part of this controller, import it instead using 'use DB'
-        // This will return a std class so use ->property_name instead of ['property_name'] 
-        // If you really want to return an array, use json_decode true which is commented down below
-        // Warning: using json_decode may affect the performance, but it will get the job done so yey?
-        $tasks = \DB::table('tasks')
-            ->join('programming_languages', 'tasks.proglang_id', '=', 'programming_languages.id')
-            ->select('tasks.id', 'tasks.name', 'tasks.difficulty', 'programming_languages.id as proglang_id', 'programming_languages.name as proglang_name')
-            ->get();
+        $tasks = Tasks::with('proglang:id,name')->select('id', 'name', 'difficulty', 'proglang_id')->get();
 
-        // $tasks = json_decode($tasks, true);
         return view('superadmin.game.tasks.index', [
             'tasks' => $tasks,
         ]);

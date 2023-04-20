@@ -35,7 +35,7 @@
                                 Stage Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('stages.update', $stage->id) }}">
+                        <form method="POST" action="{{ route('stages.update', $stage->encrypted_id) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->

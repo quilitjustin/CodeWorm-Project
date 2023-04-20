@@ -40,12 +40,12 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="profile">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('super.profile_update', Auth::user()->id) }}"
+                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="picture" name="action">
                                         <div class="form-group row">
@@ -94,11 +94,11 @@
 
                                 <div class="tab-pane" id="security">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('super.profile_update', Auth::user()->id) }}">
+                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="password" name="action">
                                         <div class="form-group row">
@@ -140,11 +140,11 @@
 
                                 <div class="tab-pane" id="settings">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('super.profile_update', Auth::user()->id) }}">
+                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                        <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
                                         {{-- So the system would know what kind of update you want to make --}}
                                         <input type="hidden" value="details" name="action">
                                         <div class="form-group row">

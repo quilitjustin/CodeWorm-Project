@@ -65,9 +65,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('announcements.edit', $announcement['id']) }}"
+                            <a href="{{ route('announcements.edit', $announcement->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('announcements.destroy', $announcement['id']) }}"
+                            <form class="delete d-inline" action="{{ route('announcements.destroy', $announcement->encrypted_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

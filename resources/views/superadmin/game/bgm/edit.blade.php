@@ -31,7 +31,7 @@
                                 Background Music Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('bgms.update', $bgm['id']) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('bgms.update', $bgm->encrypted_id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" value="false" id="action" name="action">

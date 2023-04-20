@@ -41,17 +41,17 @@
                                     @forelse ($bgms as $bgm)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('bgms.show', $bgm['id']) }}">
+                                                <a href="{{ route('bgms.show', $bgm->encrypted_id) }}">
                                                     {{ $bgm['name'] }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('bgms.show', $bgm['id']) }}">
+                                                <a class="text-link" href="{{ route('bgms.show', $bgm->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('bgms.edit', $bgm['id']) }}">
+                                                <a class="text-success" href="{{ route('bgms.edit', $bgm->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('bgms.destroy', $bgm['id']) }}" method="POST"> @csrf
+                                                    action="{{ route('bgms.destroy', $bgm->encrypted_id) }}" method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>

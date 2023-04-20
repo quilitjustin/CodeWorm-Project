@@ -46,7 +46,7 @@
                                     <label>Created By</label>
                                     <br>
                                     <a
-                                        href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
+                                        href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->encrypted_id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -59,7 +59,7 @@
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                     @if (!is_null($proglang->updated_by))
                                         <a
-                                            href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                            href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->encrypted_id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
                                     @endif
                                 </div>
                                 <div class="col-md-3">
@@ -75,8 +75,8 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('proglangs.edit', $proglang['id']) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('proglangs.destroy', $proglang['id']) }}" method="POST">
+                            <a href="{{ route('proglangs.edit', $proglang->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('proglangs.destroy', $proglang->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -99,7 +99,7 @@
                             <div class="row">
                                 @forelse($stages as $stage)
                                     <div class="col-12 p-2">
-                                        <a href="{{ route('stages.show', encrypt($stage['id'])) }}"
+                                        <a href="{{ route('stages.show', encrypt($stage->encrypted_id)) }}"
                                             class="btn btn-secondary py-3 w-100">{{ $stage['name'] }}</a>
                                     </div>
                                 @empty
@@ -110,7 +110,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
-                            <a href="{{ route('stages.create', $proglang['id']) }}" class="btn btn-primary">Create New
+                            <a href="{{ route('stages.create', $proglang->encrypted_id) }}" class="btn btn-primary">Create New
                                 Stage</a>
                         </div>
                         <!-- /.card-footer -->

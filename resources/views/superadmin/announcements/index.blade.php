@@ -37,13 +37,13 @@
                         </div>
                         <div class="card-footer">
                             {{ \Carbon\Carbon::parse($announcement['created_at'])->diffForHumans() }}
-                            <a class="text-link" href="{{ route('announcements.show', $announcement['id']) }}">
+                            <a class="text-link" href="{{ route('announcements.show', $announcement->encrypted_id) }}">
                                 <i class="far fa-eye"></i> View</a>
-                            <a class="text-success" href="{{ route('announcements.edit', $announcement['id']) }}">
+                            <a class="text-success" href="{{ route('announcements.edit', $announcement->encrypted_id) }}">
                                 <i class="fas fa-pen-square"></i> Edit</a>
-                            <form class="d-inline" action="{{ route('announcements.destroy', $announcement['id']) }}"
+                            <form class="d-inline" action="{{ route('announcements.destroy', $announcement->encrypted_id) }}"
                                 method="POST"
-                                onsubmit="return confirm('You are about to delete announcement ID: {{ $announcement['id'] }}s record. \n Are you sure?');">
+                                onsubmit="return confirm('You are about to delete announcement ID: {{ $announcement->encrypted_id }}s record. \n Are you sure?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-danger">

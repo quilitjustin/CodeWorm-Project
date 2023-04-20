@@ -42,14 +42,14 @@
                                     @forelse ($tasks as $task)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('tasks.show', encrypt($task->id)) }}">
+                                                <a href="{{ route('tasks.show', $task->encrypted_id) }}">
                                                     {{ $task->name }}
                                                 </a>
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('proglangs.show', encrypt($task->proglang_id)) }}">
-                                                    {{ $task->proglang_name }}
+                                                <a href="{{ route('proglangs.show', $task->proglang->encrypted_id) }}">
+                                                    {{ $task->proglang->name }}
                                                 </a>
                                             </td>
                                             <td
@@ -57,13 +57,13 @@
                                                 {{ $task->difficulty }}
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('tasks.show', encrypt($task->id)) }}">
+                                                <a class="text-link" href="{{ route('tasks.show', $task->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('tasks.edit', encrypt($task->id)) }}">
+                                                    href="{{ route('tasks.edit', $task->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('tasks.destroy', encrypt($task->id)) }}"
+                                                    action="{{ route('tasks.destroy', $task->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">

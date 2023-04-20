@@ -25,15 +25,8 @@ class StagesController extends Controller
      */
     public function index()
     {
-        // I'm using '\DB' because I'm only using it in index(), but if you want to use it to multiple part of this controller, import it instead using 'use DB'
-        // This will return a std class so use ->property_name instead of ['property_name']
-        // If you really want to return an array, use json_decode true which is commented down below
-        // Warning: using json_decode may affect the performance, but it will get the job done so yey?
-        $stages = \DB::table('stages')
-            ->join('programming_languages', 'stages.proglang_id', '=', 'programming_languages.id')
-            ->select('stages.id', 'stages.name', 'programming_languages.id as proglang_id', 'programming_languages.name as proglang_name')
-            ->get();
-
+        $stages = Stages::select('id', 'name', 'proglang_id')->with('proglang:id,name')->get();
+dd($stages->proglang->name);
         // $stage = json_decode($stage, true);
         return view('superadmin.game.stages.index', [
             'stages' => $stages,

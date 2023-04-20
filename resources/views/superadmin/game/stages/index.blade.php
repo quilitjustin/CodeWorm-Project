@@ -41,7 +41,7 @@
                                     @forelse ($stages as $stage)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('stages.show', encrypt($stage->id)) }}">
+                                                <a href="{{ route('stages.show', encrypt($stage->encrypted_id)) }}">
                                                     {{ $stage->name }}
                                                 </a>
 
@@ -52,13 +52,13 @@
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('stages.show', encrypt($stage->id)) }}">
+                                                <a class="text-link" href="{{ route('stages.show', encrypt($stage->encrypted_id)) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('stages.edit', encrypt($stage->id)) }}">
+                                                    href="{{ route('stages.edit', encrypt($stage->encrypted_id)) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('stages.destroy', encrypt($stage->id)) }}"
+                                                    action="{{ route('stages.destroy', encrypt($stage->encrypted_id)) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">

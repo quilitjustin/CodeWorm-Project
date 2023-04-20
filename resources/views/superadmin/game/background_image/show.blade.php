@@ -72,8 +72,8 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('bgims.edit', $bgim['id']) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgim['id']) }}" method="POST">
+                            <a href="{{ route('bgims.edit', $bgim->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgim->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

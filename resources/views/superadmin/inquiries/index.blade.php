@@ -89,7 +89,7 @@
                                             </td>
                                             <td class="mailbox-star"><a href="#"><i
                                                         class="fas fa-star-o text-warning"></i></a></td>
-                                            <td class="mailbox-name"><a href="{{ route('super.inquiries.show', $inquiry->id) }}">{{ $inquiry->name }}</a>
+                                            <td class="mailbox-name"><a href="{{ route('super.inquiries.show', $inquiry->encrypted_id) }}">{{ $inquiry->name }}</a>
                                             </td>
                                             <td class="mailbox-subject"><b></b>
                                                 <span class="badge {{ $inquiry->status == 'pending' ? 'bg-danger' : 'bg-success' }}">{{ $inquiry->status }}</span>

@@ -74,7 +74,7 @@
                                             <label>Created By</label>
                                             <br>
                                             <a
-                                                href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
+                                                href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->encrypted_id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Created</label>
@@ -86,7 +86,7 @@
                                             <br>
                                             {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                             <a
-                                                href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                                href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->encrypted_id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Updated</label>
@@ -104,8 +104,8 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Update</a>
-                            <form class="delete d-inline" action="{{ route('users.destroy', $user->id) }}" method="POST">
+                            <a href="{{ route('users.edit', $user->encrypted_id) }}" class="btn btn-primary">Update</a>
+                            <form class="delete d-inline" action="{{ route('users.destroy', $user->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

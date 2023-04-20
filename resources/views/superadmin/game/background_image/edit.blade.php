@@ -31,7 +31,7 @@
                                 Background Image Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('bgims.update', $bgim['id']) }}"
+                        <form method="POST" action="{{ route('bgims.update', $bgim->encrypted_id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

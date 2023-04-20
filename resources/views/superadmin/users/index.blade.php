@@ -43,7 +43,7 @@
                                     @forelse ($users as $user)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('users.show', $user['id']) }}">
+                                                <a href="{{ route('users.show', $user->encrypted_id) }}">
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
                                             </td>
@@ -51,19 +51,19 @@
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('users.show', $user['id']) }}">
+                                                <a class="text-link" href="{{ route('users.show', $user->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('users.edit', $user['id']) }}">
+                                                <a class="text-success" href="{{ route('users.edit', $user->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="ban d-inline"
-                                                    action="{{ route('super.user.ban', $user['id']) }}" method="POST">
+                                                    action="{{ route('super.user.ban', $user->encrypted_id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <button type="submit" class="text-warning">
                                                         <i class="fas fa-ban"></i> Ban</button>
                                                 </form>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('users.destroy', $user['id']) }}" method="POST">
+                                                    action="{{ route('users.destroy', $user->encrypted_id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">

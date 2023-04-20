@@ -52,7 +52,7 @@
             const condition = $("#condition").text();
             if (answer == condition) {
                 $.ajax({
-                    url: "{{ route('super.cms.bgim.destroy', '') }}/" + imgDetails[idx]['id'],
+                    url: "{{ route('super.cms.bgim.destroy', '') }}/" + imgDetails[idx]['encrypted_id'],
                     method: "DELETE",
                     data: {
                         _token: "{{ csrf_token() }}",

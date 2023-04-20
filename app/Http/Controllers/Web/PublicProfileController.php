@@ -15,10 +15,11 @@ class PublicProfileController extends Controller
 
     public function show($user)
     {
-        $user = User::findorfail($user)->select()->get();
+        $user = decrypt($user);
+        $data = User::findorfail($user);
 
         return view('web.profile.show', [
-            'user' => $user
+            'user' => $data
         ]);
     }
 }

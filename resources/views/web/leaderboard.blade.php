@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                                 @forelse ($records as $record)
-                                    <tr data-href="{{ route('public_profile.index', $record->id) }}">
+                                    <tr data-href="{{ route('public_profile.index', $record->encrypted_id) }}">
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $record->f_name . $record->l_name }}</td>
                                         <td>{{ $record->record }}</td>

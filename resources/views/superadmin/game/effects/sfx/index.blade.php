@@ -41,17 +41,17 @@
                                     @forelse ($sfxs as $sfx)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('sfxs.show', $sfx['id']) }}">
+                                                <a href="{{ route('sfxs.show', $sfx->encrypted_id) }}">
                                                     {{ $sfx['name'] }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('sfxs.show', $sfx['id']) }}">
+                                                <a class="text-link" href="{{ route('sfxs.show', $sfx->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('sfxs.edit', $sfx['id']) }}">
+                                                <a class="text-success" href="{{ route('sfxs.edit', $sfx->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('sfxs.destroy', $sfx['id']) }}" method="POST"> @csrf
+                                                    action="{{ route('sfxs.destroy', $sfx->encrypted_id) }}" method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>

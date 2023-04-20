@@ -31,7 +31,7 @@
                                 Announcements Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('announcements.update', $announcement['id']) }}"
+                        <form method="POST" action="{{ route('announcements.update', $announcement->encrypted_id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

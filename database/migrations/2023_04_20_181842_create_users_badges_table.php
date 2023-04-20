@@ -12,30 +12,23 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('game_records', function (Blueprint $table) {
+        Schema::create('users_badges', function (Blueprint $table) {
             $table->id();
-            $table->string('record');
-            $table->unsignedBigInteger('proglang_id');
-            $table->unsignedBigInteger('stage_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('badge_id');
             $table->timestamps();
         });
 
-        Schema::table('game_records', function (Blueprint $table) {
-            $table
-                ->foreign('proglang_id')
-                ->references('id')
-                ->on('programming_languages')
-                ->onDelete('cascade');
-            $table
-                ->foreign('stage_id')
-                ->references('id')
-                ->on('stages')
-                ->onDelete('cascade');
+        Schema::table('users_badges', function (Blueprint $table) {
             $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+            $table
+                ->foreign('badge_id')
+                ->references('id')
+                ->on('badges')
                 ->onDelete('cascade');
         });
     }
@@ -47,6 +40,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('game_records');
+        Schema::dropIfExists('users_badges');
     }
 };

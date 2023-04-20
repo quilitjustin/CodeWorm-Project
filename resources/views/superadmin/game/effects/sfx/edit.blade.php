@@ -31,7 +31,7 @@
                                 Sound Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('sfxs.update', $sfx['id']) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('sfxs.update', $sfx->encrypted_id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" value="false" id="action" name="action">

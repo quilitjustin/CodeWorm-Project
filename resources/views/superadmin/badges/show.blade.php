@@ -73,9 +73,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('badges.edit', $badge->id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="d-inline" action="{{ route('badges.destroy', $badge->id) }}" method="POST"
-                                onsubmit="return confirm('You are about to delete badge ID: {{ $badge->id }}s record. \n Are you sure?');">
+                            <a href="{{ route('badges.edit', $badge->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
+                            <form class="d-inline" action="{{ route('badges.destroy', $badge->encrypted_id) }}" method="POST"
+                                onsubmit="return confirm('You are about to delete badge ID: {{ $badge->encrypted_id }}s record. \n Are you sure?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

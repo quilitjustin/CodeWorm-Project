@@ -14,14 +14,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $appends = ['encrypted_id'];
+
     // This will automatically encrypt every id that is retrieved from the database
-    public function getIdAttribute($value)
+    public function getEncryptedIdAttribute()
     {
-        // You need this or there would be a problem with Auth::attempt (it'll return null)
-        if(Auth::check()){
-            return encrypt($value);
-        }
-        return $value;
+        return encrypt($this->attributes['id']);
     }
 
     /**
