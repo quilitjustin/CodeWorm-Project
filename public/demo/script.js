@@ -7,8 +7,8 @@ window.addEventListener("load", function () {
     let score = 0;
     let paused = false;
     const enemyName = "Codeworm";
-    let gameOver = false;
-    let win = false;
+    // let gameOver = false;
+    // let win = false;
     let timer = 0;
     let bgm = document.getElementById("bgm");
     let bgmVolume = 0.1;
@@ -267,7 +267,7 @@ window.addEventListener("load", function () {
         }
         update(input, deltaTime, enemies, explosions) {
             if (this.lives <= 0) {
-                gameOver = true;
+                GAME_OVER = true;
             }
             if (this.sp > 4) {
                 $("#tackle").prop("disabled", false);
@@ -540,7 +540,7 @@ window.addEventListener("load", function () {
             // }
             if (this.lives <= 0) {
                 this.markedForDeletion = true;
-                win = true;
+                WIN = true;
             }
         }
     }
@@ -577,7 +577,7 @@ window.addEventListener("load", function () {
         ctx.font = "30px Helvetica";
         ctx.fillText(enemyName, canvas.width - 22, 52);
 
-        if (gameOver) {
+        if (GAME_OVER) {
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
             ctx.font = "40px Helvetica";
@@ -603,7 +603,7 @@ window.addEventListener("load", function () {
             $("#game *:not(.skills)").prop("disabled", false);
         }
 
-        if (win) {
+        if (WIN) {
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
             ctx.font = "40px Helvetica";
@@ -747,7 +747,7 @@ window.addEventListener("load", function () {
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
-        if (!(gameOver || paused || win)) {
+        if (!(GAME_OVER || paused || WIN)) {
             requestAnimationFrame(animate);
         }
     }

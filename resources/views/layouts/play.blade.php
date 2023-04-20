@@ -346,9 +346,11 @@
         const userId = '{{ Auth::user()->id }}';
         const CSRF_TOKEN = `{{ csrf_token() }}`;
         const STAGE_NAME = "{{ $stage[0]->name }}";
+        let WIN = false;
+        let GAME_OVER = false;
     </script>
     {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=6') }}"></script>
+    <script src="{{ asset('demo/script.js?v=7') }}"></script>
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);
@@ -360,7 +362,14 @@
             });
 
             $("#restart-modal .back-btn").click(function(){
-                $("#pause-modal").modal("show");
+                if(WIN){
+                    $("#restart-modal").modal("show");
+                } else if (GAME_OVER) {
+                    $("#lose-modal").modal("show");
+                } else {
+                    $("#pause-modal").modal("show");
+                }
+
                 $("#restart-modal").modal("hide");
             });
 
@@ -370,7 +379,14 @@
             });
 
             $("#quit-modal .back-btn").click(function(){
-                $("#pause-modal").modal("show");
+                if(WIN){
+                    $("#win-modal").modal("show");
+                } else if (GAME_OVER) {
+                    $("#lose-modal").modal("show");
+                } else {
+                    $("#pause-modal").modal("show");
+                }
+                
                 $("#quit-modal").modal("hide");
             });
         });
