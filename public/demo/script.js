@@ -399,7 +399,7 @@ window.addEventListener("load", function () {
             this.width = 160;
             this.height = 119;
             this.image = document.getElementById("enemyImage");
-            this.x = this.gameWidth - this.width;
+            this.x = this.gameWidth - this.width * -2;
             this.y = this.gameHeight - this.height;
             this.frameX = 0;
             this.maxFrame = 5;
@@ -614,10 +614,10 @@ window.addEventListener("load", function () {
             $("#game *").prop("enabled", true);
             let proglangId = "",
                 stageId = "";
-            if (language == "php") {
+            if (language.toLowerCase() == "php") {
                 proglangId = 1;
                 stageId = 1;
-            } else if (language == "js") {
+            } else if (language.toLowerCase() == "javascript") {
                 proglangId = 2;
                 stageId = 2;
             }

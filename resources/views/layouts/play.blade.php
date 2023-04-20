@@ -348,7 +348,7 @@
         const STAGE_NAME = "{{ $stage[0]->name }}";
     </script>
     {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=5') }}"></script>
+    <script src="{{ asset('demo/script.js?v=6') }}"></script>
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);
