@@ -348,6 +348,7 @@
         const STAGE_NAME = "{{ $stage[0]->name }}";
         let WIN = false;
         let GAME_OVER = false;
+        let ENEMY_NUM = 3;
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js?v=7') }}"></script>
