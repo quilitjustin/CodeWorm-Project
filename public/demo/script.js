@@ -740,11 +740,11 @@ window.addEventListener("load", function () {
         ctx.textAlign = "center";
         ctx.fillStyle = "black";
         ctx.font = "20px Helvetica";
-        ctx.fillText(formattedTime, canvas.width / 2, 70);
+        ctx.fillText(formattedTimer, canvas.width / 2, 70);
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
         ctx.font = "20px Helvetica";
-        ctx.fillText(formattedTime, canvas.width / 2, 72);
+        ctx.fillText(formattedTimer, canvas.width / 2, 72);
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
