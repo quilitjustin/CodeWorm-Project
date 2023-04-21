@@ -67,6 +67,11 @@
                                             <label>Language</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
+                                                @forelse ($proglangs as $proglang)
+                                                    <option value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
+                                                    </option>
+                                                @empty
+                                                @endforelse
 
                                             </select>
                                             @error('proglang')
@@ -167,22 +172,22 @@
             runCode(code, language.toLowerCase());
         });
 
-        $(document).ready(function() {
-            const route = "{{ route('super.fetch.languages') }}";
-            $.get({
-                url: route,
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(response) {
-                    let html = '';
-                    $.each(response, function(index, data) {
-                        html +=
-                            `<option value="` + data.id + `">` + data.name + `</option>`;
-                    });
-                    $("#proglang").append(html);
-                }
-            });
-        });
+        // $(document).ready(function() {
+        //     const route = "{{ route('super.fetch.languages') }}";
+        //     $.get({
+        //         url: route,
+        //         data: {
+        //             "_token": "{{ csrf_token() }}",
+        //         },
+        //         success: function(response) {
+        //             let html = '';
+        //             $.each(response, function(index, data) {
+        //                 html +=
+        //                     `<option value="` + data.id + `">` + data.name + `</option>`;
+        //             });
+        //             $("#proglang").append(html);
+        //         }
+        //     });
+        // });
     </script>
 @endsection

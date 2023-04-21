@@ -54,7 +54,12 @@
                                             <label>Language</label>
                                             <select class="select2" style="width: 100%;"
                                                 data-placeholder="Select a Language" id="proglang" name="proglang">
-                                                
+                                                <option value="">Select a Language</option>
+                                                @forelse ($proglangs as $proglang)
+                                                    <option value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
+                                                    </option>
+                                                @empty
+                                                @endforelse
                                             </select>
                                             @error('proglang')
                                                 <p class="text-danger my-2">{{ $message }}</p>
@@ -65,9 +70,72 @@
                                             <label>Tasks</label>
                                             <select class="select2" id="tasks" name="tasks[]" multiple="multiple"
                                                 data-placeholder="Select a State" style="width: 100%;">
-                                                
+
                                             </select>
                                             @error('tasks')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Rewards</label>
+                                            <select class="select2" id="rewards" name="rewards[]" multiple="multiple"
+                                                data-placeholder="Select a State" style="width: 100%;">
+                                                <option value="">Select a Language</option>
+                                                @forelse ($rewards as $reward)
+                                                    <option value="{{ $reward->encrypted_id }}">{{ $reward->name }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+                                            @error('rewards')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Player Base HP</label>
+                                            <input class="form-control" type="text" name="player-bhp"
+                                                placeholder="Enter hp" value="{{ old('player-bhp', '') }}" />
+                                            @error('player-bhp')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Enemy Base HP</label>
+                                            <input class="form-control" type="text" name="enemy-bhp"
+                                                placeholder="Enter hp" value="{{ old('enemy-bhp', '') }}" />
+                                            @error('enemy-bhp')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Player Base SP</label>
+                                            <input class="form-control" type="text" name="player-bsp"
+                                                placeholder="Enter SP" value="{{ old('player-bsp', '') }}" />
+                                            @error('player-bsp')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Enemy Rage Timer</label>
+                                            <input class="form-control" type="text" name="enemy-rage"
+                                                placeholder="Enter name" value="{{ old('enemy-rage', '') }}" />
+                                            @error('enemy-rage')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>

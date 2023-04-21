@@ -10,21 +10,21 @@
     })
 
     $(document).ready(function() {
-        $.get({
-            url: "{{ route('super.fetch.languages') }}",
-            data: {
-                "_token": "{{ csrf_token() }}",
-            },
-            success: function(response) {
-                let html = '';
-                $.each(response, function(index, data) {
-                    html +=
-                        `<option value="` + data.id + `">` + data.name + `</option>`;
-                });
-                $("#proglang").html(html);
-                $("#proglang").prop("selectedIndex", -1);
-            }
-        });
+        // $.get({
+        //     url: "{{ route('super.fetch.languages') }}",
+        //     data: {
+        //         "_token": "{{ csrf_token() }}",
+        //     },
+        //     success: function(response) {
+        //         let html = '';
+        //         $.each(response, function(index, data) {
+        //             html +=
+        //                 `<option value="` + data.id + `">` + data.name + `</option>`;
+        //         });
+        //         $("#proglang").html(html);
+        //         $("#proglang").prop("selectedIndex", -1);
+        //     }
+        // });
 
         $('#proglang').change(function() {
             const id = $(this).val();
@@ -38,7 +38,7 @@
                 success: function(response) {
                     let html = '';
                     $.each(response, function(index, data) {
-                        html += `<option value="${data.id}" class="${data.difficulty == 'Easy' ? 'bg-success' : data.difficulty == 'Medium' ? 'bg-warning' : data.difficulty == 'Hard' ? 'bg-danger' : ''}">
+                        html += `<option value="${data.encrypted_id}" class="${data.difficulty == 'Easy' ? 'bg-success' : data.difficulty == 'Medium' ? 'bg-warning' : data.difficulty == 'Hard' ? 'bg-danger' : ''}">
                                     ${data.name} (${data.difficulty})</option>`;
                     });
                     $("#tasks").html(html);

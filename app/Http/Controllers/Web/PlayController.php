@@ -38,7 +38,7 @@ class PlayController extends Controller
         
         $arr = [];
         foreach ($stage[0]->tasks as $task) {
-            array_push($arr, \App\Models\Tasks::select('name', 'description', 'snippet', 'difficulty', 'answer', 'reward')->where('id', $task));
+            array_push($arr, \App\Models\Tasks::select('id', 'name', 'description', 'snippet', 'difficulty', 'answer', 'reward')->where('id', $task));
         }
         $result = collect($arr)->reduce(function ($query1, $query2) {
             if ($query1 && $query2) {
@@ -61,8 +61,8 @@ class PlayController extends Controller
         $record = new \App\Models\GameRecord();
         $record->record = $request['record'];
         $record->proglang_id = $request['proglangId'];
-        $record->stage_id = $request['stageId'];
-        $record->player_id = decrypt($request['userId']);
+        $record->stage_id = decrypt($request['stageId']);
+        $record->user_id = decrypt($request['userId']);
         $record->save();
 
         return response()->json(['message' => 'success']);

@@ -343,12 +343,12 @@
         const proglang = "{{ $other[0]->name }}";
         const language = proglang.toLowerCase();
         const storeRoute = "{{ route('web.play.store') }}";
-        const userId = '{{ Auth::user()->id }}';
+        const userId = '{{ Auth::user()->encrypted_id }}';
         const CSRF_TOKEN = `{{ csrf_token() }}`;
         const STAGE_NAME = "{{ $stage[0]->name }}";
+        const STAGE_ID = "{{ $stage[0]->encrypted_id }}";
         let WIN = false;
         let GAME_OVER = false;
-        let ENEMY_NUM = 3;
     </script>
     {{-- Game --}}
     <script src="{{ asset('demo/script.js?v=7') }}"></script>

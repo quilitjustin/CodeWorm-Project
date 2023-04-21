@@ -22,10 +22,10 @@ window.addEventListener("load", function () {
         window.$log = data;
     };
     
-    function formatTime(seconds) {
-        var hours = Math.floor(seconds / 3600);
-        var minutes = Math.floor((seconds % 3600) / 60);
-        var seconds = Math.floor(seconds % 60);
+    function formatTime(time) {
+        let hours = Math.floor(time / 3600);
+        let minutes = Math.floor((time % 3600) / 60);
+        let seconds = Math.floor(time % 60);
         return (
             hours +
             ":" +
@@ -612,23 +612,20 @@ window.addEventListener("load", function () {
             ctx.font = "40px Helvetica";
             ctx.fillText("You Win!", canvas.width / 2 + 2, 202);
             $("#game *").prop("enabled", true);
-            let proglangId = "",
-                stageId = "";
+            let proglangId = "";
             if (language.toLowerCase() == "php") {
                 proglangId = 1;
-                stageId = 1;
             } else if (language.toLowerCase() == "javascript") {
                 proglangId = 2;
-                stageId = 2;
             }
 
             $.post({
                 url: storeRoute,
                 data: {
                     _token: CSRF_TOKEN,
-                    record: formatTime((timer * 0.001).toFixed(1)),
-                    proglangId: proglangId,
-                    stageId: stageId,
+                    record: timer,
+                    proglangId, proglangId,
+                    stageId: STAGE_ID,
                     userId: userId,
                 },
                 dataType: "json",

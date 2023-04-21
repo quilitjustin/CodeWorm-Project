@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stages;
+use App\Models\Badges;
 use App\Models\ProgrammingLanguages as Proglang;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,9 +26,8 @@ class StagesController extends Controller
      */
     public function index()
     {
-        $stages = Stages::select('id', 'name', 'proglang_id')->with('proglang:id,name')->get();
-dd($stages->proglang->name);
-        // $stage = json_decode($stage, true);
+        $stages = Stages::with('proglang:id,name')->select('id', 'name', 'proglang_id')->get();
+
         return view('superadmin.game.stages.index', [
             'stages' => $stages,
         ]);
@@ -40,7 +40,13 @@ dd($stages->proglang->name);
      */
     public function create()
     {
-        return view('superadmin.game.stages.create');
+        $proglangs = Proglang::select('id', 'name')->get();
+        $rewards = Badges::select('id', 'name')->get();
+
+        return view('superadmin.game.stages.create', [
+            'proglangs' => $proglangs,
+            'rewards' => $rewards
+        ]);
     }
 
     /**
@@ -105,7 +111,7 @@ dd($stages->proglang->name);
         $proglang = Proglang::select('id', 'name as f_name', 'name as l_name')->where('id', $data->proglang_id);
         $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
         $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by->unionAll($updated_by)->get();
+        $other = $created_by->unionAll($updated_by)->unionAll($proglang)->get();
 
         return view('superadmin.game.stages.show', [
             'stage' => $data,

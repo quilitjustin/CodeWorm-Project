@@ -63,7 +63,11 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return view('superadmin.game.tasks.create');
+        $proglangs = Proglang::select('id', 'name')->get(); 
+
+        return view('superadmin.game.tasks.create', [
+            'proglangs' => $proglangs,
+        ]);
     }
 
     /**

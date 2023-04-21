@@ -41,24 +41,24 @@
                                     @forelse ($stages as $stage)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('stages.show', encrypt($stage->encrypted_id)) }}">
+                                                <a href="{{ route('stages.show', $stage->encrypted_id) }}">
                                                     {{ $stage->name }}
                                                 </a>
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('proglangs.show', encrypt($stage->proglang_id)) }}">
-                                                    {{ $stage->proglang_name }}
+                                                <a href="{{ route('proglangs.show', $stage->proglang->encrypted_id) }}">
+                                                    {{ $stage->proglang->name }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('stages.show', encrypt($stage->encrypted_id)) }}">
+                                                <a class="text-link" href="{{ route('stages.show', $stage->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('stages.edit', encrypt($stage->encrypted_id)) }}">
+                                                    href="{{ route('stages.edit', $stage->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('stages.destroy', encrypt($stage->encrypted_id)) }}"
+                                                    action="{{ route('stages.destroy', $stage->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
