@@ -1,19 +1,15 @@
 [
+    { "text": "Code Worm" },
     {
-        "text": "Your Favorite\n                        Place for Nurturing Procrastirnation"
+        "text": "It's time to change the way students learn to code using our exciting game-based learning technology."
     },
+    { "text": "Practice to code" },
     {
-        "text": "Start Bootstrap\n                        can help you build better websites\n                        using the Bootstrap\n                        framework! Just download a theme and start customizing, no strings attached!"
+        "text": "Our custom coding exercise is designed for new programmers, teaching JavaScript and PHP programming languages."
     },
-    { "text": "We've got what\n                        you need!" },
-    {
-        "text": "Start Bootstrap\n                        has everything you need to get your\n                        new website up and\n                        running in no time! Choose one of our open source, free to download, and easy to use themes! No\n                        strings attached!"
-    },
-    { "text": "At Your Service" },
+    { "text": "Challenge your friends" },
     { "text": "Sturdy\n                            Themes" },
-    {
-        "text": "Our themes\n                            are updated regularly to keep them bug\n                            free!"
-    },
+    { "text": "" },
     { "text": "Up to Date\n                        " },
     {
         "text": "All\n                            dependencies are kept current to keep things\n                            fresh."
@@ -23,9 +19,7 @@
         "text": "You can use\n                            this design as is, or you can make\n                            changes!"
     },
     { "text": "Made with\n                            Love" },
-    {
-        "text": "Is it\n                            really open source if it's not made with\n                            love?"
-    },
+    { "text": "" },
     { "text": "Free Download at Start Bootstrap!" },
     { "text": "Let's Get In\n                        Touch!" },
     {
