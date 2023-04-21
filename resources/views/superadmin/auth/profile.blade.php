@@ -34,6 +34,8 @@
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
+                                <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
+                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -194,6 +196,12 @@
                                             @endforeach
                                         </ul>
                                     @endif
+                                </div>
+                                <!-- /.tab-pane -->
+
+                                <div class="tab-pane" id="other">
+                                    <h5>Public Profile: </h5>
+                                    <a class="btn btn-outline-primary" href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and see</a>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>

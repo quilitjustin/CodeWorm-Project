@@ -36,6 +36,8 @@
                                     </li>
                                     <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                     </li>
+                                    <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
+                                    </li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -147,7 +149,8 @@
                                             @csrf
                                             @method('PUT')
                                             {{-- So the system would know what email it would ignore because email must be unique --}}
-                                            <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
+                                            <input type="hidden" name="id"
+                                                value="{{ Auth::user()->encrypted_id }}">
                                             {{-- So the system would know what kind of update you want to make --}}
                                             <input type="hidden" value="details" name="action">
                                             <div class="form-group row">
@@ -200,16 +203,22 @@
                                         @endif
                                     </div>
                                     <!-- /.tab-pane -->
-                                </div>
-                                <!-- /.tab-content -->
-                            </div><!-- /.card-body -->
+
+                                    <div class="tab-pane" id="other">
+                                        <h5>Public Profile: </h5>
+                                        <a class="btn btn-outline-primary" href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and see</a>
+                                    </div>
+                                    <!-- /.tab-pane --
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div><!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
     </div>
