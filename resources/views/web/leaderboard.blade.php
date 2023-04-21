@@ -15,7 +15,7 @@
                 Back</button>
         </div><!-- /.col --> --}}
         <div class="row">
-			
+
             <div class="col-sm-12">
                 <div class="text-center text-light mt-4">
                     <h1 class="h2 font-weight-bold">Leaderboards</h1>
@@ -34,20 +34,23 @@
                         <table id="data-table" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-									<th>Rank</th>
+                                    <th>Rank</th>
                                     <th>Name</th>
                                     <th>Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($records as $record)
-                                    <tr data-href="{{ route('public_profile.index', $record->users->encrypted_id) }}">
+                                    <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $record->users->f_name . $record->users->l_name }}</td>
+                                        <td>
+                                            <a href="{{ route('public_profile.show', $record->users->encrypted_id) }}">
+                                                {{ $record->users->f_name . $record->users->l_name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $record->total_time }}</td>
                                     </tr>
                                 @empty
-
                                 @endforelse
                             </tbody>
                             <tfoot>
@@ -59,10 +62,11 @@
                 </div>
                 <!-- /.card -->
             </div>
-			<div class="col-sm-12">
-				<button onclick="history.back();" class="text-light"><i class="right fas fa-angle-left"></i> Go Back</button>
-			</div>
-			<!-- /.col -->
+            <div class="col-sm-12">
+                <button onclick="history.back();" class="text-light"><i class="right fas fa-angle-left"></i> Go
+                    Back</button>
+            </div>
+            <!-- /.col -->
         </div>
     </div>
 @endsection

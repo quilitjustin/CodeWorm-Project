@@ -8,7 +8,8 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Stages</h1>
+                        <h1 class="m-0">Stages </h1>
+                        <h6 class="font-size-5 text-danger">Note: You need to complete all stage to be qualified to compete for leaderboards.</h6>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">
