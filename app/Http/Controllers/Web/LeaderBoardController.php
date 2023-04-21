@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GameRecord;
+use App\Models\Stages;
 
 class LeaderBoardController extends Controller
 {
@@ -20,11 +21,16 @@ class LeaderBoardController extends Controller
 
     public function index(Request $request)
     {
+        $proglang_id = 2;
+
         $records = GameRecord::select('user_id')
             ->selectRaw('SUM(record) as total_time')
+            ->where('proglang_id', $proglang_id)
             ->groupBy('user_id')
-            ->orderByAsc('total_time')
+            ->havingRaw('COUNT(DISTINCT stage_id) = ?', [Stages::where('proglang_id', $proglang_id)->count()])
+            ->orderBy('total_time', 'asc')
             ->with('users:id,f_name,l_name,profile_picture')
+            ->limit(100)
             ->get()
             ->map(function ($item) {
                 $item->total_time = $this->formatTime($item->total_time);
