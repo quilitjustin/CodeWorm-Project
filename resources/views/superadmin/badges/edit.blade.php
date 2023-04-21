@@ -92,7 +92,16 @@
                 <div class="col-md-8">
                     <div class="card p-2">
                         <label for="img-preview">Preview</label>
-                        <img src="#" id="img-preview" class="img-fluid d-none" alt="preview">
+                        <div class="row d-flex justify-content-center">
+                            <div id="preview" class="col-4 d-none">
+                                <img src="#" id="img-preview" class="rounded img-fluid border border-secondary"
+                                    alt="preview">
+                                <div class="text-center">
+                                    <h3 class="font-weight-bold">Untitled</h3>
+                                    <span>Date Earned: 41 minutes ago</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.col -->
@@ -105,40 +114,5 @@
 
 @section('script')
     @include('layouts.superadmin.inc_component')
-    <script>
-        const rule = $("#action");
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
-
-        imageFile.on("change", function(e) {
-            // The image has been updated
-            rule.val("true");
-
-            // Replace label inside input 
-            const fileName = $(this).val();
-            $(this).next(".custom-file-label").html(fileName);
-
-            // Show image preview
-            const item = e.target.files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function() {
-                preview.attr("src", reader.result);
-                preview.removeClass("d-none");
-            }, false);
-
-            if (item) {
-                reader.readAsDataURL(item);
-            }
-        });
-
-        $("#clear").click(function(e) {
-            // The image has been removed
-            rule.val("false");
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
-            preview.addClass("d-none");
-            preview.attr("src", "#");
-        });
-    </script>
+    @include('superadmin.badges.script')
 @endsection

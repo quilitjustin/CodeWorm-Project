@@ -73,8 +73,10 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('badges.edit', $badge->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="d-inline" action="{{ route('badges.destroy', $badge->encrypted_id) }}" method="POST"
+                            <a href="{{ route('badges.edit', $badge->encrypted_id) }}"
+                                class="btn btn-primary ml-2">Update</a>
+                            <form class="d-inline" action="{{ route('badges.destroy', $badge->encrypted_id) }}"
+                                method="POST"
                                 onsubmit="return confirm('You are about to delete badge ID: {{ $badge->encrypted_id }}s record. \n Are you sure?');">
                                 @csrf
                                 @method('DELETE')
@@ -92,10 +94,11 @@
                         <div class="row d-flex justify-content-center">
                             <div id="preview" class="col-4">
                                 <img src="{{ asset($badge['path']) }}" id="img-preview"
-                                    class="img-fluid border border-secondary" alt="preview">
+                                    class="rounded mx-auto d-block border border-secondary"
+                                    style="height: 150px; max-height: 150px;" alt="preview">
                                 <div class="text-center">
-                                    <h3>{{ $badge['name'] }}</h3>
-                                    <span>Date Earned: {{ now() }}</span>
+                                    <h3 class="font-weight-bold">Untitled</h3>
+                                    <span>Date Earned: 41 minutes ago</span>
                                 </div>
                             </div>
                         </div>

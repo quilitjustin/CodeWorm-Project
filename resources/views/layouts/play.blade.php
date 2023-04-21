@@ -351,7 +351,7 @@
         let GAME_OVER = false;
     </script>
     {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=7') }}"></script>
+    <script src="{{ asset('demo/script.js?v=8') }}"></script>
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);

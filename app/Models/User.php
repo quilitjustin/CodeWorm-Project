@@ -44,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function badges(){
+        // users_badges is the name of pivot table
+        return $this->belongsToMany(Badges::class, 'users_badges', 'user_id', 'badge_id');
+    }
 }

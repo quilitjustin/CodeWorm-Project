@@ -34,13 +34,13 @@
                                     alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">{{ $user['f_name'] . " " . $user['l_name'] }}
+                            <h3 class="profile-username text-center">{{ $user['f_name'] . ' ' . $user['l_name'] }}
                             </h3>
 
                             <p class="text-muted text-center">
-								{{ $user->role == "user" ? "student" : $user->role }}
+                                {{ $user->role == 'user' ? 'student' : $user->role }}
                                 <br>
-								{{ $user['email'] }}
+                                {{ $user['email'] }}
                             </p>
 
                             {{-- <ul class="list-group list-group-unbordered mb-3">
@@ -101,14 +101,28 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#badges"
-                                        data-toggle="tab">Badges</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#badges" data-toggle="tab">Badges</a>
+                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="badges">
-
+                                    <div class="row">
+                                        @forelse ($user->badges as $badge)
+                                            <div class="col-4 p-3">
+                                                <img src="{{ asset($badge->path) }}"
+                                                    class="rounded mx-auto d-block border border-secondary" alt="preview"
+                                                    style="height: 150px; max-height: 150px;">
+                                                <div class="text-center">
+                                                    <h3 class="font-weight-bold">{{ $badge->name }}</h3>
+                                                    <span>Date Earned:
+                                                        {{ \Carbon\Carbon::parse($badge->created_at)->diffForHumans() }}</span>
+                                                </div>
+                                            </div>
+                                        @empty
+                                        @endforelse
+                                    </div>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>
@@ -125,7 +139,7 @@
     <!-- /.content -->
 @endsection
 
-@section('scripts')
+@section('script')
     <script>
         // Code Goes here	
     </script>

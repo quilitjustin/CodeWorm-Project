@@ -89,11 +89,11 @@
                         <label for="img-preview">Preview</label>
                         <div class="row d-flex justify-content-center">
                             <div id="preview" class="col-4 d-none">
-                                <img src="#" id="img-preview" class="img-fluid border border-secondary"
+                                <img src="#" id="img-preview" class="rounded img-fluid border border-secondary"
                                     alt="preview">
                                 <div class="text-center">
-                                    <h3>Untitled</h3>
-                                    <span>Date Earned: {{ now() }}</span>
+                                    <h3 class="font-weight-bold">Untitled</h3>
+                                    <span>Date Earned: 41 minutes ago</span>
                                 </div>
                             </div>
                         </div>
@@ -109,35 +109,5 @@
 
 @section('script')
     @include('layouts.superadmin.inc_component')
-    <script>
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
-        const previewBody = $("#preview");
-
-        imageFile.on("change", function(e) {
-            // Replace label inside input 
-            const fileName = $(this).val();
-            $(this).next(".custom-file-label").html(fileName);
-
-            // Show image preview
-            const item = e.target.files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function() {
-                preview.attr("src", reader.result);
-                previewBody.removeClass("d-none");
-            }, false);
-
-            if (item) {
-                reader.readAsDataURL(item);
-            }
-        });
-
-        $("#clear").click(function() {
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
-            previewBody.addClass("d-none");
-            preview.attr("src", "#");
-        });
-    </script>
+    @include('superadmin.badges.script')
 @endsection
