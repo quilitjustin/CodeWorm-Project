@@ -133,7 +133,8 @@
                 <div class="modal-footer justify-content-between">
                     <button class="quit-btn btn btn-danger">Quit</button>
                     @if (isset($other[1]))
-                        <a href="{{ route('web.play.start', $other[1]->id) }}" class="btn btn-primary">Next Stage: {{ $other[1]->name }}</a>
+                    {{-- Next stage --}}
+                        <a href="{{ route('web.play.start', $other[1]->encrypted_id) }}" class="btn btn-primary">Next Stage: {{ $other[1]->name }}</a>
                     @endif
                 </div>
             </div>

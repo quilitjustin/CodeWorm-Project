@@ -32,7 +32,7 @@ class PlayController extends Controller
         $id = decrypt($id);
         $stage = Stages::findorfail($id)->select('id', 'name', 'tasks', 'proglang_id')->where('id', $id)->get();
         $proglang = \App\Models\ProgrammingLanguages::select('id', 'name')->where('id', $stage[0]->proglang_id);
-        $next_stage = Stages::select('id', 'name')->where('id', '>',  $id);
+        $next_stage = Stages::select('id', 'name')->where('id', '>',  $id)->where('proglang_id', $stage[0]->proglang_id);
         $other = $proglang->unionAll($next_stage);
         $other = $other->get();
         
