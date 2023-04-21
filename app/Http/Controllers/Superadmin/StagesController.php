@@ -82,7 +82,7 @@ class StagesController extends Controller
         $stage->tasks = $arr;
         $stage->proglang_id = $proglang_id;
         $stage->badge_id = $reward_id;
-        $stage->created_by = decrypt(Auth::user()->encrypted_id);
+        $stage->created_by = Auth::user()->id;
         $stage->save();
 
         return redirect()
@@ -100,7 +100,9 @@ class StagesController extends Controller
      */
     public function show($stage)
     {
-        $data = $this->findRecord($stage);
+        $id = decrypt($stage);
+        $data = Stages::with('proglang:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
+        
         $arr = [];
         foreach ($data->tasks as $task) {
             array_push($arr, \App\Models\Tasks::select('id', 'name')->where('id', $task));
@@ -113,18 +115,9 @@ class StagesController extends Controller
             }
         });
         $tasks = $result->get();
-        // Just a work around to make union work or it'll throw an error ('name', 'name')
-        $proglang = Proglang::select('id', 'name as f_name', 'name as l_name')->where('id', $data->proglang_id);
-        $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
-        $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by
-            ->unionAll($updated_by)
-            ->unionAll($proglang)
-            ->get();
 
         return view('superadmin.game.stages.show', [
             'stage' => $data,
-            'other' => $other,
             'tasks' => $tasks,
         ]);
     }
@@ -166,7 +159,7 @@ class StagesController extends Controller
 
         $data->name = strip_tags($request['name']);
         $data->proglang_id = $proglang_id;
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
         $data->save();
 
         return redirect()

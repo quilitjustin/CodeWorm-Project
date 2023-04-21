@@ -21,4 +21,14 @@ class GameRecord extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updated_by_user()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

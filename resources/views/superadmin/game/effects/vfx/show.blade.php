@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Name</label>
-                                    <p>{{ $vfx['name'] }}</p>
+                                    <p>{{ $vfx->name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-12">
@@ -45,24 +45,23 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ route('vfxs.show', $vfx['created_by']) }}">{{ $vfx['created_by'] }}</a>
+                                    <a href="{{ is_null($bgmuser->created_by_user) ? '#' : route('users.show', $bgmuser->created_by_user->encrypted_id) }}">{{ is_null($bgmuser->created_by_user) ? '' : $bgmuser->created_by_user->f_name . ' ' . $bgmuser->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($vfx['created_at'])->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($bgmuser->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($vfx['updated_by']) ? '#' : route('vfxs.show', $vfx['updated_by']) }}">{{ $vfx['updated_by'] }}</a>
+                                    <a href="{{ is_null($bgmuser->updated_by_user) ? '#' : route('users.show', $bgmuser->updated_by_user->encrypted_id) }}">{{ is_null($bgmuser->updated_by_user) ? '' : $bgmuser->updated_by_user->f_name . ' ' . $bgmuser->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($vfx['updated_by']) ? '' : \Carbon\Carbon::parse($vfx['updated_at'])->diffForHumans() }}
+                                    <p>{{ is_null($bgmuser->updated_by) ? '' : \Carbon\Carbon::parse($bgmuser->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>
@@ -72,8 +71,8 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('vfxs.edit', $vfx->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('vfxs.destroy', $vfx->encrypted_id) }}" method="POST">
+                            <a href="{{ route('vfxs.edit', $vfxuser->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('vfxs.destroy', $vfxuser->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

@@ -77,7 +77,7 @@ class BGMController extends Controller
         // Output would be like: game/Effects/BGM/image.png
         // So we can just do something like asset($foo['path']) than asset(game/Effects/BGM/$foo['path'])
         $bgm->path = $path . '/' . $newAudioName;
-        $bgm->created_by = decrypt(Auth::user()->encrypted_id);
+        $bgm->created_by = Auth::user()->id;
         $bgm->save();
 
         return redirect()
@@ -96,6 +96,7 @@ class BGMController extends Controller
     public function show($bgm)
     {
         $data = $this->findRecord($bgm);
+        $data = $data->with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.game.bgm.show', [
             'bgm' => $data,
@@ -158,7 +159,7 @@ class BGMController extends Controller
             $data->path = $path . '/' . $newAudioName;
         }
 
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
 
         $data->save();
 

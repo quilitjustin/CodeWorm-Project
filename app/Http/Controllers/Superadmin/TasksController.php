@@ -101,7 +101,7 @@ class TasksController extends Controller
         $task->answer = strip_tags($request['answer']);
         $task->reward = strip_tags($request['reward']);
         $task->proglang_id = $proglang_id;
-        $uid = decrypt(Auth::user()->encrypted_id);
+        $uid = Auth::user()->id;
         $task->created_by = $uid;
         $task->updated_by = $uid;
         $task->save();
@@ -121,16 +121,11 @@ class TasksController extends Controller
      */
     public function show($task)
     {
-        $data = $this->findRecord($task);
-        // Just a work around to make union work or it'll throw an error ('name', 'name')
-        $proglang = Proglang::select('id', 'name as f_name', 'name as l_name')->where('id', $data->proglang_id);
-        $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
-        $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by->unionAll($updated_by)->unionAll($proglang)->get();
+        $id = decrypt($task);
+        $data = Tasks::with('proglang:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
 
         return view('superadmin.game.tasks.show', [
             'task' => $data,
-            'other' => $other,
         ]);
     }
 
@@ -183,7 +178,7 @@ class TasksController extends Controller
         $data->answer = strip_tags($request['answer']);
         $data->reward = strip_tags($request['reward']);
         $data->proglang_id = $proglang_id;
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
         $data->save();
    
         return redirect()

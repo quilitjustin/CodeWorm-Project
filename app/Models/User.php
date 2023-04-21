@@ -49,4 +49,14 @@ class User extends Authenticatable
         // users_badges is the name of pivot table
         return $this->belongsToMany(Badges::class, 'users_badges', 'user_id', 'badge_id');
     }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updated_by_user()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

@@ -77,7 +77,7 @@ class BGImgController extends Controller
         // Output would be like: game/BackgroundImage/image.png
         // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
         $bgim->path = $path . '/' . $newImageName;
-        $bgim->created_by = decrypt(Auth::user()->encrypted_id);
+        $bgim->created_by = Auth::user()->id;
         $bgim->save();
 
         return redirect()
@@ -96,6 +96,7 @@ class BGImgController extends Controller
     public function show($bgim)
     {
         $data = $this->findRecord($bgim);
+        $data = $data->with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.game.background_image.show', [
             'bgim' => $data,
@@ -158,7 +159,7 @@ class BGImgController extends Controller
             $data->path = $path . '/' . $newImageName;
         }
 
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
 
         $data->save();
 

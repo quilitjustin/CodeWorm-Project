@@ -80,7 +80,7 @@ class UsersController extends Controller
         $data->email = $request['email'];
         // $user->contact_no = $data['contact-no'];
         $data->password = Hash::make($request['password']);
-        $data->created_by = decrypt(Auth::user()->encrypted_id);
+        $data->created_by = Auth::user()->id;
         $data->save();
 
         return redirect()
@@ -98,14 +98,11 @@ class UsersController extends Controller
      */
     public function show($user)
     {
-        $data = $this->findRecord($user);
-        $created_by = User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
-        $updated_by = User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by->unionAll($updated_by)->get();
+        $id = decrypt($user);
+        $data = User::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
  
         return view('superadmin.users.show', [
             'user' => $data,
-            'other' => $other,
         ]);
     }
 
@@ -164,7 +161,7 @@ class UsersController extends Controller
             $data->email = $request['email'];
             $data->role = $request['role'];
         }
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
         $data->save();
 
         return redirect()
@@ -207,7 +204,7 @@ class UsersController extends Controller
                 $data->banned_until = null;
                 break;
         }
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
         $data->save();
 
         return response()->json(['message' => 'Banned successfully']);

@@ -38,7 +38,7 @@ class SplashPageController extends Controller
 
             $splash = new SplashPage();
             $splash->content = $request->content;
-            $splash->created_by = decrypt(Auth::user()->encrypted_id);
+            $splash->created_by = Auth::user()->id;
             $splash->save();
 
             // Return a success response

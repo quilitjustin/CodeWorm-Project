@@ -41,19 +41,19 @@
                                     @forelse ($badges as $badge)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('badges.show', encrypt($badge->encrypted_id)) }}">
-                                                    {{ $badge['name'] }}
+                                                <a href="{{ route('badges.show', $badge->encrypted_id) }}">
+                                                    {{ $badge->name }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-md-table-cell">
                                                 <a class="text-link"
-                                                    href="{{ route('badges.show', encrypt($badge->encrypted_id)) }}">
+                                                    href="{{ route('badges.show', $badge->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('badges.edit', encrypt($badge->encrypted_id)) }}">
+                                                    href="{{ route('badges.edit', $badge->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('badges.destroy', encrypt($badge->encrypted_id)) }}"
+                                                    action="{{ route('badges.destroy', $badge->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">

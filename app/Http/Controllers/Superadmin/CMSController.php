@@ -43,7 +43,7 @@ class CMSController extends Controller
         // Output would be like: assets/bgim/image.png
         // So we can just do something like asset($foo['path']) than asset(assets/bgim/$foo['path'])
         $data->path = $path . '/' . $newImageName;
-        $data->created_by = decrypt(Auth::user()->encrypted_id);
+        $data->created_by = Auth::user()->id;
         $data->save();
 
         return back()->with('msg', 'Created Successfully');
@@ -72,7 +72,7 @@ class CMSController extends Controller
         // Output would be like: assets/bgim/image.png
         // So we can just do something like asset($foo['path']) than asset(assets/bgim/$foo['path'])
         $data->path = $path . '/' . $newImageName;
-        $data->created_by = decrypt(Auth::user()->encrypted_id);
+        $data->created_by = Auth::user()->id;
         $data->save();
 
         return back()->with('msg', 'Created Successfully');
@@ -132,7 +132,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -146,7 +146,7 @@ class CMSController extends Controller
 
         $this->copy_file($request['path']);
 
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -159,7 +159,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -172,7 +172,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -185,7 +185,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -198,7 +198,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/bgim/';
 
         $this->copy_file($request['path']);
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }
@@ -211,7 +211,7 @@ class CMSController extends Controller
         $this->file_path = 'assets/logo/';
 
         $this->copy_file($request['path']);
-        // $data->created_by = decrypt(Auth::user()->encrypted_id);
+        // $data->created_by = Auth::user()->id;
 
         return response()->json(['message' => 'Saved successfully']);
     }

@@ -70,7 +70,7 @@ class AnnouncementsController extends Controller
         $announcement = new Announcements();
         $announcement->title = strip_tags($request['title']);
         $announcement->contents = $this->sanitize($request['content']);
-        $announcement->created_by = decrypt(Auth::user()->encrypted_id);
+        $announcement->created_by = Auth::user()->id;
         $announcement->save();
 
         return redirect()
@@ -88,7 +88,8 @@ class AnnouncementsController extends Controller
      */
     public function show($announcement)
     {
-        $data = $this->findRecord($announcement);
+        $id = decrypt($announcement);
+        $data = Announcements::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
 
         return view('superadmin.announcements.show', [
             'announcement' => $data
@@ -128,7 +129,7 @@ class AnnouncementsController extends Controller
 
         $data->title = strip_tags($request['title']);
         $data->contents = $this->sanitize($request['content']);
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
         $data->save();
 
         return redirect()

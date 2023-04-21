@@ -16,4 +16,9 @@ class SplashPage extends Model
     {
         return encrypt($this->attributes['id']);
     }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

@@ -30,4 +30,14 @@ class Stages extends Model
     {
         return $this->belongsTo(Badges::class, 'badge_id');
     }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updated_by_user()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

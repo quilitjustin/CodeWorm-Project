@@ -23,6 +23,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                <!-- /.col -->
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header p-2">
@@ -31,12 +32,22 @@
                                         data-toggle="tab">Profile</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
+                                <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
+                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="profile">
-
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="d-block">Profile Picture</label>
+                                            <img src="{{ !is_null($user->profile_picture) ? asset($user->profile_picture) : 'https://ui-avatars.com/api/?name=' . $user->f_name . '+' . $user->l_name }}"
+                                                alt="profile picture"
+                                                style="width: 150px; height: 150px; max-width: 150px; max-height: 150px;"
+                                                class="img-fluid img-circle d-block mx-auto" alt="preview">
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.tab-pane -->
 
@@ -44,27 +55,22 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>First Name</label>
-                                            <br>
                                             <p>{{ $user->f_name }}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Middle Name</label>
-                                            <br>
                                             <p>{{ $user->m_name }}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Last Name</label>
-                                            <br>
                                             <p>{{ $user->l_name }}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Email</label>
-                                            <br>
                                             <p>{{ $user->email }}</p>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Type of Account</label>
-                                            <br>
+                                            <label>Role</label>
                                             <p>{{ $user->role }}</p>
                                         </div>
                                         <div class="col-sm-12">
@@ -74,7 +80,7 @@
                                             <label>Created By</label>
                                             <br>
                                             <a
-                                                href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->encrypted_id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
+                                                href="{{ is_null($user->created_by_user) ? '#' : route('users.show', $user->created_by_user->encrypted_id) }}">{{ is_null($user->created_by_user) ? '' : $user->created_by_user->f_name . ' ' . $user->created_by_user->l_name }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Created</label>
@@ -86,16 +92,23 @@
                                             <br>
                                             {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                             <a
-                                                href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->encrypted_id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
+                                                href="{{ is_null($user->updated_by_user) ? '#' : route('users.show', $user->updated_by_user->encrypted_id) }}">{{ is_null($user->updated_by_user) ? '' : $user->updated_by_user->f_name . ' ' . $user->updated_by_user->l_name }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Updated</label>
                                             <br>
-                                            <p>{{ is_null($user->updated_at) ? '' : \Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}
+                                            <p>{{ is_null($user->updated_by) ? '' : \Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}
                                             </p>
                                         </div>
                                     </div>
-                                    <!-- /.row -->
+
+                                </div>
+                                <!-- /.tab-pane -->
+
+                                <div class="tab-pane" id="other">
+                                    <h5>Public Profile: </h5>
+                                    <a class="btn btn-outline-primary"
+                                        href="{{ route('public_profile.show', $user->encrypted_id) }}">Go and see</a>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>
@@ -104,8 +117,10 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('users.edit', $user->encrypted_id) }}" class="btn btn-primary">Update</a>
-                            <form class="delete d-inline" action="{{ route('users.destroy', $user->encrypted_id) }}" method="POST">
+                            <a href="{{ route('users.edit', $user->encrypted_id) }}"
+                                class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('users.destroy', $user->encrypted_id) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -124,6 +139,34 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
-    @include('layouts.superadmin.inc_component')
+    <script>
+        const imageFile = $("#image");
+        const preview = $("#img-preview");
+
+        imageFile.on("change", function(e) {
+            // Replace label inside input 
+            const fileName = $(this).val();
+            $(this).next(".custom-file-label").html(fileName);
+
+            // Show image preview
+            const item = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+                preview.attr("src", reader.result);
+                preview.removeClass("d-none");
+            }, false);
+
+            if (item) {
+                reader.readAsDataURL(item);
+            }
+        });
+
+        $("#clear").click(function() {
+            imageFile.val("");
+            imageFile.next(".custom-file-label").html("Choose Image");
+            preview.addClass("d-none");
+            preview.attr("src", "#");
+        });
+    </script>
 @endsection

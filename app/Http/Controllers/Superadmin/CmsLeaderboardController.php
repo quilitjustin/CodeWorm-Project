@@ -71,7 +71,7 @@ class CmsLeaderboardController extends Controller
         // Output would be like: assets/bgims/leaderboard/image.png
         // So we can just do something like asset($foo['path']) than asset(assets/bgims/leaderboard/$foo['path'])
         $cmsleaderboard->path = $path . '/' . $newImageName;
-        $cmsleaderboard->created_by = decrypt(Auth::user()->encrypted_id);
+        $cmsleaderboard->created_by = Auth::user()->id;
         $cmsleaderboard->save();
 
         return ;

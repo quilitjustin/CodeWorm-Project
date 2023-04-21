@@ -27,4 +27,14 @@ class Tasks extends Model
     {
         return $this->belongsTo(ProgrammingLanguages::class, 'proglang_id');
     }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updated_by_user()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

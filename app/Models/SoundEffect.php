@@ -16,4 +16,14 @@ class SoundEffect extends Model
     {
         return encrypt($this->attributes['id']);
     }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updated_by_user()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

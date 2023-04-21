@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Name</label>
-                                    <p>{{ $proglang['name'] }}</p>
+                                    <p>{{ $proglang->name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-12">
@@ -45,8 +45,7 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a
-                                        href="{{ !isset($other[0]) ? '#' : route('users.show', $other[0]->encrypted_id) }}">{{ !isset($other[0]) ? 'N/A' : $other[0]->f_name . ' ' . $other[0]->l_name }}</a>
+                                    <a href="{{ is_null($proglang->created_by_user) ? '#' : route('users.show', $proglang->created_by_user->encrypted_id) }}">{{ is_null($proglang->created_by_user) ? '' : $proglang->created_by_user->f_name . ' ' . $proglang->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -57,10 +56,7 @@
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    @if (!is_null($proglang->updated_by))
-                                        <a
-                                            href="{{ !isset($other[1]) ? '#' : route('users.show', $other[1]->encrypted_id) }}">{{ !isset($other[1]) ? 'N/A' : $other[1]->f_name . ' ' . $other[1]->l_name }}</a>
-                                    @endif
+                                    <a href="{{ is_null($proglang->updated_by_user) ? '#' : route('users.show', $proglang->updated_by_user->encrypted_id) }}">{{ is_null($proglang->updated_by_user) ? '' : $proglang->updated_by_user->f_name . ' ' . $proglang->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -97,10 +93,10 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="row">
-                                @forelse($stages as $stage)
+                                @forelse($proglang->stages as $stage)
                                     <div class="col-12 p-2">
-                                        <a href="{{ route('stages.show', encrypt($stage->encrypted_id)) }}"
-                                            class="btn btn-secondary py-3 w-100">{{ $stage['name'] }}</a>
+                                        <a href="{{ route('stages.show', $stage->encrypted_id) }}"
+                                            class="btn btn-secondary py-3 w-100">{{ $stage->name }}</a>
                                     </div>
                                 @empty
                                     <p>Empty</p>
@@ -110,7 +106,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
-                            <a href="{{ route('stages.create', $proglang->encrypted_id) }}" class="btn btn-primary">Create New
+                            <a href="{{ route('stages.create') }}" class="btn btn-primary">Create New
                                 Stage</a>
                         </div>
                         <!-- /.card-footer -->

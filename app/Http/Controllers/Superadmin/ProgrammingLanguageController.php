@@ -59,7 +59,7 @@ class ProgrammingLanguageController extends Controller
         $proglang = new ProgLang();
         $proglang->name = strip_tags($request['name']);
 
-        $proglang->created_by = decrypt(Auth::user()->encrypted_id);
+        $proglang->created_by = Auth::user()->id;
         $proglang->save();
 
         return redirect()
@@ -77,18 +77,11 @@ class ProgrammingLanguageController extends Controller
      */
     public function show($proglang)
     {
-        $data = $this->findRecord($proglang);
-        // You can import this above with use statement
-        // But since I'm only going to use it once here so I won't
-        $stages = \App\Models\Stages::select('id', 'name')->where('proglang_id', $data->id)->get();
-        $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
-        $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by->unionAll($updated_by)->get();
+        $id = decrypt($proglang);
+        $data = Proglang::with('stages:id,name,proglang_id', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
 
         return view('superadmin.game.proglang.show', [
             'proglang' => $data,
-            'stages' => $stages,
-            'other' => $other,
         ]);
     }
 
@@ -124,7 +117,7 @@ class ProgrammingLanguageController extends Controller
 
         $data->name = strip_tags($request->name);
 
-        $data->updated_by = decrypt(Auth::user()->encrypted_id);
+        $data->updated_by = Auth::user()->id;
 
         $data->save();
 

@@ -26,12 +26,12 @@
                 <div class="col-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="m-0">{{ $announcement['title'] }}</h5>
+                            <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
                         </div>
                         <div class="card-body" style="">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    {!! $announcement['contents'] !!}
+                                    {!! $announcement->contents !!}
                                 </div>
                                 <div class="col-sm-12">
                                     <hr class="border border-primary w-100">
@@ -39,25 +39,23 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a
-                                        href="{{ route('announcements.show', $announcement['created_by']) }}">{{ $announcement['created_by'] }}</a>
+                                    <a href="{{ is_null($announcement->created_by_user) ? '#' : route('users.show', $announcement->created_by_user->encrypted_id) }}">{{ is_null($announcement->created_by_user) ? '' : $announcement->created_by_user->f_name . ' ' . $announcement->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($announcement['created_at'])->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($announcement['updated_by']) ? '#' : route('announcements.show', $announcement['updated_by']) }}">{{ $announcement['updated_by'] }}</a>
+                                    <a href="{{ is_null($announcement->updated_by_user) ? '#' : route('users.show', $announcement->updated_by_user->encrypted_id) }}">{{ is_null($announcement->updated_by_user) ? '' : $announcement->updated_by_user->f_name . ' ' . $announcement->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($announcement['updated_by']) ? '' : \Carbon\Carbon::parse($announcement['updated_at'])->diffForHumans() }}
+                                    <p>{{ is_null($announcement->updated_by) ? '' : \Carbon\Carbon::parse($announcement->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>
