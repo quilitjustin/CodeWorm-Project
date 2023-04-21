@@ -25,4 +25,9 @@ class Stages extends Model
     {
         return $this->belongsTo(ProgrammingLanguages::class, 'proglang_id');
     }
+
+    public function badges()
+    {
+        return $this->belongsTo(Badges::class, 'badge_id');
+    }
 }

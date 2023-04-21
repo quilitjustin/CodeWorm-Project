@@ -78,16 +78,16 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Rewards</label>
-                                            <select class="select2" id="rewards" name="rewards[]" multiple="multiple"
+                                            <label>Reward</label>
+                                            <select class="select2" id="rewards" name="reward" multiple="multiple"
                                                 data-placeholder="Select a State" style="width: 100%;">
-                                                <option value="">Select a Language</option>
+                                                <option value="">Select a Badge</option>
                                                 @forelse ($rewards as $reward)
                                                     <option value="{{ $reward->encrypted_id }}">{{ $reward->name }}</option>
                                                 @empty
                                                 @endforelse
                                             </select>
-                                            @error('rewards')
+                                            @error('reward')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>

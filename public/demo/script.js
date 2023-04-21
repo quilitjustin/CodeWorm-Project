@@ -624,7 +624,8 @@ window.addEventListener("load", function () {
                 data: {
                     _token: CSRF_TOKEN,
                     record: timer,
-                    proglangId, proglangId,
+                    proglangId: proglangId,
+                    badgeId: BADGE_ID,
                     stageId: STAGE_ID,
                     userId: userId,
                 },

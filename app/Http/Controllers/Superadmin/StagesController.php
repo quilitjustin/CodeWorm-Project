@@ -26,7 +26,9 @@ class StagesController extends Controller
      */
     public function index()
     {
-        $stages = Stages::with('proglang:id,name')->select('id', 'name', 'proglang_id')->get();
+        $stages = Stages::with('proglang:id,name')
+            ->select('id', 'name', 'proglang_id')
+            ->get();
 
         return view('superadmin.game.stages.index', [
             'stages' => $stages,
@@ -45,7 +47,7 @@ class StagesController extends Controller
 
         return view('superadmin.game.stages.create', [
             'proglangs' => $proglangs,
-            'rewards' => $rewards
+            'rewards' => $rewards,
         ]);
     }
 
@@ -62,10 +64,13 @@ class StagesController extends Controller
             'name' => ['required', 'max:255'],
             'tasks' => ['required', 'array'],
             'proglang' => ['required'],
+            'reward' => ['required'],
         ]);
 
         $proglang_id = decrypt($request['proglang']);
         $proglang = Proglang::findorfail($proglang_id);
+        $reward_id = decrypt($request['reward']);
+        $badge = Badges::findorfail($reward_id);
 
         $stage = new Stages();
         $stage->name = strip_tags($request['name']);
@@ -76,6 +81,7 @@ class StagesController extends Controller
         }
         $stage->tasks = $arr;
         $stage->proglang_id = $proglang_id;
+        $stage->badge_id = $reward_id;
         $stage->created_by = decrypt(Auth::user()->encrypted_id);
         $stage->save();
 
@@ -111,7 +117,10 @@ class StagesController extends Controller
         $proglang = Proglang::select('id', 'name as f_name', 'name as l_name')->where('id', $data->proglang_id);
         $created_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->created_by);
         $updated_by = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->updated_by);
-        $other = $created_by->unionAll($updated_by)->unionAll($proglang)->get();
+        $other = $created_by
+            ->unionAll($updated_by)
+            ->unionAll($proglang)
+            ->get();
 
         return view('superadmin.game.stages.show', [
             'stage' => $data,

@@ -72,8 +72,7 @@
                         </button>
                     </div>
                     <div>
-                        <button
-                            class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                        <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
                 <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
@@ -128,13 +127,24 @@
                     </button> --}}
                 </div>
                 <div class="modal-body">
-                    <p>Rewards:&hellip;</p>
+                    <p>Rewards:</p>
+                    @if(isset($stage->badges))
+                        <img src="{{ asset($stage->badges->path) }}"
+                            class="rounded mx-auto d-block border border-secondary" alt="preview"
+                            style="height: 150px; max-height: 150px;">
+                        <div class="text-center">
+                            <h3 class="font-weight-bold">{{ $stage->badges->name }}</h3>
+                        </div>
+                    @else
+                        None
+                    @endisset
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button class="quit-btn btn btn-danger">Quit</button>
                     @if (isset($other[1]))
-                    {{-- Next stage --}}
-                        <a href="{{ route('web.play.start', $other[1]->encrypted_id) }}" class="btn btn-primary">Next Stage: {{ $other[1]->name }}</a>
+                        {{-- Next stage --}}
+                        <a href="{{ route('web.play.start', $other[1]->encrypted_id) }}" class="btn btn-primary">Next
+                            Stage: {{ $other[1]->name }}</a>
                     @endif
                 </div>
             </div>
@@ -179,7 +189,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Background Music</label>
-                        <input type="range" min="0" max="10" value="1" id="bgm-volume" class="slider form-control" id="slider">
+                        <input type="range" min="0" max="10" value="1" id="bgm-volume"
+                            class="slider form-control" id="slider">
                     </div>
                     <button id="restart" class="btn btn-warning w-100 mb-3">Restart</button>
                     <button class="pause-btn btn btn-primary w-100">Resume</button>
@@ -346,25 +357,26 @@
         const storeRoute = "{{ route('web.play.store') }}";
         const userId = '{{ Auth::user()->encrypted_id }}';
         const CSRF_TOKEN = `{{ csrf_token() }}`;
-        const STAGE_NAME = "{{ $stage[0]->name }}";
-        const STAGE_ID = "{{ $stage[0]->encrypted_id }}";
+        const STAGE_NAME = "{{ $stage->name }}";
+        const STAGE_ID = "{{ $stage->encrypted_id }}";
+        const BADGE_ID = "{{ $stage->badges->encrypted_id }}";
         let WIN = false;
         let GAME_OVER = false;
     </script>
     {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=8') }}"></script>
+    <script src="{{ asset('demo/script.js?v=9') }}"></script>
     <script>
         $(document).ready(function() {
             $("#game").prop("hidden", true);
             $('.modal').attr('data-backdrop', 'static');
 
-            $("#restart").click(function(){
+            $("#restart").click(function() {
                 $("#pause-modal").modal("hide");
                 $("#restart-modal").modal("show");
             });
 
-            $("#restart-modal .back-btn").click(function(){
-                if(WIN){
+            $("#restart-modal .back-btn").click(function() {
+                if (WIN) {
                     $("#restart-modal").modal("show");
                 } else if (GAME_OVER) {
                     $("#lose-modal").modal("show");
@@ -375,20 +387,20 @@
                 $("#restart-modal").modal("hide");
             });
 
-            $(".quit-btn").click(function(){
+            $(".quit-btn").click(function() {
                 $("#pause-modal").modal("hide");
                 $("#quit-modal").modal("show");
             });
 
-            $("#quit-modal .back-btn").click(function(){
-                if(WIN){
+            $("#quit-modal .back-btn").click(function() {
+                if (WIN) {
                     $("#win-modal").modal("show");
                 } else if (GAME_OVER) {
                     $("#lose-modal").modal("show");
                 } else {
                     $("#pause-modal").modal("show");
                 }
-                
+
                 $("#quit-modal").modal("hide");
             });
         });
