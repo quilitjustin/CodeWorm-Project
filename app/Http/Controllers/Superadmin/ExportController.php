@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\DbDumper\Databases\MySql;
 
 class ExportController extends Controller
 {
@@ -15,30 +16,26 @@ class ExportController extends Controller
 
     public function export_db()
     {
-        // Will change to spatie later
-        $path = base_path('backups');
-        // Make a folder named backups if it doesn't exist
-        if (!is_dir($path)) {
-            mkdir($path);
-        }
-        // Set the database name and path where the backup file will be stored
-        // $dbname = env('DB_NAME');
-        $dbname = 'codeworm';
+        // Set the file name for the backup file
+        $fileName = 'backup-' . date('Y-m-d-H-i-s') . '.sql';
 
-        $backupPath = $path . "/{$dbname}-" . date('YmdHis') . '.sql';
+        // Generate the backup file and store it in the storage/app directory
+        MySql::create()
+            ->setDbName(env('DB_DATABASE'))
+            ->setUserName(env('DB_USERNAME'))
+            ->setPassword(env('DB_PASSWORD'))
+            ->dumpToFile(storage_path('app/' . $fileName));
 
-        // Use the mysqldump command to create the backup file
-        // $command = 'mysqldump --user=' . env('DB_USERNAME') . ' --password=' . env('DB_PASSWORD') . ' --host=' . env('DB_HOST') . " {$dbname} > {$backupPath}";
-
-        $command = 'mysqldump --user=' . 'root' . ' --password=' . '' . ' --host=' . 'localhost' . " {$dbname} > {$backupPath}";
-
-        $returnVar = null;
-        $output = null;
-        exec($command, $output, $returnVar);
-
-        // Download the backup file
+        // Return the backup file to the user
+        $headers = [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            'Content-Transfer-Encoding' => 'binary',
+        ];
+        
         return response()
-            ->download($backupPath)
+            ->download(storage_path('app/' . $fileName), $fileName, $headers)
             ->deleteFileAfterSend();
     }
 }

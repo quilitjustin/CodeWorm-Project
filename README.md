@@ -35,3 +35,4 @@ php artisan serve --host=codeworm.tech --port=80
 https://laravel.com/docs/9.x/encryption
 https://laravel.com/docs/9.x/eloquent-mutators
 https://laravel.com/docs/9.x/eloquent-mutators
+https://spatie.be/docs/laravel-backup/v7/introduction

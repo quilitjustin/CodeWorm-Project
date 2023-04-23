@@ -119,10 +119,11 @@
                                                     <div class="text-center">
                                                         <h3 class="font-weight-bold">{{ $badge->name }}</h3>
                                                         <span>Date Earned:
-                                                            {{ \Carbon\Carbon::parse($badge->created_at)->diffForHumans() }}</span>
+                                                            {{ $badge->created_at }}</span>
                                                     </div>
                                                 </div>
                                             @empty
+                                                This user doesn't have badge yet.
                                             @endforelse
                                         </div>
                                     </div>
