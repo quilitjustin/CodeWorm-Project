@@ -95,8 +95,8 @@ class BGImgController extends Controller
      */
     public function show($bgim)
     {
-        $data = $this->findRecord($bgim);
-        $data = $data->with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->get();
+        $id = decrypt($bgim);
+        $data = BGImg::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
 
         return view('superadmin.game.background_image.show', [
             'bgim' => $data,

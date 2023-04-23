@@ -218,9 +218,9 @@ window.addEventListener("load", function () {
             this.speed = 0;
             this.vy = 0;
             this.weight = 1;
-            this.sp = 205;
+            this.sp = PLAYER_SP;
             this.myBtn = document.getElementById("tackle");
-            this.lives = 20;
+            this.lives = PLAYER_HP;
             this.heart = document.getElementById("life");
             this.maxLifeShow = 3;
             this.boom = document.getElementById("boom");
@@ -399,7 +399,7 @@ window.addEventListener("load", function () {
             this.width = 160;
             this.height = 119;
             this.image = document.getElementById("enemyImage");
-            this.x = this.gameWidth - this.width * -2;
+            this.x = this.gameWidth - this.width;
             this.y = this.gameHeight - this.height;
             this.frameX = 0;
             this.maxFrame = 5;
@@ -409,12 +409,12 @@ window.addEventListener("load", function () {
             this.speed = 8;
             this.markedForDeletion = false;
             this.sp = 0;
-            this.lives = 1000;
+            this.lives = ENEMY_HP;
             this.heart = document.getElementById("life");
             this.maxLifeShow = 3;
             this.rage = false;
             this.rageTimer = 300000;
-            this.damage = 5;
+            this.damage = ENEMY_DMG;
             this.atkTimer = 0;
             this.atkInterval = 5000 / this.fps;
             this.atkCondition = false;
@@ -515,7 +515,10 @@ window.addEventListener("load", function () {
                     this.rage = true;
                 }
             }
-            // Vertical
+
+            if(this.x > this.gameWidth){
+                this.x--;
+            }
             if (this.x < 0) {
                 this.sound.currentTime = 0;
                 this.sound.volume = 0.1;
@@ -627,7 +630,6 @@ window.addEventListener("load", function () {
                     proglangId: proglangId,
                     badgeId: BADGE_ID,
                     stageId: STAGE_ID,
-                    userId: userId,
                 },
                 dataType: "json",
                 success: function (response) {

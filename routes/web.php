@@ -37,7 +37,10 @@ Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.stor
 
 // Public
 Route::get('/', 'SplashPageController@index');
-Route::get('/leaderboard', 'LeaderBoardController@index');
+Route::controller(LeaderBoardController::class)->group(function () {
+    Route::get('/leaderboard', 'index')->name('web.leaderboard.index');
+    Route::post('/leaderboard/entry', 'entry')->name('web.leaderboards.entry');
+});
 Route::controller(PublicProfileController::class)->group(function () {
     Route::get('/public_profile', 'index')->name('public_profile.index');
     Route::get('/public_profile/{user}', 'show')->name('public_profile.show');
@@ -46,13 +49,6 @@ Route::controller(PublicProfileController::class)->group(function () {
 // End
 
 Route::middleware([WebIsLoggedIn::class])->group(function () {
-    // Ajax
-    Route::controller(FetchController::class)->group(function(){
-        Route::get('/fetch/php', 'fetch_task_php')->name('fetch.php');
-        Route::get('/fetch/js', 'fetch_task_js')->name('fetch.js');
-    });
-    // End Ajax
-
     Route::get('announcements', 'AnnouncementsController@index')->name('web.announcements.index');
 
     Route::controller(LoginValidationController::class)->group(function () {

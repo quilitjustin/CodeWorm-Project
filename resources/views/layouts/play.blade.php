@@ -29,11 +29,11 @@
         <div id="con" class="d-flex justify-content-center">
             <canvas id="canvas1"></canvas>
             <img id="playerImage" class="d-none" src="{{ asset('demo/player.png') }}" alt="player">
-            <img id="backgroundImage" class="d-none" src="{{ asset('demo/background_single.png') }}" alt="bg-image">
+            <img id="backgroundImage" class="d-none" src="{{ asset($stage->bgim->path) }}" alt="bg-image">
             <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy_1.png') }}" alt="enemy">
             <img id="life" class="d-none" src="{{ asset('demo/heart.png') }}" alt="life">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
-            <audio id="bgm" class="d-none" src="{{ asset('demo/bgm.mp3') }}" controls loop></audio>
+            <audio id="bgm" class="d-none" src="{{ asset($stage->bgm->path) }}" controls loop></audio>
             <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
             <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
             <button hidden id="fullScreenButton">Full Screen</button>
@@ -128,7 +128,7 @@
                 </div>
                 <div class="modal-body">
                     <p>Rewards:</p>
-                    @if(isset($stage->badges))
+                    @if (isset($stage->badges))
                         <img src="{{ asset($stage->badges->path) }}"
                             class="rounded mx-auto d-block border border-secondary" alt="preview"
                             style="height: 150px; max-height: 150px;">
@@ -138,273 +138,283 @@
                     @else
                         None
                     @endisset
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button class="quit-btn btn btn-danger">Quit</button>
-                    @if (isset($other[1]))
-                        {{-- Next stage --}}
-                        <a href="{{ route('web.play.start', $other[1]->encrypted_id) }}" class="btn btn-primary">Next
-                            Stage: {{ $other[1]->name }}</a>
-                    @endif
-                </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-footer justify-content-between">
+                <button class="quit-btn btn btn-danger">Quit</button>
+                @if (!is_null($next_stage))
+                    {{-- Next stage --}}
+                    <a href="{{ route('web.play.start', $next_stage->encrypted_id) }}" class="btn btn-primary">Next
+                        Stage: {{ $next_stage->name }}</a>
+                @endif
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <div class="modal fade" id="lose-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Nice Try!</h4>
-                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal fade" id="lose-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nice Try!</h4>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
-                </div>
-                <div class="modal-body">
-                    <p>You lost, want to try again?</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <a class="quit-btn btn btn-danger">Quit</a>
-                    <a href="#" onclick="location.reload();" class="btn btn-primary">Yes</a>
-                </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+                <p>You lost, want to try again?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <a class="quit-btn btn btn-danger">Quit</a>
+                <a href="#" onclick="location.reload();" class="btn btn-primary">Yes</a>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <div class="modal fade" id="pause-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Paused!</h4>
-                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal fade" id="pause-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Paused!</h4>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Background Music</label>
-                        <input type="range" min="0" max="10" value="1" id="bgm-volume"
-                            class="slider form-control" id="slider">
-                    </div>
-                    <button id="restart" class="btn btn-warning w-100 mb-3">Restart</button>
-                    <button class="pause-btn btn btn-primary w-100">Resume</button>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button class="quit-btn btn btn-danger w-100">Quit</button>
-                </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Background Music</label>
+                    <input type="range" min="0" max="10" value="1" id="bgm-volume"
+                        class="slider form-control" id="slider">
+                </div>
+                <button id="restart" class="btn btn-warning w-100 mb-3">Restart</button>
+                <button class="pause-btn btn btn-primary w-100">Resume</button>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button class="quit-btn btn btn-danger w-100">Quit</button>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <div class="modal" id="restart-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Restart</h4>
-                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal" id="restart-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Restart</h4>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to restart? <br>You may lose your current progress</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button class="back-btn btn btn-default">Back</button>
-                    <a href="#" onclick="location.reload();" class="btn btn-warning">Restart Anyway</a>
-                </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+                <p>Are you sure you want to restart? <br>You may lose your current progress</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button class="back-btn btn btn-default">Back</button>
+                <a href="#" onclick="location.reload();" class="btn btn-warning">Restart Anyway</a>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <div class="modal" id="quit-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Quit</h4>
-                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal" id="quit-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Quit</h4>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to quit the game?</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button class="back-btn btn btn-default">Back</button>
-                    <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit </a>
-                </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+                <p>Are you sure you want to quit the game?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button class="back-btn btn btn-default">Back</button>
+                <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit </a>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
-    <!-- CodeMirror -->
-    <script src="{{ asset('codemirror/lib/codemirror.js') }}"></script>
-    <script src="{{ asset('codemirror/addon/edit/matchbrackets.js') }}"></script>
-    <script src="{{ asset('codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
-    <script src="{{ asset('codemirror/mode/xml/xml.js') }}"></script>
-    <script src="{{ asset('codemirror/mode/javascript/javascript.js') }}"></script>
-    <script src="{{ asset('codemirror/mode/css/css.js') }}"></script>
-    <script src="{{ asset('codemirror/mode/clike/clike.js') }}"></script>
-    <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
-    <script>
-        const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            lineNumbers: true,
-            matchBrackets: true,
-            mode: {
-                name: "application/x-httpd-php",
-                startOpen: true,
-            },
-            indentUnit: 4,
-            indentWithTabs: true,
-            theme: "monokai",
-        });
+<!-- jQuery -->
+<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
+<!-- CodeMirror -->
+<script src="{{ asset('codemirror/lib/codemirror.js') }}"></script>
+<script src="{{ asset('codemirror/addon/edit/matchbrackets.js') }}"></script>
+<script src="{{ asset('codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+<script src="{{ asset('codemirror/mode/xml/xml.js') }}"></script>
+<script src="{{ asset('codemirror/mode/javascript/javascript.js') }}"></script>
+<script src="{{ asset('codemirror/mode/css/css.js') }}"></script>
+<script src="{{ asset('codemirror/mode/clike/clike.js') }}"></script>
+<script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
+<script>
+    const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+        lineNumbers: true,
+        matchBrackets: true,
+        mode: {
+            name: "application/x-httpd-php",
+            startOpen: true,
+        },
+        indentUnit: 4,
+        indentWithTabs: true,
+        theme: "monokai",
+    });
 
-        let RIGHT_ANSWER = "";
+    let RIGHT_ANSWER = "";
 
-        let arr = [];
+    let arr = [];
 
-        const tasks = {!! $tasks !!};
+    const tasks = {!! $tasks !!};
 
-        let html = '';
-        for (let i = 0; i < tasks.length; i++) {
-            html +=
-                `<button onclick="showTask(` + i +
-                `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` +
-                tasks[i]["name"] + `<br><span class="font-weight-normal">Difficulty: ` +
-                tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>` +
-                `</button>`;
+    let html = '';
+    for (let i = 0; i < tasks.length; i++) {
+        html +=
+            `<button onclick="showTask(` + i +
+            `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` +
+            tasks[i]["name"] + `<br><span class="font-weight-normal">Difficulty: ` +
+            tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>` +
+            `</button>`;
+    }
+    let STAKE = 0;
+
+    function showTask(idx) {
+        $("#tasks").prop("hidden", true);
+        $("#description").prop("hidden", false);
+        $("#task-description").text(tasks[idx]["description"]);
+        $("#expected-answer").text(tasks[idx]["answer"]);
+
+        RIGHT_ANSWER = tasks[idx]["answer"];
+        STAKE = tasks[idx]["reward"];
+        editor.getDoc().setValue("");
+        if (tasks[idx]["snippet"]) {
+            editor.getDoc().setValue(tasks[idx]["snippet"]);
         }
-        let STAKE = 0;
+    };
 
-        function showTask(idx) {
-            $("#tasks").prop("hidden", true);
-            $("#description").prop("hidden", false);
-            $("#task-description").text(tasks[idx]["description"]);
-            $("#expected-answer").text(tasks[idx]["answer"]);
-
-            RIGHT_ANSWER = tasks[idx]["answer"];
-            STAKE = tasks[idx]["reward"];
-            editor.getDoc().setValue("");
-            if (tasks[idx]["snippet"]) {
-                editor.getDoc().setValue(tasks[idx]["snippet"]);
-            }
-        };
-
-        $("#tasks").append(html);
-        $("#re-description").click(function() {
-            $("#description").prop("hidden", false);
-            $("#code-editor").prop("hidden", true);
-        });
-        $("#start-coding").click(function() {
-            $("#description").prop("hidden", true);
-            $("#code-editor").prop("hidden", false);
-        });
-        $("#cancel-task").click(function() {
-            $("#tasks").prop("hidden", false);
-            $("#description").prop("hidden", true);
-            $("#code-editor").prop("hidden", true);
-        });
+    $("#tasks").append(html);
+    $("#re-description").click(function() {
+        $("#description").prop("hidden", false);
         $("#code-editor").prop("hidden", true);
-        // $.get({
-        //     url: "{{ route('fetch.php') }}",
-        //     method: 'GET',
-        //     data: {
-        //         "_token": "{{ csrf_token() }}",
-        //     },
-        //     success: function(response) {
-        //         let html = '';
-        //         $.each(response, function(index, data) {
-        //             html +=
-        //                 `<button onclick="showTask(` + index +
-        //                 `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
-        //             arr.push(data.snippet);
-        //         });
-        //         $("#tasks").append(html);
-        //     }
-        // });
+    });
+    $("#start-coding").click(function() {
+        $("#description").prop("hidden", true);
+        $("#code-editor").prop("hidden", false);
+    });
+    $("#cancel-task").click(function() {
+        $("#tasks").prop("hidden", false);
+        $("#description").prop("hidden", true);
+        $("#code-editor").prop("hidden", true);
+    });
+    $("#code-editor").prop("hidden", true);
+    // $.get({
+    //     url: "{{ route('fetch.php') }}",
+    //     method: 'GET',
+    //     data: {
+    //         "_token": "{{ csrf_token() }}",
+    //     },
+    //     success: function(response) {
+    //         let html = '';
+    //         $.each(response, function(index, data) {
+    //             html +=
+    //                 `<button onclick="showTask(` + index +
+    //                 `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
+    //             arr.push(data.snippet);
+    //         });
+    //         $("#tasks").append(html);
+    //     }
+    // });
 
-        const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
-        const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
-        const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
-        const proglang = "{{ $other[0]->name }}";
-        const language = proglang.toLowerCase();
-        const storeRoute = "{{ route('web.play.store') }}";
-        const userId = '{{ Auth::user()->encrypted_id }}';
-        const CSRF_TOKEN = `{{ csrf_token() }}`;
-        const STAGE_NAME = "{{ $stage->name }}";
-        const STAGE_ID = "{{ $stage->encrypted_id }}";
-        const BADGE_ID = "{{ $stage->badges->encrypted_id }}";
-        let WIN = false;
-        let GAME_OVER = false;
-    </script>
-    {{-- Game --}}
-    <script src="{{ asset('demo/script.js?v=9') }}"></script>
+    const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
+    const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
+    const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
+    const proglang = "{{ $stage->proglang->name }}";
+    const language = proglang.toLowerCase();
+    const storeRoute = "{{ route('web.play.store') }}";
+    const userId = '{{ Auth::user()->encrypted_id }}';
+    const CSRF_TOKEN = `{{ csrf_token() }}`;
+    const STAGE_NAME = "{{ $stage->name }}";
+    const STAGE_ID = "{{ $stage->encrypted_id }}";
+    const PLAYER_HP = {{ $stage->player_base_hp }};
+    const PLAYER_SP = {{ $stage->player_base_sp }};
+    const ENEMY_HP = {{ $stage->enemy_base_hp }};
+    const ENEMY_DMG = {{ $stage->enemy_base_dmg }};
+
+    const BADGE_ID = null;
+    let WIN = false;
+    let GAME_OVER = false;
+</script>
+@isset($stage->badges)
     <script>
-        $(document).ready(function() {
-            $("#game").prop("hidden", true);
-            $('.modal').attr('data-backdrop', 'static');
-
-            $("#restart").click(function() {
-                $("#pause-modal").modal("hide");
-                $("#restart-modal").modal("show");
-            });
-
-            $("#restart-modal .back-btn").click(function() {
-                if (WIN) {
-                    $("#restart-modal").modal("show");
-                } else if (GAME_OVER) {
-                    $("#lose-modal").modal("show");
-                } else {
-                    $("#pause-modal").modal("show");
-                }
-
-                $("#restart-modal").modal("hide");
-            });
-
-            $(".quit-btn").click(function() {
-                $("#pause-modal").modal("hide");
-                $("#quit-modal").modal("show");
-            });
-
-            $("#quit-modal .back-btn").click(function() {
-                if (WIN) {
-                    $("#win-modal").modal("show");
-                } else if (GAME_OVER) {
-                    $("#lose-modal").modal("show");
-                } else {
-                    $("#pause-modal").modal("show");
-                }
-
-                $("#quit-modal").modal("hide");
-            });
-        });
+        BADGE_ID = "{{ $stage->badges->encrypted_id }}";
     </script>
+@endisset
+{{-- Game --}}
+<script src="{{ asset('demo/script.js?v=9') }}"></script>
+<script>
+    $(document).ready(function() {
+        $("#game").prop("hidden", true);
+        $('.modal').attr('data-backdrop', 'static');
+
+        $("#restart").click(function() {
+            $("#pause-modal").modal("hide");
+            $("#restart-modal").modal("show");
+        });
+
+        $("#restart-modal .back-btn").click(function() {
+            if (WIN) {
+                $("#restart-modal").modal("show");
+            } else if (GAME_OVER) {
+                $("#lose-modal").modal("show");
+            } else {
+                $("#pause-modal").modal("show");
+            }
+
+            $("#restart-modal").modal("hide");
+        });
+
+        $(".quit-btn").click(function() {
+            $("#pause-modal").modal("hide");
+            $("#quit-modal").modal("show");
+        });
+
+        $("#quit-modal .back-btn").click(function() {
+            if (WIN) {
+                $("#win-modal").modal("show");
+            } else if (GAME_OVER) {
+                $("#lose-modal").modal("show");
+            } else {
+                $("#pause-modal").modal("show");
+            }
+
+            $("#quit-modal").modal("hide");
+        });
+    });
+</script>
 </body>
 
 </html>

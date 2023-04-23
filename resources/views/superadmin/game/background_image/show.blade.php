@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Name</label>
-                                    <p>{{ $bgimuser->name }}</p>
+                                    <p>{{ $bgim->name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-12">
@@ -45,23 +45,23 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ is_null($bgimuser->created_by_user) ? '#' : route('users.show', $bgimuser->created_by_user->encrypted_id) }}">{{ is_null($bgimuser->created_by_user) ? '' : $bgimuser->created_by_user->f_name . ' ' . $bgimuser->created_by_user->l_name }}</a>
+                                    <a href="{{ is_null($bgim->created_by_user) ? '#' : route('users.show', $bgim->created_by_user->encrypted_id) }}">{{ is_null($bgim->created_by_user) ? '' : $bgim->created_by_user->f_name . ' ' . $bgim->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($bgimuser->created_at)->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($bgim->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a href="{{ is_null($bgimuser->updated_by_user) ? '#' : route('users.show', $bgimuser->updated_by_user->encrypted_id) }}">{{ is_null($bgimuser->updated_by_user) ? '' : $bgimuser->updated_by_user->f_name . ' ' . $bgimuser->updated_by_user->l_name }}</a>
+                                    <a href="{{ is_null($bgim->updated_by_user) ? '#' : route('users.show', $bgim->updated_by_user->encrypted_id) }}">{{ is_null($bgim->updated_by_user) ? '' : $bgim->updated_by_user->f_name . ' ' . $bgim->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($bgimuser->updated_by) ? '' : \Carbon\Carbon::parse($bgimuser->updated_at)->diffForHumans() }}
+                                    <p>{{ is_null($bgim->updated_by) ? '' : \Carbon\Carbon::parse($bgim->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>
@@ -71,8 +71,8 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('bgims.edit', $bgimuser->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgimuser->encrypted_id) }}" method="POST">
+                            <a href="{{ route('bgims.edit', $bgim->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgim->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -86,7 +86,7 @@
                 <div class="col-md-8">
                     <div class="card p-2">
                         <label for="img-preview">Preview</label>
-                        <img src="{{ asset($bgim['path']) }}" id="img-preview" class="img-fluid" alt="preview">
+                        <img src="{{ asset($bgim->path) }}" id="img-preview" class="img-fluid" alt="preview">
                     </div>
                 </div>
                 <!-- /.col -->

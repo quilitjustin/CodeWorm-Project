@@ -2,12 +2,12 @@
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
     //Initialize Select2 Elements
-    $('.select2').select2()
+    $('.select2').select2();
 
     //Initialize Select2 Elements
     $('.select2bs4').select2({
         theme: 'bootstrap4'
-    })
+    });
 
     $(document).ready(function() {
         // $.get({

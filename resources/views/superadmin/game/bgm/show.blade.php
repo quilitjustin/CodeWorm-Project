@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Name</label>
-                                    <p>{{ $bgmuser->name }}</p>
+                                    <p>{{ $bgm->name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-12">
@@ -45,23 +45,23 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ is_null($bgmuser->created_by_user) ? '#' : route('users.show', $bgmuser->created_by_user->encrypted_id) }}">{{ is_null($bgmuser->created_by_user) ? '' : $bgmuser->created_by_user->f_name . ' ' . $bgmuser->created_by_user->l_name }}</a>
+                                    <a href="{{ is_null($bgm->created_by_user) ? '#' : route('users.show', $bgm->created_by_user->encrypted_id) }}">{{ is_null($bgm->created_by_user) ? '' : $bgm->created_by_user->f_name . ' ' . $bgm->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($bgmuser->created_at)->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($bgm->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a href="{{ is_null($bgmuser->updated_by_user) ? '#' : route('users.show', $bgmuser->updated_by_user->encrypted_id) }}">{{ is_null($bgmuser->updated_by_user) ? '' : $bgmuser->updated_by_user->f_name . ' ' . $bgmuser->updated_by_user->l_name }}</a>
+                                    <a href="{{ is_null($bgm->updated_by_user) ? '#' : route('users.show', $bgm->updated_by_user->encrypted_id) }}">{{ is_null($bgm->updated_by_user) ? '' : $bgm->updated_by_user->f_name . ' ' . $bgm->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($bgmuser->updated_by) ? '' : \Carbon\Carbon::parse($bgmuser->updated_at)->diffForHumans() }}
+                                    <p>{{ is_null($bgm->updated_by) ? '' : \Carbon\Carbon::parse($bgm->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>
@@ -71,8 +71,8 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('bgms.edit', $bgmuser->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('bgms.destroy', $bgmuser->encrypted_id) }}" method="POST">
+                            <a href="{{ route('bgms.edit', $bgm->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('bgms.destroy', $bgm->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>

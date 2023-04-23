@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GameRecord;
 use App\Models\Stages;
+use App\Models\ProgrammingLanguages as Proglang;
 
 class LeaderBoardController extends Controller
 {
@@ -21,10 +22,20 @@ class LeaderBoardController extends Controller
 
     public function index(Request $request)
     {
-        $proglang_id = 2;
+        $proglangs = Proglang::select('id', 'name')->get();
 
-        $records = GameRecord::select('user_id')
-            ->selectRaw('SUM(record) as total_time')
+        return view('web.leaderboard', [
+            'proglangs' => $proglangs,
+        ]);
+    }
+
+    public function entry(Request $request)
+    {
+        $proglang_id = decrypt($request['id']);
+
+        $data = GameRecord::select('user_id')
+        // MAX(id) as id, may not be the actual id of the row
+            ->selectRaw('MAX(id) as id, SUM(record) as total_time')
             ->where('proglang_id', $proglang_id)
             ->groupBy('user_id')
             ->havingRaw('COUNT(DISTINCT stage_id) = ?', [Stages::where('proglang_id', $proglang_id)->count()])
@@ -37,8 +48,6 @@ class LeaderBoardController extends Controller
                 return $item;
             });
 
-        return view('web.leaderboard', [
-            'records' => $records,
-        ]);
+        return response()->json($data);
     }
 }

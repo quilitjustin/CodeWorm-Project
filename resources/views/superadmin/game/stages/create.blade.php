@@ -78,9 +78,39 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Reward</label>
-                                            <select class="select2" id="rewards" name="reward" multiple="multiple"
-                                                data-placeholder="Select a State" style="width: 100%;">
+                                            <label>Background Image</label>
+                                            <select class="select2" id="bgims" name="bgim"
+                                                data-placeholder="Select a Background Image" style="width: 100%;">
+                                                <option value="">Select a Background Image</option>
+                                                @forelse ($bgims as $bgim)
+                                                    <option value="{{ $bgim->encrypted_id }}">{{ $bgim->name }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+                                            @error('bgim')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Background Music</label>
+                                            <select class="select2" id="bgm" name="bgm"
+                                                data-placeholder="Select a Background Image" style="width: 100%;">
+                                                <option value="">Select a Background Music</option>
+                                                @forelse ($bgms as $bgm)
+                                                    <option value="{{ $bgm->encrypted_id }}">{{ $bgm->name }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+                                            @error('bgm')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Reward (Optional)</label>
+                                            <select class="select2" id="reward" name="reward"
+                                                data-placeholder="Select a Badge" style="width: 100%;">
                                                 <option value="">Select a Badge</option>
                                                 @forelse ($rewards as $reward)
                                                     <option value="{{ $reward->encrypted_id }}">{{ $reward->name }}</option>
@@ -97,9 +127,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Player Base HP</label>
-                                            <input class="form-control" type="text" name="player-bhp"
-                                                placeholder="Enter hp" value="{{ old('player-bhp', '') }}" />
-                                            @error('player-bhp')
+                                            <input class="form-control" type="number" name="player-base-hp"
+                                                placeholder="Enter hp" value="{{ old('player-base-hp', '') }}" />
+                                            @error('player-base-hp')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -109,9 +139,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Enemy Base HP</label>
-                                            <input class="form-control" type="text" name="enemy-bhp"
-                                                placeholder="Enter hp" value="{{ old('enemy-bhp', '') }}" />
-                                            @error('enemy-bhp')
+                                            <input class="form-control" type="number" name="enemy-base-hp"
+                                                placeholder="Enter hp" value="{{ old('enemy-base-hp', '') }}" />
+                                            @error('enemy-base-hp')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -121,9 +151,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Player Base SP</label>
-                                            <input class="form-control" type="text" name="player-bsp"
-                                                placeholder="Enter SP" value="{{ old('player-bsp', '') }}" />
-                                            @error('player-bsp')
+                                            <input class="form-control" type="number" name="player-base-sp"
+                                                placeholder="Enter SP" value="{{ old('player-base-sp', '') }}" />
+                                            @error('player-base-sp')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -133,9 +163,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Enemy Rage Timer</label>
-                                            <input class="form-control" type="text" name="enemy-rage"
-                                                placeholder="Enter name" value="{{ old('enemy-rage', '') }}" />
-                                            @error('enemy-rage')
+                                            <input class="form-control" type="number" name="enemy-rage-timer"
+                                                placeholder="Enter name" value="{{ old('enemy-rage-timer', '') }}" />
+                                            @error('enemy-rage-timer')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>

@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
@@ -27,10 +30,33 @@
             <div class="col-sm-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Rankings</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="card-title font-weight-bold">Rankings of Top 100</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="select2" id="language" name="language" data-placeholder="Select a Language"
+                                    style="width: 100%;">
+                                    <option value="">Select a Language</option>
+                                    @forelse ($proglangs as $proglang)
+                                        <option value="{{ $proglang->encrypted_id }}">
+                                            {{ $proglang->name }}
+                                        </option>
+                                    @empty
+                                        <option value="">No language available.</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="d-none" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                        id="tbl-preloader">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="card-body" id="records">
                         <table id="data-table" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -40,18 +66,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($records as $record)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>
-                                            <a href="{{ route('public_profile.show', $record->users->encrypted_id) }}">
-                                                {{ $record->users->f_name . $record->users->l_name }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $record->total_time }}</td>
-                                    </tr>
-                                @empty
-                                @endforelse
+
                             </tbody>
                             <tfoot>
 
@@ -85,14 +100,79 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
     <script>
+        //Initialize Select2 Elements
+        $('.select2').select2();
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+
         // Datatable
         $(function() {
             $("#data-table").DataTable({
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
+                "language": {
+                    "emptyTable": "No data available"
+                }
             }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
+
+            $("#language").on("change", _.debounce(function() {
+                    const table = $('#data-table').DataTable();
+                    const selectedOption = $(this).val();
+                    $.post({
+                            url: "{{ route('web.leaderboards.entry') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                id: selectedOption
+                            },
+                            beforeSend: function() {
+                                $("#tbl-preloader").removeClass("d-none");
+                            },
+                            complete: function() {
+                                $("#tbl-preloader").addClass("d-none");
+                            },
+                            success: function(response) {
+                                table.clear();
+
+                                if (response.length > 0) {
+                                    $.each(response, function(index, record) {
+                                            table.row.add([
+                                                    index + 1,
+                                                    "<a href='/public_profile/" + record
+                                                    .users.encrypted_id + "'><img src='" + (
+                                                        record.users.profile_picture ?
+                                                        record.users.profile_picture :
+                                                        "https://ui-avatars.com/api/?name=" +
+                                                        record.users.f_name + "+" + record
+                                                        .users.l_name) +
+                                                    "' class='img-circle mr-2' style='width: 35px; height: 35px; max-width: 35px; max-height: 35px;' />" +
+                                                    record.users.f_name + " " + record.users
+                                                    .l_name + "</a>",
+                                                    record.users.f_name + " " + record
+                                                    .users.l_name
+                                                ,
+                                                record.total_time
+                                            ]).draw(false).node();
+                                    });
+                                table.draw();
+                            } else {
+                                table.draw();
+                            }
+                        },
+                        error: function(error) {
+                            // console.log(error)
+                        }
+                    });
+            }, 500)); // Debounce for 500ms
+
         });
     </script>
 @endsection

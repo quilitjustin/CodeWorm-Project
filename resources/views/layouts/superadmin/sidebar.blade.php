@@ -206,7 +206,7 @@
                                 <p>BGM</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link {{ request()->is('game/effects*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
@@ -230,7 +230,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="nav-item">

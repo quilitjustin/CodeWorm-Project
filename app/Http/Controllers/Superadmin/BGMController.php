@@ -71,7 +71,7 @@ class BGMController extends Controller
         // To avoid having a file with the same name
         $newAudioName = time() . '-' . $bgm->name . '.' . $request['audio']->extension();
         // Where to store the image
-        $path = 'game/Effects/BGM';
+        $path = 'game/BGM';
         // Store the image in public directory
         $request['audio']->move(public_path($path), $newAudioName);
         // Output would be like: game/Effects/BGM/image.png
@@ -95,8 +95,8 @@ class BGMController extends Controller
      */
     public function show($bgm)
     {
-        $data = $this->findRecord($bgm);
-        $data = $data->with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->get();
+        $id = decrypt($bgm);
+        $data = BGM::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
 
         return view('superadmin.game.bgm.show', [
             'bgm' => $data,
@@ -151,7 +151,7 @@ class BGMController extends Controller
             // To avoid having a file with the same name
             $newAudioName = time() . '-' . $data->name . '.' . $request['audio']->extension();
             // Where to store the image
-            $path = 'game/Effects/BGM';
+            $path = 'game/BGM';
             // Store the image in public directory
             $request['audio']->move(public_path($path), $newAudioName);
             // Output would be like: game/Effects/BGM/image.png

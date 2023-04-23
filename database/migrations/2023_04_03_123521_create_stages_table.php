@@ -17,7 +17,13 @@ return new class extends Migration {
             $table->string('name');
             $table->json('tasks');
             $table->unsignedBigInteger('proglang_id');
-            $table->unsignedBigInteger('badge_id');
+            $table->unsignedBigInteger('badge_id')->nullable();
+            $table->unsignedBigInteger('bgim_id');
+            $table->unsignedBigInteger('bgm_id');
+            $table->integer('player_base_hp');
+            $table->integer('enemy_base_hp');
+            $table->integer('player_base_sp');
+            $table->integer('enemy_base_dmg');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -33,6 +39,16 @@ return new class extends Migration {
                 ->foreign('badge_id')
                 ->references('id')
                 ->on('badges')
+                ->onDelete('cascade');
+            $table
+                ->foreign('bgim_id')
+                ->references('id')
+                ->on('b_g_imgs')
+                ->onDelete('cascade');
+            $table
+                ->foreign('bgm_id')
+                ->references('id')
+                ->on('b_g_m_s')
                 ->onDelete('cascade');
             $table
                 ->foreign('created_by')

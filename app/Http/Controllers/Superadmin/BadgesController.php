@@ -71,7 +71,7 @@ class BadgesController extends Controller
         // To avoid having a file with the same name
         $newImageName = time() . '-' . $badge['name'] . '.' . $request['image']->extension();
         // Where to store the image
-        $path = 'game/Effects/Badgess';
+        $path = 'game/Badgess';
         // Store the image in public directory
         $request['image']->move(public_path($path), $newImageName);
         // Output would be like: game/Effects/Badgess/image.png
@@ -151,7 +151,7 @@ class BadgesController extends Controller
             // To avoid having a file with the same name
             $newImageName = time() . '-' . $data->name . '.' . $request['image']->extension();
             // Where to store the image
-            $path = 'game/Effects/Badgess';
+            $path = 'game/Badgess';
             // Store the image in public directory
             $request['image']->move(public_path($path), $newImageName);
             // Output would be like: game/Effects/Badgess/image.png

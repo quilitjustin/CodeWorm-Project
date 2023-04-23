@@ -138,7 +138,8 @@ class TasksController extends Controller
     public function edit($task)
     {
         //
-        $data = $this->findRecord($task);
+        $id = decrypt($task);
+        $data = Tasks::with('proglang:id,name')->findorfail($id);
 
         return view('superadmin.game.tasks.edit', [
             'task' => $data,

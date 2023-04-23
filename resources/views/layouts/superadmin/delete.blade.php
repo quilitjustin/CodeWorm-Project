@@ -59,7 +59,7 @@
                     url: route,
                     data: data,
                     success: function(response) {
-                        console.log(response);
+                        toastr.success(response.message);
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);

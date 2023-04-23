@@ -74,7 +74,7 @@
                                             <label>Language</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
-                                                <option value="{{ encrypt($task->proglang_id) }}" selected>Php</option>
+                                                <option value="{{ $task->proglang->encrypted_id }}" selected>{{ $task->proglang->name }}</option>
                                             </select>
                                             @error('proglang')
                                                 <p class="text-danger my-2">{{ $message }}</p>
@@ -160,16 +160,11 @@
     <script>
         const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
         const TOKEN = "{{ csrf_token() }}";
+        const SELECTED_LANGUAGE = "{{ $task->proglang->name }}";
     </script>
     {{-- Code execution --}}
     <script src="{{ asset('js/rcode.js') }}"></script>
     <script>
-        $("#run").click(function() {
-            const language = $("#proglang option:selected").text();
-            const code = editor.getValue();
-
-            runCode(code, language.toLowerCase());
-        });
         $(document).ready(function() {
             const route = "{{ route('super.fetch.languages') }}";
             $.get({
@@ -180,8 +175,11 @@
                 success: function(response) {
                     let html = '';
                     $.each(response, function(index, data) {
-                        html +=
-                            `<option value="` + data.id + `">` + data.name + `</option>`;
+                        if(data.name != SELECTED_LANGUAGE){
+                            html +=
+                            `<option value="` + data.encrypted_id + `">` + data.name + `</option>`;
+                            console.log(data.name)
+                        }
                     });
                     $("#proglang").append(html);
                 }

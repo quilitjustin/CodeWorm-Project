@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             SplashPageSeeder::class,
-            ProglangSeeder::class
+            ProglangSeeder::class,
+            TaskSeeder::class,
+            BGImgSeeder::class,
+            BGMSeeder::class,
+            StageSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

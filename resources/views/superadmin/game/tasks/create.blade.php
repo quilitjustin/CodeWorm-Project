@@ -165,29 +165,6 @@
             window.history.back();
         });
 
-        $("#run").click(function() {
-            const language = $("#proglang option:selected").text();
-            const code = editor.getValue();
-
-            runCode(code, language.toLowerCase());
-        });
-
-        // $(document).ready(function() {
-        //     const route = "{{ route('super.fetch.languages') }}";
-        //     $.get({
-        //         url: route,
-        //         data: {
-        //             "_token": "{{ csrf_token() }}",
-        //         },
-        //         success: function(response) {
-        //             let html = '';
-        //             $.each(response, function(index, data) {
-        //                 html +=
-        //                     `<option value="` + data.id + `">` + data.name + `</option>`;
-        //             });
-        //             $("#proglang").append(html);
-        //         }
-        //     });
-        // });
+        
     </script>
 @endsection

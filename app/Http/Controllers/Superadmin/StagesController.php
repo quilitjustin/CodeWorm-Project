@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stages;
 use App\Models\Badges;
+use App\Models\BGImg;
+use App\Models\BGM;
 use App\Models\ProgrammingLanguages as Proglang;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,10 +46,14 @@ class StagesController extends Controller
     {
         $proglangs = Proglang::select('id', 'name')->get();
         $rewards = Badges::select('id', 'name')->get();
+        $bgims = BGImg::select('id', 'name')->get();
+        $bgms = BGM::select('id', 'name')->get();
 
         return view('superadmin.game.stages.create', [
             'proglangs' => $proglangs,
             'rewards' => $rewards,
+            'bgims' => $bgims,
+            'bgms' => $bgms,
         ]);
     }
 
@@ -64,13 +70,18 @@ class StagesController extends Controller
             'name' => ['required', 'max:255'],
             'tasks' => ['required', 'array'],
             'proglang' => ['required'],
-            'reward' => ['required'],
+            'bgim' => ['required'],
+            'bgm' => ['required'],
+            'player-base-hp' => ['required', 'integer'],
+            'enemy-base-hp' => ['required', 'integer'],
+            'player-base-sp' => ['required', 'integer'],
+            'enemy-rage-timer' => ['required', 'integer'],
         ]);
 
         $proglang_id = decrypt($request['proglang']);
         $proglang = Proglang::findorfail($proglang_id);
-        $reward_id = decrypt($request['reward']);
-        $badge = Badges::findorfail($reward_id);
+        $bgim_id = decrypt($request['bgim']);
+        $bgm_id = decrypt($request['bgm']);
 
         $stage = new Stages();
         $stage->name = strip_tags($request['name']);
@@ -81,7 +92,18 @@ class StagesController extends Controller
         }
         $stage->tasks = $arr;
         $stage->proglang_id = $proglang_id;
-        $stage->badge_id = $reward_id;
+        // Only if there is a reward for this stage
+        if (!is_null($request['reward'])) {
+            $reward_id = decrypt($request['reward']);
+            $badge = Badges::findorfail($reward_id);
+            $stage->badge_id = $reward_id;
+        }
+        $stage->bgim_id = $bgim_id;
+        $stage->bgm_id = $bgm_id;
+        $stage->player_base_hp = strip_tags($request['player-base-hp']);
+        $stage->enemy_base_hp = strip_tags($request['enemy-base-hp']);
+        $stage->player_base_sp = strip_tags($request['player-base-sp']);
+        $stage->enemy_rage_timer = strip_tags($request['enemy-rage-timer']);
         $stage->created_by = Auth::user()->id;
         $stage->save();
 
@@ -102,7 +124,7 @@ class StagesController extends Controller
     {
         $id = decrypt($stage);
         $data = Stages::with('proglang:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
-        
+
         $arr = [];
         foreach ($data->tasks as $task) {
             array_push($arr, \App\Models\Tasks::select('id', 'name')->where('id', $task));

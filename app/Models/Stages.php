@@ -31,6 +31,16 @@ class Stages extends Model
         return $this->belongsTo(Badges::class, 'badge_id');
     }
 
+    public function bgim()
+    {
+        return $this->belongsTo(BGImg::class, 'bgim_id');
+    }
+
+    public function bgm()
+    {
+        return $this->belongsTo(BGM::class, 'bgm_id');
+    }
+
     public function created_by_user()
     {
         return $this->belongsTo(User::class, 'created_by');
