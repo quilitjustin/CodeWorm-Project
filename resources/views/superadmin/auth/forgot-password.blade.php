@@ -1,40 +1,68 @@
 @extends('layouts.app')
 
 @section('content')
-    <main class="d-flex w-100">
-        <div class="container d-flex flex-column">
-            <div class="row vh-100">
-                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                    <div class="d-table-cell align-middle">
+    <div class="d-flex justify-content-center align-items-center"
+        style="height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('{{ asset('assets/bgim/login.png') }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
+        <div class="register-box">
+            <div class="register-logo text-white font-weight-bold">
+                Codeworm
+            </div>
 
-                        <div class="text-center mt-4">
-                            <h1 class="h2">Reset Password</h1>
-                            <p class="lead">
-                                Regain access to restart your procrastirnation.
-                            </p>
-                        </div>
+            <div class="card rounded shadow-sm">
+                <div class="card-body register-card-body">
+                    <p class="login-box-msg">Fogot Password</p>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="m-sm-4">
-                                    <form method="POST" action="#">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-lg btn-primary">Reset</button>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
-                                        </div>
-                                    </form>
+                    <form action="{{ route('super.password.request') }}" method="POST">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-block mb-2">Login</button>
+                            </div>
+                            <!-- /.col -->
+                            <div class="mt-3 col-12">
+                                @if ($errors->any())
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-danger">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                                @if (session()->has('status'))
+                                    <div class="text-success">
+                                        {{ session()->get('status') }}
+                                    </div>
+                                @endif
+                            </div>
 
-                    </div>
+                        </div>
+                    </form>
+
+                    {{-- <div class="social-auth-links text-center">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i>
+                            Sign up using Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i>
+                            Sign up using Google+
+                        </a>
+                    </div> --}}
+
+                    {{-- <a href="login.html" class="text-center">I already have a membership</a> --}}
                 </div>
-            </div>
+                <!-- /.form-box -->
+            </div><!-- /.card -->
         </div>
-    </main>
+        <!-- /.register-box -->
+    </div>
 @endsection

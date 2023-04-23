@@ -24,10 +24,6 @@ use App\Http\Middleware\WebIsLoggedIn;
 | Check app/Providers/RouteServiceProvider.php for more details
 */
 
-Route::get('test', function () {
-    return view('text');
-});
-
 // Ajax
 Route::controller(LiveSearchController::class)->group(function () {
     Route::get('/search/portfolio', 'public_portfolio')->name('search.portfolio');
@@ -36,6 +32,12 @@ Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.stor
 // End
 
 // Public
+Route::controller(PasswordResetController::class)->group(function(){
+    Route::get('/password/fogot', 'index')->name('password.forgot');
+    Route::post('/password/request', 'request')->name('password.request');
+    Route::get('/password/reset/{token}', 'reset')->name('password.reset');
+    Route::post('/password/update', 'update')->name('password.update');
+})->middleware('guest');
 Route::get('/', 'SplashPageController@index');
 Route::controller(LeaderBoardController::class)->group(function () {
     Route::get('/leaderboard', 'index')->name('web.leaderboard.index');

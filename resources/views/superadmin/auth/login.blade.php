@@ -40,8 +40,9 @@
                                 </div>
                             </div> --}}
                             <!-- /.col -->
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-block mb-2">Login</button>
+                                <a href="{{ route('super.password.forgot') }}" >Forgot Password?</a>
                             </div>
                             <!-- /.col -->
                             <div class="mt-3">

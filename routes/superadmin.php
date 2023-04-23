@@ -17,6 +17,12 @@ use App\Http\Middleware\SuperIsLoggedIn;
 Route::get('/', function () {
     return redirect()->route('super.dashboard');
 });
+Route::controller(PasswordResetController::class)->group(function(){
+    Route::get('/password/fogot', 'index')->name('super.password.forgot');
+    Route::post('/password/request', 'request')->name('super.password.request');
+    Route::get('/password/reset/{token}', 'reset')->name('super.password.reset');
+    Route::post('/password/update', 'update')->name('super.password.update');
+})->middleware('guest');
 
 Route::middleware([SuperIsLoggedIn::class])->group(function () {
     //ajax 

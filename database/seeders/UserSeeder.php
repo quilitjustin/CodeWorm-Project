@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'role' => 'superadmin',
             'created_by' => 1,
-            'password' => Hash::make('password'),
+            'password' => Hash::make('@qwerty123'),
         ]);
         // Generate another 100 random user
         for ($i = 0; $i < 100; $i++) {
