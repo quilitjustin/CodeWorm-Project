@@ -17,7 +17,13 @@ class BGMSeeder extends Seeder
     {
         DB::table('b_g_m_s')->insert([
             'name' => 'Bambina Ost',
-            'path' => 'game/BGM/1682176656-Asdf.mp3',
+            'path' => 'game/BGM/1682176656-tmp1.mp3',
+            'created_by' => 1,
+        ]);
+
+        DB::table('b_g_m_s')->insert([
+            'name' => 'Luna Ost',
+            'path' => 'game/BGM/1682176656-tmp.mp3',
             'created_by' => 1,
         ]);
     }
