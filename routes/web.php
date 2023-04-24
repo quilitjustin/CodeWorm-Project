@@ -24,6 +24,10 @@ use App\Http\Middleware\WebIsLoggedIn;
 | Check app/Providers/RouteServiceProvider.php for more details
 */
 
+Route::get('/test', function(){
+    return view('text');
+});
+
 // Ajax
 Route::controller(LiveSearchController::class)->group(function () {
     Route::get('/search/portfolio', 'public_portfolio')->name('search.portfolio');
