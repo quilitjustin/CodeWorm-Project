@@ -55,14 +55,14 @@
                         </p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="/forums" class="nav-link {{ request()->is('forums*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
+                <li class="nav-item">
+                    <a href="/stories" class="nav-link {{ request()->is('stories*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
                         <p>
-                            Forum
+                            Stories
                         </p>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
                     <a href="/leaderboard" class="nav-link {{ request()->is('leaderboard*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-id-badge"></i>

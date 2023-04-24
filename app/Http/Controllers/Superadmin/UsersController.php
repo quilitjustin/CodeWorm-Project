@@ -222,6 +222,8 @@ class UsersController extends Controller
         $data = $this->findRecord($user);
         $data->delete();
 
-        return response()->json(['message' => 'Deleted successfully']);
+        return redirect()
+            ->route('users.index')
+            ->with('msg', 'Deleted Successfully');
     }
 }

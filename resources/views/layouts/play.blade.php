@@ -330,7 +330,7 @@
         $("#description").prop("hidden", true);
         $("#code-editor").prop("hidden", true);
     });
-    $("#code-editor").prop("hidden", true);
+    
     // $.get({
     //     url: "{{ route('fetch.php') }}",
     //     method: 'GET',
@@ -374,9 +374,10 @@
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=9') }}"></script>
+<script src="{{ asset('demo/script.js?v=10') }}"></script>
 <script>
     $(document).ready(function() {
+        $("#code-editor").prop("hidden", true);
         $("#game").prop("hidden", true);
         $('.modal').attr('data-backdrop', 'static');
 

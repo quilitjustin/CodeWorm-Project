@@ -50,6 +50,8 @@ class SplashPageController extends Controller
     {
         $id->delete();
 
-        return response()->json(['message' => 'Deleted successfully']);
+        return redirect()
+            ->route('splashs.index')
+            ->with('msg', 'Deleted Successfully');
     }
 }

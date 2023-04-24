@@ -33,7 +33,7 @@ Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.stor
 
 // Public
 Route::controller(PasswordResetController::class)->group(function(){
-    Route::get('/password/fogot', 'index')->name('password.forgot');
+    Route::get('/password/forgot', 'index')->name('password.forgot');
     Route::post('/password/request', 'request')->name('password.request');
     Route::get('/password/reset/{token}', 'reset')->name('password.reset');
     Route::post('/password/update', 'update')->name('password.update');
@@ -70,6 +70,11 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::get('/play/{id}/stages', 'stages')->name('web.play.stages');
         Route::post('/play/save_record', 'save_record')->name('web.play.store');
         Route::get('/play/start/{id}', 'game_start')->name('web.play.start');
+    });
+
+    Route::controller(StoryController::class)->group(function(){
+        Route::get('/stories', 'index')->name('web.stories.index');
+        Route::get('/stories/{id}', 'show')->name('web.stories.show');
     });
 
     Route::get('/forums', function(){

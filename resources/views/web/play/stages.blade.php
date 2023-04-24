@@ -39,7 +39,7 @@
                             @forelse ($stages as $stage)
                                 <div class="col-md-4 p-2">
                                     <a href="{{ route('web.play.start', $stage->encrypted_id) }}"
-                                        class="btn btn-secondary w-100 py-3">{{ $stage->name }}</a>
+                                        class="btn btn-dark w-100 py-3">{{ $stage->name }}</a>
                                 </div>
                             @empty
                                 <h5 class="text-center">No stages available</h5>

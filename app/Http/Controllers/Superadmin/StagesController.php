@@ -203,6 +203,8 @@ class StagesController extends Controller
         $data = $this->findRecord($stage);
         $data->delete();
 
-        return response()->json(['message' => 'Deleted successfully']);
+        return redirect()
+            ->route('stages.index')
+            ->with('msg', 'Deleted Successfully');
     }
 }

@@ -414,7 +414,7 @@
                 },
                 dataType: "json",
                 success: function(response) {
-                    console.log(response.message);
+                    window.location.href = "{{ route('splash.index') }}";
                 },
                 error: function(request, status, error) {
                     console.log(request.responseText);

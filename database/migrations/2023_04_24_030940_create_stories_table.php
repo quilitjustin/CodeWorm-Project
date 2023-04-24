@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sound_effects', function (Blueprint $table) {
+        Schema::create('stories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('path');
+            $table->string('title');
+            $table->longText('contents');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('sound_effects', function (Blueprint $table) {
+        Schema::table('stories', function (Blueprint $table) {
             $table->foreign('created_by')
                 ->references('id')
                 ->on('users')
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sound_effects');
+        Schema::dropIfExists('stories');
     }
 };

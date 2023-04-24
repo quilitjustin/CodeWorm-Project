@@ -201,6 +201,8 @@ class TasksController extends Controller
         $data = $this->findRecord($task);
         $data->delete();
 
-        return response()->json(['message' => 'Deleted successfully']);
+        return redirect()
+            ->route('tasks.index')
+            ->with('msg', 'Deleted Successfully');
     }
 }

@@ -72,6 +72,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/stories" class="nav-link {{ request()->is('stories*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Stories
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link {{ request()->is('cms*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder"></i>
                         <p>

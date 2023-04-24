@@ -38,7 +38,7 @@
                             @forelse ($proglangs as $proglang)
                                 <div class="col-md-4 p-2">
                                     <a href="{{ route('web.play.stages', $proglang->encrypted_id) }}"
-                                        class="btn btn-secondary w-100 py-3">{{ $proglang->name }}</a>
+                                        class="btn btn-dark w-100 py-3">{{ $proglang->name }}</a>
                                 </div>
                             @empty
                                 <h5 class="text-center">No records</h5>

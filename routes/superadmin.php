@@ -18,7 +18,7 @@ Route::get('/', function () {
     return redirect()->route('super.dashboard');
 });
 Route::controller(PasswordResetController::class)->group(function(){
-    Route::get('/password/fogot', 'index')->name('super.password.forgot');
+    Route::get('/password/forgot', 'index')->name('super.password.forgot');
     Route::post('/password/request', 'request')->name('super.password.request');
     Route::get('/password/reset/{token}', 'reset')->name('super.password.reset');
     Route::post('/password/update', 'update')->name('super.password.update');
@@ -63,6 +63,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::resource('/users', UsersController::class);
 
     Route::resource('/announcements', AnnouncementsController::class);
+    Route::resource('/stories', StoryController::class);
     // Game Routes
     Route::resource('/game/programming/proglangs', ProgrammingLanguageController::class);
     Route::resource('/game/programming/stages', StagesController::class);
