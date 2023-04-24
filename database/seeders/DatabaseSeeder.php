@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             BGImgSeeder::class,
             BGMSeeder::class,
             StageSeeder::class,
+            StorySeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

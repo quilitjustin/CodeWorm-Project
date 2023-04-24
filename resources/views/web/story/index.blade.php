@@ -48,6 +48,7 @@
                                                 </td>
                                             </tr>
                                         @empty
+                                        No Story Available
                                         @endforelse
                                     </tbody>
                                     <tfoot>
