@@ -37,7 +37,7 @@
                                             style="max-width: 100%; max-height: 100%;">
                                         <h3 class="text-dark font-weight-bold"
                                             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 2px 2px 0px #FFFFFF;">
-                                            {{ $stage->name }}<br><span>{{ $stage->game_records_users[0]->record }}</span></h3>
+                                            {{ $stage->name }}<br><span>{{ is_null($stage->game_records_users) ? '' : $stage->game_records_users[0]->record }}</span></h3>
                                     </a>
                                 </div>
                             @empty
