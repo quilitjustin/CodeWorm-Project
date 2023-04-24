@@ -127,8 +127,9 @@
                     </button> --}}
                 </div>
                 <div class="modal-body">
-                    <p>Rewards:</p>
+                    <p id="total-time"></p>
                     @if (isset($stage->badges))
+                        <p>Rewards: </p>
                         <img src="{{ asset($stage->badges->path) }}"
                             class="rounded mx-auto d-block border border-secondary" alt="preview"
                             style="height: 150px; max-height: 150px;">
@@ -136,14 +137,15 @@
                             <h3 class="font-weight-bold">{{ $stage->badges->name }}</h3>
                         </div>
                     @else
-                        None
+                        <p>Rewards: None</p>
                     @endisset
             </div>
             <div class="modal-footer justify-content-between">
                 <button class="quit-btn btn btn-danger">Quit</button>
                 @if (!is_null($next_stage))
                     {{-- Next stage --}}
-                    <a href="{{ route('web.play.start', $next_stage->encrypted_id) }}" class="btn btn-primary">Next
+                    <a href="{{ route('web.play.start', $next_stage->encrypted_id) }}"
+                        class="btn btn-primary">Next
                         Stage: {{ $next_stage->name }}</a>
                 @endif
             </div>
@@ -330,24 +332,6 @@
         $("#description").prop("hidden", true);
         $("#code-editor").prop("hidden", true);
     });
-    
-    // $.get({
-    //     url: "{{ route('fetch.php') }}",
-    //     method: 'GET',
-    //     data: {
-    //         "_token": "{{ csrf_token() }}",
-    //     },
-    //     success: function(response) {
-    //         let html = '';
-    //         $.each(response, function(index, data) {
-    //             html +=
-    //                 `<button onclick="showTask(` + index +
-    //                 `);" class="btn btn-outline-info h-25 w-100">` + data.name + `</button>`;
-    //             arr.push(data.snippet);
-    //         });
-    //         $("#tasks").append(html);
-    //     }
-    // });
 
     const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
     const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
@@ -374,7 +358,7 @@
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=10') }}"></script>
+<script src="{{ asset('demo/script.js?v=11') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

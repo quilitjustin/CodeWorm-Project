@@ -2,14 +2,16 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="background-image: url('{{ asset('assets/bgim/play.png') }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
+    <div class="content-wrapper"
+        style="background-image: url('{{ asset('assets/bgim/play.png') }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Stages </h1>
-                        <h6 class="font-size-5 text-danger">Note: You need to complete all stage to be qualified to compete for leaderboards.</h6>
+                        <h1 class="m-0 text-navy font-weight-bold">Stages </h1>
+                        <h6 class="font-size-5 text-danger">Note: You need to complete all stage to be qualified to compete
+                            for leaderboards.</h6>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">
@@ -28,18 +30,15 @@
                 <div class="row">
                     <div class="col-12 px-5">
                         <div class="row">
-                            {{-- <div class="col-md-4 p-2">
-                            <a href="{{ route('web.play.php') }}"
-                                class="btn btn-secondary w-100 py-3">PHP</a>
-                        </div>
-                        <div class="col-md-4 p-2">
-                            <a href="{{ route('web.play.js') }}"
-                                class="btn btn-secondary w-100 py-3">Javascript</a>
-                        </div> --}}
                             @forelse ($stages as $stage)
-                                <div class="col-md-4 p-2">
-                                    <a href="{{ route('web.play.start', $stage->encrypted_id) }}"
-                                        class="btn btn-dark w-100 py-3">{{ $stage->name }}</a>
+                                <div class="col-md-6 p-2" style="position: relative;">
+                                    <a href="{{ route('web.play.start', $stage->encrypted_id) }}">
+                                        <img src="{{ asset($stage->bgim->path) }}" alt="img"
+                                            style="max-width: 100%; max-height: 100%;">
+                                        <h3 class="text-dark font-weight-bold"
+                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 2px 2px 0px #FFFFFF;">
+                                            {{ $stage->name }}<br><span>{{ $stage->game_records_users[0]->record }}</span></h3>
+                                    </a>
                                 </div>
                             @empty
                                 <h5 class="text-center">No stages available</h5>

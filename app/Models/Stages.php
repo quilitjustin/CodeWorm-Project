@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Stages extends Model
 {
@@ -49,5 +50,9 @@ class Stages extends Model
     public function updated_by_user()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function game_records_users(){
+        return $this->hasMany(GameRecord::class, 'stage_id')->where('user_id', Auth::user()->id);
     }
 }

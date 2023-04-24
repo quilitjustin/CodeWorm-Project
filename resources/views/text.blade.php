@@ -29,14 +29,14 @@
             }
         });
         $.ajax({
-            url: 'https://codewormpythonbackend-production.up.railway.app',
+            url: 'https://cors-anywhere.herokuapp.com/https://python-production-c7de.up.railway.app',
             type: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ec6168b2-8da6-4f06-a328-eebc0852f3b5'
+                'Authorization': 'Bearer e2ba5acb-5a69-422c-af76-2ac4ace785df'
             },
             data: {
-                code: 'print("Hello, world!")'
+                code: 'print("Hello, world!")',
             },
             success: function(response) {
                 console.log(response);

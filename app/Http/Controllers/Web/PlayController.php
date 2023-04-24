@@ -19,12 +19,28 @@ class PlayController extends Controller
         ]);
     }
 
+    protected function formatTime($time)
+    {
+        $timeInSeconds = round($time / 1000);
+        $hours = floor($timeInSeconds / 3600);
+        $minutes = floor(($timeInSeconds % 3600) / 60);
+        $seconds = $timeInSeconds % 60;
+        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+    }
+
     public function stages($id)
     {
         $id = decrypt($id);
-        $stages = Stages::select('id', 'name')
+        $stages = Stages::with('bgim:id,path', 'game_records_users:record,stage_id,user_id')
+            ->select('id', 'name', 'bgim_id')
             ->where('proglang_id', $id)
-            ->get();
+            ->get()
+            ->map(function ($stage) {
+                $stage->game_records_users->each(function ($record) {
+                    $record->record = $this->formatTime($record->record);
+                });
+                return $stage;
+            });
 
         return view('web.play.stages', [
             'stages' => $stages,

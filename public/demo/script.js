@@ -10,6 +10,7 @@ window.addEventListener("load", function () {
     // let gameOver = false;
     // let win = false;
     let timer = 0;
+    let formatTimer = "";
     let bgm = document.getElementById("bgm");
     let bgmVolume = 0.1;
     bgm.volume = bgmVolume;
@@ -634,6 +635,7 @@ window.addEventListener("load", function () {
                 dataType: "json",
                 success: function (response) {
                     $("#win-modal").modal("show");
+                    $("#total-time").text("Time: " + formatTimer);
                 },
                 error: function (request, status, error) {
                     console.log(request.responseText);
@@ -734,16 +736,16 @@ window.addEventListener("load", function () {
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
 
         timer += deltaTime;
-        const formattedTime = formatTime((timer * 0.001).toFixed(1));
+        formatTimer = formatTime((timer * 0.001).toFixed(1));
 
         ctx.textAlign = "center";
         ctx.fillStyle = "black";
         ctx.font = "20px Helvetica";
-        ctx.fillText(formattedTime, canvas.width / 2, 70);
+        ctx.fillText(formatTimer, canvas.width / 2, 70);
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
         ctx.font = "20px Helvetica";
-        ctx.fillText(formattedTime, canvas.width / 2, 72);
+        ctx.fillText(formatTimer, canvas.width / 2, 72);
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
