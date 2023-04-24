@@ -33,7 +33,7 @@
             type: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer e1e31189-d3ea-47d0-a54c-51422743885c'
+                'Authorization': 'Bearer ec6168b2-8da6-4f06-a328-eebc0852f3b5'
             },
             data: {
                 code: 'print("Hello, world!")'
