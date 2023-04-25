@@ -148,8 +148,7 @@
                         class="btn btn-primary">Next
                         Stage: {{ $next_stage->name }}</a>
                 @else
-                    <a href="{{ route('web.leaderboard.index') }}"
-                        class="btn btn-primary">Leaderboards</a>
+                    <a href="{{ route('web.leaderboard.index') }}" class="btn btn-primary">Leaderboards</a>
                 @endif
             </div>
         </div>
@@ -288,6 +287,10 @@
         indentUnit: 4,
         indentWithTabs: true,
         theme: "monokai",
+        pasteBlocked: function(cm, event) {
+            event.preventDefault();
+            return true;
+        }
     });
 
     let RIGHT_ANSWER = "";
