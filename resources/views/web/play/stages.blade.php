@@ -41,10 +41,10 @@
                                     }
                                 @endphp
                                 @if ($condition < 2)
-                                    <div class="col-md-6 p-2" style="position: relative;">
+                                    <div class="col-md-6 p-2" style="position: relative; max-height: 150px">
                                         <a href="{{ route('web.play.start', $stage->encrypted_id) }}">
-                                            <img src="{{ asset($stage->bgim->path) }}" alt="img"
-                                                style="max-width: 100%; max-height: 100%; box-shadow: 10px 10px 5px #ccc;
+                                            <img src="{{ asset($stage->bgim->path) }}" alt="img" class="img-fluid"
+                                                style="box-shadow: 10px 10px 5px #ccc;
       -moz-box-shadow: 10px 10px 5px #ccc;
       -webkit-box-shadow: 10px 10px 5px #ccc;
       -khtml-box-shadow: 10px 10px 5px #ccc;">

@@ -378,7 +378,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=11') }}"></script>
+<script src="{{ asset('demo/script.js?v=12') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);
