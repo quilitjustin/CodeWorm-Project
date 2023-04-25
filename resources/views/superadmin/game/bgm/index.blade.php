@@ -69,7 +69,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('bgms.create') }}" class="btn btn-primary">Create New bgm</a>
+                            <a href="{{ route('bgms.create') }}" class="btn btn-primary">Create New Background Music</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

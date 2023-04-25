@@ -113,24 +113,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
-        // function toastSuccess() {
-        //     toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-        // }
-
-        // function toastError() {
-        //     toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-        // }
-
-        // $('.toastrDefaultInfo').click(function() {
-        //     toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-        // });
-
-        // $('.toastrDefaultWarning').click(function() {
-        //     toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-        // });
-        // });
     </script>
 
     @yield('script')
