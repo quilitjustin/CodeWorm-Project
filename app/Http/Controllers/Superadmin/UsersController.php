@@ -219,7 +219,12 @@ class UsersController extends Controller
     public function destroy($user)
     {
         //
-        $data = $this->findRecord($user);
+        // $data = $this->findRecord($user);
+        $id = decrypt($user);
+        if($id == 1){
+            return 403;
+        }
+        $data = User::findorfail($id);
         $data->delete();
 
         return redirect()

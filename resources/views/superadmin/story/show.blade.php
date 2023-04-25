@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary card-outline">
+                    <div class="card card-navy">
                         <div class="card-header">
                             <h5 class="m-0 font-weight-bold">{{ $story->title }}</h5>
                         </div>

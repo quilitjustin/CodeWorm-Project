@@ -25,7 +25,7 @@
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8">
-                    <div class="card card-indigo">
+                    <div class="card card-navy">
                         <div class="card-header">
                             <h3 class="card-title">
                                 Image Details
@@ -63,7 +63,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
+                                <button id="cancel" type="button" class="btn btn-warning">Go Back</button>
                                 <button type="submit" class="btn btn-primary ml-2">Create</button>
                             </div>
                             <!-- /.card-footer -->

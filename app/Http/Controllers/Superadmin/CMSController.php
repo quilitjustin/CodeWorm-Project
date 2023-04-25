@@ -218,7 +218,7 @@ class CMSController extends Controller
 
     public function leaderboard_index()
     {
-        $cmdbgims = CmsBgim::all();
+        $cmdbgims = CmsBgim::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.background_image.leaderboard.index', [
             'cmsbgims' => $cmdbgims,
@@ -227,7 +227,7 @@ class CMSController extends Controller
 
     public function play_index()
     {
-        $cmdbgims = CmsBgim::all();
+        $cmdbgims = CmsBgim::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.background_image.play.index', [
             'cmsbgims' => $cmdbgims,
@@ -236,7 +236,7 @@ class CMSController extends Controller
 
     public function announcement_index()
     {
-        $cmdbgims = CmsBgim::all();
+        $cmdbgims = CmsBgim::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.background_image.announcement.index', [
             'cmsbgims' => $cmdbgims,
@@ -245,7 +245,7 @@ class CMSController extends Controller
 
     public function stalk_index()
     {
-        $cmdbgims = CmsBgim::all();
+        $cmdbgims = CmsBgim::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.background_image.stalk.index', [
             'cmsbgims' => $cmdbgims,
@@ -254,7 +254,7 @@ class CMSController extends Controller
 
     public function splash_index()
     {
-        $cmdbgims = CmsBgim::all();
+        $cmdbgims = CmsBgim::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.background_image.splash.index', [
             'cmsbgims' => $cmdbgims,
@@ -263,7 +263,7 @@ class CMSController extends Controller
 
     public function login_index()
     {
-        $cmdbgims = CmsBgim::all();
+        $cmdbgims = CmsBgim::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.background_image.login.index', [
             'cmsbgims' => $cmdbgims,
@@ -272,7 +272,7 @@ class CMSController extends Controller
 
     public function logo_index()
     {
-        $cmdbgims = CmsLogo::all();
+        $cmdbgims = CmsLogo::with('created_by_user:id,f_name,l_name')->get();
 
         return view('superadmin.cms.logo.index', [
             'cmsbgims' => $cmdbgims,

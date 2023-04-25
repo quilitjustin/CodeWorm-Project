@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div id="images" class="col-12">
-                <div class="card card-indigo">
+                <div class="card card-navy">
                     <div class="card-header">
                         <h3 class="card-title">Available Images</h3>
                     </div>
@@ -30,7 +30,7 @@
             </div>
             <!-- /.col -->
             <div id="settings" class="col-md-6 d-none">
-                <div class="card card-indigo">
+                <div class="card card-navy">
                     <div class="card-header">
                         <h3 class="card-title">Image Details</h3>
                     </div>

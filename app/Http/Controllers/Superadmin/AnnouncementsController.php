@@ -104,7 +104,7 @@ class AnnouncementsController extends Controller
      */
     public function edit($announcement)
     {
-        $data = $this->findRecord($announcements);
+        $data = $this->findRecord($announcement);
 
         return view('superadmin.announcements.edit', [
             'announcement' => $data

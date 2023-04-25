@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     let imgDetails = {!! $cmsbgims !!};
 
@@ -21,8 +22,10 @@
         const reader = new FileReader();
         
         $("#img-preview").prop("src", "{{ asset('') }}" + imgDetails[idx]["path"]);
-        $("#created-by").text(imgDetails[idx]["created_by"]);
-        $("#created-at").text(imgDetails[idx]["created_at"]);
+        $("#created-by").text(imgDetails[idx]["created_by_user"]["f_name"] + " " + imgDetails[idx]["created_by_user"]["l_name"]);
+        const postDate = moment(imgDetails[idx]["created_at"]);
+        const timeDifference = postDate.fromNow(); // "a day ago"
+        $("#created-at").text(timeDifference);
     });
 
     $("#set-bg").click(function() {

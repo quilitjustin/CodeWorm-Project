@@ -25,7 +25,7 @@
             <div class="row">
                 <!-- /.col -->
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card card-navy">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
                                 <li class="nav-item"><a class="nav-link active" href="#profile"
@@ -239,7 +239,7 @@
                                 <div class="tab-pane" id="other">
                                     <h5>Public Profile: </h5>
                                     <a class="btn btn-outline-primary"
-                                        href="{{ route('super.public_profile.show', $user->encrypted_id) }}">Go and
+                                        href="{{ route('public_profile.show', $user->encrypted_id) }}">Go and
                                         see</a>
                                 </div>
                                 <!-- /.tab-pane -->

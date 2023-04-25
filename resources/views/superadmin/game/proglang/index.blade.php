@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-indigo">
+                    <div class="card card-navy">
                         <div class="card-header">
                             <h3 class="card-title">List of Current Programming Languages</h3>
                         </div>
