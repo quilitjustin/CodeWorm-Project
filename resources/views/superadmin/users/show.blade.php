@@ -139,6 +139,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_delete')
     <script>
         const imageFile = $("#image");
         const preview = $("#img-preview");

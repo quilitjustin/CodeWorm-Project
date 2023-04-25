@@ -38,35 +38,19 @@
 
 <script>
     $(document).ready(function() {
-        let route = "";
-        let data = "";
-
+        let form = "";
         $(".delete").submit(function(e) {
             e.preventDefault();
             $("#err-msg").text("");
             $("#confirmation").val("")
             $("#confirm-delete").modal("show");
-            route = $(this).attr("action");
-            data = $(this).serialize();
-            // Select the parent <tr>
-
+            form = $(this);
         });
         $("#confirm-btn").click(function() {
             const answer = $("#confirmation").val();
             const condition = $("#condition").text();
             if (answer == condition) {
-                $.post({
-                    url: route,
-                    data: data,
-                    success: function(response) {
-                        toastr.success("Deleted Successfully");
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                });
-                // window.location.reload();
-                // toBeRemoved.remove();
+                form.unbind().submit();
                 $("#confirm-delete").modal("hide");
             } else {
                 $("#err-msg").text("Incorrect, please try again.");
