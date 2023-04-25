@@ -10,27 +10,11 @@
     });
 
     $(document).ready(function() {
-        // $.get({
-        //     url: "{{ route('super.super.fetch.languages') }}",
-        //     data: {
-        //         "_token": "{{ csrf_token() }}",
-        //     },
-        //     success: function(response) {
-        //         let html = '';
-        //         $.each(response, function(index, data) {
-        //             html +=
-        //                 `<option value="` + data.id + `">` + data.name + `</option>`;
-        //         });
-        //         $("#proglang").html(html);
-        //         $("#proglang").prop("selectedIndex", -1);
-        //     }
-        // });
-
         $('#proglang').change(function() {
             const id = $(this).val();
             $("#tasks").html("");
             $.post({
-                url: "{{ route('super.super.fetch.tasks') }}",
+                url: "{{ route('super.fetch.tasks') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": id,
