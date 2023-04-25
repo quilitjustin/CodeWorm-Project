@@ -62,7 +62,7 @@ class BGImgController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
-            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            'image' => ['required', 'mimes:jpg,png,jpeg'],
         ]);
 
         $bgim = new BGImg();
@@ -141,7 +141,7 @@ class BGImgController extends Controller
         // For more clarity I use == 'true'
         if ($rule == 'true') {
             $request->validate([
-                'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                'image' => ['required', 'mimes:jpg,png,jpeg'],
             ]);
             // Make sure you delete the file first before updating the record in db
             // But before that, you need to make sure that the file still exist in the first place
