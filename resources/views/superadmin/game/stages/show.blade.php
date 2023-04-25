@@ -44,6 +44,39 @@
                                     <a class="d-block"
                                         href="{{ is_null($stage->proglang) ? '#' : route('super.proglangs.show', $stage->proglang->encrypted_id) }}">{{ is_null($stage->proglang) ? '' : $stage->proglang->name }}</a>
                                 </div>
+                                <!-- /.col -->
+                                <div class="col-md-6 mb-3">
+                                    <label>Background Image</label>
+                                    <a class="d-block"
+                                        href="{{ is_null($stage->bgim) ? '#' : route('super.bgims.show', $stage->bgim->encrypted_id) }}">{{ is_null($stage->bgim) ? '' : $stage->bgim->name }}</a>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Background Music</label>
+                                    <a class="d-block mb-3"
+                                        href="{{ is_null($stage->bgm) ? '#' : route('super.bgms.show', $stage->bgim->encrypted_id) }}">{{ is_null($stage->bgm) ? '' : $stage->bgm->name }}</a>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Player Base Hp</label>
+                                    <p>{{ $stage->player_base_hp }}</p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Enemy Base Hp</label>
+                                    <p>{{ $stage->enemy_base_hp }}</p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Player Base SP</label>
+                                    <p>{{ $stage->player_base_sp }}</p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Enemy Base Damage</label>
+                                    <p>{{ $stage->enemy_base_dmg }}</p>
+                                </div>
+                                <!-- /.col -->
                                 <div class="col-md-12">
                                     <label>Tasks</label>
                                     <div>
