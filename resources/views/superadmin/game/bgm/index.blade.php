@@ -40,7 +40,7 @@
                                 <tbody>
                                     @forelse ($bgms as $bgm)
                                         <tr>
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="{{ route('super.bgms.show', $bgm->encrypted_id) }}">
                                                     {{ $bgm['name'] }}
                                                 </a>

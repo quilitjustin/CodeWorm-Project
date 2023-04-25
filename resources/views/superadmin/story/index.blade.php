@@ -40,7 +40,7 @@
                                 <tbody>
                                     @forelse ($stories as $story)
                                         <tr>
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="{{ route('super.stories.show', $story->encrypted_id) }}">
                                                     {{ $story->title}}
                                                 </a>

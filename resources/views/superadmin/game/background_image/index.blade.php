@@ -40,7 +40,7 @@
                                 <tbody>
                                     @forelse ($bgims as $bgim)
                                         <tr>
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="{{ route('super.bgims.show', $bgim->encrypted_id) }}">
                                                     {{ $bgim['name'] }}
                                                 </a>

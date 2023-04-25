@@ -39,7 +39,7 @@
                                 <tbody>
                                     @forelse ($proglangs as $proglang)
                                         <tr>
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="{{ route('super.proglangs.show', $proglang->encrypted_id) }}">
                                                     {{ $proglang['name'] }}
                                                 </a>

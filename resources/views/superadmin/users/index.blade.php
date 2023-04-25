@@ -42,7 +42,7 @@
                                 <tbody>
                                     @forelse ($users as $user)
                                         <tr>
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="{{ route('super.users.show', $user->encrypted_id) }}">
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
