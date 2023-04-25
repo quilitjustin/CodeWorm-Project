@@ -12,7 +12,11 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
 
-<body style="background: #0E1525;">
+<body
+    style=" 
+background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('{{ asset($stage->bgim->path) }}');
+background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;
+height:100vh; width=100%;">
     <div class="wrapper">
         <!-- Preloader -->
         <div class="preloader">
@@ -75,7 +79,7 @@
                         <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
-                <div class="col-md-6 p-0" style="height: 330px; background: #080c16;">
+                <div id="main-controls" class="col-md-6 p-0" style="height: 330px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
                     <div id="tasks" class="h-100">
@@ -104,6 +108,12 @@
                             <button id="submit" class="btn btn-primary w-25">Submit</button>
                         </div>
                     </div>
+                    <!-- /.card-header -->
+                    <div id="controls-preloader" class="d-none" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
                     <p>Console:</p>
@@ -114,7 +124,10 @@
     </div>
     <div id="playBtn" class="d-flex justify-content-center align-items-center"
         style="z-index: -99999; width: 100vw; height: 100vh;">
-        <button class="btn btn-primary">Play!</button>
+        <div class="text-center">
+            <h1 class="text-light d-block">Codeworm</h1>
+            <button class="btn btn-primary">Play!</button>
+        </div>
     </div>
 
     <div class="modal fade" id="win-modal">
@@ -142,6 +155,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button class="quit-btn btn btn-danger">Quit</button>
+                <button class="restart btn btn-warning">Try again</button>
                 @if (!is_null($next_stage))
                     {{-- Next stage --}}
                     <a href="{{ route('web.play.start', $next_stage->encrypted_id) }}"
@@ -196,7 +210,7 @@
                     <input type="range" min="0" max="10" value="1" id="bgm-volume"
                         class="slider form-control" id="slider">
                 </div>
-                <button id="restart" class="btn btn-warning w-100 mb-3">Restart</button>
+                <button class="restart btn btn-warning w-100 mb-3">Restart</button>
                 <button class="pause-btn btn btn-primary w-100">Resume</button>
             </div>
             <div class="modal-footer justify-content-between">
@@ -219,7 +233,7 @@
                     </button> --}}
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to restart? <br>You may lose your current progress</p>
+                <p>Are you sure you want to restart?</p>
             </div>
             <div class="modal-footer justify-content-between">
                 <button class="back-btn btn btn-default">Back</button>
@@ -371,7 +385,7 @@
         $("#game").prop("hidden", true);
         $('.modal').attr('data-backdrop', 'static');
 
-        $("#restart").click(function() {
+        $(".restart").click(function() {
             $("#pause-modal").modal("hide");
             $("#restart-modal").modal("show");
         });

@@ -45,7 +45,9 @@ window.addEventListener("load", function () {
     });
 
     $("#playBtn button").click(function () {
-        $(this).prop("hidden", true);
+        $("body").removeAttr("style");
+        $("body").css("background-color", "#0E1525")
+        $(this).parent().prop("hidden", true);
         $("#game").prop("hidden", false);
         $("#playBtn").attr("style", "");
         bgm.play();
@@ -117,6 +119,14 @@ window.addEventListener("load", function () {
                         data: {
                             _token: "{{ csrf_token() }}",
                             data: code,
+                        },
+                        beforeSend: function() {
+                            $("#main-controls *").prop("disabled", true);
+                            $("#controls-preloader").removeClass("d-none");
+                        },
+                        complete: function() {
+                            $("#main-controls *").prop("disabled", false);
+                            $("#controls-preloader").addClass("d-none");
                         },
                         success: function (response) {
                             // console.log(response);

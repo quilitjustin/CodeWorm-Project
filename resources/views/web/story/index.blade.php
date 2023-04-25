@@ -41,9 +41,9 @@
                                     <tbody>
                                         @forelse ($stories as $story)
                                             <tr>
-                                                <td class="text-center">
+                                                <td class="text-left">
                                                     <a href="{{ route('web.stories.show', $story->encrypted_id) }}">
-                                                        {{ $story->title }}
+                                                        Chapeter{{ $loop->index + 1 . ': ' . $story->title }}
                                                     </a>
                                                 </td>
                                             </tr>
