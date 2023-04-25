@@ -42,7 +42,6 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
@@ -86,64 +85,6 @@
                         running in no time! Choose one of our open source, free to download, and easy to use themes! No
                         strings attached!</p>
                     <a class="btn btn-light btn-xl" href="#services">Get Started!</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Services-->
-    <section class="page-section" id="services">
-        <div class="container px-4 px-lg-5">
-            <h2 class="editable-content text-center mt-0" contenteditable="true" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Click to edit" placeholder="Click to add title">At Your Service</h2>
-            <hr class="divider" />
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-                        <h3 class="editable-content h4 mb-2" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add title">Sturdy
-                            Themes</h3>
-                        <p class="editable-content text-muted mb-0" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add text">Our themes
-                            are updated regularly to keep them bug
-                            free!</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                        <h3 class="editable-content h4 mb-2" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add title">Up to Date
-                        </h3>
-                        <p class="editable-content text-muted mb-0" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add text">All
-                            dependencies are kept current to keep things
-                            fresh.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-                        <h3 class="editable-content h4 mb-2" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add title">Ready to
-                            Publish</h3>
-                        <p class="editable-content text-muted mb-0" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add text">You can use
-                            this design as is, or you can make
-                            changes!</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="mt-5">
-                        <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
-                        <h3 class="editable-content h4 mb-2" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add title">Made with
-                            Love</h3>
-                        <p class="editable-content text-muted mb-0" contenteditable="true" data-bs-toggle="tooltip"
-                            data-bs-placement="top" title="Click to edit" placeholder="Click to add text">Is it
-                            really open source if it's not made with
-                            love?</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -224,8 +165,8 @@
     <!-- Call to action-->
     <section class="page-section bg-dark text-white">
         <div class="container px-4 px-lg-5 text-center">
-            <h2 class="editable-content mb-4">Free Download at Start Bootstrap!</h2>
-            <a class="btn btn-light btn-xl" href="#">Download Now!</a>
+            <h2 class="editable-content mb-4"></h2>
+            <a class="btn btn-light btn-xl" href="/login">Play Now!</a>
         </div>
     </section>
     <!-- Contact-->
