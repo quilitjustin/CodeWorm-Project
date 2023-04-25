@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center display-4">Search For Someone</h2>
+                <h2 class="text-center display-4 text-navy font-weight-bold">Search For Someone</h2>
             </div>
             <div class="col-12">
                 <div class="row">
@@ -34,9 +34,11 @@
 @endsection
 
 @section('script')
+    {{-- Lodash --}}
+    <script src="{{ asset('js/lodash.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $("#search-box").on("input", function() {
+            $("#search-box").on("input", _.debounce(function() {
                 const keyword = $(this).val();
                 const route = "{{ route('search.portfolio') }}";
                 $.get({
@@ -58,7 +60,7 @@
                         $("#search-suggestion").html(html);
                     }
                 });
-            });
+            }, 300));
         });
     </script>
 @endsection
