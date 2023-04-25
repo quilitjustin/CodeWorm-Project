@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Task</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.tasks.index') }}">Task</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -42,7 +42,7 @@
                                 <div class="col-md-6">
                                     <label>Programming Language</label>
                                     <a class="d-block"
-                                        href="{{ is_null($task->proglang) ? '#' : route('proglangs.show', $task->proglang->encrypted_id) }}">{{ is_null($task->proglang) ? '' : $task->proglang->name }}</a>
+                                        href="{{ is_null($task->proglang) ? '#' : route('super.proglangs.show', $task->proglang->encrypted_id) }}">{{ is_null($task->proglang) ? '' : $task->proglang->name }}</a>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-6">
@@ -79,7 +79,7 @@
                                     <label>Created By</label>
                                     <br>
                                     <a
-                                        href="{{ is_null($task->created_by_user) ? '#' : route('users.show', $task->created_by_user->encrypted_id) }}">{{ is_null($task->created_by_user) ? '' : $task->created_by_user->f_name . ' ' . $task->created_by_user->l_name }}</a>
+                                        href="{{ is_null($task->created_by_user) ? '#' : route('super.users.show', $task->created_by_user->encrypted_id) }}">{{ is_null($task->created_by_user) ? '' : $task->created_by_user->f_name . ' ' . $task->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -91,7 +91,7 @@
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                     <a
-                                        href="{{ is_null($task->updated_by_user) ? '#' : route('users.show', $task->updated_by_user->encrypted_id) }}">{{ is_null($task->updated_by_user) ? '' : $task->updated_by_user->f_name . ' ' . $task->updated_by_user->l_name }}</a>
+                                        href="{{ is_null($task->updated_by_user) ? '#' : route('super.users.show', $task->updated_by_user->encrypted_id) }}">{{ is_null($task->updated_by_user) ? '' : $task->updated_by_user->f_name . ' ' . $task->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -106,9 +106,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('tasks.edit', $task->encrypted_id) }}"
+                            <a href="{{ route('super.tasks.edit', $task->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('tasks.destroy', $task->encrypted_id) }}"
+                            <form class="delete d-inline" action="{{ route('super.tasks.destroy', $task->encrypted_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

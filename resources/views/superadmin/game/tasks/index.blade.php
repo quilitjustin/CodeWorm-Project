@@ -9,7 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Task</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.tasks.index') }}">Task</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -42,13 +42,13 @@
                                     @forelse ($tasks as $task)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('tasks.show', $task->encrypted_id) }}">
+                                                <a href="{{ route('super.tasks.show', $task->encrypted_id) }}">
                                                     {{ $task->name }}
                                                 </a>
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('proglangs.show', $task->proglang->encrypted_id) }}">
+                                                <a href="{{ route('super.proglangs.show', $task->proglang->encrypted_id) }}">
                                                     {{ $task->proglang->name }}
                                                 </a>
                                             </td>
@@ -57,13 +57,13 @@
                                                 {{ $task->difficulty }}
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('tasks.show', $task->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.tasks.show', $task->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('tasks.edit', $task->encrypted_id) }}">
+                                                    href="{{ route('super.tasks.edit', $task->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('tasks.destroy', $task->encrypted_id) }}"
+                                                    action="{{ route('super.tasks.destroy', $task->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -81,7 +81,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
+                            <a href="{{ route('super.tasks.create') }}" class="btn btn-primary">Create New Task</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

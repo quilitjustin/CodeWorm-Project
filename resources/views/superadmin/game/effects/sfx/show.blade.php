@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('sfxs.index') }}">Sfx</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.sfxs.index') }}">Sfx</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -46,7 +46,7 @@
                                     <label>Created By</label>
                                     <br>
                                     <a
-                                        href="{{ is_null($bgmuser->created_by_user) ? '#' : route('users.show', $bgmuser->created_by_user->encrypted_id) }}">{{ is_null($bgmuser->created_by_user) ? '' : $bgmuser->created_by_user->f_name . ' ' . $bgmuser->created_by_user->l_name }}</a>
+                                        href="{{ is_null($bgmuser->created_by_user) ? '#' : route('super.users.show', $bgmuser->created_by_user->encrypted_id) }}">{{ is_null($bgmuser->created_by_user) ? '' : $bgmuser->created_by_user->f_name . ' ' . $bgmuser->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -58,7 +58,7 @@
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                     <a
-                                        href="{{ is_null($bgmuser->updated_by_user) ? '#' : route('users.show', $bgmuser->updated_by_user->encrypted_id) }}">{{ is_null($bgmuser->updated_by_user) ? '' : $bgmuser->updated_by_user->f_name . ' ' . $bgmuser->updated_by_user->l_name }}</a>
+                                        href="{{ is_null($bgmuser->updated_by_user) ? '#' : route('super.users.show', $bgmuser->updated_by_user->encrypted_id) }}">{{ is_null($bgmuser->updated_by_user) ? '' : $bgmuser->updated_by_user->f_name . ' ' . $bgmuser->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -73,9 +73,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('sfxs.edit', $sfxuser->encrypted_id) }}"
+                            <a href="{{ route('super.sfxs.edit', $sfxuser->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('sfxs.destroy', $sfxuser->encrypted_id) }}"
+                            <form class="delete d-inline" action="{{ route('super.sfxs.destroy', $sfxuser->encrypted_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

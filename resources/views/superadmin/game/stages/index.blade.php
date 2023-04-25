@@ -9,7 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('stages.index') }}">Stage</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.stages.index') }}">Stage</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -41,24 +41,24 @@
                                     @forelse ($stages as $stage)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('stages.show', $stage->encrypted_id) }}">
+                                                <a href="{{ route('super.stages.show', $stage->encrypted_id) }}">
                                                     {{ $stage->name }}
                                                 </a>
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('proglangs.show', $stage->proglang->encrypted_id) }}">
+                                                <a href="{{ route('super.proglangs.show', $stage->proglang->encrypted_id) }}">
                                                     {{ $stage->proglang->name }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('stages.show', $stage->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.stages.show', $stage->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('stages.edit', $stage->encrypted_id) }}">
+                                                    href="{{ route('super.stages.edit', $stage->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('stages.destroy', $stage->encrypted_id) }}"
+                                                    action="{{ route('super.stages.destroy', $stage->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -77,7 +77,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('stages.create') }}" class="btn btn-primary">Create New Stage</a>
+                            <a href="{{ route('super.stages.create') }}" class="btn btn-primary">Create New Stage</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

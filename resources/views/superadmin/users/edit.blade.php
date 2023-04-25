@@ -44,7 +44,7 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="profile">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $user->encrypted_id) }}"
+                                        action="{{ route('super.users.update', $user->encrypted_id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
@@ -98,7 +98,7 @@
 
                                 <div class="tab-pane" id="security">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $user->encrypted_id) }}">
+                                        action="{{ route('super.users.update', $user->encrypted_id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
@@ -144,7 +144,7 @@
 
                                 <div class="tab-pane" id="settings">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $user->encrypted_id) }}">
+                                        action="{{ route('super.users.update', $user->encrypted_id) }}">
                                         @csrf
                                         @method('PUT')
                                         {{-- So the system would know what email it would ignore because email must be unique --}}
@@ -200,7 +200,7 @@
 
                                 <div class="tab-pane" id="role">
                                     <form class="form-horizontal" method="POST"
-                                        action="{{ route('users.update', $user->encrypted_id) }}"
+                                        action="{{ route('super.users.update', $user->encrypted_id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
@@ -239,7 +239,7 @@
                                 <div class="tab-pane" id="other">
                                     <h5>Public Profile: </h5>
                                     <a class="btn btn-outline-primary"
-                                        href="{{ route('public_profile.show', $user->encrypted_id) }}">Go and
+                                        href="{{ route('super.public_profile.show', $user->encrypted_id) }}">Go and
                                         see</a>
                                 </div>
                                 <!-- /.tab-pane -->

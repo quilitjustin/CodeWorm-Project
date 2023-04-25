@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('stories.index') }}">Stories</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.stories.index') }}">Stories</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -40,7 +40,7 @@
                                     <label>Created By</label>
                                     <br>
                                     <a
-                                        href="{{ is_null($story->created_by_user) ? '#' : route('users.show', $story->created_by_user->encrypted_id) }}">{{ is_null($story->created_by_user) ? '' : $story->created_by_user->f_name . ' ' . $story->created_by_user->l_name }}</a>
+                                        href="{{ is_null($story->created_by_user) ? '#' : route('super.users.show', $story->created_by_user->encrypted_id) }}">{{ is_null($story->created_by_user) ? '' : $story->created_by_user->f_name . ' ' . $story->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -52,7 +52,7 @@
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                     <a
-                                        href="{{ is_null($story->updated_by_user) ? '#' : route('users.show', $story->updated_by_user->encrypted_id) }}">{{ is_null($story->updated_by_user) ? '' : $story->updated_by_user->f_name . ' ' . $story->updated_by_user->l_name }}</a>
+                                        href="{{ is_null($story->updated_by_user) ? '#' : route('super.users.show', $story->updated_by_user->encrypted_id) }}">{{ is_null($story->updated_by_user) ? '' : $story->updated_by_user->f_name . ' ' . $story->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -65,9 +65,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('stories.edit', $story->encrypted_id) }}"
+                            <a href="{{ route('super.stories.edit', $story->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('stories.destroy', $story->encrypted_id) }}"
+                            <form class="delete d-inline" action="{{ route('super.stories.destroy', $story->encrypted_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

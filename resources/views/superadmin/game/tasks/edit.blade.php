@@ -14,7 +14,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Task</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.tasks.index') }}">Task</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
@@ -35,7 +35,7 @@
                                 Task Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('tasks.update', $task->encrypted_id) }}">
+                        <form method="POST" action="{{ route('super.tasks.update', $task->encrypted_id) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->
@@ -166,7 +166,7 @@
     <script src="{{ asset('js/rcode.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const route = "{{ route('super.fetch.languages') }}";
+            const route = "{{ route('super.super.fetch.languages') }}";
             $.get({
                 url: route,
                 data: {

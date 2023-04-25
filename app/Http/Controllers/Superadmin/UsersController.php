@@ -84,7 +84,7 @@ class UsersController extends Controller
         $data->save();
 
         return redirect()
-            ->route('users.show', [
+            ->route('super.users.show', [
                 'user' => $data->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -165,7 +165,7 @@ class UsersController extends Controller
         $data->save();
 
         return redirect()
-            ->route('users.show', [
+            ->route('super.users.show', [
                 'user' => $encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -223,7 +223,7 @@ class UsersController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('users.index')
+            ->route('super.users.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

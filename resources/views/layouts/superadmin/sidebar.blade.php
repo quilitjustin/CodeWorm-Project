@@ -160,28 +160,28 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('proglangs.index') }}"
+                            <a href="{{ route('super.proglangs.index') }}"
                                 class="nav-link {{ request()->is('game/programming/proglang*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Programming Language</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('stages.index') }}"
+                            <a href="{{ route('super.stages.index') }}"
                                 class="nav-link {{ request()->is('game/programming/stages*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Stages</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('tasks.index') }}"
+                            <a href="{{ route('super.tasks.index') }}"
                                 class="nav-link {{ request()->is('game/programming/tasks*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tasks</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('badges.index') }}"
+                            <a href="{{ route('super.badges.index') }}"
                                 class="nav-link {{ request()->is('game/badges*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
@@ -190,14 +190,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('bgims.index') }}"
+                            <a href="{{ route('super.bgims.index') }}"
                                 class="nav-link {{ request()->is('game/bgims*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Background Image</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('bgms.index') }}"
+                            <a href="{{ route('super.bgms.index') }}"
                                 class="nav-link {{ request()->is('game/bgms*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Background Music</p>

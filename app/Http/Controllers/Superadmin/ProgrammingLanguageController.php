@@ -63,7 +63,7 @@ class ProgrammingLanguageController extends Controller
         $proglang->save();
 
         return redirect()
-            ->route('proglangs.show', [
+            ->route('super.proglangs.show', [
                 'proglang' => $proglang->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -122,7 +122,7 @@ class ProgrammingLanguageController extends Controller
         $data->save();
 
         return redirect()
-            ->route('proglangs.show', [
+            ->route('super.proglangs.show', [
                 'proglang' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -141,7 +141,7 @@ class ProgrammingLanguageController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('proglangs.index')
+            ->route('super.proglangs.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

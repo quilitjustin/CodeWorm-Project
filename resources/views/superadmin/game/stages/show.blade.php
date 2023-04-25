@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('stages.index') }}">Stage</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.stages.index') }}">Stage</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -42,14 +42,14 @@
                                 <div class="col-md-6">
                                     <label>Programming Language</label>
                                     <a class="d-block"
-                                        href="{{ is_null($stage->proglang) ? '#' : route('proglangs.show', $stage->proglang->encrypted_id) }}">{{ is_null($stage->proglang) ? '' : $stage->proglang->name }}</a>
+                                        href="{{ is_null($stage->proglang) ? '#' : route('super.proglangs.show', $stage->proglang->encrypted_id) }}">{{ is_null($stage->proglang) ? '' : $stage->proglang->name }}</a>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Tasks</label>
                                     <div>
                                         @forelse ($tasks as $task)
                                             <a class="d-block"
-                                                href="{{ route('tasks.show', $task->encrypted_id) }}">{{ $task->name }}</a>
+                                                href="{{ route('super.tasks.show', $task->encrypted_id) }}">{{ $task->name }}</a>
                                         @empty
                                             <p>None</p>
                                         @endforelse
@@ -62,7 +62,7 @@
                                     <label>Created By</label>
                                     <br>
                                     <a
-                                        href="{{ is_null($stage->created_by_user) ? '#' : route('users.show', $stage->created_by_user->encrypted_id) }}">{{ is_null($stage->created_by_user) ? '' : $stage->created_by_user->f_name . ' ' . $stage->created_by_user->l_name }}</a>
+                                        href="{{ is_null($stage->created_by_user) ? '#' : route('super.users.show', $stage->created_by_user->encrypted_id) }}">{{ is_null($stage->created_by_user) ? '' : $stage->created_by_user->f_name . ' ' . $stage->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -74,7 +74,7 @@
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                     <a
-                                        href="{{ is_null($stage->updated_by_user) ? '#' : route('users.show', $stage->updated_by_user->encrypted_id) }}">{{ is_null($stage->updated_by_user) ? '' : $stage->updated_by_user->f_name . ' ' . $stage->updated_by_user->l_name }}</a>
+                                        href="{{ is_null($stage->updated_by_user) ? '#' : route('super.users.show', $stage->updated_by_user->encrypted_id) }}">{{ is_null($stage->updated_by_user) ? '' : $stage->updated_by_user->f_name . ' ' . $stage->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -89,9 +89,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('stages.edit', $stage->encrypted_id) }}"
+                            <a href="{{ route('super.stages.edit', $stage->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('stages.destroy', $stage->encrypted_id) }}"
+                            <form class="delete d-inline" action="{{ route('super.stages.destroy', $stage->encrypted_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.vfxs.index') }}">Vfx</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Visual Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('vfxs.update', $vfx->encrypted_id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('super.vfxs.update', $vfx->encrypted_id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" value="false" id="action" name="action">

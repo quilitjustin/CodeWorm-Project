@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('bgms.index') }}">BGM</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.bgms.index') }}">BGM</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Background Music Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('bgms.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('super.bgms.store') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

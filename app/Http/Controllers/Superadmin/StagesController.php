@@ -108,7 +108,7 @@ class StagesController extends Controller
         $stage->save();
 
         return redirect()
-            ->route('stages.show', [
+            ->route('super.stages.show', [
                 'stage' => $stage->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -222,7 +222,7 @@ class StagesController extends Controller
         $data->save();
 
         return redirect()
-            ->route('stages.show', [
+            ->route('super.stages.show', [
                 'stage' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -241,7 +241,7 @@ class StagesController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('stages.index')
+            ->route('super.stages.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

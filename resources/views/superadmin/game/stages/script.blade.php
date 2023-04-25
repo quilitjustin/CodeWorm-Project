@@ -11,7 +11,7 @@
 
     $(document).ready(function() {
         // $.get({
-        //     url: "{{ route('super.fetch.languages') }}",
+        //     url: "{{ route('super.super.fetch.languages') }}",
         //     data: {
         //         "_token": "{{ csrf_token() }}",
         //     },
@@ -30,7 +30,7 @@
             const id = $(this).val();
             $("#tasks").html("");
             $.post({
-                url: "{{ route('super.fetch.tasks') }}",
+                url: "{{ route('super.super.fetch.tasks') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": id,

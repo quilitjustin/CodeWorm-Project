@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.users.index') }}">Users</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -80,7 +80,7 @@
                                             <label>Created By</label>
                                             <br>
                                             <a
-                                                href="{{ is_null($user->created_by_user) ? '#' : route('users.show', $user->created_by_user->encrypted_id) }}">{{ is_null($user->created_by_user) ? '' : $user->created_by_user->f_name . ' ' . $user->created_by_user->l_name }}</a>
+                                                href="{{ is_null($user->created_by_user) ? '#' : route('super.users.show', $user->created_by_user->encrypted_id) }}">{{ is_null($user->created_by_user) ? '' : $user->created_by_user->f_name . ' ' . $user->created_by_user->l_name }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Created</label>
@@ -92,7 +92,7 @@
                                             <br>
                                             {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
                                             <a
-                                                href="{{ is_null($user->updated_by_user) ? '#' : route('users.show', $user->updated_by_user->encrypted_id) }}">{{ is_null($user->updated_by_user) ? '' : $user->updated_by_user->f_name . ' ' . $user->updated_by_user->l_name }}</a>
+                                                href="{{ is_null($user->updated_by_user) ? '#' : route('super.users.show', $user->updated_by_user->encrypted_id) }}">{{ is_null($user->updated_by_user) ? '' : $user->updated_by_user->f_name . ' ' . $user->updated_by_user->l_name }}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Date Updated</label>
@@ -108,7 +108,7 @@
                                 <div class="tab-pane" id="other">
                                     <h5>Public Profile: </h5>
                                     <a class="btn btn-outline-primary"
-                                        href="{{ route('public_profile.show', $user->encrypted_id) }}">Go and see</a>
+                                        href="{{ route('super.public_profile.show', $user->encrypted_id) }}">Go and see</a>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>
@@ -117,9 +117,9 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('users.edit', $user->encrypted_id) }}"
+                            <a href="{{ route('super.users.edit', $user->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('users.destroy', $user->encrypted_id) }}"
+                            <form class="delete d-inline" action="{{ route('super.users.destroy', $user->encrypted_id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

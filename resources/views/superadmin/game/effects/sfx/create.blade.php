@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('sfxs.index') }}">Sfx</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.sfxs.index') }}">Sfx</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Sound Effect Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('sfxs.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('super.sfxs.store') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

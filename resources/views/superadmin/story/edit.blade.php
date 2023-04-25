@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('stories.index') }}">Stories</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.stories.index') }}">Stories</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Stories Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('stories.update', $story->encrypted_id) }}"
+                        <form method="POST" action="{{ route('super.stories.update', $story->encrypted_id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

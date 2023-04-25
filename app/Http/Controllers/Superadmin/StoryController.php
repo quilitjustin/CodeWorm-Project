@@ -74,7 +74,7 @@ class StoryController extends Controller
         $story->save();
 
         return redirect()
-            ->route('stories.show', [
+            ->route('super.stories.show', [
                 'story' => $story->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -133,7 +133,7 @@ class StoryController extends Controller
         $data->save();
 
         return redirect()
-            ->route('stories.show', [
+            ->route('super.stories.show', [
                 'story' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -151,7 +151,7 @@ class StoryController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('stories.index')
+            ->route('super.stories.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

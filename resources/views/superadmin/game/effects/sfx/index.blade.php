@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('sfxs.index') }}">Sfx</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.sfxs.index') }}">Sfx</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -41,17 +41,17 @@
                                     @forelse ($sfxs as $sfx)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('sfxs.show', $sfx->encrypted_id) }}">
+                                                <a href="{{ route('super.sfxs.show', $sfx->encrypted_id) }}">
                                                     {{ $sfx['name'] }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('sfxs.show', $sfx->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.sfxs.show', $sfx->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('sfxs.edit', $sfx->encrypted_id) }}">
+                                                <a class="text-success" href="{{ route('super.sfxs.edit', $sfx->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('sfxs.destroy', $sfx->encrypted_id) }}" method="POST"> @csrf
+                                                    action="{{ route('super.sfxs.destroy', $sfx->encrypted_id) }}" method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>
@@ -69,7 +69,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('sfxs.create') }}" class="btn btn-primary">Create New sfx</a>
+                            <a href="{{ route('super.sfxs.create') }}" class="btn btn-primary">Create New sfx</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

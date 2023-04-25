@@ -9,7 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('proglangs.index') }}">ProgLang</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.proglangs.index') }}">ProgLang</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -40,18 +40,18 @@
                                     @forelse ($proglangs as $proglang)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('proglangs.show', $proglang->encrypted_id) }}">
+                                                <a href="{{ route('super.proglangs.show', $proglang->encrypted_id) }}">
                                                     {{ $proglang['name'] }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('proglangs.show', $proglang->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.proglangs.show', $proglang->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('proglangs.edit', $proglang->encrypted_id) }}">
+                                                    href="{{ route('super.proglangs.edit', $proglang->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('proglangs.destroy', $proglang->encrypted_id) }}"
+                                                    action="{{ route('super.proglangs.destroy', $proglang->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -70,7 +70,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('proglangs.create') }}" class="btn btn-primary">Create New proglang</a>
+                            <a href="{{ route('super.proglangs.create') }}" class="btn btn-primary">Create New proglang</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

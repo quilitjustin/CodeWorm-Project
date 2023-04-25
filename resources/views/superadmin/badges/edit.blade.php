@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('badges.index') }}">Badge</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.badges.index') }}">Badge</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Badge Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('badges.update', $badge->encrypted_id) }}"
+                        <form method="POST" action="{{ route('super.badges.update', $badge->encrypted_id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

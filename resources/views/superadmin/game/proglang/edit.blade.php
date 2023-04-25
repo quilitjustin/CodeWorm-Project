@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('proglangs.index') }}">ProgLang</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.proglangs.index') }}">ProgLang</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Programming Language Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('proglangs.update', $proglang->encrypted_id) }}">
+                        <form method="POST" action="{{ route('super.proglangs.update', $proglang->encrypted_id) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->

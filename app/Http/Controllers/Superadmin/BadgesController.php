@@ -81,7 +81,7 @@ class BadgesController extends Controller
         $badge->save();
 
         return redirect()
-            ->route('badges.show', [
+            ->route('super.badges.show', [
                 'badge' => $badge->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -164,7 +164,7 @@ class BadgesController extends Controller
         $data->save();
 
         return redirect()
-            ->route('badges.show', [
+            ->route('super.badges.show', [
                 'badge' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -188,7 +188,7 @@ class BadgesController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('badges.index')
+            ->route('super.badges.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

@@ -81,7 +81,7 @@ class SoundEffectController extends Controller
         $sfx->save();
 
         return redirect()
-            ->route('sfxs.show', [
+            ->route('super.sfxs.show', [
                 'sfx' => $sfx->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -164,7 +164,7 @@ class SoundEffectController extends Controller
         $data->save();
 
         return redirect()
-            ->route('sfxs.show', [
+            ->route('super.sfxs.show', [
                 'sfx' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -189,7 +189,7 @@ class SoundEffectController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('sfxs.index')
+            ->route('super.sfxs.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

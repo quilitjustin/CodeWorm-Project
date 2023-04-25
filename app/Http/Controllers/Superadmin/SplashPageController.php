@@ -51,7 +51,7 @@ class SplashPageController extends Controller
         $id->delete();
 
         return redirect()
-            ->route('splashs.index')
+            ->route('super.splashs.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

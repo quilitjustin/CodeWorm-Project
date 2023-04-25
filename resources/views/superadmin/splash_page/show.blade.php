@@ -405,7 +405,7 @@
                 myItems.push(item);
             }
             const itemReady = JSON.stringify(myItems);
-            const route = "{{ route('splash.store') }}";
+            const route = "{{ route('super.splash.store') }}";
             $.post({
                 url: route,
                 data: {
@@ -414,7 +414,7 @@
                 },
                 dataType: "json",
                 success: function(response) {
-                    window.location.href = "{{ route('splash.index') }}";
+                    window.location.href = "{{ route('super.splash.index') }}";
                 },
                 error: function(request, status, error) {
                     console.log(request.responseText);

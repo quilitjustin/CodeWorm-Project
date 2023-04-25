@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.users.index') }}">Users</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -43,7 +43,7 @@
                                     @forelse ($users as $user)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('users.show', $user->encrypted_id) }}">
+                                                <a href="{{ route('super.users.show', $user->encrypted_id) }}">
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
                                             </td>
@@ -51,9 +51,9 @@
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('users.show', $user->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.users.show', $user->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('users.edit', $user->encrypted_id) }}">
+                                                <a class="text-success" href="{{ route('super.users.edit', $user->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="ban d-inline"
                                                     action="{{ route('super.user.ban', $user->encrypted_id) }}" method="POST">
@@ -63,7 +63,7 @@
                                                         <i class="fas fa-ban"></i> Ban</button>
                                                 </form>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('users.destroy', $user->encrypted_id) }}" method="POST">
+                                                    action="{{ route('super.users.destroy', $user->encrypted_id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -81,7 +81,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('users.create') }}" class="btn btn-primary">Create New User</a>
+                            <a href="{{ route('super.users.create') }}" class="btn btn-primary">Create New User</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>
@@ -117,7 +117,7 @@
                             <option>week</option>
                             <option>month</option>
                             <option>year</option>
-                            <option>forever</option>
+                            <option>Until I change it</option>
                         </select>
                     </div>
                     <!-- /.form-group -->

@@ -107,7 +107,7 @@ class TasksController extends Controller
         $task->save();
 
         return redirect()
-            ->route('tasks.show', [
+            ->route('super.tasks.show', [
                 'task' => $task->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -183,7 +183,7 @@ class TasksController extends Controller
         $data->save();
    
         return redirect()
-            ->route('tasks.show', [
+            ->route('super.tasks.show', [
                 'task' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -202,7 +202,7 @@ class TasksController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('tasks.index')
+            ->route('super.tasks.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

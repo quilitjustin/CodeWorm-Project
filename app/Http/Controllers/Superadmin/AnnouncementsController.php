@@ -74,7 +74,7 @@ class AnnouncementsController extends Controller
         $announcement->save();
 
         return redirect()
-            ->route('announcements.show', [
+            ->route('super.announcements.show', [
                 'announcement' => $announcement->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -133,7 +133,7 @@ class AnnouncementsController extends Controller
         $data->save();
 
         return redirect()
-            ->route('announcements.show', [
+            ->route('super.announcements.show', [
                 'announcement' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -151,7 +151,7 @@ class AnnouncementsController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('announcements.index')
+            ->route('super.announcements.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

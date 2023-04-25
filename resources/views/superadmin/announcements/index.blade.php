@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('announcements.index') }}">Announcements</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.announcements.index') }}">Announcements</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 pb-4">
-                    <a href="{{ route('announcements.create') }}" class="btn btn-success">Create new Announcement</a>
+                    <a href="{{ route('super.announcements.create') }}" class="btn btn-success">Create new Announcement</a>
                 </div>
                 <div class="col-12">
                     @forelse($announcements as $announcement)
@@ -37,13 +37,13 @@
                             </div>
                             <div class="card-footer">
                                 {{ \Carbon\Carbon::parse($announcement['created_at'])->diffForHumans() }}
-                                <a class="text-link" href="{{ route('announcements.show', $announcement->encrypted_id) }}">
+                                <a class="text-link" href="{{ route('super.announcements.show', $announcement->encrypted_id) }}">
                                     <i class="far fa-eye"></i> View</a>
                                 <a class="text-success"
-                                    href="{{ route('announcements.edit', $announcement->encrypted_id) }}">
+                                    href="{{ route('super.announcements.edit', $announcement->encrypted_id) }}">
                                     <i class="fas fa-pen-square"></i> Edit</a>
                                 <form class="delete d-inline"
-                                    action="{{ route('announcements.destroy', $announcement->encrypted_id) }}"
+                                    action="{{ route('super.announcements.destroy', $announcement->encrypted_id) }}"
                                     method="POST">                                    @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-danger">

@@ -14,7 +14,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Task</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.tasks.index') }}">Task</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -35,7 +35,7 @@
                                 Task Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('tasks.store') }}">
+                        <form method="POST" action="{{ route('super.tasks.store') }}">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

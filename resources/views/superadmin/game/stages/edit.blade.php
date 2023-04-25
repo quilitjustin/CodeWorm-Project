@@ -14,7 +14,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('stages.index') }}">Stage</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.stages.index') }}">Stage</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -35,7 +35,7 @@
                                 Stage Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('stages.update', $stage->encrypted_id) }}">
+                        <form method="POST" action="{{ route('super.stages.update', $stage->encrypted_id) }}">
                             @csrf
                             @method('PUT')
                             <!-- /.card-header -->

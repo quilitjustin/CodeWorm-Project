@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.users.index') }}">Users</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -31,7 +31,7 @@
                                 Personal Information
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('users.store') }}">
+                        <form method="POST" action="{{ route('super.users.store') }}">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

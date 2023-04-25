@@ -81,7 +81,7 @@ class BGMController extends Controller
         $bgm->save();
 
         return redirect()
-            ->route('bgms.show', [
+            ->route('super.bgms.show', [
                 'bgm' => $bgm->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -164,7 +164,7 @@ class BGMController extends Controller
         $data->save();
 
         return redirect()
-            ->route('bgms.show', [
+            ->route('super.bgms.show', [
                 'bgm' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -189,7 +189,7 @@ class BGMController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('bgms.index')
+            ->route('super.bgms.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

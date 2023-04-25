@@ -81,7 +81,7 @@ class VisualEffectController extends Controller
         $vfx->save();
 
         return redirect()
-            ->route('vfxs.show', [
+            ->route('super.vfxs.show', [
                 'vfx' => $vfx->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -166,7 +166,7 @@ class VisualEffectController extends Controller
         $vfx->save();
 
         return redirect()
-            ->route('vfxs.show', [
+            ->route('super.vfxs.show', [
                 'vfx' => $vfx->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -190,7 +190,7 @@ class VisualEffectController extends Controller
         $vfx->delete();
 
         return redirect()
-            ->route('vfxs.index')
+            ->route('super.vfxs.index')
             ->with('msg', 'Deleted Successfully');
     }
 }

@@ -60,19 +60,19 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     })->name('super.dashboard');
 
     Route::put('/users/ban/{user}', 'UsersController@ban_user')->name('super.user.ban');
-    Route::resource('/users', UsersController::class);
+    Route::resource('/users', UsersController::class)->names('super.users');
 
-    Route::resource('/announcements', AnnouncementsController::class);
-    Route::resource('/stories', StoryController::class);
+    Route::resource('/announcements', AnnouncementsController::class)->names('super.announcements');
+    Route::resource('/stories', StoryController::class)->names('super.stories');
     // Game Routes
-    Route::resource('/game/programming/proglangs', ProgrammingLanguageController::class);
-    Route::resource('/game/programming/stages', StagesController::class);
-    Route::resource('/game/programming/tasks', TasksController::class);
-    Route::resource('/game/badges', BadgesController::class);
-    Route::resource('/game/bgms', BGMController::class);
-    Route::resource('/game/bgims', BGImgController::class);
-    Route::resource('/game/effects/sfxs', SoundEffectController::class);
-    Route::resource('/game/effects/vfxs', VisualEffectController::class);
+    Route::resource('/game/programming/proglangs', ProgrammingLanguageController::class)->names('super.proglangs');
+    Route::resource('/game/programming/stages', StagesController::class)->names('super.stages');
+    Route::resource('/game/programming/tasks', TasksController::class)->names('super.tasks');
+    Route::resource('/game/badges', BadgesController::class)->names('super.badges');
+    Route::resource('/game/bgms', BGMController::class)->names('super.bgms');
+    Route::resource('/game/bgims', BGImgController::class)->names('super.bgims');
+    Route::resource('/game/effects/sfxs', SoundEffectController::class)->names('super.sfxs');
+    Route::resource('/game/effects/vfxs', VisualEffectController::class)->names('super.vfxs');
     // End game
 
     // Cms Routes
@@ -102,9 +102,9 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     // End Cms
 
     Route::controller(SplashPageController::class)->group(function () {
-        Route::get('/splash', 'index')->name('splash.index');
-        Route::get('/splash/show/{id}', 'show')->name('splash.show');
-        Route::post('/splash/store', 'store')->name('splash.store');
-        Route::delete('/splash/destroy/{id}', 'destroy')->name('splash.destroy');
+        Route::get('/splash', 'index')->name('super.splash.index');
+        Route::get('/splash/show/{id}', 'show')->name('super.splash.show');
+        Route::post('/splash/store', 'store')->name('super.splash.store');
+        Route::delete('/splash/destroy/{id}', 'destroy')->name('super.splash.destroy');
     });
 });

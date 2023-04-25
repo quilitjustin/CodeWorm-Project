@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('vfxs.index') }}">Vfx</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.vfxs.index') }}">Vfx</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -41,16 +41,16 @@
                                     @forelse ($vfxs as $vfx)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('vfxs.show', $vfx->encrypted_id) }}">
+                                                <a href="{{ route('super.vfxs.show', $vfx->encrypted_id) }}">
                                                     {{ $vfx['name'] }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('vfxs.show', $vfx->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.vfxs.show', $vfx->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('vfxs.edit', $vfx->encrypted_id) }}">
+                                                <a class="text-success" href="{{ route('super.vfxs.edit', $vfx->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                <form class="delete d-inline" action="{{ route('vfxs.destroy', $vfx->encrypted_id) }}"
+                                                <form class="delete d-inline" action="{{ route('super.vfxs.destroy', $vfx->encrypted_id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -70,7 +70,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('vfxs.create') }}" class="btn btn-primary">Create New vfx</a>
+                            <a href="{{ route('super.vfxs.create') }}" class="btn btn-primary">Create New vfx</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

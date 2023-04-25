@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('stories.index') }}">Story</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.stories.index') }}">Story</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -41,17 +41,17 @@
                                     @forelse ($stories as $story)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route('stories.show', $story->encrypted_id) }}">
+                                                <a href="{{ route('super.stories.show', $story->encrypted_id) }}">
                                                     {{ $story->title}}
                                                 </a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('stories.show', $story->encrypted_id) }}">
+                                                <a class="text-link" href="{{ route('super.stories.show', $story->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('stories.edit', $story->encrypted_id) }}">
+                                                <a class="text-success" href="{{ route('super.stories.edit', $story->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('stories.destroy', $story->encrypted_id) }}" method="POST"> @csrf
+                                                    action="{{ route('super.stories.destroy', $story->encrypted_id) }}" method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-trash"></i> Delete</button>
@@ -69,7 +69,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('stories.create') }}" class="btn btn-primary">Create New Story</a>
+                            <a href="{{ route('super.stories.create') }}" class="btn btn-primary">Create New Story</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

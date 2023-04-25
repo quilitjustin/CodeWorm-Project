@@ -43,7 +43,7 @@
                                     @forelse ($splashs as $splash)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('splash.show', $splash['id']) }}">
+                                                <a href="{{ route('super.splash.show', $splash['id']) }}">
                                                     Version {{ $splash->id }}</a>
                                                 @if ($loop->first)
                                                     <span class="badge bg-primary">Latest</span>
@@ -53,11 +53,11 @@
                                                 {{ \Carbon\Carbon::parse($splash['created_at'])->diffForHumans() }}</td>
                                             <td class="d-none d-md-table-cell text-center">{{ $splash['created_by'] }}</td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('splash.show', $splash['id']) }}">
+                                                <a class="text-link" href="{{ route('super.splash.show', $splash['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 @if(!$loop->first)
                                                     <form class="delete d-inline"
-                                                        action="{{ route('splash.destroy', $splash['id']) }}" method="POST">
+                                                        action="{{ route('super.splash.destroy', $splash['id']) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-danger">

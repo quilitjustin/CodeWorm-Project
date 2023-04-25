@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('badges.index') }}">Badge</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.badges.index') }}">Badge</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div><!-- /.col -->
@@ -41,19 +41,19 @@
                                     @forelse ($badges as $badge)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('badges.show', $badge->encrypted_id) }}">
+                                                <a href="{{ route('super.badges.show', $badge->encrypted_id) }}">
                                                     {{ $badge->name }}
                                                 </a>
                                             </td>
                                             <td class="d-none d-md-table-cell">
                                                 <a class="text-link"
-                                                    href="{{ route('badges.show', $badge->encrypted_id) }}">
+                                                    href="{{ route('super.badges.show', $badge->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success"
-                                                    href="{{ route('badges.edit', $badge->encrypted_id) }}">
+                                                    href="{{ route('super.badges.edit', $badge->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
                                                 <form class="delete d-inline"
-                                                    action="{{ route('badges.destroy', $badge->encrypted_id) }}"
+                                                    action="{{ route('super.badges.destroy', $badge->encrypted_id) }}"
                                                     method="POST"> @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
@@ -73,7 +73,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="{{ route('badges.create') }}" class="btn btn-primary">Create New badge</a>
+                            <a href="{{ route('super.badges.create') }}" class="btn btn-primary">Create New badge</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

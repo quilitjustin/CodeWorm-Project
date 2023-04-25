@@ -81,7 +81,7 @@ class BGImgController extends Controller
         $bgim->save();
 
         return redirect()
-            ->route('bgims.show', [
+            ->route('super.bgims.show', [
                 'bgim' => $bgim->encrypted_id,
             ])
             ->with('msg', 'Created Successfully');
@@ -164,7 +164,7 @@ class BGImgController extends Controller
         $data->save();
 
         return redirect()
-            ->route('bgims.show', [
+            ->route('super.bgims.show', [
                 'bgim' => $data->encrypted_id,
             ])
             ->with('msg', 'Updated Successfully');
@@ -189,7 +189,7 @@ class BGImgController extends Controller
         $data->delete();
 
         return redirect()
-            ->route('bgims.index')
+            ->route('super.bgims.index')
             ->with('msg', 'Deleted Successfully');
     }
 }
