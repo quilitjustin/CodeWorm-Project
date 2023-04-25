@@ -155,9 +155,7 @@
                                                         .users.l_name) +
                                                     "' class='img-circle mr-2' style='width: 35px; height: 35px; max-width: 35px; max-height: 35px;' />" +
                                                     record.users.f_name + " " + record.users
-                                                    .l_name + "</a>",
-                                                    record.users.f_name + " " + record
-                                                    .users.l_name
+                                                    .l_name + "</a>"
                                                 ,
                                                 record.total_time
                                             ]).draw(false).node();

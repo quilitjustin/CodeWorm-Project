@@ -162,10 +162,10 @@
                                     <!-- /.col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Enemy Rage Timer</label>
-                                            <input class="form-control" type="number" name="enemy-rage-timer"
-                                                placeholder="Enter name" value="{{ old('enemy-rage-timer', '') }}" />
-                                            @error('enemy-rage-timer')
+                                            <label>Enemy Base Damage</label>
+                                            <input class="form-control" type="number" name="enemy-base-dmg"
+                                                placeholder="Enter name" value="{{ old('enemy-base-dmg', '') }}" />
+                                            @error('enemy-base-dmg')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>

@@ -75,7 +75,7 @@ class StagesController extends Controller
             'player-base-hp' => ['required', 'integer'],
             'enemy-base-hp' => ['required', 'integer'],
             'player-base-sp' => ['required', 'integer'],
-            'enemy-rage-timer' => ['required', 'integer'],
+            'enemy-base-dmg' => ['required', 'integer'],
         ]);
 
         $proglang_id = decrypt($request['proglang']);
@@ -103,7 +103,7 @@ class StagesController extends Controller
         $stage->player_base_hp = strip_tags($request['player-base-hp']);
         $stage->enemy_base_hp = strip_tags($request['enemy-base-hp']);
         $stage->player_base_sp = strip_tags($request['player-base-sp']);
-        $stage->enemy_rage_timer = strip_tags($request['enemy-rage-timer']);
+        $stage->enemy_base_dmg = strip_tags($request['enemy-base-dmg']);
         $stage->created_by = Auth::user()->id;
         $stage->save();
 
@@ -154,9 +154,20 @@ class StagesController extends Controller
     {
         //
         $data = $this->findRecord($stage);
+        $proglangs = Proglang::select('id', 'name')->get();
+        $rewards = Badges::select('id', 'name')->get();
+        $bgims = BGImg::select('id', 'name')->get();
+        $bgms = BGM::select('id', 'name')->get();
+  
+        $tasks = \App\Models\Tasks::select('id', 'name', 'proglang_id')->where('proglang_id', $data->prolang_id)->get();
 
         return view('superadmin.game.stages.edit', [
             'stage' => $data,
+            'proglangs' => $proglangs,
+            'rewards' => $rewards,
+            'bgims' => $bgims,
+            'bgms' => $bgms,
+            'tasks' => $tasks,
         ]);
     }
 
@@ -169,18 +180,44 @@ class StagesController extends Controller
      */
     public function update(Request $request, $stage)
     {
-        $request->validate([
+         $request->validate([
             'name' => ['required', 'max:255'],
+            'tasks' => ['required', 'array'],
             'proglang' => ['required'],
+            'bgim' => ['required'],
+            'bgm' => ['required'],
+            'player-base-hp' => ['required', 'integer'],
+            'enemy-base-hp' => ['required', 'integer'],
+            'player-base-sp' => ['required', 'integer'],
+            'enemy-base-dmg' => ['required', 'integer'],
         ]);
 
         $proglang_id = decrypt($request['proglang']);
         $proglang = Proglang::findorfail($proglang_id);
-
+        $bgim_id = decrypt($request['bgim']);
+        $bgm_id = decrypt($request['bgm']);
+        
         $data = $this->findRecord($stage);
-
         $data->name = strip_tags($request['name']);
+
+        $arr = [];
+        foreach ($request['tasks'] as $task) {
+            array_push($arr, decrypt($task));
+        }
+        $data->tasks = $arr;
         $data->proglang_id = $proglang_id;
+        // Only if there is a reward for this stage
+        if (!is_null($request['reward'])) {
+            $reward_id = decrypt($request['reward']);
+            $badge = Badges::findorfail($reward_id);
+            $stage->badge_id = $reward_id;
+        }
+        $data->bgim_id = $bgim_id;
+        $data->bgm_id = $bgm_id;
+        $data->player_base_hp = strip_tags($request['player-base-hp']);
+        $data->enemy_base_hp = strip_tags($request['enemy-base-hp']);
+        $data->player_base_sp = strip_tags($request['player-base-sp']);
+        $data->enemy_base_dmg = strip_tags($request['enemy-base-dmg']);
         $data->updated_by = Auth::user()->id;
         $data->save();
 

@@ -80,8 +80,8 @@ class CMSController extends Controller
 
     public function destroy($id)
     {
-        $data = decrypt($id);
-        $data = CmsBgim::findorfail();
+        $id = decrypt($id);
+        $data = CmsBgim::findorfail($id);
 
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place
@@ -96,8 +96,8 @@ class CMSController extends Controller
 
     public function destroy_logo($id)
     {
-        $data = decrypt($id);
-        $data = CmsLogo::findorfail();
+        $id = decrypt($id);
+        $data = CmsLogo::findorfail($id);
 
         // Make sure you delete the file first before deleting the record in db
         // But before that, you need to make sure that the file still exist in the first place

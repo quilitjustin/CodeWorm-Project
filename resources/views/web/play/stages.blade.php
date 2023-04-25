@@ -30,16 +30,42 @@
                 <div class="row">
                     <div class="col-12 px-5">
                         <div class="row">
+                            @php
+                                $condition = 0;
+                            @endphp
                             @forelse ($stages as $stage)
+                                @php
+                                    if(empty($stage->game_records_users[0])){
+                                        $condition++;
+                                    }
+                                @endphp
+                                @if($condition < 2)
                                 <div class="col-md-6 p-2" style="position: relative;">
                                     <a href="{{ route('web.play.start', $stage->encrypted_id) }}">
                                         <img src="{{ asset($stage->bgim->path) }}" alt="img"
-                                            style="max-width: 100%; max-height: 100%;">
+                                            style="max-width: 100%; max-height: 100%; box-shadow: 10px 10px 5px #ccc;
+      -moz-box-shadow: 10px 10px 5px #ccc;
+      -webkit-box-shadow: 10px 10px 5px #ccc;
+      -khtml-box-shadow: 10px 10px 5px #ccc;">
                                         <h3 class="text-dark font-weight-bold"
                                             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 2px 2px 0px #FFFFFF;">
                                             {{ $stage->name }}<br><span>{{ empty($stage->game_records_users[0]) ? '' : $stage->game_records_users[0]->record }}</span></h3>
                                     </a>
                                 </div>
+                                @else 
+                                <div class="col-md-6 p-2" style="position: relative; filter: brightness(50%);">
+                                    <a href="#">
+                                        <img src="{{ asset($stage->bgim->path) }}" alt="img"
+                                            style="max-width: 100%; max-height: 100%; box-shadow: 10px 10px 5px #ccc;
+      -moz-box-shadow: 10px 10px 5px #ccc;
+      -webkit-box-shadow: 10px 10px 5px #ccc;
+      -khtml-box-shadow: 10px 10px 5px #ccc;">
+                                        <h3 class="text-dark font-weight-bold"
+                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 2px 2px 0px #FFFFFF;">
+                                            Locked</h3>
+                                    </a>
+                                </div>
+                                @endif
                             @empty
                                 <h5 class="text-center">No stages available</h5>
                             @endforelse

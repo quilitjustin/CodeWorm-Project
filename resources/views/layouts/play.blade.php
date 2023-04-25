@@ -147,6 +147,9 @@
                     <a href="{{ route('web.play.start', $next_stage->encrypted_id) }}"
                         class="btn btn-primary">Next
                         Stage: {{ $next_stage->name }}</a>
+                @else
+                    <a href="{{ route('web.leaderboard.index') }}"
+                        class="btn btn-primary">Leaderboards</a>
                 @endif
             </div>
         </div>

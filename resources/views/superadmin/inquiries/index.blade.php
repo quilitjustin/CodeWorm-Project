@@ -47,17 +47,17 @@
                             <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i
                                     class="far fa-square"></i>
                             </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-share"></i>
-                                </button>
-                            </div>
+                            <!--<div class="btn-group">-->
+                            <!--    <button type="button" class="btn btn-default btn-sm">-->
+                            <!--        <i class="far fa-trash-alt"></i>-->
+                            <!--    </button>-->
+                            <!--    <button type="button" class="btn btn-default btn-sm">-->
+                            <!--        <i class="fas fa-reply"></i>-->
+                            <!--    </button>-->
+                            <!--    <button type="button" class="btn btn-default btn-sm">-->
+                            <!--        <i class="fas fa-share"></i>-->
+                            <!--    </button>-->
+                            <!--</div>-->
                             <!-- /.btn-group -->
                             <button type="button" class="btn btn-default btn-sm">
                                 <i class="fas fa-sync-alt"></i>
@@ -91,6 +91,8 @@
                                                         class="fas fa-star-o text-warning"></i></a></td>
                                             <td class="mailbox-name"><a href="{{ route('super.inquiries.show', $inquiry->encrypted_id) }}">{{ $inquiry->name }}</a>
                                             </td>
+                                            <td class="mailbox-name"><b>Subject:</b> Inquiry
+                                            </td>
                                             <td class="mailbox-subject"><b></b>
                                                 <span class="badge {{ $inquiry->status == 'pending' ? 'bg-danger' : 'bg-success' }}">{{ $inquiry->status }}</span>
                                             </td>
@@ -114,17 +116,17 @@
                             <button type="button" class="btn btn-default btn-sm checkbox-toggle">
                                 <i class="far fa-square"></i>
                             </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-share"></i>
-                                </button>
-                            </div>
+                            <!--<div class="btn-group">-->
+                            <!--    <button type="button" class="btn btn-default btn-sm">-->
+                            <!--        <i class="far fa-trash-alt"></i>-->
+                            <!--    </button>-->
+                            <!--    <button type="button" class="btn btn-default btn-sm">-->
+                            <!--        <i class="fas fa-reply"></i>-->
+                            <!--    </button>-->
+                            <!--    <button type="button" class="btn btn-default btn-sm">-->
+                            <!--        <i class="fas fa-share"></i>-->
+                            <!--    </button>-->
+                            <!--</div>-->
                             <!-- /.btn-group -->
                             <button type="button" class="btn btn-default btn-sm">
                                 <i class="fas fa-sync-alt"></i>
