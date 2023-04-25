@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Name</label>
-                                    <p>{{ $badgeuser->name }}</p>
+                                    <p>{{ $badge->name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-12">
@@ -45,23 +45,25 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ is_null($badgeuser->created_by_user) ? '#' : route('users.show', $badgeuser->created_by_user->encrypted_id) }}">{{ is_null($badgeuser->created_by_user) ? '' : $badgeuser->created_by_user->f_name . ' ' . $badgeuser->created_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($badge->created_by_user) ? '#' : route('users.show', $badge->created_by_user->encrypted_id) }}">{{ is_null($badge->created_by_user) ? '' : $badge->created_by_user->f_name . ' ' . $badge->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
                                     <br>
-                                    <p>{{ \Carbon\Carbon::parse($badgeuser->created_at)->diffForHumans() }}</p>
+                                    <p>{{ \Carbon\Carbon::parse($badge->created_at)->diffForHumans() }}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a href="{{ is_null($badgeuser->updated_by_user) ? '#' : route('users.show', $badgeuser->updated_by_user->encrypted_id) }}">{{ is_null($badgeuser->updated_by_user) ? '' : $badgeuser->updated_by_user->f_name . ' ' . $badgeuser->updated_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($badge->updated_by_user) ? '#' : route('users.show', $badge->updated_by_user->encrypted_id) }}">{{ is_null($badge->updated_by_user) ? '' : $badge->updated_by_user->f_name . ' ' . $badge->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($badgeuser->updated_by) ? '' : \Carbon\Carbon::parse($badgeuser->updated_at)->diffForHumans() }}
+                                    <p>{{ is_null($badge->updated_by) ? '' : \Carbon\Carbon::parse($badge->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
                             </div>
@@ -71,12 +73,10 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('badges.edit', $badgeuser->encrypted_id) }}"
+                            <a href="{{ route('badges.edit', $badge->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="d-inline" action="{{ route('badges.destroy', $badgeuser->encrypted_id) }}"
-                                method="POST"
-                                onsubmit="return confirm('You are about to delete badge ID: {{ $badgeuser->encrypted_id }}s record. \n Are you sure?');">
-                                @csrf
+                            <form class="delete d-inline" action="{{ route('badges.destroy', $badge->encrypted_id) }}"
+                                method="POST">                                @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
                             </form>
@@ -91,7 +91,7 @@
                         <label for="img-preview">Preview</label>
                         <div class="row d-flex justify-content-center">
                             <div id="preview" class="col-4">
-                                <img src="{{ asset($badgeuser->path) }}" id="img-preview"
+                                <img src="{{ asset($badge->path) }}" id="img-preview"
                                     class="rounded mx-auto d-block border border-secondary"
                                     style="height: 150px; max-height: 150px;" alt="preview">
                                 <div class="text-center">
@@ -111,6 +111,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_delete')
     @include('layouts.superadmin.inc_component')
 @endsection

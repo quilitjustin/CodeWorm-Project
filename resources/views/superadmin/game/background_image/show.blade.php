@@ -45,7 +45,8 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ is_null($bgim->created_by_user) ? '#' : route('users.show', $bgim->created_by_user->encrypted_id) }}">{{ is_null($bgim->created_by_user) ? '' : $bgim->created_by_user->f_name . ' ' . $bgim->created_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($bgim->created_by_user) ? '#' : route('users.show', $bgim->created_by_user->encrypted_id) }}">{{ is_null($bgim->created_by_user) ? '' : $bgim->created_by_user->f_name . ' ' . $bgim->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -56,7 +57,8 @@
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a href="{{ is_null($bgim->updated_by_user) ? '#' : route('users.show', $bgim->updated_by_user->encrypted_id) }}">{{ is_null($bgim->updated_by_user) ? '' : $bgim->updated_by_user->f_name . ' ' . $bgim->updated_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($bgim->updated_by_user) ? '#' : route('users.show', $bgim->updated_by_user->encrypted_id) }}">{{ is_null($bgim->updated_by_user) ? '' : $bgim->updated_by_user->f_name . ' ' . $bgim->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -72,7 +74,8 @@
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
                             <a href="{{ route('bgims.edit', $bgim->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgim->encrypted_id) }}" method="POST">
+                            <form class="delete d-inline" action="{{ route('bgims.destroy', $bgim->encrypted_id) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -98,6 +101,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_delete')
     @include('layouts.superadmin.inc_component')
 @endsection

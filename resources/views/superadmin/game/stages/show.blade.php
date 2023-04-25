@@ -41,7 +41,8 @@
                                 <!-- /.col -->
                                 <div class="col-md-6">
                                     <label>Programming Language</label>
-                                    <a class="d-block" href="{{ is_null($stage->proglang) ? '#' : route('proglangs.show', $stage->proglang->encrypted_id) }}">{{ is_null($stage->proglang) ? '' : $stage->proglang->name }}</a>
+                                    <a class="d-block"
+                                        href="{{ is_null($stage->proglang) ? '#' : route('proglangs.show', $stage->proglang->encrypted_id) }}">{{ is_null($stage->proglang) ? '' : $stage->proglang->name }}</a>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Tasks</label>
@@ -110,6 +111,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_delete')
     @include('layouts.superadmin.inc_component')
 @endsection

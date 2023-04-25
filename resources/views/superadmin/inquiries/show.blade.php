@@ -161,6 +161,5 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
-
+    @include('layouts.superadmin.inc_delete')
 @endsection

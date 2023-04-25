@@ -23,36 +23,36 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 pb-4">    
+                <div class="col-12 pb-4">
                     <a href="{{ route('announcements.create') }}" class="btn btn-success">Create new Announcement</a>
                 </div>
                 <div class="col-12">
                     @forelse($announcements as $announcement)
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5 class="m-0">{{ $announcement['title'] }}</h5>
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5 class="m-0">{{ $announcement['title'] }}</h5>
+                            </div>
+                            <div class="card-body" style="">
+                                {!! $announcement['contents'] !!}
+                            </div>
+                            <div class="card-footer">
+                                {{ \Carbon\Carbon::parse($announcement['created_at'])->diffForHumans() }}
+                                <a class="text-link" href="{{ route('announcements.show', $announcement->encrypted_id) }}">
+                                    <i class="far fa-eye"></i> View</a>
+                                <a class="text-success"
+                                    href="{{ route('announcements.edit', $announcement->encrypted_id) }}">
+                                    <i class="fas fa-pen-square"></i> Edit</a>
+                                <form class="delete d-inline"
+                                    action="{{ route('announcements.destroy', $announcement->encrypted_id) }}"
+                                    method="POST">                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-danger">
+                                        <i class="fas fa-trash"></i> Delete</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="card-body" style="">
-                            {!! $announcement['contents'] !!}
-                        </div>
-                        <div class="card-footer">
-                            {{ \Carbon\Carbon::parse($announcement['created_at'])->diffForHumans() }}
-                            <a class="text-link" href="{{ route('announcements.show', $announcement->encrypted_id) }}">
-                                <i class="far fa-eye"></i> View</a>
-                            <a class="text-success" href="{{ route('announcements.edit', $announcement->encrypted_id) }}">
-                                <i class="fas fa-pen-square"></i> Edit</a>
-                            <form class="d-inline" action="{{ route('announcements.destroy', $announcement->encrypted_id) }}"
-                                method="POST"
-                                onsubmit="return confirm('You are about to delete announcement ID: {{ $announcement->encrypted_id }}s record. \n Are you sure?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-danger">
-                                    <i class="fas fa-trash"></i> Delete</button>
-                            </form>
-                        </div>
-                    </div>
                     @empty
-                    No Announcements as of late!
+                        No Announcements as of late!
                     @endforelse
                 </div>
                 <!-- /.col-md-6 -->
@@ -61,7 +61,8 @@
             <div class="row mt-3">
                 {{-- Hide for mobile --}}
                 <div class="col-md-6 mb-2">
-                    Viewing {{ $announcements->firstItem() }} - {{ $announcements->lastItem() }} of {{ $announcements->total() }}
+                    Viewing {{ $announcements->firstItem() }} - {{ $announcements->lastItem() }} of
+                    {{ $announcements->total() }}
                     entries.
                 </div>
                 <div class="col-md-6">
@@ -72,4 +73,8 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+@endsection
+
+@section('script')
+    @include('layouts.superadmin.inc_delete')
 @endsection

@@ -45,7 +45,8 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ is_null($proglang->created_by_user) ? '#' : route('users.show', $proglang->created_by_user->encrypted_id) }}">{{ is_null($proglang->created_by_user) ? '' : $proglang->created_by_user->f_name . ' ' . $proglang->created_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($proglang->created_by_user) ? '#' : route('users.show', $proglang->created_by_user->encrypted_id) }}">{{ is_null($proglang->created_by_user) ? '' : $proglang->created_by_user->f_name . ' ' . $proglang->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -56,7 +57,8 @@
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a href="{{ is_null($proglang->updated_by_user) ? '#' : route('users.show', $proglang->updated_by_user->encrypted_id) }}">{{ is_null($proglang->updated_by_user) ? '' : $proglang->updated_by_user->f_name . ' ' . $proglang->updated_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($proglang->updated_by_user) ? '#' : route('users.show', $proglang->updated_by_user->encrypted_id) }}">{{ is_null($proglang->updated_by_user) ? '' : $proglang->updated_by_user->f_name . ' ' . $proglang->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -71,8 +73,10 @@
                         <div class="card-footer d-flex justify-content-end">
                             <button id="cancel" type="button" class="btn btn-warning"><i
                                     class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('proglangs.edit', $proglang->encrypted_id) }}" class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('proglangs.destroy', $proglang->encrypted_id) }}" method="POST">
+                            <a href="{{ route('proglangs.edit', $proglang->encrypted_id) }}"
+                                class="btn btn-primary ml-2">Update</a>
+                            <form class="delete d-inline" action="{{ route('proglangs.destroy', $proglang->encrypted_id) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
@@ -122,6 +126,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_delete')
     @include('layouts.superadmin.inc_component')
 @endsection

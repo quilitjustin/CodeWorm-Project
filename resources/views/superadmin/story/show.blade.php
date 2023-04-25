@@ -39,7 +39,8 @@
                                 <div class="col-md-3">
                                     <label>Created By</label>
                                     <br>
-                                    <a href="{{ is_null($story->created_by_user) ? '#' : route('users.show', $story->created_by_user->encrypted_id) }}">{{ is_null($story->created_by_user) ? '' : $story->created_by_user->f_name . ' ' . $story->created_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($story->created_by_user) ? '#' : route('users.show', $story->created_by_user->encrypted_id) }}">{{ is_null($story->created_by_user) ? '' : $story->created_by_user->f_name . ' ' . $story->created_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Created</label>
@@ -50,7 +51,8 @@
                                     <label>Updated By</label>
                                     <br>
                                     {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a href="{{ is_null($story->updated_by_user) ? '#' : route('users.show', $story->updated_by_user->encrypted_id) }}">{{ is_null($story->updated_by_user) ? '' : $story->updated_by_user->f_name . ' ' . $story->updated_by_user->l_name }}</a>
+                                    <a
+                                        href="{{ is_null($story->updated_by_user) ? '#' : route('users.show', $story->updated_by_user->encrypted_id) }}">{{ is_null($story->updated_by_user) ? '' : $story->updated_by_user->f_name . ' ' . $story->updated_by_user->l_name }}</a>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
@@ -83,7 +85,7 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_delete')
     @include('layouts.superadmin.inc_component')
     <script>
         $(document).ready(function() {

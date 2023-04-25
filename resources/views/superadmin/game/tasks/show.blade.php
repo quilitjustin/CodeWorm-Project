@@ -41,7 +41,8 @@
                                 <!-- /.col -->
                                 <div class="col-md-6">
                                     <label>Programming Language</label>
-                                    <a class="d-block" href="{{ is_null($task->proglang) ? '#' : route('proglangs.show', $task->proglang->encrypted_id) }}">{{ is_null($task->proglang) ? '' : $task->proglang->name }}</a>
+                                    <a class="d-block"
+                                        href="{{ is_null($task->proglang) ? '#' : route('proglangs.show', $task->proglang->encrypted_id) }}">{{ is_null($task->proglang) ? '' : $task->proglang->name }}</a>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-6">
@@ -127,7 +128,7 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.delete')
+    @include('layouts.superadmin.inc_delete')
     @include('superadmin.game.tasks.script')
     @include('layouts.superadmin.inc_component')
     <script>
