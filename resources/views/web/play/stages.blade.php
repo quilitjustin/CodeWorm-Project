@@ -55,7 +55,7 @@
                                     <div class="col-md-6 p-2" style="position: relative; filter: brightness(50%);">
                                         <a href="#">
                                             <img src="{{ asset($stage->bgim->path) }}" alt="img"
-                                                style="max-width: 100%; max-height: 100%; box-shadow: 10px 10px 5px #ccc;
+                                                style="width:100%; max-width: 100%; height: 200px; max-height: box-shadow: 10px 10px 5px #ccc;
       -moz-box-shadow: 10px 10px 5px #ccc;
       -webkit-box-shadow: 10px 10px 5px #ccc;
       -khtml-box-shadow: 10px 10px 5px #ccc;">
