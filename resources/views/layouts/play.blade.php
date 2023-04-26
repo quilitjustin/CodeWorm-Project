@@ -315,11 +315,18 @@ height:100vh; width=100%;">
         indentUnit: 4,
         indentWithTabs: true,
         theme: "monokai",
-        pasteBlocked: function(cm, event) {
-            event.preventDefault();
-            return true;
-        }
     });
+    // Prevent paste events
+editor.on("paste", function(cm, event) {
+    event.preventDefault();
+    return true;
+});
+
+// Prevent copy events
+editor.on("copy", function(cm, event) {
+    event.preventDefault();
+    return true;
+});
 
     let RIGHT_ANSWER = "";
 
