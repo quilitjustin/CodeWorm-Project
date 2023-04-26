@@ -66,8 +66,7 @@
                                                         class="btn btn-outline-secondary">Clear</button>
                                                 </div>
                                             </div>
-                                            <span class="text-sm text-danger">Note: only upload image if you want to update
-                                                the picture</span>
+
                                             @error('image')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
@@ -81,7 +80,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
                                 <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
-                                <button type="submit" class="btn btn-primary ml-2">Update</button>
+                                <button type="submit" class="show btn btn-primary ml-2">Update</button>
                             </div>
                             <!-- /.card-footer -->
                         </form>
