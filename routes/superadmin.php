@@ -71,8 +71,8 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::resource('/game/badges', BadgesController::class)->names('super.badges');
     Route::resource('/game/bgms', BGMController::class)->names('super.bgms');
     Route::resource('/game/bgims', BGImgController::class)->names('super.bgims');
-    Route::resource('/game/effects/sfxs', SoundEffectController::class)->names('super.sfxs');
-    Route::resource('/game/effects/vfxs', VisualEffectController::class)->names('super.vfxs');
+    // Route::resource('/game/effects/sfxs', SoundEffectController::class)->names('super.sfxs');
+    // Route::resource('/game/effects/vfxs', VisualEffectController::class)->names('super.vfxs');
     // End game
 
     // Cms Routes

@@ -74,6 +74,20 @@ height:100vh; width=100%;">
                                 DMG 1000 SP 100
                             </span>
                         </button>
+                        <button id="" class="skills btn btn-warning w-100 shadow-sm font-weight-bold" disabled>
+                            Super Science!
+                            <br>
+                            <span class="font-weight-normal">
+                                DMG 9999 SP 1000
+                            </span>
+                        </button>
+                        <button id="" class="skills btn btn-success w-100 shadow-sm font-weight-bold" disabled>
+                            Elixir
+                            <br>
+                            <span class="font-weight-normal">
+                                HP 500 SP 450
+                            </span>
+                        </button>
                     </div>
                     <div>
                         <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>

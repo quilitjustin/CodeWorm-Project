@@ -49,6 +49,47 @@
                                         <!-- /.form-group -->
                                     </div>
                                     <!-- /.col -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Language Key (<a href="https://ce.judge0.com/" target="_blank">Docs</a>)</label>
+                                            <input class="form-control" type="text" name="key"
+                                                placeholder="Enter name" value="{{ old('key', '66') }}" />
+                                            @error('key')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Editor Mode (<a href="https://codemirror.net/docs/" target="_blank">Docs</a>)</label>
+                                            <select class="form-control select2" style="width: 100%;" id="editor"
+                                                name="editor">
+                                                <option value="">Select Type</option>
+                                                <option>Javascript</option>
+                                                <option selected>PHP</option>
+                                                <option>Pearl</option>
+                                                <option>Python</option>
+                                                <option>C#</option>
+                                                <option>C++</option>
+                                                <option>Javascript</option>
+                                                <option>PHP</option>
+                                                <option>Pearl</option>
+                                                <option>Python</option>
+                                                <option>C#</option>
+                                                <option>C++</option>
+                                                <option>Javascript</option>
+                                                <option>PHP</option>
+                                                <option>Pearl</option>
+                                                <option>Python</option>
+                                                <option>C#</option>
+                                                <option>C++</option>
+                                            </select>
+                                            @error('editor')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.row -->
                             </div>
