@@ -23,9 +23,9 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                @include('superadmin.inquiries.left_side')
+                {{-- @include('superadmin.inquiries.left_side') --}}
 
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h3 class="card-title">Read Inquiry</h3>
@@ -51,26 +51,7 @@
                                 </p>
                             </div>
                             <!-- /.mailbox-read-info -->
-                            <div class="mailbox-controls with-border text-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-sm" data-container="body"
-                                        title="Delete">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default btn-sm" data-container="body"
-                                        title="Reply">
-                                        <i class="fas fa-reply"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default btn-sm" data-container="body"
-                                        title="Forward">
-                                        <i class="fas fa-share"></i>
-                                    </button>
-                                </div>
-                                <!-- /.btn-group -->
-                                <button type="button" class="btn btn-default btn-sm" title="Print">
-                                    <i class="fas fa-print"></i>
-                                </button>
-                            </div>
+                  
                             <!-- /.mailbox-controls -->
                             <div class="mailbox-read-message">
                                 {{ $inquiries->message }}
@@ -137,16 +118,16 @@
                             </ul> --}}
                         </div>
                         <!-- /.card-footer -->
-                        <div class="card-footer">
+                        <div class="card-footer text-right">
                             {{-- <div class="float-right">
                                 <button type="button" class="btn btn-default"><i class="fas fa-reply"></i>
                                     Reply</button>
                                 <button type="button" class="btn btn-default"><i class="fas fa-share"></i>
                                     Forward</button>
                             </div> --}}
-                            <button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i>
-                                Delete</button>
-                            <button type="button" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
+                            <button type="button" class="btn btn-warning">Go Back</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-success">Mark as Done</button>
                         </div>
                         <!-- /.card-footer -->
                     </div>
