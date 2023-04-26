@@ -12,7 +12,7 @@ class SplashPageController extends Controller
     public function index()
     {
         $splash_pages = SplashPage::select('id', 'created_at', 'created_by')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('superadmin.splash_page.index', [
