@@ -262,7 +262,7 @@
             </div>
         </div>
     </section>
-    <section id="inquiry-success" class="page-section bg-success text-white" hidden>
+    <section id="inquiry-success" class="page-section bg-success text-white">
         <div class="container px-4 px-lg-5 text-center">
             <h2 class="mb-4">Submitted Successfully</h2>
             <p class="text-light">We would send a response to you as soon as possible. Thank you!</p>
