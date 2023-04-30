@@ -57,6 +57,10 @@ Route::controller(PublicProfileController::class)->group(function () {
 Route::middleware([WebIsLoggedIn::class])->group(function () {
     Route::get('announcements', 'AnnouncementsController@index')->name('web.announcements.index');
 
+    Route::get('/tutorial', function(){
+        return view('web.tutorial');
+    })->name('web.tutorial');
+    
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')
             ->name('web.login')

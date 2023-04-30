@@ -100,43 +100,6 @@
             toastr.success("{{ session()->get('msg') }}");
         </script>
     @endif
-    <script>
-        var bgm = document.getElementById("bgm");
-        if (document.cookie.indexOf("bgmState") >= 0) {
-            var bgmState = JSON.parse(getCookie("bgmState"));
-            bgm.currentTime = bgmState.currentTime;
-            if (bgmState.isPlaying) {
-                bgm.play();
-            }
-        }
-
-        function setCookie(name, value) {
-            var expires = new Date();
-            expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000));
-            document.cookie = name + "=" + value + ";expires=" + expires.toUTCString();
-        }
-
-        function getCookie(name) {
-            var cookieArr = document.cookie.split(";");
-            for (var i = 0; i < cookieArr.length; i++) {
-                var cookiePair = cookieArr[i].split("=");
-                if (name == cookiePair[0].trim()) {
-                    return decodeURIComponent(cookiePair[1]);
-                }
-            }
-            return null;
-        }
-
-        function saveBgmState() {
-            var bgmState = {
-                currentTime: bgm.currentTime,
-                isPlaying: !bgm.paused
-            };
-            setCookie("bgmState", JSON.stringify(bgmState));
-        }
-
-        window.addEventListener("beforeunload", saveBgmState);
-    </script>
 </body>
 
 </html>
