@@ -26,8 +26,8 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('public_profile.index') }}">Portfolio</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('public_profile.index') }}">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('web.leaderboard.index') }}">Leaderboards</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
             </div>

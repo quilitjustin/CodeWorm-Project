@@ -33,7 +33,9 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h3 class="card-title font-weight-bold">Rankings of Top 100</h3>
+                                <h3 class="card-title font-weight-bold d-inline mr-1">Rankings of Top 100</h3>
+                                <i class="fas fa-question-circle d-inline" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Hello"></i>
                             </div>
                             <div class="col-md-6">
                                 <select class="select2" id="language" name="language" data-placeholder="Select a Language"

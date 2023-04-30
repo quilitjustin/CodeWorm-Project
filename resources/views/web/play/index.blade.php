@@ -2,19 +2,19 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="background-image: url('{{ asset('assets/bgim/play.png') }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
+    <div class="content-wrapper"
+        style="background-image: url('{{ asset('assets/bgim/play.png') }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-navy font-weight-bold">Programming Language</h1>
+                        <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Programming Language</h1>
+                        <i class="fas fa-question-circle d-inline" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Hello"></i>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
-                        {{-- <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('proglangs.index') }}">ProgLang</a></li>
-                        <li class="breadcrumb-item active">Index</li>
-                    </ol> --}}
+                     
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -55,8 +55,13 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('script')
     <script>
-        // Code Goes here	
+        // From bootstrap documentation
+        // https://getbootstrap.com/docs/5.1/components/tooltips/
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
     </script>
 @endsection

@@ -41,7 +41,7 @@
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="/announcements" class="nav-link {{ request()->is('announcements*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-scroll"></i>
                         <p>
                             Announcements
                         </p>
@@ -49,7 +49,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="/play" class="nav-link {{ request()->is('play*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-box-open"></i>
+                        <i class="nav-icon fas fa-gamepad"></i>
                         <p>
                             Play
                         </p>

@@ -9,10 +9,9 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-navy font-weight-bold">Stages
-                        </h1>
-                        <h6 class="font-size-5 text-danger">Note: You need to complete all stage to be qualified to compete
-                            for leaderboards.</h6>
+                        <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Stages</h1>
+                        <i class="fas fa-question-circle d-inline" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Hello"></i>      
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">
@@ -80,8 +79,13 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('script')
     <script>
-        // Code Goes here	
+        // From bootstrap documentation
+        // https://getbootstrap.com/docs/5.1/components/tooltips/
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
     </script>
 @endsection
