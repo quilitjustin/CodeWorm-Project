@@ -115,7 +115,7 @@
                                                 data-placeholder="Select a Badge" style="width: 100%;">
                                                 <option value="">Select a Badge</option>
                                                 @forelse($rewards as $reward)
-                                                <option value="{{ $reward->encrypted_id }}" {{ $reward->id == $stage->reward_id ? 'selected' : '' }}>{{ $reward->name }}</option>
+                                                <option value="{{ $reward->encrypted_id }}" {{ $reward->id == $stage->badge_id ? 'selected' : '' }}>{{ $reward->name }}</option>
                                                 @empty
                                                 @endforelse
                                             </select>

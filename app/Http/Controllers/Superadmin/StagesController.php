@@ -123,20 +123,11 @@ class StagesController extends Controller
     public function show($stage)
     {
         $id = decrypt($stage);
-        $data = Stages::with('proglang:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
+        $data = Stages::with('proglang:id,name', 'badges:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findOrFail($id);
 
-        $arr = [];
-        foreach ($data->tasks as $task) {
-            array_push($arr, \App\Models\Tasks::select('id', 'name')->where('id', $task));
-        }
-        $result = collect($arr)->reduce(function ($query1, $query2) {
-            if ($query1 && $query2) {
-                return $query1->union($query2);
-            } else {
-                return $query1 ?? $query2;
-            }
-        });
-        $tasks = $result->get();
+        $tasks = \App\Models\Tasks::select('id', 'name')
+            ->whereIn('id', $data->tasks)
+            ->get();
 
         return view('superadmin.game.stages.show', [
             'stage' => $data,
@@ -154,7 +145,9 @@ class StagesController extends Controller
     {
         //
         $data = $this->findRecord($stage);
-        $proglangs = Proglang::with('tasks:id,name,proglang_id')->select('id', 'name')->get();
+        $proglangs = Proglang::with('tasks:id,name,proglang_id')
+            ->select('id', 'name')
+            ->get();
         $rewards = Badges::select('id', 'name')->get();
         $bgims = BGImg::select('id', 'name')->get();
         $bgms = BGM::select('id', 'name')->get();
@@ -177,7 +170,7 @@ class StagesController extends Controller
      */
     public function update(Request $request, $stage)
     {
-         $request->validate([
+        $request->validate([
             'name' => ['required', 'max:255'],
             'tasks' => ['required', 'array'],
             'proglang' => ['required'],
@@ -193,7 +186,7 @@ class StagesController extends Controller
         $proglang = Proglang::findorfail($proglang_id);
         $bgim_id = decrypt($request['bgim']);
         $bgm_id = decrypt($request['bgm']);
-        
+
         $data = $this->findRecord($stage);
         $data->name = strip_tags($request['name']);
 
@@ -207,7 +200,7 @@ class StagesController extends Controller
         if (!is_null($request['reward'])) {
             $reward_id = decrypt($request['reward']);
             $badge = Badges::findorfail($reward_id);
-            $stage->badge_id = $reward_id;
+            $data->badge_id = $reward_id;
         }
         $data->bgim_id = $bgim_id;
         $data->bgm_id = $bgm_id;

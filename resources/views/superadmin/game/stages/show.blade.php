@@ -77,7 +77,7 @@
                                     <p>{{ $stage->enemy_base_dmg }}</p>
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label>Tasks</label>
                                     <div>
                                         @forelse ($tasks as $task)
@@ -87,6 +87,12 @@
                                             <p>None</p>
                                         @endforelse
                                     </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Reward</label>
+                                    <a class="d-block mb-3"
+                                        href="{{ is_null($stage->badges) ? '#' : route('super.badges.show', $stage->badges->encrypted_id) }}">{{ is_null($stage->badges) ? '' : $stage->badges->name }}</a>
                                 </div>
                                 <div class="col-sm-12">
                                     <hr class="border border-primary w-100">
@@ -124,8 +130,8 @@
                                     class="right fas fa-angle-left"></i> Go Back</button>
                             <a href="{{ route('super.stages.edit', $stage->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
-                            <form class="delete d-inline" action="{{ route('super.stages.destroy', $stage->encrypted_id) }}"
-                                method="POST">
+                            <form class="delete d-inline"
+                                action="{{ route('super.stages.destroy', $stage->encrypted_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
