@@ -82,8 +82,8 @@ window.addEventListener("load", function () {
             // });
             $("#tackle").click(function () {
                 player.tackle = true;
-                player.sp -= 5;
-                $("#msg").html("Tackle has been used!<br>Damage 5");
+                player.sp -= 50;
+                $("#msg").html("Tackle has been used!<br>Damage 50");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
@@ -342,7 +342,7 @@ window.addEventListener("load", function () {
                 this.x = 0;
             } else if (this.x > this.gameWith - this.width) {
                 this.x = this.gameWith - this.width;
-                enemies.lives -= 5;
+                enemies.lives -= 50;
                 this.tackle = false;
                 this.speed = 0;
                 this.x = 0;

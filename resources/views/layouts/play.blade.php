@@ -57,7 +57,7 @@ height:100vh; width=100%;">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
-                                DMG 5 SP 5
+                                DMG 50 SP 50
                             </span>
                         </button>
                         <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
@@ -399,7 +399,7 @@ editor.on("copy", function(cm, event) {
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=12') }}"></script>
+<script src="{{ asset('demo/script.js?v=13') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

@@ -31,4 +31,9 @@ class ProgrammingLanguages extends Model
     {
         return $this->hasMany(Stages::class, 'proglang_id');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Tasks::class, 'proglang_id');
+    }
 }

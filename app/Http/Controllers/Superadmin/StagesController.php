@@ -154,12 +154,10 @@ class StagesController extends Controller
     {
         //
         $data = $this->findRecord($stage);
-        $proglangs = Proglang::select('id', 'name')->get();
+        $proglangs = Proglang::with('tasks:id,name,proglang_id')->select('id', 'name')->get();
         $rewards = Badges::select('id', 'name')->get();
         $bgims = BGImg::select('id', 'name')->get();
         $bgms = BGM::select('id', 'name')->get();
-  
-        $tasks = \App\Models\Tasks::select('id', 'name', 'proglang_id')->where('proglang_id', $data->prolang_id)->get();
 
         return view('superadmin.game.stages.edit', [
             'stage' => $data,
@@ -167,7 +165,6 @@ class StagesController extends Controller
             'rewards' => $rewards,
             'bgims' => $bgims,
             'bgms' => $bgms,
-            'tasks' => $tasks,
         ]);
     }
 
