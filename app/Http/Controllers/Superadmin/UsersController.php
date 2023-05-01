@@ -36,7 +36,7 @@ class UsersController extends Controller
         $users = User::select('id', 'f_name', 'l_name', 'status', 'role')
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
-                ['id', '!=', Auth::user()->encrypted_id],
+                ['id', '!=', Auth::user()->id],
                 // Don't get the superadmin
                 // This user should be the only superadmin so there is no need for this statement
                 // Actually this is better since we can also see if there would be another superadmin that shouldn't exist (backdoor for example)
