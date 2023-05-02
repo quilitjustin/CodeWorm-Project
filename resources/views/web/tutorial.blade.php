@@ -33,6 +33,7 @@
 
 <body onload="init()">
     <div id="main">
+        <audio id="bgm" class="d-none" src="{{ asset('js/prologue.mp3') }}" controls loop></audio>
         <canvas id="myCanvas"></canvas>
         <div class="buttons-overlay">
             <button class="btn btn-outline-light shadow-sm" id="backButton">Back</button>
@@ -50,6 +51,11 @@
     <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
     <script type="text/javascript">
+        $("button").click(function() {
+            const bgm = document.getElementById("bgm");
+            bgm.volume = 0.1;
+            bgm.play();
+        });
         var canvas, ctx;
         var img1, img2, img3;
         var currentScene = 1;
@@ -65,7 +71,7 @@
             img2 = new Image();
             img3 = new Image();
             img1.src = "{{ asset('game/BackgroundImage/1682176636-tmp.png') }}";
-            img2.src = "{{ asset('game/BackgroundImage/1682405753-Code Worm.png') }}";
+            img2.src = "{{ asset('game/BackgroundImage/1682435919-Background 3.jpg') }}";
             img3.src = "{{ asset('game/BackgroundImage/1682437111-Background 4.jpg') }}";
             backButton = document.getElementById("backButton");
             skipButton = document.getElementById("skipButton");
