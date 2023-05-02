@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset('codemirror/theme/monokai.css') }}">
     {{-- Game --}}
     <link rel="stylesheet" href="{{ asset('demo/style.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
@@ -123,7 +125,8 @@ height:100vh; width=100%;">
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div id="controls-preloader" class="d-none" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <div id="controls-preloader" class="d-none"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         <div class="spinner-border text-primary" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -217,11 +220,18 @@ height:100vh; width=100%;">
                 {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
+                <i class="fas fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Hello"></i>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="">Background Music</label>
                     <input type="range" min="0" max="10" value="1" id="bgm-volume"
+                        class="slider form-control" id="slider">
+                </div>
+                <div class="form-group">
+                    <label for="">Sound Effects</label>
+                    <input type="range" min="0" max="10" value="1" id="sfx-volume"
                         class="slider form-control" id="slider">
                 </div>
                 <button class="restart btn btn-warning w-100 mb-3">Restart</button>
@@ -317,16 +327,16 @@ height:100vh; width=100%;">
         theme: "monokai",
     });
     // Prevent paste events
-editor.on("paste", function(cm, event) {
-    event.preventDefault();
-    return true;
-});
+    editor.on("paste", function(cm, event) {
+        event.preventDefault();
+        return true;
+    });
 
-// Prevent copy events
-editor.on("copy", function(cm, event) {
-    event.preventDefault();
-    return true;
-});
+    // Prevent copy events
+    editor.on("copy", function(cm, event) {
+        event.preventDefault();
+        return true;
+    });
 
     let RIGHT_ANSWER = "";
 
@@ -405,6 +415,13 @@ editor.on("copy", function(cm, event) {
         $("#code-editor").prop("hidden", true);
         $("#game").prop("hidden", true);
         $('.modal').attr('data-backdrop', 'static');
+
+        // From bootstrap documentation
+        // https://getbootstrap.com/docs/5.1/components/tooltips/
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
 
         $(".restart").click(function() {
             $("#pause-modal").modal("hide");
