@@ -74,7 +74,8 @@
                                             <label>Language</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
-                                                <option value="{{ $task->proglang->encrypted_id }}" selected>{{ $task->proglang->name }}</option>
+                                                <option value="{{ $task->proglang->encrypted_id }}" selected>
+                                                    {{ $task->proglang->name }}</option>
                                             </select>
                                             @error('proglang')
                                                 <p class="text-danger my-2">{{ $message }}</p>
@@ -118,14 +119,14 @@
                                             @error('snippet')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
-                                            <button type="button" id="run"
+                                            <button type="button" id="execute-code"
                                                 class="btn btn-outline-success mt-3 px-5">Run</button>
                                             <div class="px-2 py-1 mt-3 bg-dark">
                                                 <div>
                                                     Console:
                                                 </div>
                                                 <hr class="border border-light w-100 m-0 p-0">
-                                                <div id="result">
+                                                <div id="output">
 
                                                 </div>
                                             </div>
@@ -155,35 +156,14 @@
 @endsection
 
 @section('script')
+    @include('layouts.superadmin.inc_compiler')
     @include('superadmin.game.tasks.script')
     @include('layouts.superadmin.inc_component')
-    <script>
+    {{-- <script>
         const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
         const TOKEN = "{{ csrf_token() }}";
         const SELECTED_LANGUAGE = "{{ $task->proglang->name }}";
-    </script>
+    </script> --}}
     {{-- Code execution --}}
-    <script src="{{ asset('js/rcode.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            const route = "{{ route('super.super.fetch.languages') }}";
-            $.get({
-                url: route,
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(response) {
-                    let html = '';
-                    $.each(response, function(index, data) {
-                        if(data.name != SELECTED_LANGUAGE){
-                            html +=
-                            `<option value="` + data.encrypted_id + `">` + data.name + `</option>`;
-                            console.log(data.name)
-                        }
-                    });
-                    $("#proglang").append(html);
-                }
-            });
-        });
-    </script>
+    {{-- <script src="{{ asset('js/rcode.js') }}"></script> --}}
 @endsection

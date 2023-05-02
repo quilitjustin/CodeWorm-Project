@@ -29,6 +29,8 @@ php artisan key:generate
 
 php artisan migrate --seed
 
+add APP_CODE_EXECUTOR=url_of_api variable inside .env file
+
 php artisan serve --host=codeworm.tech --port=80
 
 ## References
