@@ -26,6 +26,12 @@ class LoginValidationController extends Controller
         $credentials = $request->validated();
         $credentials['status'] = 'active';
         if (Auth::attempt($credentials)) {
+            // Check if user has seen tutorial already
+            if (!\Cache::has('tutorial_seen')) {
+                // User hasn't seen tutorial, redirect to tutorial page
+                return redirect()->route('web.tutorial');
+            }
+
             return redirect()
                 ->route('web.play.index')
                 ->with('msg', 'Login Successfully');
@@ -79,7 +85,7 @@ class LoginValidationController extends Controller
         }
 
         $user->save();
-        
+
         return redirect()
             ->route('web.profile')
             ->with('msg', 'Updated Successfully');

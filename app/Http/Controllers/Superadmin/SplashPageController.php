@@ -11,7 +11,7 @@ class SplashPageController extends Controller
 {
     public function index()
     {
-        $splash_pages = SplashPage::select('id', 'created_at', 'created_by')
+        $splash_pages = SplashPage::with('created_by_user:id,f_name,l_name')->select('id', 'created_at', 'created_by')
             ->orderBy('id', 'desc')
             ->get();
 

@@ -99,8 +99,11 @@ class UsersController extends Controller
     public function show($user)
     {
         $id = decrypt($user);
+        if(Auth::user()->id == $id){
+            return redirect()->route('super.profile');
+        }
         $data = User::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
- 
+        
         return view('superadmin.users.show', [
             'user' => $data,
         ]);

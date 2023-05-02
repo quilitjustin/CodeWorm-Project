@@ -51,13 +51,16 @@
                                             </td>
                                             <td class="text-center">
                                                 {{ \Carbon\Carbon::parse($splash['created_at'])->diffForHumans() }}</td>
-                                            <td class="d-none d-md-table-cell text-center">{{ $splash['created_by'] }}</td>
+                                            <td class="d-none d-md-table-cell text-center"><a
+                                                    href="{{ is_null($splash->created_by_user) ? '#' : route('super.users.show', $splash->created_by_user->encrypted_id) }}">{{ is_null($splash->created_by_user) ? '' : $splash->created_by_user->f_name . ' ' . $splash->created_by_user->l_name }}</a>
+                                            </td>
                                             <td class="d-none d-xl-table-cell">
                                                 <a class="text-link" href="{{ route('super.splash.show', $splash['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                @if(!$loop->first)
+                                                @if (!$loop->first)
                                                     <form class="delete d-inline"
-                                                        action="{{ route('super.splash.destroy', $splash['id']) }}" method="POST">
+                                                        action="{{ route('super.splash.destroy', $splash['id']) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-danger">
@@ -67,7 +70,6 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        
                                     @endforelse
                                 </tbody>
                                 <tfoot>

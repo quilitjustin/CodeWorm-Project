@@ -146,7 +146,7 @@
     <section class="page-section bg-dark text-white">
         <div class="container px-4 px-lg-5 text-center">
             <h2 class="editable-content mb-4">Free to play!</h2>
-            <a class="btn btn-light btn-xl" href="/login">Play!</a>
+            <a class="btn btn-light btn-xl" href="/login">Play now!</a>
         </div>
     </section>
     <!-- Contact-->

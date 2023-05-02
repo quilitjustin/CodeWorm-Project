@@ -60,6 +60,10 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
     Route::get('/tutorial', function(){
         return view('web.tutorial');
     })->name('web.tutorial');
+
+    Route::get('/narattive', function(){
+        return view('web.narrative');
+    })->name('web.narrative');
     
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')

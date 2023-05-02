@@ -148,7 +148,8 @@ height:100vh; width=100%;">
         style="z-index: -99999; width: 100vw; height: 100vh;">
         <div class="text-center">
             <h1 class="text-light d-block">Codeworm</h1>
-            <button class="btn btn-primary">Play!</button>
+            <h5 class="text-light d-block mb-3">{{ $stage->name . ' - ' . $stage->proglang->name }}</h3>
+            <button class="btn btn-primary">Play</button>
         </div>
     </div>
 
