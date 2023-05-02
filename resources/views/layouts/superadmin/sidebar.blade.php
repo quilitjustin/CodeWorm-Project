@@ -224,6 +224,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link {{ request()->is('env*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-wrench"></i>
+                        <p>
+                            Env Editor
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('super.env.executor') }}"
+                                class="nav-link {{ request()->is('env/code_executor*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Code Executor</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('super.profile') }}"
                         class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-wrench"></i>

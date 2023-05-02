@@ -33,6 +33,11 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::get('/analitics_dashboard', 'AnaliticsDashboardController@index')->name('super.analytics.index');
     // End ajax
 
+    Route::controller(EnvEditorController::class)->group(function(){
+        Route::get('/env/code_executor', 'code_executor')->name('super.env.executor');
+        Route::post('/env/code_executor/update', 'update_code_executor')->name('super.env.executor.update');
+    });
+
     Route::controller(LoginValidationController::class)->group(function () {
         Route::get('/login', 'index')
             ->name('super.login')
