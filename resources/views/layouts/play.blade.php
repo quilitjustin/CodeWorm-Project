@@ -23,7 +23,7 @@ height:100vh; width=100%;">
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" src="{{ asset('assets/img/logo.png') }}" alt="logo" height="150"
+                <img class="d-block" style="background-color: transparent;" src="{{ asset('assets/img/logo.png') }}" alt="logo" height="150"
                     width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
@@ -55,35 +55,40 @@ height:100vh; width=100%;">
             <div id="content" class="row">
                 <div class="col-md-3 bg-blurr rounded d-flex flex-column justify-content-between" style="padding: 0;">
                     <div>
-                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
+                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Hello">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
                                 DMG 50 SP 50
                             </span>
                         </button>
-                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
+                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Hello">
                             Heal
                             <br>
                             <span class="font-weight-normal">
                                 HP 100 SP 100
                             </span>
                         </button>
-                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
+                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Hello">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
                                 DMG 1000 SP 100
                             </span>
                         </button>
-                        <button id="" class="skills btn btn-success w-100 shadow-sm font-weight-bold" disabled>
+                        <button id="" class="skills btn btn-success w-100 shadow-sm font-weight-bold" disabled data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Hello">
                             Elixir
                             <br>
                             <span class="font-weight-normal">
                                 HP 500 SP 450
                             </span>
                         </button>
-                        <button id="" class="skills btn btn-warning w-100 shadow-sm font-weight-bold" disabled>
+                        <button id="" class="skills btn btn-warning w-100 shadow-sm font-weight-bold" disabled data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Hello">
                             Super Science!
                             <br>
                             <span class="font-weight-normal">
