@@ -28,6 +28,11 @@
         .buttons-overlay button {
             margin-right: 10px;
         }
+
+        #narrative-overlay {
+            position: absolute;
+            bottom: 3%;
+        }
     </style>
 </head>
 
@@ -44,13 +49,19 @@
             <button class="btn btn-outline-light shadow-sm" id="exitFullScreenButton" hidden>Exit Full
                 Screen</button>
         </div>
+        <div id="narrative-overlay" class="w-100 p-3">
+            <div class="text-white w-100 p-3" style="background-color: rgba(0, 0, 0, 0.7);">
+                <p class="h-5 font-weight-bold">Name</p>
+                <p class="h-6">Text</p>
+            </div>
+        </div>
     </div>
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
-    <script type="text/javascript">
+    <script>
         $("button").click(function() {
             const bgm = document.getElementById("bgm");
             bgm.volume = 0.1;
