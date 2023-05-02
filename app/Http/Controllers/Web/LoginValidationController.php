@@ -27,7 +27,7 @@ class LoginValidationController extends Controller
         $credentials['status'] = 'active';
         if (Auth::attempt($credentials)) {
             return redirect()
-                ->route('web.announcements.index')
+                ->route('web.play.index')
                 ->with('msg', 'Login Successfully');
         }
         return redirect()
