@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center p-3"
-        style="height: 100%; min-height: 100vh; background-image: url('{{ asset('assets/bgim/stalk.png') }}')">
+        style="height: 100%; min-height: 100vh; background-image: url('{{ asset('assets/bgim/stalk.png') . '?v=' . filemtime(public_path('assets/bgim/stalk.png')) }}')">
 
         <div class="row">
             <div class="col-12">

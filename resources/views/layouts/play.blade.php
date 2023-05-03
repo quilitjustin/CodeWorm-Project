@@ -23,7 +23,7 @@ height:100vh; width=100%;">
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" src="{{ asset('assets/logo/logo.png') }}" alt="logo" height="150"
+                <img class="d-block" src="{{ asset('assets/logo/logo.png') . '?v=' . filemtime(public_path('assets/logo/logo.png')) }}" alt="logo" height="150"
                     width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
