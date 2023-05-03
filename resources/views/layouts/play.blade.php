@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('codemirror/lib/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('codemirror/theme/monokai.css') }}">
     {{-- Game --}}
-    <link rel="stylesheet" href="{{ asset('demo/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('demo/style.css?v=1') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
@@ -23,8 +23,8 @@ height:100vh; width=100%;">
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" style="background-color: transparent;" src="{{ asset('assets/img/logo.png') }}" alt="logo" height="150"
-                    width="150">
+                <img class="d-block" style="background-color: transparent;" src="{{ asset('assets/img/logo.png') }}"
+                    alt="logo" height="150" width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -55,40 +55,40 @@ height:100vh; width=100%;">
             <div id="content" class="row">
                 <div class="col-md-3 bg-blurr rounded d-flex flex-column justify-content-between" style="padding: 0;">
                     <div>
-                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Hello">
+                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
                                 DMG 50 SP 50
                             </span>
                         </button>
-                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Hello">
+                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
                             Heal
                             <br>
                             <span class="font-weight-normal">
                                 HP 100 SP 100
                             </span>
                         </button>
-                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Hello">
+                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
                                 DMG 1000 SP 100
                             </span>
                         </button>
-                        <button id="" class="skills btn btn-success w-100 shadow-sm font-weight-bold" disabled data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Hello">
+                        <button id="" class="skills btn btn-success w-100 shadow-sm font-weight-bold" disabled
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
                             Elixir
                             <br>
                             <span class="font-weight-normal">
                                 HP 500 SP 450
                             </span>
                         </button>
-                        <button id="" class="skills btn btn-warning w-100 shadow-sm font-weight-bold" disabled data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Hello">
+                        <button id="" class="skills btn btn-warning w-100 shadow-sm font-weight-bold" disabled
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
                             Super Science!
                             <br>
                             <span class="font-weight-normal">
@@ -100,7 +100,7 @@ height:100vh; width=100%;">
                         <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
                     </div>
                 </div>
-                <div id="main-controls" class="col-md-6 p-0" style="height: 330px; background: #080c16;">
+                <div id="main-controls" class="col-md-6 p-0" style="height: 350px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
                     <div id="tasks" class="h-100">
@@ -123,7 +123,7 @@ height:100vh; width=100%;">
                             <p class="m-0 p-1 font-weight-bold">Expected Answer: <span id="expected-answer"
                                     class="font-weight-normal"></span></p>
                         </div>
-                        <div class="btn-group w-100" role="group">
+                        <div class="btn-group w-100" role="group" style="z-index: 1;">
                             <button id="cancel-task" class="btn btn-warning w-25">Cancel</button>
                             <button id="re-description" class="btn btn-success w-50">Read Description</button>
                             <button id="submit" class="btn btn-primary w-25">Submit</button>
@@ -148,7 +148,7 @@ height:100vh; width=100%;">
         style="z-index: -99999; width: 100vw; height: 100vh;">
         <div class="text-center">
             <h1 class="text-light d-block">Codeworm</h1>
-            <h5 class="text-light d-block mb-3">{{ $stage->name . ' - ' . $stage->proglang->name }}</h3>
+            <h5 class="text-light d-block mb-3">{{ $stage->name . ' - ' . $stage->proglang->name }}</h5>
             <button class="btn btn-primary">Play</button>
         </div>
     </div>
@@ -462,6 +462,12 @@ height:100vh; width=100%;">
 
             $("#quit-modal").modal("hide");
         });
+
+        // Check if device is mobile
+        if (/Mobi/.test(navigator.userAgent)) {
+            // Lock the orientation to landscape
+            screen.orientation.lock("landscape");
+        }
     });
 </script>
 </body>
