@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Programming Language</h1>
                         <i class="fas fa-question-circle d-inline" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Hello"></i>
+                            data-bs-placement="bottom" title="Select a programming language that you want to learn"></i>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                      

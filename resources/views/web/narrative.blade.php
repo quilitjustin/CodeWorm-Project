@@ -52,6 +52,11 @@
 </head>
 
 <body>
+    @php
+        if (!Cache::has('tutorial_seen')) {
+            Cache::put('tutorial_seen', true, 3600);
+        }
+    @endphp
     <div class="wrapper">
         <!-- Preloader -->
         <div class="preloader">

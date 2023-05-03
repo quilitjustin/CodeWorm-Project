@@ -34,8 +34,8 @@
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#role" data-toggle="tab">Role</a>
-                                </li>
+                                {{-- <li class="nav-item"><a class="nav-link" href="#role" data-toggle="tab">Role</a>
+                                </li> --}}
                                 <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
                                 </li>
                             </ul>
@@ -198,42 +198,7 @@
                                 </div>
                                 <!-- /.tab-pane -->
 
-                                <div class="tab-pane" id="role">
-                                    <form class="form-horizontal" method="POST"
-                                        action="{{ route('admin.users.update', $user->encrypted_id) }}"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
-                                        {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ $user->encrypted_id }}">
-                                        {{-- So the system would know what kind of update you want to make --}}
-                                        <input type="hidden" value="role" name="action">
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Role</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group mb-3">
-                                                    <select class="form-control" name="role" id="role">
-                                                        <option {{ $user->role == 'admin' ? 'selected' : '' }}>admin</option>
-                                                        <option {{ $user->role == 'admin' ? 'selected' : '' }}>user</option>
-                                                    </select>
-                                                </div>
-                                                @if ($errors->any())
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li class="text-danger">{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                               
                                 <!-- /.tab-pane -->
 
                                 <div class="tab-pane" id="other">

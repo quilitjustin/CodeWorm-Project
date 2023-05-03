@@ -228,8 +228,7 @@ height:100vh; width=100%;">
                 {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
-                <i class="fas fa-question-circle" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Hello"></i>
+
             </div>
             <div class="modal-body">
                 <div class="form-group">

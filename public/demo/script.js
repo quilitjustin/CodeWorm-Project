@@ -107,7 +107,6 @@ window.addEventListener("load", function () {
                 }, 1500);
             });
 
-            
             $("#elixir").click(function () {
                 HEAL.currentTime = 0;
                 HEAL.volume = sfxVolume;
@@ -127,7 +126,7 @@ window.addEventListener("load", function () {
                 SUPREME.currentTime = 0;
                 SUPREME.volume = sfxVolume * 10;
                 SUPREME.play();
-                if(enemy.lives > 500){
+                if (enemy.lives > 500) {
                     enemy.lives -= 500;
                 } else {
                     enemy.lives = 0;
@@ -140,12 +139,12 @@ window.addEventListener("load", function () {
                     SUPREME.pause();
                 }, 2000);
             });
-            $("#super").click(function(){
+            $("#super").click(function () {
                 player.supreme = true;
                 GOKU.currentTime = 0;
                 GOKU.volume = sfxVolume;
                 GOKU.play();
-                if(enemy.lives > 9999){
+                if (enemy.lives > 9999) {
                     enemy.lives -= 9999;
                 } else {
                     enemy.lives = 0;
@@ -248,89 +247,109 @@ window.addEventListener("load", function () {
                 });
             });
 
-            // $("#submit").click(function () {
-            //     let code = editor.getValue();
-            //     if (language == "php") {
-            //         $.post({
-            //             url: phpRoute,
-            //             data: {
-            //                 _token: "{{ csrf_token() }}",
-            //                 data: code,
-            //             },
-            //             beforeSend: function() {
-            //                 $("#main-controls *").prop("disabled", true);
-            //                 $("#controls-preloader").removeClass("d-none");
-            //             },
-            //             complete: function() {
-            //                 $("#main-controls *").prop("disabled", false);
-            //                 $("#controls-preloader").addClass("d-none");
-            //             },
-            //             success: function (response) {
-            //                 // console.log(response);
-            //                 if (response["success"] == true) {
-            //                     if (response["result"] == RIGHT_ANSWER) {
-            //                         $("#msg").html(
-            //                             "Right Answer!<br>SP +" + STAKE
-            //                         );
-            //                         player.sp += STAKE;
-            //                         $("#tasks").prop("hidden", false);
-            //                         $("#code-editor").prop("hidden", true);
-            //                     } else {
-            //                         $("#msg").html(
-            //                             "Wrong Answer!<br>Enemy DMG +1"
-            //                         );
-            //                         enemy.damage++;
-            //                     }
-            //                     $("#err-console").text(
-            //                         "Output: " + response["result"]
-            //                     );
-            //                 } else {
-            //                     $("#err-console").text(
-            //                         "Syntax error: " + response["result"]
-            //                     );
-            //                     $("#msg").html(
-            //                         "There's an error!<br>Enemy DMG +1"
-            //                     );
-            //                     enemy.damage++;
-            //                 }
-            //             },
-            //             error: function (xhr, status, error) {
-            //                 console.log("Error: " + error.message);
-            //                 $("#err-console").text(
-            //                     "Error: Did not follow the given format"
-            //                 );
-            //                 $("#msg").html("There's an error!<br>Enemy DMG +1");
-            //                 enemy.damage++;
-            //             },
-            //         });
-            //     } else if (language == "javascript") {
-            //         try {
-            //             ("use strict");
-            //             eval(`${code}`);
+            $("#submit").click(function () {
+                let code = editor.getValue();
+                if (proglang == "PHP (7.4.1)") {
+                    $.post({
+                        url: phpRoute,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            data: code,
+                        },
+                        beforeSend: function () {
+                            $("#main-controls *").prop("disabled", true);
+                            $("#controls-preloader").removeClass("d-none");
+                        },
+                        complete: function () {
+                            $("#main-controls *").prop("disabled", false);
+                            $("#controls-preloader").addClass("d-none");
+                        },
+                        success: function (response) {
+                            // console.log(response);
+                            if (response["success"] == true) {
+                                if (response["result"] == RIGHT_ANSWER) {
+                                    CLAP_SFX.currentTime = 0;
+                                    CLAP_SFX.volume = sfxVolume;
+                                    CLAP_SFX.play();
+                                    SHEESH_SFX.currentTime = 0;
+                                    SHEESH_SFX.volume = sfxVolume;
+                                    SHEESH_SFX.play();
+                                    $("#msg").html(
+                                        "Right Answer!<br>SP +" + STAKE
+                                    );
+                                    player.sp += STAKE;
+                                    $("#tasks").prop("hidden", false);
+                                    $("#code-editor").prop("hidden", true);
+                                } else {
+                                    DOH.currentTime = 0;
+                                    DOH.volume = sfxVolume;
+                                    DOH.play();
+                                    $("#msg").html(
+                                        "Wrong Answer!<br>Enemy DMG +1"
+                                    );
+                                    enemy.damage++;
+                                }
+                                $("#err-console").text(
+                                    "Output: " + response["result"]
+                                );
+                            } else {
+                                DOH.currentTime = 0;
+                                DOH.volume = sfxVolume;
+                                DOH.play();
+                                $("#err-console").text(
+                                    "Syntax error: " + response["result"]
+                                );
+                                $("#msg").html(
+                                    "There's an error!<br>Enemy DMG +1"
+                                );
+                                enemy.damage++;
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error: " + error.message);
+                            $("#err-console").text(
+                                "Error: Did not follow the given format"
+                            );
+                            $("#msg").html("There's an error!<br>Enemy DMG +1");
+                            enemy.damage++;
+                        },
+                    });
+                } else if (proglang == "JavaScript (Node.js 12.14.0)") {
+                    try {
+                        ("use strict");
+                        eval(`${code}`);
 
-            //             if (window.$log == RIGHT_ANSWER) {
-            //                 $("#msg").html("Right Answer!<br>SP +" + STAKE);
-            //                 $("#tasks").prop("hidden", false);
-            //                 $("#code-editor").prop("hidden", true);
-            //                 player.sp += STAKE;
-            //             } else {
-            //                 $("#msg").html("Wrong Answer!<br>Enemy DMG +1");
-            //                 enemy.damage++;
-            //             }
-            //             $("#err-console").text("Output: " + $log);
-            //         } catch (error) {
-            //             $("#err-console").text(
-            //                 "Syntax error: " + error.message
-            //             );
-            //             $("#msg").html("There's an error!<br>Enemy DMG +1");
-            //             enemy.damage++;
-            //         }
-            //     }
-            //     $("#msg").fadeIn();
-            //     setTimeout(function () {
-            //         $("#msg").fadeOut();
-            //     }, 1500);
-            // });
+                        if (window.$log == RIGHT_ANSWER) {
+                            CLAP_SFX.currentTime = 0;
+                            CLAP_SFX.volume = sfxVolume;
+                            CLAP_SFX.play();
+                            SHEESH_SFX.currentTime = 0;
+                            SHEESH_SFX.volume = sfxVolume;
+                            SHEESH_SFX.play();
+                            $("#msg").html("Right Answer!<br>SP +" + STAKE);
+                            $("#tasks").prop("hidden", false);
+                            $("#code-editor").prop("hidden", true);
+                            player.sp += STAKE;
+                        } else {
+                            $("#msg").html("Wrong Answer!<br>Enemy DMG +1");
+                            enemy.damage++;
+                        }
+                        $("#err-console").text("Output: " + $log);
+                    } catch (error) {
+                        $("#err-console").text(
+                            "Syntax error: " + error.message
+                        );
+                        $("#msg").html("There's an error!<br>Enemy DMG +1");
+                        enemy.damage++;
+                    }
+                }
+                $("#msg").fadeIn();
+                setTimeout(function () {
+                    $("#msg").fadeOut();
+                    CLAP_SFX.pause();
+                    SHEESH_SFX.pause();
+                }, 1900);
+            });
         }
     }
     class Player {
@@ -399,7 +418,7 @@ window.addEventListener("load", function () {
             ctx.fillText("SP: " + this.sp, 20, 105);
         }
         update(input, deltaTime, enemies, explosions) {
-            if(this.lives < 0){
+            if (this.lives < 0) {
                 this.lives = 0;
             }
             if (ENABLED_CONTROLS) {
@@ -429,12 +448,12 @@ window.addEventListener("load", function () {
                 $("#heal").prop("disabled", true);
                 $("#supreme").prop("disabled", true);
             }
-            if (this.sp > 449){
+            if (this.sp > 449) {
                 $("#elixir").prop("disabled", false);
             } else {
                 $("#elixir").prop("disabled", true);
             }
-            if (this.sp > 999){
+            if (this.sp > 999) {
                 $("#super").prop("disabled", false);
             } else {
                 $("#super").prop("disabled", true);
@@ -629,7 +648,7 @@ window.addEventListener("load", function () {
             }
         }
         update(deltaTime, player) {
-            if(this.lives < 0){
+            if (this.lives < 0) {
                 this.lives = 0;
             }
             if (this.atkCondition) {
@@ -675,7 +694,7 @@ window.addEventListener("load", function () {
                 this.sound.volume = sfxVolume;
                 this.sound.play();
                 this.x = this.gameWidth - this.width;
-                if(player.lives > this.damage){
+                if (player.lives > this.damage) {
                     player.lives -= this.damage;
                 } else {
                     player.lives = 0;
@@ -831,16 +850,16 @@ window.addEventListener("load", function () {
             this.markedForDeletion = false;
         }
         update(deltaTime) {
-            if(this.frame === 0){
+            if (this.frame === 0) {
                 this.sound.currentTime = 0;
                 this.sound.volume = sfxVolume;
                 this.sound.play();
             }
             this.timeSinceLastFrame += deltaTime;
-            if(this.timeSinceLastFrame > this.frameInterval){
+            if (this.timeSinceLastFrame > this.frameInterval) {
                 this.frame++;
                 this.timeSinceLastFrame = 0;
-                if(this.frame > 5){
+                if (this.frame > 5) {
                     this.markForDeletion = true;
                 }
             }
@@ -877,7 +896,7 @@ window.addEventListener("load", function () {
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         background.draw(ctx);
         // background.update();
@@ -897,10 +916,10 @@ window.addEventListener("load", function () {
         ctx.fillStyle = "white";
         ctx.font = "20px Helvetica";
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
-        if(!paused){
+        if (!paused) {
             timer += deltaTime;
             formatTimer = formatTime((timer * 0.001).toFixed(1));
-    
+
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
@@ -910,7 +929,6 @@ window.addEventListener("load", function () {
             ctx.font = "20px Helvetica";
             ctx.fillText(formatTimer, canvas.width / 2, 72);
         }
-      
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
