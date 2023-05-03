@@ -109,9 +109,9 @@ height:100vh; width=100%;">
                     <div id="description" class="h-100 text-light p-3" hidden>
                         <div class="h-75" style="overflow: auto;">
                             <h5 style="mb-3">Task Description:</h5>
-                            <div id="task-description">
+                            <pre id="task-description">
 
-                            </div>
+                            </pre>
                         </div>
                         <div class="h-25 d-flex justify-content-end align-items-end">
                             <button id="start-coding" class="btn btn-success">Start Coding</button>
