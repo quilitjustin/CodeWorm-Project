@@ -83,6 +83,7 @@ class TasksController extends Controller
             'name' => ['required', 'max:255'],
             'difficulty' => ['required', 'in:Easy,Medium,Hard'],
             'snippet' => ['max:255'],
+            'description' => ['required'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
             'reward' => ['required', 'integer'],
@@ -158,7 +159,7 @@ class TasksController extends Controller
         $request->validate([
             'name' => ['required', 'max:255'],
             'difficulty' => ['required', 'in:Easy,Medium,Hard'],
-            'description' => ['required', 'max:255'],
+            'description' => ['required'],
             'snippet' => ['max:255'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
