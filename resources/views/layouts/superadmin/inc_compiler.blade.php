@@ -34,8 +34,6 @@
 
         $("#execute-code").click(function() {
             let code = editor.getValue();
-            editor.setValue("");
-            editor.clearHistory();
             $("#output").html("Loading...");
 
             let data = {
