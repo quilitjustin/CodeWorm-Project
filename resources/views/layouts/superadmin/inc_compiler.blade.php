@@ -8,6 +8,8 @@
 <script src="{{ asset('codemirror/mode/clike/clike.js') }}"></script>
 <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
 <script>
+    // lets make php default
+    let LANG_KEY = 68;
     $(document).ready(function() {
         const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
             lineNumbers: true,
@@ -30,20 +32,15 @@
             }
         });
 
-        const PHP_KEY = "68";
-        const JAVA_KEY = "62";
-        const CPP_KEY = "53";
-        const PYTHON_KEY = "70";
-
         $("#execute-code").click(function() {
             let code = editor.getValue();
             editor.setValue("");
             editor.clearHistory();
             $("#output").html("Loading...");
-            console.log(code);
+
             let data = {
                 source_code: code,
-                language_id: PYTHON_KEY,
+                language_id: LANG_KEY,
                 number_of_runs: "1",
                 stdin: "Judge0",
                 expected_output: null,
@@ -58,7 +55,7 @@
                 max_file_size: "1024",
                 stderr: true,
             };
-            console.log(data)
+
             let request = $.ajax({
                 url: "{{ env('APP_CODE_EXECUTOR') }}",
                 type: "post",
@@ -69,14 +66,12 @@
             // Callback handler that will be called on success
             request.done(async function(response, textStatus, jqXHR) {
                 // Log a message to the console
-                console.log("Hooray, it worked!");
+          
                 let token = response.token;
                 await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 sec
                 $.get({
                     url: "{{ env('APP_CODE_EXECUTOR') }}" + "/" + token,
                     success: function(response) {
-                        console.log(response.stdout);
-                        console.log(response.stderr);
                         $("#output").html(response.stdout);
                         if (response.stderr) {
                             $("#output").append("<br>" + response

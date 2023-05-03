@@ -38,17 +38,6 @@
                                     <label>Name</label>
                                     <p>{{ $proglang->name }}</p>
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-md-4">
-                                    <label>Language Key</label>
-                                    <p>66</p>
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-4">
-                                    <label>Editor Mode</label>
-                                    <p>PHP</p>
-                                </div>
-                                <!-- /.col -->
                                 <div class="col-sm-12">
                                     <hr class="border border-primary w-100">
                                 </div>

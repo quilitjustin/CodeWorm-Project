@@ -41,9 +41,10 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Leaderboards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" hidden>Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -64,7 +65,7 @@
                         can help you build better websites
                         using the Bootstrap
                         framework! Just download a theme and start customizing, no strings attached!</p>
-                    <a class="btn btn-primary btn-xl" href="/login">Play now!</a>
+                    <a class="btn btn-primary btn-xl" href="#">Play now!</a>
                 </div>
             </div>
         </div>
@@ -84,13 +85,13 @@
                         new website up and
                         running in no time! Choose one of our open source, free to download, and easy to use themes! No
                         strings attached!</p>
-                    <a class="btn btn-light btn-xl" href="#services">Get Started!</a>
+                    <a class="btn btn-light btn-xl" href="#">Get Started!</a>
                 </div>
             </div>
         </div>
     </section>
     <!-- Portfolio-->
-    <div id="portfolio">
+    <div id="portfolio" hidden>
         <div class="container-fluid p-0 bg-dark">
             <div class="row g-0 justify-content-center">
                 <div class="col-lg-4 col-sm-6">
@@ -166,11 +167,11 @@
     <section class="page-section bg-dark text-white">
         <div class="container px-4 px-lg-5 text-center">
             <h2 class="editable-content mb-4"></h2>
-            <a class="btn btn-light btn-xl" href="/login">Play Now!</a>
+            <a class="btn btn-light btn-xl" href="#">Play Now!</a>
         </div>
     </section>
     <!-- Contact-->
-    <section class="page-section" id="contact">
+    <section class="page-section" id="contact" hidden>
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8 col-xl-6 text-center">
@@ -262,7 +263,7 @@
             </div>
         </div>
     </section>
-    <section id="inquiry-success" class="page-section bg-success text-white">
+    <section id="inquiry-success" class="page-section bg-success text-white" hidden>
         <div class="container px-4 px-lg-5 text-center">
             <h2 class="mb-4">Submitted Successfully</h2>
             <p class="text-light">We would send a response to you as soon as possible. Thank you!</p>
@@ -361,6 +362,7 @@
                 },
                 dataType: "json",
                 success: function(response) {
+                    $(window).unbind("beforeunload");
                     window.location.href = "{{ route('super.splash.index') }}";
                 },
                 error: function(request, status, error) {

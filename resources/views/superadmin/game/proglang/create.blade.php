@@ -48,12 +48,38 @@
                                         <select class="form-control select2" style="width: 100%;" id="name"
                                             name="name">
                                             <option value="">Select Language</option>
-                                            <option>Javascript</option>
-                                            <option>PHP</option>
-                                            <option>Pearl</option>
-                                            <option>Python</option>
-                                            <option>C#</option>
-                                            <option>C++</option>
+                                            <option>Assembly (NASM 2.14.02)</option>
+                                            <option>Bash (5.0.0)</option>
+                                            <option>Basic (FBC 1.07.1)</option>
+                                            <option>C (GCC 7.4.0)</option>
+                                            <option>C++ (GCC 7.4.0)</option>
+                                            <option>C++ (GCC 8.3.0)</option>
+                                            <option>C++ (GCC 9.2.0)</option>
+                                            <option>C (GCC 8.3.0)</option>
+                                            <option>C (GCC 9.2.0)</option>
+                                            <option>C# (Mono 6.6.0.161)</option>
+                                            <option>Common Lisp (SBCL 2.0.0)</option>
+                                            <option>D (DMD 2.089.1)</option>
+                                            <option>Elixir (1.9.4)</option>
+                                            <option>Erlang (OTP 22.2)</option>
+                                            <option>Executable</option>
+                                            <option>Fortran (GFortran 9.2.0)</option>
+                                            <option>Go (1.13.5)</option>
+                                            <option>Haskell (GHC 8.8.1)</option>
+                                            <option>Java (OpenJDK 13.0.1)</option>
+                                            <option>JavaScript (Node.js 12.14.0)</option>
+                                            <option>Lua (5.3.5)</option>
+                                            <option>OCaml (4.09.0)</option>
+                                            <option>Octave (5.1.0)</option>
+                                            <option>Pascal (FPC 3.0.4)</option>
+                                            <option>PHP (7.4.1)</option>
+                                            <option>Plain Text</option>
+                                            <option>Prolog (GNU Prolog 1.4.5)</option>
+                                            <option>Python (2.7.17)</option>
+                                            <option>Python (3.8.1)</option>
+                                            <option>Ruby (2.7.0)</option>
+                                            <option>Rust (1.40.0)</option>
+                                            <option>TypeScript (3.7.4)</option>
                                         </select>
                                         @error('name')
                                             <p class="text-danger my-2">{{ $message }}</p>

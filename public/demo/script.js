@@ -19,7 +19,10 @@ window.addEventListener("load", function () {
     const fullScreen = this.document.getElementById("fullScreenButton");
     const CLAP_SFX = document.getElementById("clap");
     const SHEESH_SFX = document.getElementById("sheesh");
-    const DOH = this.document.getElementById("doh");
+    const DOH = document.getElementById("doh");
+    const GOKU = document.getElementById("goku");
+    const SUPREME = document.getElementById("supreme-sfx");
+    const HEAL = document.getElementById("heal-sfx");
     // We do this first we don't overwrite the default console.log
     console.compile = console.log;
     // Asign the value of console.log to window.$log
@@ -91,26 +94,70 @@ window.addEventListener("load", function () {
             });
 
             $("#heal").click(function () {
+                HEAL.currentTime = 0;
+                HEAL.volume = sfxVolume;
+                HEAL.play();
                 player.lives += 100;
                 player.sp -= 100;
                 $("#msg").html("Heal has been used!<br>HP + 100");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
+                    HEAL.pause();
+                }, 1500);
+            });
+
+            
+            $("#elixir").click(function () {
+                HEAL.currentTime = 0;
+                HEAL.volume = sfxVolume;
+                HEAL.play();
+                player.lives += 500;
+                player.sp -= 450;
+                $("#msg").html("Elixir has been used!<br>HP + 500");
+                $("#msg").fadeIn();
+                setTimeout(function () {
+                    $("#msg").fadeOut();
+                    HEAL.pause();
                 }, 1500);
             });
 
             $("#supreme").click(function () {
                 player.supreme = true;
-                enemy.lives -= 1000;
+                SUPREME.currentTime = 0;
+                SUPREME.volume = sfxVolume * 10;
+                SUPREME.play();
+                if(enemy.lives > 500){
+                    enemy.lives -= 500;
+                } else {
+                    enemy.lives = 0;
+                }
                 player.sp -= 100;
-                $("#msg").html("Supreme has been used!<br>Damage 1000");
+                $("#msg").html("Supreme has been used!<br>Damage 500");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
-                }, 1500);
+                    SUPREME.pause();
+                }, 2000);
             });
-
+            $("#super").click(function(){
+                player.supreme = true;
+                GOKU.currentTime = 0;
+                GOKU.volume = sfxVolume;
+                GOKU.play();
+                if(enemy.lives > 9999){
+                    enemy.lives -= 9999;
+                } else {
+                    enemy.lives = 0;
+                }
+                player.sp -= 1000;
+                $("#msg").html("Super Science has been used!<br>Damage 9999");
+                $("#msg").fadeIn();
+                setTimeout(function () {
+                    $("#msg").fadeOut();
+                    GOKU.pause();
+                }, 2000);
+            });
             $("#submit").click(function () {
                 let code = editor.getValue();
                 ENABLED_CONTROLS = false;
@@ -161,10 +208,10 @@ window.addEventListener("load", function () {
                                         "Right Answer!<br>SP +" + STAKE
                                     );
                                     player.sp += STAKE;
-                                    $("#tasks").prop("hidden", false);
-                                    $("#code-editor").prop("hidden", true);
                                     editor.setValue("");
                                     editor.clearHistory();
+                                    $("#tasks").prop("hidden", false);
+                                    $("#code-editor").prop("hidden", true);
                                 } else {
                                     DOH.currentTime = 0;
                                     DOH.volume = sfxVolume;
@@ -352,6 +399,9 @@ window.addEventListener("load", function () {
             ctx.fillText("SP: " + this.sp, 20, 105);
         }
         update(input, deltaTime, enemies, explosions) {
+            if(this.lives < 0){
+                this.lives = 0;
+            }
             if (ENABLED_CONTROLS) {
                 if (editor.getValue()) {
                     $("#submit").prop("disabled", false);
@@ -367,7 +417,7 @@ window.addEventListener("load", function () {
             if (this.lives <= 0) {
                 GAME_OVER = true;
             }
-            if (this.sp > 4) {
+            if (this.sp > 49) {
                 $("#tackle").prop("disabled", false);
             } else {
                 $("#tackle").prop("disabled", true);
@@ -379,6 +429,16 @@ window.addEventListener("load", function () {
                 $("#heal").prop("disabled", true);
                 $("#supreme").prop("disabled", true);
             }
+            if (this.sp > 449){
+                $("#elixir").prop("disabled", false);
+            } else {
+                $("#elixir").prop("disabled", true);
+            }
+            if (this.sp > 999){
+                $("#super").prop("disabled", false);
+            } else {
+                $("#super").prop("disabled", true);
+            }
             if (this.sp < 0) {
                 this.sp = 0;
             }
@@ -388,7 +448,7 @@ window.addEventListener("load", function () {
                 this.x += this.speed;
             }
             if (this.supreme) {
-                explosions[0].update();
+                explosions[0].update(deltaTime);
                 explosions[0].draw();
                 explosions.splice(0, 1);
                 this.supreme = false;
@@ -569,6 +629,9 @@ window.addEventListener("load", function () {
             }
         }
         update(deltaTime, player) {
+            if(this.lives < 0){
+                this.lives = 0;
+            }
             if (this.atkCondition) {
                 this.atkTimer = 0;
                 this.speed = 20;
@@ -612,7 +675,11 @@ window.addEventListener("load", function () {
                 this.sound.volume = sfxVolume;
                 this.sound.play();
                 this.x = this.gameWidth - this.width;
-                player.lives -= this.damage;
+                if(player.lives > this.damage){
+                    player.lives -= this.damage;
+                } else {
+                    player.lives = 0;
+                }
                 this.speed = 0;
                 this.onHit = true;
                 this.atkCondition = false;
@@ -630,6 +697,7 @@ window.addEventListener("load", function () {
             //     $("#tackle").prop("disabled", false);
             // }
             if (this.lives <= 0) {
+                this.lives = 0;
                 this.markedForDeletion = true;
                 WIN = true;
             }
@@ -758,17 +826,23 @@ window.addEventListener("load", function () {
             this.timer = 0;
             this.angle = Math.random() * 6.2;
             this.sound = document.getElementById("sfx");
+            this.timeSinceLastFrame = 0;
+            this.frameInterval = 200;
             this.markedForDeletion = false;
         }
-        update() {
-            if (this.frame === 0) {
+        update(deltaTime) {
+            if(this.frame === 0){
                 this.sound.currentTime = 0;
                 this.sound.volume = sfxVolume;
                 this.sound.play();
             }
-            this.timer++;
-            if (this.timer % 10 === 0) {
-                this.frame += 0.5;
+            this.timeSinceLastFrame += deltaTime;
+            if(this.timeSinceLastFrame > this.frameInterval){
+                this.frame++;
+                this.timeSinceLastFrame = 0;
+                if(this.frame > 5){
+                    this.markForDeletion = true;
+                }
             }
         }
         draw() {
@@ -797,10 +871,13 @@ window.addEventListener("load", function () {
     let enemyInterval = 1000;
     let randomEnemyInterval = Math.random() * 1000 + 500;
     let boom = [];
+    let animationId;
+    let elapsedTime = 0;
 
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         background.draw(ctx);
         // background.update();
@@ -820,25 +897,27 @@ window.addEventListener("load", function () {
         ctx.fillStyle = "white";
         ctx.font = "20px Helvetica";
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
-
-        if (GAME_OVER || paused || WIN || start) {
+        if(!paused){
             timer += deltaTime;
             formatTimer = formatTime((timer * 0.001).toFixed(1));
+    
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            ctx.font = "20px Helvetica";
+            ctx.fillText(formatTimer, canvas.width / 2, 70);
+            ctx.textAlign = "center";
+            ctx.fillStyle = "white";
+            ctx.font = "20px Helvetica";
+            ctx.fillText(formatTimer, canvas.width / 2, 72);
         }
-
-        ctx.textAlign = "center";
-        ctx.fillStyle = "black";
-        ctx.font = "20px Helvetica";
-        ctx.fillText(formatTimer, canvas.width / 2, 70);
-        ctx.textAlign = "center";
-        ctx.fillStyle = "white";
-        ctx.font = "20px Helvetica";
-        ctx.fillText(formatTimer, canvas.width / 2, 72);
+      
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
-        if (!(GAME_OVER || paused || WIN)) {
+        if (!paused && !(GAME_OVER || WIN)) {
             requestAnimationFrame(animate);
+        } else {
+            cancelAnimationFrame(animationId);
         }
     }
 
@@ -846,7 +925,7 @@ window.addEventListener("load", function () {
         if (paused) {
             $("#pause-modal").modal("hide");
             paused = false;
-            animate(timer);
+            requestAnimationFrame(animate);
         } else {
             $("#pause-modal").modal("show");
             paused = true;

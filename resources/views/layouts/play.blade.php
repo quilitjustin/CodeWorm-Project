@@ -40,7 +40,10 @@ height:100vh; width=100%;">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
             <audio id="bgm" class="d-none" src="{{ asset($stage->bgm->path) }}" controls loop></audio>
             <audio id="clap" class="d-none" src="{{ asset('js/clap.wav') }}" controls></audio>
+            <audio id="heal-sfx" class="d-none" src="{{ asset('js/heal.wav') }}" controls></audio>
             <audio id="doh" class="d-none" src="{{ asset('js/doh.wav') }}" controls></audio>
+            <audio id="goku" class="d-none" src="{{ asset('js/goku.mp3') }}" controls></audio>
+            <audio id="supreme-sfx" class="d-none" src="{{ asset('js/supreme.mp3') }}" controls></audio>
             <audio id="sheesh" class="d-none" src="{{ asset('js/sheesh.mp3') }}" controls></audio>
             <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
             <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
@@ -57,40 +60,35 @@ height:100vh; width=100%;">
             <div id="content" class="row">
                 <div class="col-md-3 bg-blurr rounded d-flex flex-column justify-content-between" style="padding: 0;">
                     <div>
-                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
+                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
                                 DMG 50 SP 50
                             </span>
                         </button>
-                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
+                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
                             Heal
                             <br>
                             <span class="font-weight-normal">
                                 HP 100 SP 100
                             </span>
                         </button>
-                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
+                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
-                                DMG 1000 SP 100
+                                DMG 500 SP 100
                             </span>
                         </button>
-                        <button id="" class="skills btn btn-success w-100 shadow-sm font-weight-bold" disabled
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
+                        <button id="elixir" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
                             Elixir
                             <br>
                             <span class="font-weight-normal">
                                 HP 500 SP 450
                             </span>
                         </button>
-                        <button id="" class="skills btn btn-warning w-100 shadow-sm font-weight-bold" disabled
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hello">
+                        <button id="super" class="skills btn btn-warning w-100 shadow-sm font-weight-bold">
                             Super Science!
                             <br>
                             <span class="font-weight-normal">

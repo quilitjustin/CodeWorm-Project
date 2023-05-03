@@ -28,7 +28,7 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('public_profile.index') }}">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('web.leaderboard.index') }}">Leaderboards</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" hidden>Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -70,7 +70,7 @@
         </div>
     </section>
     <!-- Portfolio-->
-    <div id="portfolio">
+    <div id="portfolio" hidden>
         <div class="container-fluid p-0 bg-dark">
             <div class="row g-0 justify-content-center">
                 <div class="col-lg-4 col-sm-6">
@@ -150,7 +150,7 @@
         </div>
     </section>
     <!-- Contact-->
-    <section class="page-section" id="contact">
+    <section class="page-section" id="contact" hidden>
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8 col-xl-6 text-center">
