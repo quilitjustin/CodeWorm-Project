@@ -70,7 +70,7 @@
                                             <label>Tasks</label>
                                             <select class="select2" id="tasks" name="tasks[]" multiple="multiple"
                                                 data-placeholder="Select a State" style="width: 100%;">
-                                                @forelse($proglangs[$stage->proglang_id]->tasks as $task)
+                                                @forelse($tasks as $task)
                                                     <option value="{{ $task->encrypted_id }}" {{ in_array($task->id, $stage->tasks) ? 'selected' : '' }}>{{ $task->name }}</option>
                                                 @empty
                                                 @endforelse

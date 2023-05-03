@@ -148,14 +148,22 @@ class StagesController extends Controller
         $proglangs = Proglang::with('tasks:id,name,proglang_id')
             ->select('id', 'name')
             ->get();
+
+        // Filter the $proglangs collection based on matching id
+        $matchingProglang = $proglangs->where('id', $data->proglang_id)->first();
+
+        // Get the tasks of the matching proglang
+        $tasks = $matchingProglang->tasks;
+
         $rewards = Badges::select('id', 'name')->get();
         $bgims = BGImg::select('id', 'name')->get();
         $bgms = BGM::select('id', 'name')->get();
-
+       
         return view('superadmin.game.stages.edit', [
             'stage' => $data,
             'proglangs' => $proglangs,
             'rewards' => $rewards,
+            'tasks' => $tasks,
             'bgims' => $bgims,
             'bgms' => $bgms,
         ]);

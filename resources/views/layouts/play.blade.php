@@ -379,7 +379,7 @@ height:100vh; width=100%;">
         STAKE = tasks[idx]["reward"];
         editor.setValue("");
         if (tasks[idx]["snippet"]) {
-            editor.getDoc().setValue(tasks[idx]["snippet"]);
+            editor.setValue(tasks[idx]["snippet"]);
         }
     };
 
@@ -391,6 +391,7 @@ height:100vh; width=100%;">
     $("#start-coding").click(function() {
         $("#description").prop("hidden", true);
         $("#code-editor").prop("hidden", false);
+        editor.focus();
     });
     $("#cancel-task").click(function() {
         $("#tasks").prop("hidden", false);
