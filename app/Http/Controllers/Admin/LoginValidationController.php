@@ -25,7 +25,7 @@ class LoginValidationController extends Controller
     {
         $credentials = $request->validated();
         $credentials['status'] = 'active';
-
+        $credentials['role'] = 'admin';
         if (Auth::attempt($credentials)) {
             return redirect()
                 ->route('admin.dashboard')
