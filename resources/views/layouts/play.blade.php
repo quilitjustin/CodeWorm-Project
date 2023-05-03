@@ -23,7 +23,7 @@ height:100vh; width=100%;">
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" style="background-color: transparent;" src="{{ asset('assets/img/logo.png') }}"
+                <img class="d-block" src="{{ asset('assets/logo/logo.png') }}"
                     alt="logo" height="150" width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
@@ -405,7 +405,7 @@ height:100vh; width=100%;">
     const ENEMY_HP = {{ $stage->enemy_base_hp }};
     const ENEMY_DMG = {{ $stage->enemy_base_dmg }};
 
-    const BADGE_ID = null;
+    let BADGE_ID = null;
     let WIN = false;
     let GAME_OVER = false;
 </script>
@@ -462,12 +462,6 @@ height:100vh; width=100%;">
 
             $("#quit-modal").modal("hide");
         });
-
-        // Check if device is mobile
-        if (/Mobi/.test(navigator.userAgent)) {
-            // Lock the orientation to landscape
-            screen.orientation.lock("landscape");
-        }
     });
 </script>
 </body>

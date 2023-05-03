@@ -56,7 +56,7 @@
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" style="background-color: transparent;" src="{{ asset('assets/img/logo.png') }}"
+                <img class="d-block" style="background-color: transparent;" src="{{ asset('assets/logo/logo.png') }}"
                     alt="logo" height="150" width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
