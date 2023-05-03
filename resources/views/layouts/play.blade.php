@@ -109,9 +109,9 @@ height:100vh; width=100%;">
                     <div id="description" class="h-100 text-light p-3" hidden>
                         <div class="h-75" style="overflow: auto;">
                             <h5 style="mb-3">Task Description:</h5>
-                            <pre id="task-description">
+                            <div id="task-description">
 
-                            </pre>
+                            </div>
                         </div>
                         <div class="h-25 d-flex justify-content-end align-items-end">
                             <button id="start-coding" class="btn btn-success">Start Coding</button>
@@ -372,12 +372,12 @@ height:100vh; width=100%;">
     function showTask(idx) {
         $("#tasks").prop("hidden", true);
         $("#description").prop("hidden", false);
-        $("#task-description").text(tasks[idx]["description"]);
+        $("#task-description").html(tasks[idx]["description"]);
         $("#expected-answer").text(tasks[idx]["answer"]);
 
         RIGHT_ANSWER = tasks[idx]["answer"];
         STAKE = tasks[idx]["reward"];
-        editor.getDoc().setValue("");
+        editor.setValue("");
         if (tasks[idx]["snippet"]) {
             editor.getDoc().setValue(tasks[idx]["snippet"]);
         }
