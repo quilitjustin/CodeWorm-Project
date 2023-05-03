@@ -378,9 +378,6 @@ height:100vh; width=100%;">
         RIGHT_ANSWER = tasks[idx]["answer"];
         STAKE = tasks[idx]["reward"];
         editor.setValue("");
-        if (tasks[idx]["snippet"]) {
-            editor.setValue(tasks[idx]["snippet"]);
-        }
     };
 
     $("#tasks").append(html);
@@ -392,6 +389,7 @@ height:100vh; width=100%;">
         $("#description").prop("hidden", true);
         $("#code-editor").prop("hidden", false);
         editor.focus();
+        editor.setCursor(editor.lineCount(), 0);        
     });
     $("#cancel-task").click(function() {
         $("#tasks").prop("hidden", false);

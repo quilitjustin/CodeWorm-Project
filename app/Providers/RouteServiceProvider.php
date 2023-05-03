@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::domain('admin.' . env('APP_URL'))
                 ->middleware('web')
-                ->namespace($this->namespace)
+                ->namespace($this->namespace . '\\Admin')
                 ->group(base_path('routes/admin.php'));
 
             Route::domain('superadmin.' . env('APP_URL'))

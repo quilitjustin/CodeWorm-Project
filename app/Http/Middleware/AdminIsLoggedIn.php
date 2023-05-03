@@ -17,7 +17,7 @@ class AdminIsLoggedIn
     public function handle(Request $request, Closure $next)
     {
         if (!Auth()->check()){
-            return redirect()->route('login');
+            return redirect()->route('admin.login');
         }
 
         return $next($request);
