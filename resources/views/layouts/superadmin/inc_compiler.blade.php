@@ -71,7 +71,7 @@
                 // Log a message to the console
                 console.log("Hooray, it worked!");
                 let token = response.token;
-                await new Promise((resolve) => setTimeout(resolve, 5000)); // 5 sec
+                await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 sec
                 $.get({
                     url: "{{ env('APP_CODE_EXECUTOR') }}" + "/" + token,
                     success: function(response) {

@@ -29,7 +29,7 @@ class LoginValidationController extends Controller
             // Check if user has seen tutorial already
             if (!\Cache::has('tutorial_seen')) {
                 // User hasn't seen tutorial, redirect to tutorial page
-                return redirect()->route('web.tutorial');
+                return redirect()->route('web.narrative');
             }
 
             return redirect()

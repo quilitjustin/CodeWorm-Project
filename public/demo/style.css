@@ -41,10 +41,12 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
 #content{
     width: 800px;
     max-width: 100%;
 }
+
 .bg-blurr{
     background-color: rgba(255, 255, 255, 0.3);
 }

@@ -23,8 +23,8 @@ height:100vh; width=100%;">
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" src="{{ asset('assets/logo/logo.png') }}"
-                    alt="logo" height="150" width="150">
+                <img class="d-block" src="{{ asset('assets/logo/logo.png') }}" alt="logo" height="150"
+                    width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -40,6 +40,9 @@ height:100vh; width=100%;">
             <img id="life" class="d-none" src="{{ asset('demo/heart.png') }}" alt="life">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
             <audio id="bgm" class="d-none" src="{{ asset($stage->bgm->path) }}" controls loop></audio>
+            <audio id="clap" class="d-none" src="{{ asset('js/clap.wav') }}" controls></audio>
+            <audio id="doh" class="d-none" src="{{ asset('js/doh.wav') }}" controls></audio>
+            <audio id="sheesh" class="d-none" src="{{ asset('js/sheesh.mp3') }}" controls></audio>
             <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
             <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
             <button hidden id="fullScreenButton">Full Screen</button>
@@ -124,16 +127,18 @@ height:100vh; width=100%;">
                                     class="font-weight-normal"></span></p>
                         </div>
                         <div class="btn-group w-100" role="group" style="z-index: 1;">
-                            <button id="cancel-task" class="btn btn-warning w-25">Cancel</button>
-                            <button id="re-description" class="btn btn-success w-50">Read Description</button>
-                            <button id="submit" class="btn btn-primary w-25">Submit</button>
+                            <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button>
+                            <button id="re-description" class="skills btn btn-success w-50">Read Description</button>
+                            <button id="submit" class="skills btn btn-primary w-25">Submit</button>
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div id="controls-preloader" class="d-none"
-                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
+                    <div id="controls-preloader" class="w-100 h-100 d-none"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color:rgba(0, 0, 0, 0.7);">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -404,6 +409,8 @@ height:100vh; width=100%;">
     const PLAYER_SP = {{ $stage->player_base_sp }};
     const ENEMY_HP = {{ $stage->enemy_base_hp }};
     const ENEMY_DMG = {{ $stage->enemy_base_dmg }};
+    const BASE_URL = "{{ env('APP_CODE_EXECUTOR') }}";
+    const LANG_KEY = 68;
 
     let BADGE_ID = null;
     let WIN = false;
@@ -415,7 +422,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=13') }}"></script>
+<script src="{{ asset('demo/script.js?v=14') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

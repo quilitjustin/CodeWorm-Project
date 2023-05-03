@@ -109,7 +109,7 @@
                     let token = response.token;
                     await new Promise((resolve) => setTimeout(resolve, 5000)); // 5 sec
                     $.get({
-                        url: BASE_URL + "/" + token,
+                        url: "{{ env('APP_CODE_EXECUTOR') }}" + "/" + token,
                         success: function(response) {
                             console.log(response.stdout);
                             console.log(response.stderr);
