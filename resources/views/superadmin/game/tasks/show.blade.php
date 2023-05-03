@@ -128,6 +128,19 @@
 @endsection
 
 @section('script')
+    <script>
+        const editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            lineNumbers: true,
+            matchBrackets: true,
+            mode: {
+                name: "application/x-httpd-php",
+                startOpen: true,
+            },
+            indentUnit: 4,
+            indentWithTabs: true,
+            theme: "monokai",
+        });
+    </script>
     @include('layouts.superadmin.inc_delete')
     @include('superadmin.game.tasks.script')
     @include('layouts.superadmin.inc_component')

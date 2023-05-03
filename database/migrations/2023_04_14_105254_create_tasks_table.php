@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('difficulty');
             $table->integer('reward');
-            $table->string('description');
+            $table->text('description');
             $table->string('snippet')->nullable();
             $table->string('answer');
             $table->unsignedBigInteger('proglang_id');
