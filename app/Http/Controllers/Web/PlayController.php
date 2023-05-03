@@ -71,7 +71,7 @@ class PlayController extends Controller
     {
         $uid = Auth::user()->id;
         $stage_id = decrypt($request['stageId']);
-
+        $proglang_id = decrypt($request['proglangId']);
         $userRecord = \App\Models\GameRecord::where('user_id', $uid)
             ->where('stage_id', $stage_id)
             ->first();
@@ -80,7 +80,7 @@ class PlayController extends Controller
             // User does not have a record for this stage, create a new record
             $record = new \App\Models\GameRecord();
             $record->record = $request['record'];
-            $record->proglang_id = $request['proglangId'];
+            $record->proglang_id = $proglang_id;
             $record->stage_id = $stage_id;
             $record->user_id = $uid;
             $record->save();

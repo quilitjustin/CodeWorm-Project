@@ -418,6 +418,7 @@ height:100vh; width=100%;">
     const ENEMY_HP = {{ $stage->enemy_base_hp }};
     const ENEMY_DMG = {{ $stage->enemy_base_dmg }};
     const BASE_URL = "{{ env('APP_CODE_EXECUTOR') }}";
+    const PROGLANG_ID = "{{ $stage->proglang->encrypted_id }}";
     const LANG_KEY = 68;
 
     let BADGE_ID = null;
@@ -430,7 +431,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=15') }}"></script>
+<script src="{{ asset('demo/script.js?v=16') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);
