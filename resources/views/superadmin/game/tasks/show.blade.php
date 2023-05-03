@@ -64,7 +64,7 @@
                                 <div class="col-sm-12 {{ $task->snippet == '' ? 'd-none' : '' }}">
                                     <!-- /.form-group -->
                                     <label>Code Snippet</label>
-                                    <textarea name="snippet" id="codeMirrorDemo" class="form-control">{{ $task->snippet }}</textarea>
+                                    <textarea name="snippet" id="codeMirrorDemo" class="form-control">{!! $task->snippet !!}</textarea>
                                 </div>
                                 <div class="col-sm-12">
                                     <label>Expected Answer</label>
