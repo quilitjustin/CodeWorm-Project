@@ -378,6 +378,13 @@ height:100vh; width=100%;">
         RIGHT_ANSWER = tasks[idx]["answer"];
         STAKE = tasks[idx]["reward"];
         editor.setValue("");
+        if(tasks[idx]["snippet"]){
+            const parser = new DOMParser();
+            const parsed = parser.parseFromString(tasks[idx]["snippet"], "text/html");
+            const text = parsed.documentElement.textContent;
+            editor.setValue(text);
+        }
+        
     };
 
     $("#tasks").append(html);
@@ -389,7 +396,7 @@ height:100vh; width=100%;">
         $("#description").prop("hidden", true);
         $("#code-editor").prop("hidden", false);
         editor.focus();
-        editor.setCursor(editor.lineCount(), 0);        
+        editor.setCursor(editor.lineCount(), 0);
     });
     $("#cancel-task").click(function() {
         $("#tasks").prop("hidden", false);
