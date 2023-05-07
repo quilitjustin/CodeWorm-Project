@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->string('status')->default('active');
-            $table->timestamp('banned_until')->nullable();
+            $table->timestamp('suspended_until')->nullable();
         });
 
         DB::statement("ALTER TABLE users 
             MODIFY status 
-            ENUM('active', 'banned') 
+            ENUM('active', 'suspended') 
             NOT NULL DEFAULT 'active'");
     }
 

@@ -15,19 +15,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('user');
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by')->nullable();
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('created_by')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-            $table->foreign('updated_by')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
         });
 
         DB::statement("ALTER TABLE users 

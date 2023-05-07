@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
     @yield('css')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
@@ -48,6 +50,8 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
 
@@ -61,6 +65,11 @@
 
     @yield('script')
 
+    @if (session()->has('msg'))
+        <script>
+            toastr.success("{{ session()->get('msg') }}");
+        </script>
+    @endif
 </body>
 
 </html>

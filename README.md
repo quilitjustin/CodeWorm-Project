@@ -29,9 +29,11 @@ php artisan key:generate
 
 php artisan migrate --seed
 
+php artisan serve --host=codeworm.tech --port=80
+
 add APP_CODE_EXECUTOR=url_of_api variable inside .env file
 
-php artisan serve --host=codeworm.tech --port=80
+
 
 ## References
 https://laravel.com/docs/9.x/encryption

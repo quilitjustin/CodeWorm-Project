@@ -75,6 +75,7 @@ class UsersController extends Controller
         $data->f_name = $this->capitalize($request['f-name']);
         $data->l_name = $this->capitalize($request['l-name']);
         $data->m_name = $this->capitalize($request['m-name']);
+        dd($request['role']);
         $data->role = $request['role'];
         // $user->gender = $this->capitalize($data['gender']);
         $data->email = $request['email'];

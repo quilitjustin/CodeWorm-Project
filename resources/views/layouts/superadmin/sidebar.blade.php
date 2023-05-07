@@ -64,6 +64,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/reqreg" class="nav-link {{ request()->is('reqreg*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Registration
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/splash" class="nav-link {{ request()->is('splash*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>
@@ -225,7 +233,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ request()->is('env*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-wrench"></i>
+                        <i class="nav-icon fas fa-edit"></i>
                         <p>
                             Env Editor
                             <i class="right fas fa-angle-left"></i>

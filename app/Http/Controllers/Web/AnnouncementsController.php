@@ -9,11 +9,18 @@ use App\Models\Announcements;
 class AnnouncementsController extends Controller
 {
     //
-    public function index(){
-        $announcements = Announcements::paginate(7);
+    public function index()
+    {
+        $announcements = Announcements::with('created_by_user:id,f_name,l_name')
+            ->orderBy('is_pinned', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $pinned = $announcements->where('is_pinned', true);
+        $data = $announcements->where('is_pinned', false);
 
         return view('web.announcements', [
-            'announcements' => $announcements,
+            'announcements' => $data,
+            'pinned' => $pinned
         ]);
     }
 }

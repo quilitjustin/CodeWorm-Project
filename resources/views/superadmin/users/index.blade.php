@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Users</h1>
+                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -55,13 +55,13 @@
                                                     <i class="far fa-eye"></i> View</a>
                                                 <a class="text-success" href="{{ route('super.users.edit', $user->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                               
+                                                
                                                 <form class="delete d-inline"
                                                     action="{{ route('super.users.destroy', $user->encrypted_id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger">
-                                                        <i class="fas fa-trash"></i> Delete</button>
+                                                        <i class="fas fa-ban"></i> Suspend</button>
                                                 </form>
                                             </td>
                                         </tr>

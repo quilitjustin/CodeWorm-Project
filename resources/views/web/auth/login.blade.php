@@ -42,6 +42,7 @@
                             <!-- /.col -->
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary btn-block mb-2">Login</button>
+                                <a href="{{ route('web.register') }}">Sign up</a> |
                                 <a href="{{ route('password.forgot') }}" >Forgot Password?</a>
                             </div>
                             <!-- /.col -->

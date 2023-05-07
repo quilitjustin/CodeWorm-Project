@@ -34,11 +34,15 @@ class AnnouncementsController extends Controller
      */
     public function index()
     {
-        //
-        $announcements = Announcements::paginate(7);
+        $announcements = Announcements::with('created_by_user:id,f_name,l_name')->orderBy('is_pinned', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $pinned = $announcements->where('is_pinned', true);
+        $data = $announcements->where('is_pinned', false);
 
         return view('superadmin.announcements.index', [
-            'announcements' => $announcements,
+            'announcements' => $data,
+            'pinned' => $pinned
         ]);
     }
 
@@ -92,7 +96,7 @@ class AnnouncementsController extends Controller
         $data = Announcements::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
 
         return view('superadmin.announcements.show', [
-            'announcement' => $data
+            'announcement' => $data,
         ]);
     }
 
@@ -107,7 +111,7 @@ class AnnouncementsController extends Controller
         $data = $this->findRecord($announcement);
 
         return view('superadmin.announcements.edit', [
-            'announcement' => $data
+            'announcement' => $data,
         ]);
     }
 
@@ -153,5 +157,25 @@ class AnnouncementsController extends Controller
         return redirect()
             ->route('super.announcements.index')
             ->with('msg', 'Deleted Successfully');
+    }
+
+    public function pin(Request $request, $announcement)
+    {
+        $count = Announcements::where('is_pinned', 1)->count();
+
+        $data = $this->findRecord($announcement);
+
+        if ($data->is_pinned) {
+            $data->is_pinned = 0;
+        } else {
+            if ($count >= 3) {
+                return back()->with(['errmsg' => 'Max pinned announcements reached.\nPlease unpin other pinned announcements to proceed.']);
+            }
+            $data->is_pinned = 1;
+        }
+        $data->updated_by = Auth::user()->id;
+        $data->save();
+
+        return back()->with(['msg' => 'Pinned Successfully']);
     }
 }

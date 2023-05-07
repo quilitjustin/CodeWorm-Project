@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
-use Session;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +14,12 @@ class LoginValidationController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            return redirect()->route('web.announcements.index');
-        }
         return view('web.auth.login');
+    }
+
+    public function register()
+    {
+        return view('web.auth.register');
     }
 
     public function authenticate(LoginRequest $request)
@@ -91,11 +92,14 @@ class LoginValidationController extends Controller
             ->with('msg', 'Updated Successfully');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Session::flush();
         Auth::logout();
 
-        return redirect()->route('web.login');
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

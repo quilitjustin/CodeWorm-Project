@@ -36,12 +36,18 @@ Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.stor
 // End
 
 // Public
+Route::controller(AuthController::class)->group(function(){
+    Route::get('/login', 'login')->name('web.login');
+    Route::get('/register', 'register')->name('web.register');
+    Route::post('/login/auth', 'authenticate')->name('web.authenticate');
+    Route::post('/register/request', 'request_registration')->name('web.auth.request');
+});
 Route::controller(PasswordResetController::class)->group(function(){
     Route::get('/password/forgot', 'index')->name('password.forgot');
     Route::post('/password/request', 'request')->name('password.request');
     Route::get('/password/reset/{token}', 'reset')->name('password.reset');
     Route::post('/password/update', 'update')->name('password.update');
-})->middleware('guest');
+});
 Route::get('/', 'SplashPageController@index');
 Route::controller(LeaderBoardController::class)->group(function () {
     Route::get('/leaderboard', 'index')->name('web.leaderboard.index');
@@ -51,7 +57,6 @@ Route::controller(PublicProfileController::class)->group(function () {
     Route::get('/public_profile', 'index')->name('public_profile.index');
     Route::get('/public_profile/{user}', 'show')->name('public_profile.show');
 });
-
 // End
 
 Route::middleware([WebIsLoggedIn::class])->group(function () {
@@ -66,12 +71,6 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
     })->name('web.narrative');
     
     Route::controller(LoginValidationController::class)->group(function () {
-        Route::get('/login', 'index')
-            ->name('web.login')
-            ->withoutMiddleware([WebIsLoggedIn::class]);
-        Route::post('/authenticate', 'authenticate')
-            ->name('web.authenticate')
-            ->withoutMiddleware([WebIsLoggedIn::class]);
         Route::get('/profile/edit', 'profile')->name('web.profile');
         Route::put('/profile/{user}', 'profile_update')->name('web.profile_update');
         Route::post('/logout', 'logout')->name('web.logout');

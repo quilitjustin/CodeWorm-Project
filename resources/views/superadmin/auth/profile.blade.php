@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Profile</h1>
+                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Profile</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -159,15 +159,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputMiddleName" class="col-sm-2 col-form-label">Middle
-                                                Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputMiddleName"
-                                                    placeholder="Middle Name" name="m-name"
-                                                    value="{{ Auth::user()->m_name }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="inputLastName"
@@ -200,8 +191,8 @@
                                 <!-- /.tab-pane -->
 
                                 <div class="tab-pane" id="other">
-                                    <h5>Public Profile: </h5>
-                                    <a class="btn btn-outline-primary" href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and see</a>
+                                    <label>Public Profile: </label>
+                                    <a class="btn btn-outline-primary d-block" href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and see</a>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>

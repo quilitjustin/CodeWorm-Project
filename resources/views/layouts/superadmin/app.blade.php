@@ -122,6 +122,12 @@
             toastr.success("{{ session()->get('msg') }}");
         </script>
     @endif
+
+    @if (session()->has('errmsg'))
+        <script>
+            toastr.error("{{ session()->get('errmsg') }}");
+        </script>
+    @endif
 </body>
 
 </html>

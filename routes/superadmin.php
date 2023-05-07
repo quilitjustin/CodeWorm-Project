@@ -17,23 +17,25 @@ use App\Http\Middleware\SuperIsLoggedIn;
 Route::get('/', function () {
     return redirect()->route('super.dashboard');
 });
-Route::controller(PasswordResetController::class)->group(function(){
-    Route::get('/password/forgot', 'index')->name('super.password.forgot');
-    Route::post('/password/request', 'request')->name('super.password.request');
-    Route::get('/password/reset/{token}', 'reset')->name('super.password.reset');
-    Route::post('/password/update', 'update')->name('super.password.update');
-})->middleware('guest');
+Route::controller(PasswordResetController::class)
+    ->group(function () {
+        Route::get('/password/forgot', 'index')->name('super.password.forgot');
+        Route::post('/password/request', 'request')->name('super.password.request');
+        Route::get('/password/reset/{token}', 'reset')->name('super.password.reset');
+        Route::post('/password/update', 'update')->name('super.password.update');
+    })
+    ->middleware('guest');
 
 Route::middleware([SuperIsLoggedIn::class])->group(function () {
-    //ajax 
-    Route::controller(FetchController::class)->group(function(){
+    //ajax
+    Route::controller(FetchController::class)->group(function () {
         Route::get('/fetch/languages', 'languages')->name('super.fetch.languages');
         Route::post('/fetch/tasks', 'tasks')->name('super.fetch.tasks');
     });
     Route::get('/analitics_dashboard', 'AnaliticsDashboardController@index')->name('super.analytics.index');
     // End ajax
 
-    Route::controller(EnvEditorController::class)->group(function(){
+    Route::controller(EnvEditorController::class)->group(function () {
         Route::get('/env/code_executor', 'code_executor')->name('super.env.executor');
         Route::post('/env/code_executor/update', 'update_code_executor')->name('super.env.executor.update');
     });
@@ -67,6 +69,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     Route::put('/users/ban/{user}', 'UsersController@ban_user')->name('super.user.ban');
     Route::resource('/users', UsersController::class)->names('super.users');
 
+    Route::put('/announcements/pin/{announcement}', 'AnnouncementsController@pin')->name('super.announcements.pin');
     Route::resource('/announcements', AnnouncementsController::class)->names('super.announcements');
     Route::resource('/stories', StoryController::class)->names('super.stories');
     // Game Routes
@@ -82,7 +85,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
 
     // Cms Routes
     // Route::resource('cms/bgim/cmsleaderboards', CmsLeaderboardController::class);
-    Route::controller(CMSController::class)->group(function(){
+    Route::controller(CMSController::class)->group(function () {
         Route::get('cms/bgim/create', 'create')->name('super.cms.bgim.create');
         Route::get('cms/logo/create', 'create_logo')->name('super.cms.logo.create');
         Route::post('cms/bgim/store', 'store')->name('super.cms.bgim.store');
@@ -111,5 +114,9 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::get('/splash/show/{id}', 'show')->name('super.splash.show');
         Route::post('/splash/store', 'store')->name('super.splash.store');
         Route::delete('/splash/destroy/{id}', 'destroy')->name('super.splash.destroy');
+    });
+
+    Route::controller(RequestRegistrationController::class)->group(function () {
+        Route::get('/reqreg', 'index')->name('super.request_registration.index');
     });
 });

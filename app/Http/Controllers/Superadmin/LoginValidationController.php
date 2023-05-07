@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
-use Session;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -90,9 +89,12 @@ class LoginValidationController extends Controller
 
     public function logout()
     {
-        Session::flush();
         Auth::logout();
-
+  
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
         return redirect('/');
     }
 }

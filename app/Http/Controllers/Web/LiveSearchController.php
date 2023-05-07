@@ -16,7 +16,6 @@ class LiveSearchController extends Controller
             $keyword = strip_tags($request['keyword']);
             $data = User::select('id', DB::raw("CONCAT(users.f_name,' ',users.l_name) as name"))
                 ->where('f_name', 'LIKE', "%$keyword%")
-                ->orwhere('m_name', 'LIKE', "%$keyword%")
                 ->orwhere('l_name', 'LIKE', "%$keyword%")
                 // ->limit(5)
                 ->get();

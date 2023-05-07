@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Announcement Background Image</h1>
+                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Announcement Background Image</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
