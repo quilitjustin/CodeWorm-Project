@@ -69,7 +69,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
+                                <a href="{{ route('super.announcements.index') }}" class="btn btn-warning">Cancel</a>
                                 <button type="submit" class="btn btn-primary ml-2">Update</button>
                             </div>
                             <!-- /.card-footer -->
@@ -86,7 +86,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.inc_component')
     <script>
         $(document).ready(function() {
             // Summernote

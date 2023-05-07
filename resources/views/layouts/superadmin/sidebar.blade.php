@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/reqreg" class="nav-link {{ request()->is('reqreg*') ? 'active' : '' }}">
+                    <a href="/reqregs" class="nav-link {{ request()->is('reqregs*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Registration

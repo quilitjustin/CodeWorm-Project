@@ -3,13 +3,13 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper"
-        style="background-image: url('{{ asset('assets/bgim/announcement.png') . '?v=' . filemtime(public_path('assets/bgim/announcement.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/announcement.png') . '?v=' . filemtime(public_path('assets/bgim/announcement.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-navy font-weight-bold">Announcements</h1>
+                        <h1 class="m-0 text-light font-weight-bold">Announcements</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">

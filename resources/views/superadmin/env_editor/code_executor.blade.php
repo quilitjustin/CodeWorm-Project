@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Env Editor</h1>
+                     <h1 class="m-0 text-navy font-weight-bold">Env Editor</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -53,8 +53,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
-                                <button type="submit" class="btn btn-primary ml-2">Create</button>
+                                <button type="submit" class="btn btn-primary ml-2">Update</button>
                             </div>
                             <!-- /.card-footer -->
                         </form>

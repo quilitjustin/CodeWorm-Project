@@ -177,7 +177,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
+                                <a href="{{ route('super.stages.index') }}" class="btn btn-warning">Cancel</a>
                                 <button type="submit" class="btn btn-primary ml-2">Create</button>
                             </div>
                             <!-- /.card-footer -->
@@ -195,5 +195,4 @@
 
 @section('script')
     @include('superadmin.game.stages.script')
-    @include('layouts.superadmin.inc_component')
 @endsection

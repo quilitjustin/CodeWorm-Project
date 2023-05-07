@@ -117,6 +117,6 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     });
 
     Route::controller(RequestRegistrationController::class)->group(function () {
-        Route::get('/reqreg', 'index')->name('super.request_registration.index');
+        Route::get('/reqregs', 'index')->name('super.request_registration.index');
     });
 });

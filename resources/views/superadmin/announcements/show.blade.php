@@ -63,8 +63,8 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-end">
-                            <button id="cancel" type="button" class="btn btn-warning"><i
-                                    class="right fas fa-angle-left"></i> Go Back</button>
+                            <a href="{{ route('super.announcements.index') }}" class="btn btn-warning"><i
+                                    class="right fas fa-angle-left"></i> Go Back</a>
                             <a href="{{ route('super.announcements.edit', $announcement->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
                             <form class="delete d-inline"
@@ -86,7 +86,6 @@
 
 @section('script')
     @include('layouts.superadmin.inc_delete')
-    @include('layouts.superadmin.inc_component')
     <script>
         $(document).ready(function() {
             // Summernote

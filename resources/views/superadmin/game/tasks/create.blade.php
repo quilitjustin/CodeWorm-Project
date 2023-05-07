@@ -135,7 +135,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
+                                <a href="{{ route('super.tasks.index') }}" class="btn btn-warning">Cancel</a>
                                 <button type="submit" class="btn btn-primary ml-2">Create</button>
                             </div>
                             <!-- /.card-footer -->
@@ -154,7 +154,6 @@
 @section('script')
     @include('layouts.superadmin.inc_compiler')
     @include('superadmin.game.tasks.script')
-    @include('layouts.superadmin.inc_component')
     {{-- <script>
         const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
         const TOKEN = "{{ csrf_token() }}";

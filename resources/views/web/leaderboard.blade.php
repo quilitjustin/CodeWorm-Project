@@ -12,15 +12,10 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center p-3"
-        style="height: 100%; min-height: 100vh; background-image: url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
-        {{-- <div class="col-sm-6">
-            <button onclick="history.back();" class="text-info"><i class="right fas fa-angle-left"></i> Go
-                Back</button>
-        </div><!-- /.col --> --}}
+        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <div class="row">
-
             <div class="col-sm-12">
-                <div class="text-center text-navy mt-4">
+                <div class="text-center text-light mt-4">
                     <h1 class="font-weight-bold">
                         Leaderboards</h1>
                     <p class="lead">
@@ -81,7 +76,8 @@
                 <!-- /.card -->
             </div>
             <div class="col-sm-12">
-                <a href="{{ route('web.play.index') }}" class="text-light"><i class="right fas fa-angle-left"></i> Go
+                <a href="{{ route('web.play.index') }}" class="text-light">
+                    <i class="right fas fa-angle-left"></i> Go
                     Back</a>
             </div>
             <!-- /.col -->

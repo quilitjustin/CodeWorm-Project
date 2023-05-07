@@ -79,7 +79,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button id="cancel" type="button" class="btn btn-warning">Cancel</button>
+                                <a href="{{ route('super.badges.index') }}" class="btn btn-warning">Cancel</a>
                                 <button type="submit" class="show btn btn-primary ml-2">Update</button>
                             </div>
                             <!-- /.card-footer -->

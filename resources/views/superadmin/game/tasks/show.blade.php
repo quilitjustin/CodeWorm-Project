@@ -104,8 +104,8 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
-                            <button id="cancel" type="button" class="btn btn-warning"><i
-                                    class="right fas fa-angle-left"></i> Go Back</button>
+                            <a href="{{ route('super.tasks.index') }}" class="btn btn-warning"><i
+                                    class="right fas fa-angle-left"></i> Go Back</a>
                             <a href="{{ route('super.tasks.edit', $task->encrypted_id) }}"
                                 class="btn btn-primary ml-2">Update</a>
                             <form class="delete d-inline" action="{{ route('super.tasks.destroy', $task->encrypted_id) }}"
@@ -149,10 +149,6 @@
         // Stop user the user from clicking the textbox
         editor.on("mousedown", function(e) {
             e.preventDefault();
-        });
-
-        $("#cancel").click(function() {
-            window.history.back();
         });
     </script>
 @endsection

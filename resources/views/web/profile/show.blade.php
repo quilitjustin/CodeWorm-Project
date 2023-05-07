@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="p-3">
+    <div class="p-3" style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-navy font-weight-bold">Portfolio</h1>
+                        <h1 class="m-0 text-light font-weight-bold">Portfolio</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">
@@ -135,6 +135,11 @@
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->
+                    <div class="col-12">
+                        <a href="{{ route('web.play.index') }}" class="text-light">
+                            <i class="right fas fa-angle-left"></i> Go
+                            Back</a>
+                    </div>
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
