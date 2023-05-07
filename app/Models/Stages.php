@@ -18,10 +18,6 @@ class Stages extends Model
         return encrypt($this->attributes['id']);
     }
 
-    protected $casts = [
-        'tasks' => 'array'
-    ];
-
     public function proglang()
     {
         return $this->belongsTo(ProgrammingLanguages::class, 'proglang_id');
@@ -54,5 +50,9 @@ class Stages extends Model
 
     public function game_records_users(){
         return $this->hasMany(GameRecord::class, 'stage_id')->where('user_id', Auth::user()->id);
+    }
+
+    public function tasks(){
+        return $this->hasMany(Tasks::class, 'stage_id');
     }
 }

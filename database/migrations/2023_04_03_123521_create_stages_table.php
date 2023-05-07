@@ -15,7 +15,6 @@ return new class extends Migration {
         Schema::create('stages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('tasks');
             $table->unsignedBigInteger('proglang_id');
             $table->unsignedBigInteger('badge_id')->nullable();
             $table->unsignedBigInteger('bgim_id');

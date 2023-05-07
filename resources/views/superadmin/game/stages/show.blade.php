@@ -80,7 +80,7 @@
                                 <div class="col-md-6">
                                     <label>Tasks</label>
                                     <div>
-                                        @forelse ($tasks as $task)
+                                        @forelse ($stage->tasks as $task)
                                             <a class="d-block"
                                                 href="{{ route('super.tasks.show', $task->encrypted_id) }}">{{ $task->name }}</a>
                                         @empty

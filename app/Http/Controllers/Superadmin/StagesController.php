@@ -8,6 +8,7 @@ use App\Models\Stages;
 use App\Models\Badges;
 use App\Models\BGImg;
 use App\Models\BGM;
+use App\Models\Tasks;
 use App\Models\ProgrammingLanguages as Proglang;
 use Illuminate\Support\Facades\Auth;
 
@@ -86,11 +87,11 @@ class StagesController extends Controller
         $stage = new Stages();
         $stage->name = strip_tags($request['name']);
 
-        $arr = [];
+        $task_arr = [];
         foreach ($request['tasks'] as $task) {
-            array_push($arr, decrypt($task));
+            array_push($task_arr, decrypt($task));
         }
-        $stage->tasks = $arr;
+
         $stage->proglang_id = $proglang_id;
         // Only if there is a reward for this stage
         if (!is_null($request['reward'])) {
@@ -106,6 +107,8 @@ class StagesController extends Controller
         $stage->enemy_base_dmg = strip_tags($request['enemy-base-dmg']);
         $stage->created_by = Auth::user()->id;
         $stage->save();
+
+        $tasks = Tasks::whereIn('id', $task_arr)->update(['stage_id' => $stage->id]);
 
         return redirect()
             ->route('super.stages.show', [
@@ -123,15 +126,10 @@ class StagesController extends Controller
     public function show($stage)
     {
         $id = decrypt($stage);
-        $data = Stages::with('proglang:id,name', 'badges:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findOrFail($id);
-
-        $tasks = \App\Models\Tasks::select('id', 'name')
-            ->whereIn('id', $data->tasks)
-            ->get();
+        $data = Stages::with('proglang:id,name', 'tasks:id,name,stage_id', 'badges:id,name', 'created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findOrFail($id);
 
         return view('superadmin.game.stages.show', [
             'stage' => $data,
-            'tasks' => $tasks,
         ]);
     }
 
@@ -145,7 +143,14 @@ class StagesController extends Controller
     {
         //
         $data = $this->findRecord($stage);
-        $proglangs = Proglang::with('tasks:id,name,proglang_id')
+        $proglangs = Proglang::with([
+            'tasks' => function ($query) use ($data) {
+                $query->whereNull('stage_id')->orWhere('stage_id', $data->id);
+            },
+        ])
+            ->whereHas('tasks', function ($query) use ($data) {
+                $query->whereNull('stage_id')->orWhere('stage_id', $data->id);
+            })
             ->select('id', 'name')
             ->get();
 
@@ -158,7 +163,7 @@ class StagesController extends Controller
         $rewards = Badges::select('id', 'name')->get();
         $bgims = BGImg::select('id', 'name')->get();
         $bgms = BGM::select('id', 'name')->get();
-       
+
         return view('superadmin.game.stages.edit', [
             'stage' => $data,
             'proglangs' => $proglangs,
@@ -198,11 +203,11 @@ class StagesController extends Controller
         $data = $this->findRecord($stage);
         $data->name = strip_tags($request['name']);
 
-        $arr = [];
+        $task_arr = [];
         foreach ($request['tasks'] as $task) {
-            array_push($arr, decrypt($task));
+            array_push($task_arr, decrypt($task));
         }
-        $data->tasks = $arr;
+
         $data->proglang_id = $proglang_id;
         // Only if there is a reward for this stage
         if (!is_null($request['reward'])) {
@@ -218,6 +223,12 @@ class StagesController extends Controller
         $data->enemy_base_dmg = strip_tags($request['enemy-base-dmg']);
         $data->updated_by = Auth::user()->id;
         $data->save();
+
+        // Find all tasks that were previously connected to this stage and make them null
+        Tasks::where('stage_id', $data->id)->update(['stage_id' => null]);
+
+        // Update the selected tasks with the new stage ID
+        $tasks = Tasks::whereIn('id', $task_arr)->update(['stage_id' => $data->id]);
 
         return redirect()
             ->route('super.stages.show', [

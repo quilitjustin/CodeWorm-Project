@@ -35,27 +35,21 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Status</th>
-                                        <th class="d-none d-xl-table-cell">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($reqregs as $reqreg)
                                         <tr>
                                             <td>
-                                                {{-- <a href="{{ route('super.reqregs.show', $reqreg->encrypted_id) }}">
-                                                    {{ $reqreg['f_name'] . ' ' . $reqreg['l_name'] }}
-                                                </a> --}}
+                                                <a href="{{ route('super.request_registration.show', $reqreg->id) }}">
+                                                    {{ $reqreg->users->email }}
+                                                </a>
                                             </td>
                                             <td class="text-center"><span
-                                                    class="badge {{ $reqreg->status == 'active' ? 'bg-success' : 'bg-danger' }}">{{ $reqreg->status }}</span>
+                                                    class="badge {{ $reqreg->status == 'pending' ? 'bg-secondary' : ($reqreg->status == 'approved' ? 'bg-success' : 'bg-danger') }}">{{ $reqreg->status }}</span>
                                             </td>
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $reqreg['role'] }}</td>
-                                            <td class="d-none d-xl-table-cell">
-                                                {{-- <a class="text-link"
-                                                    href="{{ route('super.reqregs.show', $reqreg->encrypted_id) }}"><i
-                                                        class="far fa-eye"></i> View</a> --}}
-                                            </td>
                                         </tr>
                                     @empty
                                     @endforelse

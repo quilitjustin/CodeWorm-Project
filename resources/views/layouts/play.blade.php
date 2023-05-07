@@ -113,7 +113,8 @@ height:100vh; width=100%;">
 
                             </div>
                         </div>
-                        <div class="h-25 d-flex justify-content-end align-items-end">
+                        <div class="h-25 d-flex justify-content-end align-items-between">
+                            <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button>
                             <button id="start-coding" class="btn btn-success">Start Coding</button>
                         </div>
                     </div>
@@ -124,7 +125,6 @@ height:100vh; width=100%;">
                                     class="font-weight-normal"></span></p>
                         </div>
                         <div class="btn-group w-100" role="group" style="z-index: 1;">
-                            <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button>
                             <button id="re-description" class="skills btn btn-success w-50">Read Description</button>
                             <button id="submit" class="skills btn btn-primary w-25">Submit</button>
                         </div>

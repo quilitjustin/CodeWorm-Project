@@ -9,6 +9,13 @@ class Tasks extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['stage_id'];
+
     protected $appends = ['encrypted_id'];
 
     // This will automatically encrypt every id that is retrieved from the database
@@ -26,6 +33,11 @@ class Tasks extends Model
     public function proglang()
     {
         return $this->belongsTo(ProgrammingLanguages::class, 'proglang_id');
+    }
+
+    public function stages()
+    {
+        return $this->belongsTo(Stages::class, 'stage_id');
     }
 
     public function created_by_user()
