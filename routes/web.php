@@ -80,7 +80,7 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         return view('web.narrative');
     })->name('web.narrative');
     
-    Route::controller(LoginValidationController::class)->group(function () {
+    Route::controller(AuthController::class)->group(function () {
         Route::get('/profile/edit', 'profile')->name('web.profile');
         Route::put('/profile/{user}', 'profile_update')->name('web.profile_update');
         Route::post('/logout', 'logout')->name('web.logout');

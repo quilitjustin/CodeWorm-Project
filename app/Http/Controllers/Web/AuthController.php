@@ -11,6 +11,8 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ChangePasswordMail;
 
 class AuthController extends Controller
 {
@@ -39,8 +41,10 @@ class AuthController extends Controller
         ]);
 
         $email = strip_tags($request['email']);
-        $user = User::select('id')->where('email', $email)->first();
-        $req_registration = new RequestRegistration;
+        $user = User::select('id')
+            ->where('email', $email)
+            ->first();
+        $req_registration = new RequestRegistration();
 
         if (is_null($user)) {
             $new_user = new User();
@@ -67,8 +71,10 @@ class AuthController extends Controller
         $req_registration->school_id = $path . '/' . $newImageName;
 
         $req_registration->save();
-        
-        return redirect()->route('web.login')->with(['msg' => 'Registered Successfully']);
+
+        return redirect()
+            ->route('web.login')
+            ->with(['msg' => 'Registered Successfully']);
     }
 
     public function authenticate(LoginRequest $request)
@@ -98,24 +104,54 @@ class AuthController extends Controller
 
     protected function capitalize($data)
     {
+        $data = strip_tags($data);
         return ucwords(strtolower($data));
     }
 
-    public function profile_update(UpdateProfileRequest $request, $user)
+    public function profile_update(Request $request, $user)
     {
-        $data = $request->validated();
-
+        $request->validate([
+            'action' => ['required', 'in:name,email,password,picture'],
+        ]);
         $id = decrypt($user);
         $user = User::findorfail($id);
 
-        if ($data['action'] == 'picture') {
+        switch ($request['action']) {
+            case 'name':
+                $request->validate([
+                    'f_name' => ['required'],
+                    'l_name' => ['required'],
+                ]);
+                $user->f_name = $this->capitalize($request['f_name']);
+                $user->l_name = $this->capitalize($request['l_name']);
+                break;
+            case 'email':
+                Mail::to($request['email'])->send(new ChangePasswordMail());
+                break;
+            case 'password':
+                $request->validate([
+                    'old_password' => [
+                        'required',
+                        function ($attribute, $value, $fail) use ($request) {
+                            if (!Hash::check($request['old_password'], Auth::user()->password)) {
+                                $fail('The old password does not match.');
+                            }
+                        },
+                    ],
+                    'password' => ['required', 'confirmed', 'min:8'],
+                    'password_confirmation' => ['required'],
+                ]);
+                Mail::to($user->email)->send(new ChangePasswordMail($user->l_name));
+                break;
+        }
+        if ($request['action'] == 'picture') {
             // Make sure you delete the file first before deleting the record in db
             // But before that, you need to make sure that the file still exist in the first place
             if (!is_null($user->profile_picture) && file_exists($user->profile_picture)) {
                 unlink($user->profile_picture);
             }
             // To avoid having a file with the same name
-            $newImageName = time() . '-' . $user->l_name . '.' . $request['image']->extension();
+            $newImageName = time() . '-' . $user->f_name . $user->l_name . '.' . $request['image']->extension();
             // Where to store the image
             $path = 'profile/picture';
             // Store the image in public directory
@@ -123,15 +159,6 @@ class AuthController extends Controller
             // Output would be like: game/BackgroundImage/image.png
             // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
             $user->profile_picture = $path . '/' . $newImageName;
-        }
-        if ($data['action'] == 'password') {
-            $user->password = Hash::make($data['password']);
-        }
-        if ($data['action'] == 'details') {
-            $user->f_name = $this->capitalize($data['f-name']);
-            $user->l_name = $this->capitalize($data['l-name']);
-            $user->m_name = $this->capitalize($data['m-name']);
-            $user->email = $data['email'];
         }
 
         $user->save();
@@ -141,7 +168,7 @@ class AuthController extends Controller
             ->with('msg', 'Updated Successfully');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
 

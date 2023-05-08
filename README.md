@@ -41,3 +41,4 @@ https://laravel.com/docs/9.x/eloquent-mutators
 https://laravel.com/docs/9.x/eloquent-mutators
 https://spatie.be/docs/laravel-backup/v7/introduction
 https://support.hostinger.com/en/articles/5792082-how-to-solve-the-most-common-composer-issues
+https://laravel.com/docs/9.x/mail
