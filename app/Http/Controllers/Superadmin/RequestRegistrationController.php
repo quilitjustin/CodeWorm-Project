@@ -10,7 +10,7 @@ use App\Models\User;
 class RequestRegistrationController extends Controller
 {
     public function index(){
-        $reqregs = RequestRegistration::with('users:id,email')->select('id', 'status', 'user_id')->get();
+        $reqregs = RequestRegistration::with('users:id,email')->select('id', 'status', 'user_id')->orderBy('created_at', 'desc')->get();
 
         return view('superadmin.request_registration.index', [
             'reqregs' => $reqregs
@@ -35,12 +35,10 @@ class RequestRegistrationController extends Controller
             $data->status = 'accepted';
             $user = User::findorfail($data->user_id);
             if ($user->email_verified_at !== null) {
-                return redirect()->back()->with('message', 'User already verified.');
+                return redirect()->back()->with('msg', 'User already verified.');
             }
             
             $user->sendEmailVerificationNotification();
-            
-            return redirect()->back()->with('message', 'Verification email sent.');
         }
         if($request['decision'] == 'deny'){
             $data->status = 'denied';

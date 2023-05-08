@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Background Image</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Registration Request</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('super.request_registration.index') }}">Bgims</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.request_registration.index') }}">Requests</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -28,7 +28,7 @@
                     <div class="card card-navy">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Background Image Details
+                                Registration Request Details
                             </h3>
                         </div>
                         <!-- /.card-header -->

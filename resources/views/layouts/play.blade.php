@@ -43,7 +43,6 @@ height:100vh; width=100%;">
             <audio id="heal-sfx" class="d-none" src="{{ asset('js/heal.wav') }}" controls></audio>
             <audio id="doh" class="d-none" src="{{ asset('js/doh.wav') }}" controls></audio>
             <audio id="goku" class="d-none" src="{{ asset('js/goku.mp3') }}" controls></audio>
-            <audio id="supreme-sfx" class="d-none" src="{{ asset('js/supreme.mp3') }}" controls></audio>
             <audio id="sheesh" class="d-none" src="{{ asset('js/sheesh.mp3') }}" controls></audio>
             <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
             <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
@@ -106,16 +105,16 @@ height:100vh; width=100%;">
                     <div id="tasks" class="h-100">
 
                     </div>
-                    <div id="description" class="h-100 text-light p-3" hidden>
-                        <div class="h-75" style="overflow: auto;">
+                    <div id="description" class="h-100 text-light" hidden>
+                        <div class="h-75 p-3" style="overflow: auto;">
                             <h5 style="mb-3">Task Description:</h5>
                             <div id="task-description">
-
+                                
                             </div>
                         </div>
-                        <div class="h-25 d-flex justify-content-end align-items-between">
+                        <div class="btn-group w-100" role="group" style="z-index: 1;">
                             <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button>
-                            <button id="start-coding" class="btn btn-success">Start Coding</button>
+                            <button id="start-coding" class="btn btn-success w-75">Start Coding</button>
                         </div>
                     </div>
                     <div id="code-editor">
@@ -355,8 +354,8 @@ height:100vh; width=100%;">
 
     let arr = [];
 
-    const tasks = {!! $tasks !!};
-
+    const tasks = {!! $stage->tasks !!};
+console.log(tasks)
     let html = '';
     for (let i = 0; i < tasks.length; i++) {
         html +=
@@ -431,7 +430,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=16') }}"></script>
+<script src="{{ asset('demo/script.js?v=18') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

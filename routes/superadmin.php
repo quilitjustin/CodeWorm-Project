@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\SuperIsLoggedIn;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +34,6 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     });
     Route::get('/analitics_dashboard', 'AnaliticsDashboardController@index')->name('super.analytics.index');
     // End ajax
-
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-    })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::controller(EnvEditorController::class)->group(function () {
         Route::get('/env/code_executor', 'code_executor')->name('super.env.executor');

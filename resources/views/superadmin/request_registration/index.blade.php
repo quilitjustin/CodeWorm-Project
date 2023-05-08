@@ -46,7 +46,7 @@
                                                 </a>
                                             </td>
                                             <td class="text-center"><span
-                                                    class="badge {{ $reqreg->status == 'pending' ? 'bg-secondary' : ($reqreg->status == 'approved' ? 'bg-success' : 'bg-danger') }}">{{ $reqreg->status }}</span>
+                                                    class="badge {{ $reqreg->status == 'pending' ? 'bg-secondary' : ($reqreg->status == 'accepted' ? 'bg-success' : 'bg-danger') }}">{{ $reqreg->status }}</span>
                                             </td>
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $reqreg['role'] }}</td>

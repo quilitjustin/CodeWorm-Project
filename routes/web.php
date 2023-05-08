@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\WebIsLoggedIn;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,15 @@ use App\Http\Middleware\WebIsLoggedIn;
 Route::get('/test', function(){
     return view('text');
 });
+Route::get('/login/temp', function(){
+    return redirect()->route('web.login');
+})->name('login');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('web.login');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 // Ajax
 Route::controller(LiveSearchController::class)->group(function () {

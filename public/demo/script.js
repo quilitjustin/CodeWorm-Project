@@ -21,7 +21,6 @@ window.addEventListener("load", function () {
     const SHEESH_SFX = document.getElementById("sheesh");
     const DOH = document.getElementById("doh");
     const GOKU = document.getElementById("goku");
-    const SUPREME = document.getElementById("supreme-sfx");
     const HEAL = document.getElementById("heal-sfx");
     // We do this first we don't overwrite the default console.log
     console.compile = console.log;
@@ -82,15 +81,22 @@ window.addEventListener("load", function () {
     class InputHandler {
         constructor(player, enemy) {
             this.keys = [];
+            $("#start-coding").click(function () {
+                enemy.setAtkCondition = true;
+            });
 
             $("#tackle").click(function () {
                 player.tackle = true;
                 player.sp -= 50;
+                GOKU.currentTime = 0;
+                GOKU.volume = sfxVolume;
+                GOKU.play();
                 $("#msg").html("Tackle has been used!<br>Damage 50");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
-                }, 1500);
+                    GOKU.pause();
+                }, 2000);
             });
 
             $("#heal").click(function () {
@@ -107,7 +113,6 @@ window.addEventListener("load", function () {
                 }, 1500);
             });
 
-            
             $("#elixir").click(function () {
                 HEAL.currentTime = 0;
                 HEAL.volume = sfxVolume;
@@ -124,10 +129,7 @@ window.addEventListener("load", function () {
 
             $("#supreme").click(function () {
                 player.supreme = true;
-                SUPREME.currentTime = 0;
-                SUPREME.volume = sfxVolume * 10;
-                SUPREME.play();
-                if(enemy.lives > 500){
+                if (enemy.lives > 500) {
                     enemy.lives -= 500;
                 } else {
                     enemy.lives = 0;
@@ -137,15 +139,14 @@ window.addEventListener("load", function () {
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
-                    SUPREME.pause();
                 }, 2000);
             });
-            $("#super").click(function(){
+            $("#super").click(function () {
                 player.supreme = true;
                 GOKU.currentTime = 0;
                 GOKU.volume = sfxVolume;
                 GOKU.play();
-                if(enemy.lives > 9999){
+                if (enemy.lives > 9999) {
                     enemy.lives -= 9999;
                 } else {
                     enemy.lives = 0;
@@ -208,6 +209,7 @@ window.addEventListener("load", function () {
                                         "Right Answer!<br>SP +" + STAKE
                                     );
                                     player.sp += STAKE;
+                                    enemy.setAtkCondition = false;
                                     editor.setValue("");
                                     editor.clearHistory();
                                     $("#tasks").prop("hidden", false);
@@ -399,7 +401,7 @@ window.addEventListener("load", function () {
             ctx.fillText("SP: " + this.sp, 20, 105);
         }
         update(input, deltaTime, enemies, explosions) {
-            if(this.lives < 0){
+            if (this.lives < 0) {
                 this.lives = 0;
             }
             if (ENABLED_CONTROLS) {
@@ -429,12 +431,12 @@ window.addEventListener("load", function () {
                 $("#heal").prop("disabled", true);
                 $("#supreme").prop("disabled", true);
             }
-            if (this.sp > 449){
+            if (this.sp > 449) {
                 $("#elixir").prop("disabled", false);
             } else {
                 $("#elixir").prop("disabled", true);
             }
-            if (this.sp > 999){
+            if (this.sp > 999) {
                 $("#super").prop("disabled", false);
             } else {
                 $("#super").prop("disabled", true);
@@ -560,12 +562,11 @@ window.addEventListener("load", function () {
             this.lives = ENEMY_HP;
             this.heart = document.getElementById("life");
             this.maxLifeShow = 3;
-            this.rage = false;
-            this.rageTimer = 300000;
             this.damage = ENEMY_DMG;
             this.atkTimer = 0;
             this.atkInterval = 5000 / this.fps;
             this.atkCondition = false;
+            this.setAtkCondition = false;
             this.onHit = false;
             this.sound = document.getElementById("sfx2");
         }
@@ -606,30 +607,10 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "white";
             ctx.font = "20px Helvetica";
             ctx.fillText("Damage: " + this.damage, canvas.width - 22, 102);
-
-            const formattedTime = (this.rageTimer * 0.001).toFixed(1);
-            if (!this.rage) {
-                ctx.textAlign = "end";
-                ctx.fillStyle = "black";
-                ctx.font = "20px Helvetica";
-                ctx.fillText("Rage: " + formattedTime, canvas.width - 20, 122);
-                ctx.textAlign = "end";
-                ctx.fillStyle = "white";
-                ctx.font = "20px Helvetica";
-                ctx.fillText("Rage: " + formattedTime, canvas.width - 22, 124);
-            } else {
-                ctx.textAlign = "end";
-                ctx.fillStyle = "black";
-                ctx.font = "20px Helvetica";
-                ctx.fillText("Rage: Activated", canvas.width - 20, 145);
-                ctx.textAlign = "end";
-                ctx.fillStyle = "white";
-                ctx.font = "20px Helvetica";
-                ctx.fillText("Rage: Activated", canvas.width - 22, 147);
-            }
         }
         update(deltaTime, player) {
-            if(this.lives < 0){
+            
+            if (this.lives < 0) {
                 this.lives = 0;
             }
             if (this.atkCondition) {
@@ -647,25 +628,19 @@ window.addEventListener("load", function () {
             } else {
                 this.frameTimer += deltaTime;
             }
-            this.atkTimer++;
+            if (this.setAtkCondition) {
+                this.atkTimer++;
+            }
+
             if (!this.atkCondition && this.atkTimer > this.atkInterval) {
                 this.atkCondition = true;
                 this.atkTimer = 0;
-                if (this.rage && this.damage < 1000) {
-                    this.damage *= this.damage;
-                }
             }
 
             // if (this.x < 0 - this.width) {
             //     this.markedForDeletion = true;
             //     score++;
             // }
-            if (!this.rage) {
-                this.rageTimer -= deltaTime;
-                if (this.rageTimer <= 0) {
-                    this.rage = true;
-                }
-            }
 
             if (this.x > this.gameWidth) {
                 this.x--;
@@ -675,7 +650,7 @@ window.addEventListener("load", function () {
                 this.sound.volume = sfxVolume;
                 this.sound.play();
                 this.x = this.gameWidth - this.width;
-                if(player.lives > this.damage){
+                if (player.lives > this.damage) {
                     player.lives -= this.damage;
                 } else {
                     player.lives = 0;
@@ -831,16 +806,16 @@ window.addEventListener("load", function () {
             this.markedForDeletion = false;
         }
         update(deltaTime) {
-            if(this.frame === 0){
+            if (this.frame === 0) {
                 this.sound.currentTime = 0;
                 this.sound.volume = sfxVolume;
                 this.sound.play();
             }
             this.timeSinceLastFrame += deltaTime;
-            if(this.timeSinceLastFrame > this.frameInterval){
+            if (this.timeSinceLastFrame > this.frameInterval) {
                 this.frame++;
                 this.timeSinceLastFrame = 0;
-                if(this.frame > 5){
+                if (this.frame > 5) {
                     this.markForDeletion = true;
                 }
             }
@@ -877,7 +852,7 @@ window.addEventListener("load", function () {
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         background.draw(ctx);
         // background.update();
@@ -897,10 +872,10 @@ window.addEventListener("load", function () {
         ctx.fillStyle = "white";
         ctx.font = "20px Helvetica";
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
-        if(!paused){
+        if (!paused) {
             timer += deltaTime;
             formatTimer = formatTime((timer * 0.001).toFixed(1));
-    
+
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
@@ -910,7 +885,6 @@ window.addEventListener("load", function () {
             ctx.font = "20px Helvetica";
             ctx.fillText(formatTimer, canvas.width / 2, 72);
         }
-      
 
         player.update(input, deltaTime, enemy, boom);
         displayStatusText(ctx);
