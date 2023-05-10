@@ -70,6 +70,12 @@
             toastr.success("{{ session()->get('msg') }}");
         </script>
     @endif
+
+    @if (session()->has('error'))
+        <script>
+            toastr.error("{{ session()->get('error') }}");
+        </script>
+    @endif
 </body>
 
 </html>

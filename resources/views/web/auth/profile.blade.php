@@ -31,6 +31,11 @@
                             <div class="card-body">
                                 <table class="table table-hover" id="settings">
                                     <tbody>
+                                        <tr data-target="#picture" class="settings-option">
+                                            <th scope="row">Photo</th>
+                                            <td>Add a personal touch to your account by uploading a photo.</td>
+                                            <td><i class="fas fa-arrow-right"></i></td>
+                                        </tr>
                                         <tr data-target="#name" class="settings-option">
                                             <th scope="row">Name</th>
                                             <td>{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}</td>
@@ -48,6 +53,45 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div id="picture" class="d-none">
+                                    <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                        method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="action" value="picture">
+                                        <span class="text-muted">Changes to your photo will be reflected across your
+                                            account.</span>
+                                        <div class="form-group">
+                                            <label>Profile Picture</label>
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="image"
+                                                        name="image" accept="image/*">
+                                                    <label class="custom-file-label" for="image"
+                                                        aria-describedby="inputGroupFileAddon02">Choose Image</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button type="button" id="clear"
+                                                        class="btn btn-outline-secondary">Clear</button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="card p-2">
+                                                    <label for="img-preview">Preview</label>
+                                                    <img src="{{ !is_null(Auth::user()->profile_picture) ? asset(Auth::user()->profile_picture) : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
+                                                        id="img-preview"
+                                                        style="width: 150px; height: 150px; max-width: 150px; max-height: 150px;"
+                                                        class="img-fluid img-circle mx-auto" alt="preview">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div id="name" class="d-none">
                                     <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
                                         method="POST">
@@ -67,7 +111,7 @@
                                                 value="{{ old('l_name', Auth::user()->l_name) }}">
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
@@ -86,7 +130,7 @@
                                                 value="{{ old('email', Auth::user()->email) }}">
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
@@ -115,19 +159,15 @@
                                                 value="{{ old('password_confirmation', '') }}">
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="form-group" id="errors">
-                                    @if ($errors->any())
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li class="text-danger">{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
+                                <div class="form-group">
+                                    <ul id="errors">
+
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +186,14 @@
         $(".settings-option").click(function() {
             const target = $(this).data("target");
             $("#settings").fadeOut("slow", function() {
-                $(target).removeClass("d-none").fadeIn("slow");
+                $(target).removeClass("d-none").fadeIn("fast");
+            });
+        });
+
+        $(".cancel").click(function() {
+            const target = $(this).parent().parent().parent();
+            $(target).fadeOut("slow", function() {
+                $("#settings").fadeIn("fast");
             });
         });
 
@@ -177,6 +224,30 @@
             imageFile.next(".custom-file-label").html("Choose Image");
             preview.addClass("d-none");
             preview.attr("src", "#");
+        });
+
+        $(document).ready(function() {
+            $("form").on("submit", function(e) {
+                e.preventDefault();
+                const formData = $(this).serialize();
+                const route = $(this).attr("action");
+                $.ajax({
+                    url: route,
+                    type: 'PUT',
+                    data: formData,
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr, errorThrown) {
+                        $("#errors").empty();
+                        const errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            $("#errors").append("<li class='text-danger'>" + value +
+                                "</li>");
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endsection

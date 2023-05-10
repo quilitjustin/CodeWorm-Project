@@ -33,7 +33,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::select('id', 'f_name', 'l_name', 'status', 'role')
+        $users = User::select('id', 'f_name', 'l_name', 'role', 'suspended_until')
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
                 ['id', '!=', Auth::user()->id],

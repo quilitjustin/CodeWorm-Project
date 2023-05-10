@@ -80,7 +80,6 @@ class AuthController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->validated();
-        $credentials['status'] = 'active';
         if (Auth::attempt($credentials)) {
             // Check if user has seen tutorial already
             if (!\Cache::has('tutorial_seen')) {
@@ -117,6 +116,25 @@ class AuthController extends Controller
         $user = User::findorfail($id);
 
         switch ($request['action']) {
+            case 'picture':
+                $request->validate([
+                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ]);
+                // Make sure you delete the file first before deleting the record in db
+                // But before that, you need to make sure that the file still exist in the first place
+                if (!is_null($user->profile_picture) && file_exists($user->profile_picture)) {
+                    unlink($user->profile_picture);
+                }
+                // To avoid having a file with the same name
+                $newImageName = time() . '-' . $user->f_name . $user->l_name . '.' . $request['image']->extension();
+                // Where to store the image
+                $path = 'profile/picture';
+                // Store the image in public directory
+                $request['image']->move(public_path($path), $newImageName);
+                // Output would be like: game/BackgroundImage/image.png
+                // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
+                $user->profile_picture = $path . '/' . $newImageName;
+                break;
             case 'name':
                 $request->validate([
                     'f_name' => ['required'],
@@ -126,7 +144,7 @@ class AuthController extends Controller
                 $user->l_name = $this->capitalize($request['l_name']);
                 break;
             case 'email':
-                Mail::to($request['email'])->send(new ChangePasswordMail());
+                Mail::to($request['email'])->send(new ChangePasswordMail($user->l_name));
                 break;
             case 'password':
                 $request->validate([
@@ -144,28 +162,10 @@ class AuthController extends Controller
                 Mail::to($user->email)->send(new ChangePasswordMail($user->l_name));
                 break;
         }
-        if ($request['action'] == 'picture') {
-            // Make sure you delete the file first before deleting the record in db
-            // But before that, you need to make sure that the file still exist in the first place
-            if (!is_null($user->profile_picture) && file_exists($user->profile_picture)) {
-                unlink($user->profile_picture);
-            }
-            // To avoid having a file with the same name
-            $newImageName = time() . '-' . $user->f_name . $user->l_name . '.' . $request['image']->extension();
-            // Where to store the image
-            $path = 'profile/picture';
-            // Store the image in public directory
-            $request['image']->move(public_path($path), $newImageName);
-            // Output would be like: game/BackgroundImage/image.png
-            // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
-            $user->profile_picture = $path . '/' . $newImageName;
-        }
 
         $user->save();
 
-        return redirect()
-            ->route('web.profile')
-            ->with('msg', 'Updated Successfully');
+        return response()->json(['msg' => 'Update Success']);
     }
 
     public function logout(Request $request)

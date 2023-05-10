@@ -47,7 +47,7 @@
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
                                             </td>
-                                            <td class="text-center"><span class="badge {{ $user->status == 'active' ? 'bg-success' : 'bg-danger' }}">{{ $user->status }}</span></td>
+                                            <td class="text-center"><span class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'active' : 'suspended' }}</span></td>
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">

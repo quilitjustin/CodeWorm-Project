@@ -23,7 +23,6 @@ class LoginValidationController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->validated();
-        $credentials['status'] = 'active';
         $credentials['role'] = 'superadmin';
         if (Auth::attempt($credentials)) {
             return redirect()

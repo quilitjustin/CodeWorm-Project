@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\WebIsLoggedIn;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +24,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 | Check app/Providers/RouteServiceProvider.php for more details
 */
 
-Route::get('/test', function(){
+Route::get('/test', function () {
     return view('text');
 });
-Route::get('/login/temp', function(){
-    return redirect()->route('web.login');
-})->name('login');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
-    return redirect('web.login');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+// Email verification
+Route::get('/email/verify/{id}/{hash}', 'EmailVerificationController@verify')->name('verification.verify');
 
 // Ajax
 Route::controller(LiveSearchController::class)->group(function () {
@@ -46,13 +39,13 @@ Route::post('/inquiries', 'InquiriesController@store')->name('web.inquiries.stor
 // End
 
 // Public
-Route::controller(AuthController::class)->group(function(){
+Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('web.login');
     Route::get('/register', 'register')->name('web.register');
     Route::post('/login/auth', 'authenticate')->name('web.authenticate');
     Route::post('/register/request', 'request_registration')->name('web.auth.request');
 });
-Route::controller(PasswordResetController::class)->group(function(){
+Route::controller(PasswordResetController::class)->group(function () {
     Route::get('/password/forgot', 'index')->name('password.forgot');
     Route::post('/password/request', 'request')->name('password.request');
     Route::get('/password/reset/{token}', 'reset')->name('password.reset');
@@ -72,33 +65,33 @@ Route::controller(PublicProfileController::class)->group(function () {
 Route::middleware([WebIsLoggedIn::class])->group(function () {
     Route::get('announcements', 'AnnouncementsController@index')->name('web.announcements.index');
 
-    Route::get('/tutorial', function(){
+    Route::get('/tutorial', function () {
         return view('web.tutorial');
     })->name('web.tutorial');
 
-    Route::get('/narattive', function(){
+    Route::get('/narattive', function () {
         return view('web.narrative');
     })->name('web.narrative');
-    
+
     Route::controller(AuthController::class)->group(function () {
         Route::get('/profile/edit', 'profile')->name('web.profile');
         Route::put('/profile/{user}', 'profile_update')->name('web.profile_update');
         Route::post('/logout', 'logout')->name('web.logout');
     });
 
-    Route::controller(PlayController::class)->group(function(){
+    Route::controller(PlayController::class)->group(function () {
         Route::get('/play', 'index')->name('web.play.index');
         Route::get('/play/{id}/stages', 'stages')->name('web.play.stages');
         Route::post('/play/save_record', 'save_record')->name('web.play.store');
         Route::get('/play/start/{id}', 'game_start')->name('web.play.start');
     });
 
-    Route::controller(StoryController::class)->group(function(){
+    Route::controller(StoryController::class)->group(function () {
         Route::get('/stories', 'index')->name('web.stories.index');
         Route::get('/stories/{id}', 'show')->name('web.stories.show');
     });
 
-    Route::get('/forums', function(){
+    Route::get('/forums', function () {
         return view('web.construction');
     });
 
