@@ -86,7 +86,7 @@ class LoginValidationController extends Controller
             ->with('msg', 'Updated Successfully');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
   

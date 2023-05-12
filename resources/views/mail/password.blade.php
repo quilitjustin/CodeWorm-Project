@@ -8,5 +8,5 @@ If you made this change, no further action is required on your part.
 Thank you for using our services.
 
 Sincerely,
-Team Codeworm 
+Codeworm 
 @endcomponent

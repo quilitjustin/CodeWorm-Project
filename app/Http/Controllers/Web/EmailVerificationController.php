@@ -15,16 +15,51 @@ class EmailVerificationController extends Controller
         $user = User::findOrFail($id);
 
         if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
-            return redirect()->route('web.login')->with('error', 'Invalid verification link.');
+            return redirect()
+                ->route('web.login')
+                ->with('error', 'Invalid verification link.');
         }
 
         if ($user->hasVerifiedEmail()) {
-            return redirect()->route('web.login')->with('error', 'Your email address is already verified.');
+            return redirect()
+                ->route('web.login')
+                ->with('error', 'Your email address is already verified.');
         }
 
         $user->markEmailAsVerified();
         event(new Verified($user));
 
-        return redirect()->route('web.login')->with('msg', 'Your email address has been verified.');
+        return redirect()
+            ->route('web.login')
+            ->with('msg', 'Your email address has been verified.');
+    }
+
+    public function update_verify(Request $request)
+    {
+        $user = User::findOrFail($request['id']);
+
+        // Check if the token in the request matches the expected token
+        $expectedToken = hash_hmac('sha256', $user->id . $request['email'], env('APP_KEY'));
+      
+        $actualToken = $request['token']; 
+        if (!hash_equals($expectedToken, $actualToken)) {
+            return redirect()
+                ->route('web.login')
+                ->with('error', 'Invalid verification link.');
+        }
+
+        if ($user->email == $request['email']) {
+            return redirect()
+                ->route('web.login')
+                ->with('msg', 'Your email address has been verified.');
+        }
+
+        $user->email = $request['email'];
+        $user->email_verified_at = now();
+        $user->save();
+
+        return redirect()
+            ->route('web.login')
+            ->with('msg', 'Your email address has been verified.');
     }
 }

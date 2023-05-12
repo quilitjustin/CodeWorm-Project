@@ -29,7 +29,10 @@ Route::get('/test', function () {
 });
 
 // Email verification
-Route::get('/email/verify/{id}/{hash}', 'EmailVerificationController@verify')->name('verification.verify');
+Route::controller(EmailVerificationController::class)->group(function () {
+    Route::get('/email/verify/{id}/{hash}', 'verify')->name('verification.verify');
+    Route::get('/email/verify/{id}/{email}/{token}', 'update_verify')->name('verification.update.verify');
+});
 
 // Ajax
 Route::controller(LiveSearchController::class)->group(function () {

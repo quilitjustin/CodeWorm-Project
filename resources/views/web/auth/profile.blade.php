@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div id="name" class="d-none">
-                                    <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                    <form class="update-form" action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
                                         method="POST">
                                         @csrf
                                         @method('PUT')
@@ -98,7 +98,7 @@
                                     </form>
                                 </div>
                                 <div id="email" class="d-none">
-                                    <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                    <form class="update-form" action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
                                         method="POST">
                                         @csrf
                                         @method('PUT')
@@ -117,7 +117,7 @@
                                     </form>
                                 </div>
                                 <div id="password" class="d-none">
-                                    <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                    <form class="update-form" action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
                                         method="POST">
                                         @csrf
                                         @method('PUT')
@@ -179,7 +179,7 @@
                 });
             });
 
-            $("form").on("submit", function(e) {
+            $(".update-form").on("submit", function(e) {
                 e.preventDefault();
                 const formData = $(this).serialize();
                 const route = $(this).attr("action");
@@ -188,7 +188,7 @@
                     type: 'PUT',
                     data: formData,
                     success: function(response) {
-                        console.log(response);
+                        toastr.success(response.msg);
                     },
                     error: function(xhr, errorThrown) {
                         $("#errors").empty();

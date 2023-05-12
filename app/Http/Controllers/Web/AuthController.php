@@ -13,6 +13,8 @@ use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ChangePasswordMail;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ChangeEmailNotification;
 
 class AuthController extends Controller
 {
@@ -149,7 +151,9 @@ class AuthController extends Controller
                 $user->l_name = $this->capitalize($request['l_name']);
                 break;
             case 'email':
-                Mail::to($request['email'])->send(new ChangePasswordMail($user->l_name));
+                $notifiable = Auth::user();
+
+                Notification::send($notifiable, new ChangeEmailNotification($request['email']));
                 break;
             case 'password':
                 $request->validate([
@@ -170,10 +174,15 @@ class AuthController extends Controller
 
         $user->save();
 
-        if(request()->ajax()){
+        if($request['action'] == 'email'){
+            return response()->json(['msg' => 'Verification link has been send to your new email!']);
+        }
+        if (request()->ajax()) {
             return response()->json(['msg' => 'Updated Successfully']);
         }
-        return redirect()->route('web.profile')->with(['msg' => 'Updated Successfully']);
+        return redirect()
+            ->route('web.profile')
+            ->with(['msg' => 'Updated Successfully']);
     }
 
     public function logout(Request $request)
