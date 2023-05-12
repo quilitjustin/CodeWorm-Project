@@ -57,9 +57,10 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::get('/inquiries/{inquiries}', 'show')->name('super.inquiries.show');
     });
 
-    Route::controller(ExportController::class)->group(function () {
-        Route::get('/export', 'index')->name('super.export.index');
-        Route::get('/export/export_db', 'export_db')->name('super.export.export_db');
+    Route::controller(DBController::class)->group(function () {
+        Route::get('/db', 'index')->name('super.db.index');
+        Route::get('/db/export', 'export')->name('super.db.export');
+        Route::post('/db/import', 'import')->name('super.db.import');
     });
 
     Route::get('/dashboard', function () {

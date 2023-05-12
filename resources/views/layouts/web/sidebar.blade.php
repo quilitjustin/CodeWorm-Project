@@ -71,7 +71,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('public_profile.index') }}"
                         class="nav-link {{ request()->is('public_profile*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-search fa-fw"></i>
@@ -79,7 +79,7 @@
                             Stalk
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('web.profile') }}"
                         class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">

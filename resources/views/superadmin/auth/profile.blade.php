@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Profile</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Profile</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -113,8 +113,8 @@
                                         <div class="form-group row">
                                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" id="password" name="password"
-                                                    placeholder="Password">
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" placeholder="Password">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -192,7 +192,9 @@
 
                                 <div class="tab-pane" id="other">
                                     <label>Public Profile: </label>
-                                    <a class="btn btn-outline-primary d-block" href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and see</a>
+                                    <a class="btn btn-outline-primary d-block"
+                                        href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and
+                                        see</a>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>

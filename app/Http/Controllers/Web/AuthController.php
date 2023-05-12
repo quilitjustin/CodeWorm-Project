@@ -101,6 +101,11 @@ class AuthController extends Controller
         return view('web.auth.profile');
     }
 
+    public function upload_picture()
+    {
+        return view('web.auth.upload_picture');
+    }
+
     protected function capitalize($data)
     {
         $data = strip_tags($data);
@@ -165,7 +170,10 @@ class AuthController extends Controller
 
         $user->save();
 
-        return response()->json(['msg' => 'Update Success']);
+        if(request()->ajax()){
+            return response()->json(['msg' => 'Updated Successfully']);
+        }
+        return redirect()->route('web.profile')->with(['msg' => 'Updated Successfully']);
     }
 
     public function logout(Request $request)

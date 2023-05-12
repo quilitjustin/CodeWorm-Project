@@ -223,11 +223,11 @@
                     </a>
                 </li> --}}
                 <li class="nav-item">
-                    <a href="{{ route('super.export.index') }}"
-                        class="nav-link {{ request()->is('export*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-truck"></i>
+                    <a href="{{ route('super.db.index') }}"
+                        class="nav-link {{ request()->is('db*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-database"></i>
                         <p>
-                            Export
+                            Database
                         </p>
                     </a>
                 </li>

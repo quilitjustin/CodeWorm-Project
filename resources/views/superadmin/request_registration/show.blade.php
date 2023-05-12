@@ -10,7 +10,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('super.request_registration.index') }}">Requests</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('super.request_registration.index') }}">Requests</a>
+                        </li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
                 </div><!-- /.col -->
@@ -74,37 +75,40 @@
                             <!-- /.row -->
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer d-flex justify-content-end">
-                            <a href="{{ route('super.request_registration.index') }}" class="btn btn-warning"><i
-                                    class="right fas fa-angle-left"></i> Go Back</a>
-                            <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="decision" value="approved">
-                                <button class="btn btn-success">Approve</button>
-                            </form>
-                            <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="decision" value="deny">
-                                <button class="btn btn-danger">Deny</button>
-                            </form>
-                            {{-- <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
+                        @if ($reqreg->status == 'pending')
+                            <div class="card-footer d-flex justify-content-end">
+                                <a href="{{ route('super.request_registration.index') }}" class="btn btn-warning"><i
+                                        class="right fas fa-angle-left"></i> Go Back</a>
+                                <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="decision" value="approved">
+                                    <button class="btn btn-success">Approve</button>
+                                </form>
+                                <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="decision" value="deny">
+                                    <button class="btn btn-danger">Deny</button>
+                                </form>
+                                {{-- <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="decision" value="ban">
                                 <button class="btn btn-warning">Ban Permanently</button>
                             </form> --}}
-                        </div>
-                        <!-- /.card-footer -->
+                            </div>
+                            <!-- /.card-footer -->
+                        @endif
                     </div>
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
                 <div class="col-md-8">
                     <div class="card p-2">
-                        <label for="img-preview">Preview</label>
-                        <img src="{{ asset($reqreg->school_id) }}" id="img-preview" class="img-fluid" alt="preview">
+                        <label for="img-preview">School ID Provided</label>
+                        <img src="{{ asset($reqreg->school_id) }}" id="img-preview"
+                            class="img-fluid" alt="preview">
                     </div>
                 </div>
                 <!-- /.col -->

@@ -10,12 +10,6 @@
                     <div class="col-sm-6">
                         <h1 class="m-0 text-navy font-weight-bold">Profile</h1>
                     </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/play">Home</a></li>
-                            <li class="breadcrumb-item active">Settings</li>
-                        </ol>
-                    </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -54,43 +48,30 @@
                                     </tbody>
                                 </table>
                                 <div id="picture" class="d-none">
-                                    <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
-                                        method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="action" value="picture">
-                                        <span class="text-muted">Changes to your photo will be reflected across your
-                                            account.</span>
-                                        <div class="form-group">
-                                            <label>Profile Picture</label>
-                                            <div class="input-group mb-3">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="image"
-                                                        name="image" accept="image/*">
-                                                    <label class="custom-file-label" for="image"
-                                                        aria-describedby="inputGroupFileAddon02">Choose Image</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="{{ route('web.profile.upload_picture') }}">
+                                                <div class="card p-3 d-flex justify-content-center align-items-center">
+                                                    <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+                                                        style="width:150px; height:150px;">
+                                                        <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                    </div>
+                                                    <p class="text-dark font-weight-bold">Upload Photo</p>
                                                 </div>
-                                                <div class="input-group-append">
-                                                    <button type="button" id="clear"
-                                                        class="btn btn-outline-secondary">Clear</button>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="card p-2">
-                                                    <label for="img-preview">Preview</label>
-                                                    <img src="{{ !is_null(Auth::user()->profile_picture) ? asset(Auth::user()->profile_picture) : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
-                                                        id="img-preview"
-                                                        style="width: 150px; height: 150px; max-width: 150px; max-height: 150px;"
-                                                        class="img-fluid img-circle mx-auto" alt="preview">
-                                                </div>
-                                            </div>
-
+                                            </a>
                                         </div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        <div class="col-md-6">
+                                            <a href="{{ route('web.profile.upload_picture') }}">
+                                                <div class="card p-3 d-flex justify-content-center align-items-center">
+                                                    <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+                                                        style="width:150px; height:150px;">
+                                                        <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                    </div>
+                                                    <p class="text-dark font-weight-bold">Take a Photo</p>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 <div id="name" class="d-none">
                                     <form action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
@@ -183,50 +164,21 @@
 
 @section('script')
     <script>
-        $(".settings-option").click(function() {
-            const target = $(this).data("target");
-            $("#settings").fadeOut("slow", function() {
-                $(target).removeClass("d-none").fadeIn("fast");
-            });
-        });
-
-        $(".cancel").click(function() {
-            const target = $(this).parent().parent().parent();
-            $(target).fadeOut("slow", function() {
-                $("#settings").fadeIn("fast");
-            });
-        });
-
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
-
-        imageFile.on("change", function(e) {
-            // Replace label inside input 
-            const fileName = $(this).val();
-            $(this).next(".custom-file-label").html(fileName);
-
-            // Show image preview
-            const item = e.target.files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function() {
-                preview.attr("src", reader.result);
-                preview.removeClass("d-none");
-            }, false);
-
-            if (item) {
-                reader.readAsDataURL(item);
-            }
-        });
-
-        $("#clear").click(function() {
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
-            preview.addClass("d-none");
-            preview.attr("src", "#");
-        });
-
         $(document).ready(function() {
+            $(".settings-option").click(function() {
+                const target = $(this).data("target");
+                $("#settings").fadeOut("slow", function() {
+                    $(target).removeClass("d-none").fadeIn("fast");
+                });
+            });
+
+            $(".cancel").click(function() {
+                const target = $(this).parent().parent().parent();
+                $(target).fadeOut("slow", function() {
+                    $("#settings").fadeIn("fast");
+                });
+            });
+
             $("form").on("submit", function(e) {
                 e.preventDefault();
                 const formData = $(this).serialize();
