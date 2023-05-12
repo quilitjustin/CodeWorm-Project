@@ -57,8 +57,8 @@ height:100vh; width=100%;">
         </div>
         <div class="d-flex justify-content-center">
             <div id="content" class="row">
-                <div class="col-md-3 bg-blurr rounded d-flex flex-column justify-content-between" style="padding: 0;">
-                    <div>
+                <div class="col-md-3 bg-blurr rounded d-none flex-column justify-content-between" style="padding: 0;">
+                    <div class="">
                         <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
                             Tackle
                             <br>
@@ -95,11 +95,11 @@ height:100vh; width=100%;">
                             </span>
                         </button>
                     </div>
-                    <div>
+                    {{-- <div>
                         <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
-                    </div>
+                    </div> --}} 
                 </div>
-                <div id="main-controls" class="col-md-6 p-0" style="height: 350px; background: #080c16;">
+                <div id="main-controls" class="col-md-9 p-0" style="height: 350px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
                     </div> --}}
                     <div id="tasks" class="h-100">
@@ -112,9 +112,11 @@ height:100vh; width=100%;">
                                 
                             </div>
                         </div>
-                        <div class="btn-group w-100" role="group" style="z-index: 1;">
-                            <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button>
-                            <button id="start-coding" class="btn btn-success w-75">Start Coding</button>
+                        <div class="h-25 d-flex align-items-end">
+                            <div class="btn-group w-100" role="group" style="z-index: 1;">
+                                <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button>
+                                <button id="start-coding" class="btn btn-success w-75">Start Coding</button>
+                            </div>
                         </div>
                     </div>
                     <div id="code-editor">
@@ -141,6 +143,9 @@ height:100vh; width=100%;">
                 <div class="col-md-3 bg-blurr p-3 text-white rounded">
                     <p>Console:</p>
                     <p id="err-console"></p>
+                    <div>
+                        <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                    </div>
                 </div>
             </div>
         </div>
