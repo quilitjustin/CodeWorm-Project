@@ -74,6 +74,8 @@ class AuthController extends Controller
 
         $req_registration->save();
 
+        event(new \App\Events\UserRequestRegistration('Hello World'));
+
         return redirect()
             ->route('web.login')
             ->with(['msg' => 'Registered Successfully']);

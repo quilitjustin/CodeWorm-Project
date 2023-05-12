@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Cross-Origin Resource Sharing (CORS) Configuration
@@ -31,4 +30,9 @@ return [
 
     'supports_credentials' => false,
 
+    'allowed_origins' => ['*'],
+
+    'allowed_methods' => ['GET', 'POST'],
+
+    'allowed_headers' => ['Content-Type', 'Authorization'],
 ];

@@ -47,10 +47,11 @@
             outline: inherit;
         }
 
-        .sidebar-collapse .logout-text{
+        .sidebar-collapse .logout-text {
             display: none;
         }
-        .sidebar:hover .logout-text{
+
+        .sidebar:hover .logout-text {
             display: inline;
         }
     </style>
@@ -106,6 +107,8 @@
     <script src="{{ asset('adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
+
+    @vite(['resources/js/app.js'])
 
     <script>
         $.ajaxSetup({
