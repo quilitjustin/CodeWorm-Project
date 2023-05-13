@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserSuspensionMail;
 
 class UsersController extends Controller
 {
@@ -176,42 +178,45 @@ class UsersController extends Controller
     }
 
     // Ban or unban user
-    public function ban_user(Request $request, $user)
+    public function suspend_user(Request $request, $user)
     {
-        $request->validate([
-            'duration' => ['required', 'in:hour,day,week,month,year,forever'],
-        ]);
+        // $request->validate([
+        //     'duration' => ['required', 'in:hour,day,week,month,year,forever'],
+        // ]);
 
         $data = $this->findRecord($user);
-        $data->status = 'banned';
-        $carbon = new \Carbon\Carbon();
-        switch ($request['duration']) {
-            case 'hour':
-                $data->banned_until = $carbon::now()->addHour();
-                break;
-            case 'day':
-                $data->banned_until = $carbon::now()->addDay();
-                break;
-            case 'week':
-                $data->banned_until = $carbon::now()->addWeek();
-                break;
-            case 'month':
-                $data->banned_until = $carbon::now()->addMonth();
-                break;
-            case 'year':
-                $data->banned_until = $carbon::now()->addYear();
-                break;
-            case 'forever':
-                $data->banned_until = $carbon::now()->addYears(1000);
-                break;
-            default:
-                $data->banned_until = null;
-                break;
-        }
-        $data->updated_by = Auth::user()->id;
+        
+        // $carbon = new \Carbon\Carbon();
+        // switch ($request['duration']) {
+        //     case 'hour':
+        //         $data->banned_until = $carbon::now()->addHour();
+        //         break;
+        //     case 'day':
+        //         $data->banned_until = $carbon::now()->addDay();
+        //         break;
+        //     case 'week':
+        //         $data->banned_until = $carbon::now()->addWeek();
+        //         break;
+        //     case 'month':
+        //         $data->banned_until = $carbon::now()->addMonth();
+        //         break;
+        //     case 'year':
+        //         $data->banned_until = $carbon::now()->addYear();
+        //         break;
+        //     case 'forever':
+        //         $data->banned_until = $carbon::now()->addYears(1000);
+        //         break;
+        //     default:
+        //         $data->banned_until = null;
+        //         break;
+        // }
+        
+        $data->suspended_until = now();
         $data->save();
 
-        return response()->json(['message' => 'Banned successfully']);
+        Mail::to($data->email)->send(new UserSuspensionMail($data->l_name, $request['reason']));
+
+        return response()->json(['message' => 'Suspended successfully']);
     }
 
     /**

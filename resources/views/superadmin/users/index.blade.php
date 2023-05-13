@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Users</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -47,19 +47,24 @@
                                                     {{ $user['f_name'] . ' ' . $user['l_name'] }}
                                                 </a>
                                             </td>
-                                            <td class="text-center"><span class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'active' : 'suspended' }}</span></td>
+                                            <td class="text-center"><span
+                                                    class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'active' : 'suspended' }}</span>
+                                            </td>
                                             <td class="d-none d-md-table-cell text-center">
                                                 {{ $user['role'] }}</td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('super.users.show', $user->encrypted_id) }}">
+                                                <a class="text-link"
+                                                    href="{{ route('super.users.show', $user->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success" href="{{ route('super.users.edit', $user->encrypted_id) }}">
+                                                <a class="text-success"
+                                                    href="{{ route('super.users.edit', $user->encrypted_id) }}">
                                                     <i class="fas fa-pen-square"></i> Edit</a>
-                                                
-                                                <form class="delete d-inline"
-                                                    action="{{ route('super.users.destroy', $user->encrypted_id) }}" method="POST">
+
+                                                <form class="suspend d-inline"
+                                                    action="{{ route('super.users.suspend', $user->encrypted_id) }}"
+                                                    method="POST">
                                                     @csrf
-                                                    @method('DELETE')
+                                                    @method('PUT')
                                                     <button type="submit" class="text-danger">
                                                         <i class="fas fa-ban"></i> Suspend</button>
                                                 </form>
@@ -88,12 +93,82 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    
+    <div class="modal fade" id="confirm-delete">
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to delete this record?
+                        <br>
+                        Please specify the reason.
+                    </p>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="reason" placeholder="Reason" />
+                        <span id="err-msg"></span>
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button id="confirm-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.index_component')
+    {{-- @include('layouts.superadmin.index_component') --}}
     <script>
-        
+        $(document).ready(function() {
+            let route = "";
+            let data = "";
+            $(".suspend").submit(function(e) {
+                e.preventDefault();
+                $("#err-msg").text("");
+                $("#confirmation").val("")
+                $("#confirm-delete").modal("show");
+                route = $(this).attr("action");
+                data = $(this).serialize();
+                // Select the parent <tr>
+                toBeRemoved = $(this).parent().parent();
+            });
+            $("#confirm-btn").click(function() {
+                const reason = $("#reason").val();
+                if (reason) {
+                    $.ajax({
+                        url: route,
+                        method: "PUT",
+                        data: data + "&reason=" + reason,
+                        beforeSend: function() {
+                      
+                        },
+                        complete: function() {
+                            window.location.reload();
+                        },
+                        success: function(response) {
+                            toastr.success("Updated Successfully");
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                    // window.location.reload();
+                    // toBeRemoved.remove();
+                } else {
+                    $("#err-msg").text("Reason is required.");
+                }
+            });
+        });
     </script>
 @endsection

@@ -1,5 +1,5 @@
 @component('mail::message')
-Hi {{ $l_name }},
+Hi Mr/Mrs {{ $l_name }},
 
 We would like to inform you that your password has been changed recently, on {{ $date }}. If you did not perform this action, please take the necessary precautions to secure your account and contact us immediately.
 
