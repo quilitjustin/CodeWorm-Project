@@ -67,7 +67,7 @@
                                 <div class="col-md-3">
                                     <label>Date Updated</label>
                                     <br>
-                                    <p>{{ is_null($reqreg->updated_by) ? '' : \Carbon\Carbon::parse($reqreg->updated_at)->diffForHumans() }}
+                                    <p>{{ \Carbon\Carbon::parse($reqreg->updated_at)->diffForHumans() }}
                                     </p>
                                 </div>
 

@@ -74,7 +74,7 @@ class AuthController extends Controller
 
         $req_registration->save();
 
-        event(new \App\Events\UserRequestRegistration('Hello World'));
+        // event(new \App\Events\UserRequestRegistration('Hello World'));
 
         return redirect()
             ->route('web.login')
@@ -85,6 +85,19 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
         if (Auth::attempt($credentials)) {
+            if (!is_null(Auth::user()->suspended_until)) {
+                Auth::logout();
+                return redirect()
+                    ->route('web.login')
+                    ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until , '.']);
+            }
+
+            if (is_null(Auth::user()->email_verified_at)) {
+                Auth::logout();
+                return redirect()
+                    ->route('web.login')
+                    ->with(['error' => 'You must verify your email first.']);
+            }
             // Check if user has seen tutorial already
             if (!\Cache::has('tutorial_seen')) {
                 // User hasn't seen tutorial, redirect to tutorial page
@@ -176,7 +189,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        if($request['action'] == 'email'){
+        if ($request['action'] == 'email') {
             return response()->json(['msg' => 'Verification link has been send to your new email!']);
         }
         if (request()->ajax()) {
