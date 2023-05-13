@@ -119,17 +119,8 @@
                             <!-- /.tab-content -->
                         </div><!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
-                            <button id="cancel" type="button" class="btn btn-warning"><i
-                                    class="right fas fa-angle-left"></i> Go Back</button>
-                            <a href="{{ route('super.users.edit', $user->encrypted_id) }}"
-                                class="btn btn-primary ml-2">Update</a>
-                          
-                            <form class="delete d-inline" action="{{ route('super.users.destroy', $user->encrypted_id) }}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger ml-2">Delete</button>
-                            </form>
+                            <a href="{{ route('super.users.index') }}" class="btn btn-warning"><i
+                                    class="right fas fa-angle-left"></i> Go Back</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>
