@@ -44,30 +44,28 @@
                                         <tr>
                                             <td>
                                                 <a href="{{ route('super.users.show', $user->encrypted_id) }}">
-                                                    {{ $user['f_name'] . ' ' . $user['l_name'] }}
+                                                    {{ $user->f_name . ' ' . $user->l_name }}
                                                 </a>
                                             </td>
                                             <td class="text-center"><span
                                                     class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'active' : 'suspended' }}</span>
                                             </td>
-                                            <td class="d-none d-md-table-cell text-center">
+                                            <td class="text-center">
                                                 {{ $user['role'] }}</td>
-                                            <td class="d-none d-xl-table-cell">
+                                            <td class="">
                                                 <a class="text-link"
                                                     href="{{ route('super.users.show', $user->encrypted_id) }}">
                                                     <i class="far fa-eye"></i> View</a>
-                                                <a class="text-success"
-                                                    href="{{ route('super.users.edit', $user->encrypted_id) }}">
-                                                    <i class="fas fa-pen-square"></i> Edit</a>
-
-                                                <form class="suspend d-inline"
-                                                    action="{{ route('super.users.suspend', $user->encrypted_id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="text-danger">
-                                                        <i class="fas fa-ban"></i> Suspend</button>
-                                                </form>
+                                                @if (is_null($user->suspended_until))
+                                                    <form class="suspend d-inline"
+                                                        action="{{ route('super.users.suspend', $user->encrypted_id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="text-danger">
+                                                            <i class="fas fa-ban"></i> Suspend</button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -151,7 +149,7 @@
                         method: "PUT",
                         data: data + "&reason=" + reason,
                         beforeSend: function() {
-                      
+
                         },
                         complete: function() {
                             window.location.reload();
