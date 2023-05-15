@@ -108,13 +108,25 @@
     <!-- Toastr -->
     <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
 
-    {{-- @vite(['resources/js/app.js']) --}}
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('user-request-registration');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
         });
     </script>
 

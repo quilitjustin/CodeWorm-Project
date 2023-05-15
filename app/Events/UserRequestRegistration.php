@@ -35,4 +35,9 @@ class UserRequestRegistration implements ShouldBroadcast
     {
         return new channel('user-request-registration');
     }
+
+    public function broadcastAs()
+    {
+        return 'my-event';
+    }
 }
