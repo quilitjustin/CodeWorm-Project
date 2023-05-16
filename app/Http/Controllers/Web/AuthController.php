@@ -49,15 +49,15 @@ class AuthController extends Controller
         $req_registration = new RequestRegistration();
 
         if (is_null($user)) {
-            $new_user = new User();
-            $new_user->f_name = strip_tags($request['f_name']);
-            $new_user->l_name = strip_tags($request['l_name']);
-            $new_user->email = $email;
-            $new_user->password = Hash::make($request['password']);
+            $user = new User();
+            $user->f_name = strip_tags($request['f_name']);
+            $user->l_name = strip_tags($request['l_name']);
+            $user->email = $email;
+            $user->password = Hash::make($request['password']);
 
-            $new_user->save();
+            $user->save();
 
-            $req_registration->user_id = $new_user->id;
+            $req_registration->user_id = $user->id;
         } else {
             $req_registration->user_id = $user->id;
         }
@@ -74,7 +74,14 @@ class AuthController extends Controller
 
         $req_registration->save();
 
-        event(new \App\Events\UserRequestRegistration('Hello World'));
+        $url = route('verification.verify', [
+            'id' => $user->getKey(),
+            'hash' => sha1($user->getEmailForVerification()),
+        ]);
+
+        $user->sendEmailVerificationNotification($url);
+
+        // event(new \App\Events\UserRequestRegistration('Hello World'));
 
         return redirect()
             ->route('web.login')

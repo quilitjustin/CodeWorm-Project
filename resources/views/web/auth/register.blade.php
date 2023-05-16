@@ -9,7 +9,7 @@
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
 
-                <form action="{{ route('web.auth.request') }}" method="POST" enctype="multipart/form-data">
+                <form id="registration-form" action="{{ route('web.auth.request') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="First name" name="f_name">
@@ -68,13 +68,13 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" id="agreeTerms" name="terms" value="agree">
                                 <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
+                                    I agree to the <a href="#" id="terms">terms</a>
                                 </label>
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block mb-2">Register</button>
+                            <button id="submit-btn" type="submit" class="btn btn-primary btn-block mb-2">Register</button>
                         </div>
                         <div class="col-12 text-center">
                             <a href="{{ route('web.login') }}">Login</a> |
@@ -95,8 +95,53 @@
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
-
     </div>
+
+    <div class="modal fade" id="terms-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Terms and Conditions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>By using this website, you agree to be bound by the following terms and conditions:</p>
+                    <ol>
+                        <li>You agree to comply with all applicable laws and regulations</li>
+                        <li>You agree not to use the website for any unlawful purpose.</li>
+                        <li>You agree not to harass, intimidate, or otherwise abuse any other user.</li>
+                        <li>You agree not to upload, post, or transmit any content that infringes on the rights of
+                            others.
+                        </li>
+                        <li>You agree not to use the website to distribute spam or other unsolicited messages.</li>
+                        <li>You agree not to engage in any activity that could damage or disrupt the website or its
+                            servers.
+                        </li>
+                        <li>You agree to be responsible for maintaining the confidentiality of your account information.
+                        </li>
+                        <li>You agree to notify us immediately if you become aware of any unauthorized use of your
+                            account.
+                        <li>You acknowledge and agree that your account may be terminated or suspended at any time for
+                            any
+                            reason, including but not limited to repeated denials of registration by the site administrator.
+                            In
+                            such
+                            cases, the email address associated with your account may be permanently banned from use on the
+                            site.</li>
+                    </ol>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="confirm-btn" type="button" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('script')
@@ -112,6 +157,14 @@
         $("#clear").click(function() {
             imageFile.val("");
             imageFile.next(".custom-file-label").html("Choose Image");
+        });
+
+        $("#terms").click(function() {
+            $("#terms-modal").modal("show");
+        });
+
+        $("#registration-form").on("submit", function(e){
+            $("#submit-btn").prop("disabled", true); 
         });
     </script>
 @endsection

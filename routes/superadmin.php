@@ -32,7 +32,11 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::get('/fetch/languages', 'languages')->name('super.fetch.languages');
         Route::post('/fetch/tasks', 'tasks')->name('super.fetch.tasks');
     });
-    Route::get('/analitics_dashboard', 'AnaliticsDashboardController@index')->name('super.analytics.index');
+
+    Route::controller(AnaliticsDashboardController::class)->group(function(){
+        Route::get('/analitics_dashboard', 'index')->name('super.analytics.index');
+        Route::get('/analytics/user_reg_count', 'user_reg_count')->name('super.analytics.user_reg_count');
+    });
     // End ajax
 
     Route::controller(EnvEditorController::class)->group(function () {
@@ -111,10 +115,10 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     // End Cms
 
     Route::controller(SplashPageController::class)->group(function () {
-        Route::get('/splash', 'index')->name('super.splash.index');
-        Route::get('/splash/show/{id}', 'show')->name('super.splash.show');
-        Route::post('/splash/store', 'store')->name('super.splash.store');
-        Route::delete('/splash/destroy/{id}', 'destroy')->name('super.splash.destroy');
+        Route::get('/cms/splash', 'index')->name('super.cms.splash.index');
+        Route::get('/cms/splash/show/{id}', 'show')->name('super.cms.splash.show');
+        Route::post('/cms/splash/store', 'store')->name('super.cms.splash.store');
+        Route::delete('/cms/splash/destroy/{id}', 'destroy')->name('super.cms.splash.destroy');
     });
 
     Route::controller(RequestRegistrationController::class)->group(function () {

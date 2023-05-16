@@ -43,7 +43,7 @@
                                     @forelse ($splashs as $splash)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('super.splash.show', $splash['id']) }}">
+                                                <a href="{{ route('super.cms.splash.show', $splash['id']) }}">
                                                     Version {{ $splash->id }}</a>
                                                 @if ($loop->first)
                                                     <span class="badge bg-primary">Latest</span>
@@ -55,11 +55,11 @@
                                                     href="{{ is_null($splash->created_by_user) ? '#' : route('super.users.show', $splash->created_by_user->encrypted_id) }}">{{ is_null($splash->created_by_user) ? '' : $splash->created_by_user->f_name . ' ' . $splash->created_by_user->l_name }}</a>
                                             </td>
                                             <td class="d-none d-xl-table-cell">
-                                                <a class="text-link" href="{{ route('super.splash.show', $splash['id']) }}">
+                                                <a class="text-link" href="{{ route('super.cms.splash.show', $splash['id']) }}">
                                                     <i class="far fa-eye"></i> View</a>
                                                 @if (!$loop->first)
                                                     <form class="delete d-inline"
-                                                        action="{{ route('super.splash.destroy', $splash['id']) }}"
+                                                        action="{{ route('super.cms.splash.destroy', $splash['id']) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

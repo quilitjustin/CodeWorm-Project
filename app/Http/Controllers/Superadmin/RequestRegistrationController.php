@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RequestRegistration;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationAccepted;
 
 class RequestRegistrationController extends Controller
 {
     public function index()
     {
-        $reqregs = RequestRegistration::with('users:id,email')
+        $reqregs = RequestRegistration::whereHas('users', function ($query) {
+            $query->whereNotNull('email_verified_at');
+        })
+            ->with('users:id,email')
             ->select('id', 'status', 'user_id')
             ->orderBy('created_at', 'desc')
             ->get();
-
+        // $reqregs = RequestRegistration::all();
         return view('superadmin.request_registration.index', [
             'reqregs' => $reqregs,
         ]);
@@ -35,22 +40,19 @@ class RequestRegistrationController extends Controller
         $request->validate([
             'decision' => ['required', 'in:approved,deny,ban'],
         ]);
+        $status = '';
+
         $data = RequestRegistration::findorfail($id);
-
+        $user = User::select('id', 'l_name', 'email')->findorfail($data->user_id);
         if ($request['decision'] == 'approved') {
-            $data->status = 'accepted';
-            $user = User::findorfail($data->user_id);
-
-            $url = route('verification.verify', [
-                'id' => $user->getKey(),
-                'hash' => sha1($user->getEmailForVerification()),
-            ]);
-
-            $user->sendEmailVerificationNotification($url);
+            $status = 'accepted';
+            $data->status = $status;  
         }
         if ($request['decision'] == 'deny') {
-            $data->status = 'denied';
+            $status = 'denied';
+            $data->status = $status;
         }
+        Mail::to($user->email)->send(new RegistrationAccepted($user->l_name, $status));
         $data->save();
 
         return back()->with(['msg' => 'Updated Successfully']);

@@ -75,31 +75,26 @@
                             <!-- /.row -->
                         </div>
                         <!-- /.card-body -->
-                        @if ($reqreg->status == 'pending')
-                            <div class="card-footer d-flex justify-content-end">
-                                <a href="{{ route('super.request_registration.index') }}" class="btn btn-warning"><i
-                                        class="right fas fa-angle-left"></i> Go Back</a>
-                                <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
+                        <div class="card-footer d-flex justify-content-end">
+                            <button id="cancel" class="btn btn-warning"><i
+                                    class="right fas fa-angle-left"></i> Go Back
+                            </button>
+                            @if ($reqreg->status == 'pending')
+                                <form class="registration-update-form" action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="decision" value="approved">
                                     <button class="btn btn-success">Approve</button>
                                 </form>
-                                <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
+                                <form class="registration-update-form" action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="decision" value="deny">
                                     <button class="btn btn-danger">Deny</button>
                                 </form>
-                                {{-- <form action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="decision" value="ban">
-                                <button class="btn btn-warning">Ban Permanently</button>
-                            </form> --}}
-                            </div>
-                            <!-- /.card-footer -->
-                        @endif
+                            @endif
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -107,8 +102,7 @@
                 <div class="col-md-8">
                     <div class="card p-2">
                         <label for="img-preview">School ID Provided</label>
-                        <img src="{{ asset($reqreg->school_id) }}" id="img-preview"
-                            class="img-fluid" alt="preview">
+                        <img src="{{ asset($reqreg->school_id) }}" id="img-preview" class="img-fluid" alt="preview">
                     </div>
                 </div>
                 <!-- /.col -->
@@ -121,4 +115,14 @@
 
 @section('script')
     @include('layouts.superadmin.inc_delete')
+    <script>
+        $("#cancel").click(function(){
+            window.location.href = "{{ route('super.request_registration.index') }}";
+        });
+
+        $(".registration-update-form").on("submit", function(e) {
+            $(".registration-update-form").find("button").prop("disabled", true);
+            $("#cancel").prop("disabled", true);
+        });
+    </script>
 @endsection

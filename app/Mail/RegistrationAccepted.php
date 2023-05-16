@@ -9,25 +9,25 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserSuspensionMail extends Mailable
+class RegistrationAccepted extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $l_name;
     public $date;
-    public $reason;
+    public $status;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($l_name, $reason)
+    public function __construct($l_name, $status)
     {
         $this->l_name = $l_name;
         $date = now(); 
         $this->date = $date->format('F j, Y g:i A'); 
-        $this->reason = $reason;
+        $this->status = $status;
     }
 
     /**
@@ -37,7 +37,7 @@ class UserSuspensionMail extends Mailable
      */
     public function envelope()
     {
-        return new Envelope(subject: 'Account Suspension Mail');
+        return new Envelope(subject: 'Registration Accepted Mail');
     }
 
     /**
@@ -47,7 +47,7 @@ class UserSuspensionMail extends Mailable
      */
     public function content()
     {
-        return new Content(markdown: 'mail.suspension');
+        return new Content(markdown: 'mail.reg_accepted');
     }
 
     /**

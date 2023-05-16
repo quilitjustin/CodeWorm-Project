@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-navy font-weight-bold">Registration Request</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Registration Requests</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
                 <div class="col-12">
                     <div class="card card-navy">
                         <div class="card-header">
-                            <h3 class="card-title">List of Registration Requests</h3>
+                            <h3 class="card-title">List of Current Registration Requests</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,11 +46,15 @@
                                                     {{ $reqreg->users->email }}
                                                 </a>
                                             </td>
-                                            <td class="text-center"><span
-                                                    class="badge {{ $reqreg->status == 'pending' ? 'bg-secondary' : ($reqreg->status == 'accepted' ? 'bg-success' : 'bg-danger') }}">{{ $reqreg->status }}</span>
+                                            <td class="text-center">
+                                                <span class="badge {{ $reqreg->status == 'pending' ? 'bg-secondary' : ($reqreg->status == 'accepted' ? 'bg-success' : 'bg-danger') }}">{{ $reqreg->status }}</span>
                                             </td>
-                                            <td class="d-none d-md-table-cell text-center">
-                                                {{ $reqreg['role'] }}</td>
+                                            <td class="">
+                                                <a class="text-link"
+                                                    href="{{ route('super.request_registration.show', $reqreg->id) }}">
+                                                    <i class="far fa-eye"></i> View
+                                                </a>
+                                            </td>
                                         </tr>
                                     @empty
                                     @endforelse
@@ -70,9 +75,82 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <div class="modal fade" id="confirm-suspend">
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to suspend this Registration Request?
+                        <br>
+                        Please specify the reason.
+                    </p>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="reason" placeholder="Reason" />
+                        <span id="err-msg"></span>
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button id="confirm-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('script')
     @include('layouts.superadmin.index_component')
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            let route = "";
+            let data = "";
+            $(".suspend").submit(function(e) {
+                e.preventDefault();
+                $("#err-msg").text("");
+                $("#confirmation").val("")
+                $("#confirm-suspend").modal("show");
+                route = $(this).attr("action");
+                data = $(this).serialize();
+                // Select the parent <tr>
+                toBeRemoved = $(this).parent().parent();
+            });
+            $("#confirm-btn").click(function() {
+                const reason = $("#reason").val();
+                if (reason) {
+                    $.ajax({
+                        url: route,
+                        method: "PUT",
+                        data: data + "&reason=" + reason,
+                        beforeSend: function() {
+
+                        },
+                        complete: function() {
+                            window.location.reload();
+                        },
+                        success: function(response) {
+                            toastr.success("Updated Successfully");
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                    // window.location.reload();
+                    // toBeRemoved.remove();
+                } else {
+                    $("#err-msg").text("Reason is required.");
+                }
+            });
+        });
+    </script>
 @endsection

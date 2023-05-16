@@ -36,7 +36,7 @@
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th class="d-none d-md-table-cell">Type</th>
-                                        <th class="d-none d-xl-table-cell">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +51,8 @@
                                                     class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'active' : 'suspended' }}</span>
                                             </td>
                                             <td class="text-center">
-                                                {{ $user['role'] }}</td>
+                                                {{ $user['role'] }}
+                                            </td>
                                             <td class="">
                                                 <a class="text-link"
                                                     href="{{ route('super.users.show', $user->encrypted_id) }}">
@@ -91,7 +92,7 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    <div class="modal fade" id="confirm-delete">
+    <div class="modal fade" id="confirm-suspend">
         <div class="modal-dialog">
             <div class="modal-content bg-danger">
                 <div class="modal-header">
@@ -102,7 +103,7 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Are you sure you want to delete this record?
+                        Are you sure you want to suspend this user?
                         <br>
                         Please specify the reason.
                     </p>
@@ -126,7 +127,7 @@
 @endsection
 
 @section('script')
-    {{-- @include('layouts.superadmin.index_component') --}}
+    @include('layouts.superadmin.index_component')
     <script>
         $(document).ready(function() {
             let route = "";
@@ -135,7 +136,7 @@
                 e.preventDefault();
                 $("#err-msg").text("");
                 $("#confirmation").val("")
-                $("#confirm-delete").modal("show");
+                $("#confirm-suspend").modal("show");
                 route = $(this).attr("action");
                 data = $(this).serialize();
                 // Select the parent <tr>

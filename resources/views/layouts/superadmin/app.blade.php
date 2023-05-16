@@ -116,6 +116,22 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        let TOTAL_NOTIFICATION = 0;
+        let TOTAL_REGISTRATION_REQUEST = 0;
+
+        $.get({
+            url: "{{ route('super.analytics.user_reg_count') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                // Inside nav.blade.php, in notifications
+                TOTAL_NOTIFICATION = response.count;
+                $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
+                TOTAL_REGISTRATION_REQUEST += response.count;
+                $("#total-notification").text(TOTAL_NOTIFICATION);
+            }
+        });
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -126,7 +142,11 @@
 
         var channel = pusher.subscribe('user-request-registration');
         channel.bind('my-event', function(data) {
-            alert(JSON.stringify(data));
+            TOTAL_REGISTRATION_REQUEST += 1;
+            TOTAL_NOTIFICATION += 1;
+
+            $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
+            $("#total-notification").text(TOTAL_NOTIFICATION);
         });
     </script>
 

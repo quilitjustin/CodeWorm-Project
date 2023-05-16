@@ -27,7 +27,10 @@ class EmailVerificationController extends Controller
         }
 
         $user->markEmailAsVerified();
+        
         event(new Verified($user));
+
+        event(new \App\Events\UserRequestRegistration('Hello World'));
 
         return redirect()
             ->route('web.login')
@@ -51,7 +54,7 @@ class EmailVerificationController extends Controller
         if ($user->email == $request['email']) {
             return redirect()
                 ->route('web.login')
-                ->with('msg', 'Your email address has been verified.');
+                ->with('error', 'Your email address has already been verified.');
         }
 
         $user->email = $request['email'];

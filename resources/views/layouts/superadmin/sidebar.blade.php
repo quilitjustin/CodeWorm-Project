@@ -49,7 +49,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="/announcements" class="nav-link {{ request()->is('announcements*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-box-open"></i>
+                        <i class="nav-icon fas fa-scroll"></i>
                         <p>
                             Announcements
                         </p>
@@ -72,14 +72,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/splash" class="nav-link {{ request()->is('splash*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-box-open"></i>
-                        <p>
-                            Splash Page
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/stories" class="nav-link {{ request()->is('stories*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
@@ -96,6 +88,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('super.cms.splash.index') }}" class="nav-link {{ request()->is('cms/splash*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Splash Page
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link {{ request()->is('cms/bgim*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -222,7 +222,7 @@
                         </p>
                     </a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('super.db.index') }}"
                         class="nav-link {{ request()->is('db*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-database"></i>
@@ -230,7 +230,7 @@
                             Database
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ request()->is('env*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-edit"></i>

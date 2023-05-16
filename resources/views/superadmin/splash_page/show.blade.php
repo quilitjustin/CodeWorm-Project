@@ -353,7 +353,7 @@
                 myItems.push(item);
             }
             const itemReady = JSON.stringify(myItems);
-            const route = "{{ route('super.splash.store') }}";
+            const route = "{{ route('super.cms.splash.store') }}";
             $.post({
                 url: route,
                 data: {
@@ -363,7 +363,7 @@
                 dataType: "json",
                 success: function(response) {
                     $(window).unbind("beforeunload");
-                    window.location.href = "{{ route('super.splash.index') }}";
+                    window.location.href = "{{ route('super.cms.splash.index') }}";
                 },
                 error: function(request, status, error) {
                     console.log(request.responseText);
