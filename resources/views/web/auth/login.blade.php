@@ -12,7 +12,7 @@
                 <div class="card-body register-card-body">
                     <p class="login-box-msg">Sign in to start your session</p>
 
-                    <form action="{{ route('web.authenticate') }}" method="POST">
+                    <form id="login-form" action="{{ route('web.authenticate') }}" method="POST">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" placeholder="Email" name="email">
@@ -41,7 +41,7 @@
                             </div> --}}
                             <!-- /.col -->
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-block mb-2">Login</button>
+                                <button id="submit-btn" type="submit" class="btn btn-primary btn-block mb-2">Login</button>
                                 <a href="{{ route('web.register') }}">Sign up</a> |
                                 <a href="{{ route('password.forgot') }}" >Forgot Password?</a>
                             </div>
@@ -78,4 +78,12 @@
         </div>
         <!-- /.register-box -->
     </div>
+@endsection
+
+@section('script')
+<script>
+    $("#login-form").on("submit", function(){
+        $("#submit-btn").prop("disabled", true);
+    });
+</script>
 @endsection

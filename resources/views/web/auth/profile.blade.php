@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -187,6 +187,12 @@
                     url: route,
                     type: 'PUT',
                     data: formData,
+                    beforeSend: function() {
+                         $(".submit-btn").prop("disabled", true);
+                    },
+                    complete: function() {
+                         $(".submit-btn").prop("disabled", false);
+                    },
                     success: function(response) {
                         toastr.success(response.msg);
                     },
