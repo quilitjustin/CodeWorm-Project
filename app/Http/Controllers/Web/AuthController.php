@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ChangePasswordMail;
+use App\Mail\ChangeEmailMail;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ChangeEmailNotification;
 
@@ -36,7 +37,14 @@ class AuthController extends Controller
         $request->validate([
             'f_name' => ['required'],
             'l_name' => ['required'],
-            'email' => ['required'],
+            'email' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!strpos($value, '.')) {
+                        $fail('The email must have a valid top-level domain.');
+                    }
+                },
+            ],
             'password' => ['required', 'min:8', 'confirmed'],
             'school_id' => ['required'],
             'terms' => ['required'],
@@ -96,7 +104,7 @@ class AuthController extends Controller
                 Auth::logout();
                 return redirect()
                     ->route('web.login')
-                    ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until , '.']);
+                    ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until, '.']);
             }
 
             if (is_null(Auth::user()->email_verified_at)) {
@@ -173,9 +181,23 @@ class AuthController extends Controller
                 $user->l_name = $this->capitalize($request['l_name']);
                 break;
             case 'email':
-                $notifiable = Auth::user();
-
-                Notification::send($notifiable, new ChangeEmailNotification($request['email']));
+                $request->validate([
+                    'email' => [
+                        'required',
+                        'email',
+                        'unique:users',
+                        'max:255',
+                        function ($attribute, $value, $fail) {
+                            if (!strpos($value, '.')) {
+                                $fail('The email must have a valid top-level domain.');
+                            }
+                        },
+                    ],
+                ]);
+                $id = $user->id;
+                $email = $request['email'];
+                Mail::to($email)->send(new ChangeEmailMail($id, $email));
+                // Notification::send($notifiable, new ChangeEmailNotification($request['email']));
                 break;
             case 'password':
                 $request->validate([

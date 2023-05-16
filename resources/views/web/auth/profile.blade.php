@@ -47,104 +47,113 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div id="picture" class="d-none">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <a href="{{ route('web.profile.upload_picture') }}">
-                                                <div class="card p-3 d-flex justify-content-center align-items-center">
-                                                    <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
-                                                        style="width:150px; height:150px;">
-                                                        <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                <div id="target-content">
+                                    <div id="picture" class="d-none">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <a href="{{ route('web.profile.upload_picture') }}">
+                                                    <div class="card p-3 d-flex justify-content-center align-items-center">
+                                                        <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+                                                            style="width:150px; height:150px;">
+                                                            <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                        </div>
+                                                        <p class="text-dark font-weight-bold">Upload Photo</p>
                                                     </div>
-                                                    <p class="text-dark font-weight-bold">Upload Photo</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a href="{{ route('web.profile.upload_picture') }}">
-                                                <div class="card p-3 d-flex justify-content-center align-items-center">
-                                                    <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
-                                                        style="width:150px; height:150px;">
-                                                        <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                </a>
+                                            </div>
+                                            {{-- <div class="col-md-6">
+                                                <a href="{{ route('web.profile.upload_picture') }}">
+                                                    <div class="card p-3 d-flex justify-content-center align-items-center">
+                                                        <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+                                                            style="width:150px; height:150px;">
+                                                            <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                        </div>
+                                                        <p class="text-dark font-weight-bold">Take a Photo</p>
                                                     </div>
-                                                    <p class="text-dark font-weight-bold">Take a Photo</p>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </div> --}}
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="button" class="cancel btn btn-warning mr-1">Go Back</button>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div id="name" class="d-none">
+                                        <form class="update-form"
+                                            action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="action" value="name">
+                                            <span class="text-muted">Changes to your name will be reflected across your
+                                                account.</span>
+                                            <div class="form-group mb-3">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control" name="f_name"
+                                                    value="{{ old('f_name', Auth::user()->f_name) }}">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label>Last Name</label>
+                                                <input type="text" class="form-control" name="l_name"
+                                                    value="{{ old('l_name', Auth::user()->l_name) }}">
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                                <button type="submit" class="submit-btn btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="email" class="d-none">
+                                        <form class="update-form"
+                                            action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="action" value="email">
+                                            <span class="text-muted">Changes to your email will be reflected across your
+                                                account.</span>
+                                            <div class="form-group mb-3">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control" name="email"
+                                                    value="{{ old('email', Auth::user()->email) }}">
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                                <button type="submit" class="submit-btn btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="password" class="d-none">
+                                        <form class="update-form"
+                                            action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="action" value="password">
+                                            <span class="text-muted">Changes to your password will be reflected across your
+                                                account.</span>
+                                            <div class="form-group mb-3">
+                                                <label>Old Password</label>
+                                                <input type="password" class="form-control" name="old_password"
+                                                    value="{{ old('old_password', '') }}">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label>Password</label>
+                                                <input type="password" class="form-control" name="password"
+                                                    value="{{ old('password', '') }}">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label>Confirm Password</label>
+                                                <input type="password" class="form-control" name="password_confirmation"
+                                                    value="{{ old('password_confirmation', '') }}">
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                                <button type="submit" class="submit-btn btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div id="name" class="d-none">
-                                    <form class="update-form" action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="action" value="name">
-                                        <span class="text-muted">Changes to your name will be reflected across your
-                                            account.</span>
-                                        <div class="form-group mb-3">
-                                            <label>First Name</label>
-                                            <input type="text" class="form-control" name="f_name"
-                                                value="{{ old('f_name', Auth::user()->f_name) }}">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control" name="l_name"
-                                                value="{{ old('l_name', Auth::user()->l_name) }}">
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div id="email" class="d-none">
-                                    <form class="update-form" action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="action" value="email">
-                                        <span class="text-muted">Changes to your email will be reflected across your
-                                            account.</span>
-                                        <div class="form-group mb-3">
-                                            <label>Email</label>
-                                            <input type="text" class="form-control" name="email"
-                                                value="{{ old('email', Auth::user()->email) }}">
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div id="password" class="d-none">
-                                    <form class="update-form" action="{{ route('web.profile_update', Auth::user()->encrypted_id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="action" value="password">
-                                        <span class="text-muted">Changes to your password will be reflected across your
-                                            account.</span>
-                                        <div class="form-group mb-3">
-                                            <label>Old Password</label>
-                                            <input type="password" class="form-control" name="old_password"
-                                                value="{{ old('old_password', '') }}">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" name="password"
-                                                value="{{ old('password', '') }}">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label>Confirm Password</label>
-                                            <input type="password" class="form-control" name="password_confirmation"
-                                                value="{{ old('password_confirmation', '') }}">
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
-                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
+
                                 <div class="form-group">
                                     <ul id="errors">
 
@@ -168,6 +177,7 @@
             $(".settings-option").click(function() {
                 const target = $(this).data("target");
                 $("#settings").fadeOut("slow", function() {
+                    $("#target-content").children().addClass("d-none");
                     $(target).removeClass("d-none").fadeIn("fast");
                 });
             });
@@ -175,6 +185,7 @@
             $(".cancel").click(function() {
                 const target = $(this).parent().parent().parent();
                 $(target).fadeOut("slow", function() {
+                    $("#errors").empty();
                     $("#settings").fadeIn("fast");
                 });
             });
@@ -188,13 +199,16 @@
                     type: 'PUT',
                     data: formData,
                     beforeSend: function() {
-                         $(".submit-btn").prop("disabled", true);
+                        $(".submit-btn").prop("disabled", true);
                     },
                     complete: function() {
-                         $(".submit-btn").prop("disabled", false);
+                        $(".submit-btn").prop("disabled", false);
                     },
                     success: function(response) {
                         toastr.success(response.msg);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
                     },
                     error: function(xhr, errorThrown) {
                         $("#errors").empty();

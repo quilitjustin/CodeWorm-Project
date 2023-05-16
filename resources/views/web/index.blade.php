@@ -26,7 +26,6 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('public_profile.index') }}">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('web.leaderboard.index') }}">Leaderboards</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact" hidden>Contact</a></li>
                 </ul>
@@ -64,7 +63,7 @@
                         new website up and
                         running in no time! Choose one of our open source, free to download, and easy to use themes! No
                         strings attached!</p>
-                    <a class="btn btn-light btn-xl" href="#services">Get Started!</a>
+                    <a class="btn btn-light btn-xl" href="{{ route('web.login') }}">Get Started!</a>
                 </div>
             </div>
         </div>
