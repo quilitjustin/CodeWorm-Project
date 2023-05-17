@@ -79,7 +79,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('cms*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('cms*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder"></i>
                         <p>
@@ -96,7 +96,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('cms/bgim*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->is('cms/bgim*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
@@ -158,11 +158,11 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('game*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('game*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-gamepad"></i>
                         <p>
-                            Game
+                            Game Management
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -190,7 +190,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('super.badges.index') }}"
-                                class="nav-link {{ request()->is('game/badges*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('game/reward/badges*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Badges
