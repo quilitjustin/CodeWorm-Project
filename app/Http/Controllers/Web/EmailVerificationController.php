@@ -7,6 +7,8 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ChangeEmailVerifiedMail;
 
 class EmailVerificationController extends Controller
 {
@@ -56,10 +58,12 @@ class EmailVerificationController extends Controller
                 ->route('web.login')
                 ->with('error', 'Your email address has already been verified.');
         }
-
+        $old_email = $user->email;
         $user->email = $request['email'];
         $user->email_verified_at = now();
         $user->save();
+
+        Mail::to($old_email)->send(new ChangeEmailVerifiedMail($user->l_name));
 
         return redirect()
             ->route('web.login')

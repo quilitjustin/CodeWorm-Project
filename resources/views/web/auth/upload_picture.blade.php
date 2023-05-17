@@ -50,9 +50,9 @@
                                         <div>
                                             <div class="card p-2">
                                                 <label for="img-preview">Preview</label>
-                                                <img src="#" id="img-preview"
+                                                <img src="{{ !is_null(Auth::user()->profile_picture) ? asset(Auth::user()->profile_picture) : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}" id="img-preview"
                                                     style="width: 150px; height: 150px; max-width: 150px; max-height: 150px;"
-                                                    class="img-fluid img-circle mx-auto d-none" alt="preview">
+                                                    class="img-fluid img-circle mx-auto" alt="preview">
                                             </div>
                                         </div>
 

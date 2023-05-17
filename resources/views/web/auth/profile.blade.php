@@ -50,7 +50,7 @@
                                 <div id="target-content">
                                     <div id="picture" class="d-none">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-12">
                                                 <a href="{{ route('web.profile.upload_picture') }}">
                                                     <div class="card p-3 d-flex justify-content-center align-items-center">
                                                         <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
