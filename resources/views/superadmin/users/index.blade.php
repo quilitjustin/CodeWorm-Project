@@ -110,13 +110,13 @@
 
                     <div class="form-group">
                         <input class="form-control" type="text" id="reason" placeholder="Reason" />
-                        <span id="err-msg"></span>
+                        <span id="err-suspend-msg"></span>
                     </div>
                     <!-- /.form-group -->
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button id="confirm-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                    <button id="confirm-suspension-btn" type="button" class="btn btn-outline-light">Confirm</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -127,7 +127,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.index_component')
     <script>
         $(document).ready(function() {
             let route = "";
@@ -135,39 +134,32 @@
             $(".suspend").submit(function(e) {
                 e.preventDefault();
                 $("#err-msg").text("");
-                $("#confirmation").val("")
                 $("#confirm-suspend").modal("show");
                 route = $(this).attr("action");
                 data = $(this).serialize();
                 // Select the parent <tr>
                 toBeRemoved = $(this).parent().parent();
             });
-            $("#confirm-btn").click(function() {
+            $("#confirm-suspension-btn").click(function() {
+                $(this).prop("disabled", true);
                 const reason = $("#reason").val();
                 if (reason) {
                     $.ajax({
                         url: route,
                         method: "PUT",
                         data: data + "&reason=" + reason,
-                        beforeSend: function() {
-
-                        },
-                        complete: function() {
-                            window.location.reload();
-                        },
                         success: function(response) {
                             toastr.success("Updated Successfully");
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1500);
                         },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
                     });
-                    // window.location.reload();
-                    // toBeRemoved.remove();
                 } else {
-                    $("#err-msg").text("Reason is required.");
+                    $("#err-suspend-msg").text("Reason is required.");
                 }
             });
         });
     </script>
+    @include('layouts.superadmin.index_component')
 @endsection

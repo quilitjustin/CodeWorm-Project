@@ -180,7 +180,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer d-flex justify-content-end">
                                 <a href="{{ route('super.stages.index') }}" class="btn btn-warning">Cancel</a>
-                                <button type="submit" class="btn btn-primary ml-2">Create</button>
+                                <button type="submit" class="btn btn-primary ml-2">Update</button>
                             </div>
                             <!-- /.card-footer -->
                         </form>

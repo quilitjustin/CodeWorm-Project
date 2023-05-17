@@ -1,7 +1,7 @@
 @component('mail::message')
 Hi Mr/Mrs {{ $l_name }},
 
-We would like to inform you that your account has been banned on {{ $date }} due to the following Reason.
+We would like to inform you that your account has been suspended on {{ $date }} due to the following Reason.
 
 {{ $reason }}
 
