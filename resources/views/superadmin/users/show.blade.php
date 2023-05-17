@@ -30,7 +30,7 @@
                             <ul class="nav nav-pills">
                                 <li class="nav-item"><a class="nav-link active" href="#profile"
                                         data-toggle="tab">Profile</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
+                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Details</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
                                 </li>
@@ -56,10 +56,6 @@
                                         <div class="col-md-4">
                                             <label>First Name</label>
                                             <p>{{ $user->f_name }}</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Middle Name</label>
-                                            <p>{{ $user->m_name }}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Last Name</label>
