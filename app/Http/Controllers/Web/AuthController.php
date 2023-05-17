@@ -106,13 +106,23 @@ class AuthController extends Controller
                     ->route('web.login')
                     ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until, '.']);
             }
-
+          
             if (is_null(Auth::user()->email_verified_at)) {
                 Auth::logout();
                 return redirect()
                     ->route('web.login')
                     ->with(['error' => 'You must verify your email first.']);
             }
+          
+            $req = RequestRegistration::select('status')->where('user_id', Auth::user()->id)->first();
+            
+            if ($req != 'accepted') {
+                Auth::logout();
+                return redirect()
+                    ->route('web.login')
+                    ->with(['error' => 'The admin must accept your registration first.']);
+            }
+
             // Check if user has seen tutorial already
             if (!\Cache::has('tutorial_seen')) {
                 // User hasn't seen tutorial, redirect to tutorial page
