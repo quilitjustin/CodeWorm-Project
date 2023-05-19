@@ -78,9 +78,9 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
+                        {{-- <div class="card-footer clearfix">
                             <a href="{{ route('super.users.create') }}" class="btn btn-primary">Create New User</a>
-                        </div>
+                        </div> --}}
                         <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->

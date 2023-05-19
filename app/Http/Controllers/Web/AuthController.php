@@ -116,7 +116,7 @@ class AuthController extends Controller
           
             $req = RequestRegistration::select('status')->where('user_id', Auth::user()->id)->first();
 
-            if ($req->status != 'accepted') {
+            if ($req->status != 'accepted' && Auth::user()->role != 'superadmin') {
                 Auth::logout();
                 return redirect()
                     ->route('web.login')

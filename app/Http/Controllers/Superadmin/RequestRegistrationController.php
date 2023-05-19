@@ -18,6 +18,7 @@ class RequestRegistrationController extends Controller
         })
             ->with('users:id,email')
             ->select('id', 'status', 'user_id')
+            ->where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
         // $reqregs = RequestRegistration::all();

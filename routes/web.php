@@ -95,8 +95,12 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::get('/stories/{id}', 'show')->name('web.stories.show');
     });
 
-    Route::get('/forums', function () {
-        return view('web.construction');
+    Route::get('/verify_email', function () {
+        return view('web.email_verify');
+    });
+
+    Route::get('/verify_success', function () {
+        return view('web.email_verify_success');
     });
 
     // Route::get('play', function () {

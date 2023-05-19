@@ -27,33 +27,37 @@
             <div class="container-fluid">
                 <div class="row">
                     @if (!is_null($pinned))
-                        <div class="col-lg-6">
-                            <div style="position: fixed;">
-                                @forelse($pinned as $pin)
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="row">
-                                                <div class="col-11 text-muted">
-                                                    <p class="m-0">Posted By: <span
-                                                            class="badge badge-secondary">{{ $pin->created_by_user->f_name . ' ' . $pin->created_by_user->l_name }}</span>
-                                                        {{ \Carbon\Carbon::parse($pin->created_at)->diffForHumans() }}</p>
-                                                </div>
-                                                <div class="col-1 text-right">
-                                                    <i class="fas fa-thumbtack text-primary"></i>
-                                                </div>
+                        <div class="col-12">
+                            <h4 class="text-light">Pinned Announcements</h4>
+                            @forelse($pinned as $pin)
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-11 text-muted">
+                                                <p class="m-0">Posted By: <span
+                                                        class="badge badge-secondary">{{ $pin->created_by_user->f_name . ' ' . $pin->created_by_user->l_name }}</span>
+                                                    {{ \Carbon\Carbon::parse($pin->created_at)->diffForHumans() }}</p>
+                                            </div>
+                                            <div class="col-1 text-right">
+                                                <i class="fas fa-thumbtack text-primary"></i>
                                             </div>
                                         </div>
-                                        <div class="card-body" style="">
-                                            <h5 class="m-0 font-weight-bold">{{ $pin->title }}</h5>
-                                            {!! $pin->contents !!}
+                                    </div>
+                                    <div class="card-body" style="overflow:hidden;">
+                                        <h5 class="m-0 font-weight-bold">{{ $pin->title }}</h5>
+                                        {!! $pin->contents !!}
+                                        <div class="d-none read-more justify-content-center"
+                                            style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
+                                            <button class="btn btn-outline-primary my-2">Show More</button>
                                         </div>
                                     </div>
-                                @empty
-                                @endforelse
-                            </div>
+                                </div>
+                            @empty
+                            @endforelse
                         </div>
                     @endif
-                    <div class="{{ !is_null($pinned) ? 'col-lg-6' : 'col-12' }}">
+                    <div class="col-12">
+                        <h4 class="text-light">Latest Announcements</h4>
                         @forelse($announcements as $announcement)
                             <div class="card">
                                 <div class="card-header">
@@ -68,6 +72,10 @@
                                 <div class="card-body" style="">
                                     <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
                                     {!! $announcement->contents !!}
+                                    <div class="d-none read-more justify-content-center"
+                                        style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
+                                        <button class="btn btn-outline-primary my-2">Show More</button>
+                                    </div>
                                 </div>
                             </div>
                         @empty
@@ -93,4 +101,29 @@
         </div>
         <!-- /.content -->
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            const maxContentHeight = 150;
+
+            $('.card-body').each(function() {
+                let contentHeight = $(this).height();
+
+                if (contentHeight > maxContentHeight) {
+                    $(this).css('max-height', maxContentHeight + 'px');
+                    $(this).children('.read-more').removeClass("d-none");
+                    $(this).children('.read-more').addClass("d-flex");
+                }
+            });
+
+            $('.read-more button').click(function(e) {
+                e.preventDefault();
+                let $content = $(this).parent().parent();
+                $content.css('max-height', 'none');
+                $(this).parent().remove();
+            });
+        });
+    </script>
 @endsection

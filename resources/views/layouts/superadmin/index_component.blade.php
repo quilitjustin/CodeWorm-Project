@@ -17,6 +17,7 @@
     // Datatable
     $(function() {
         $("#data-table").DataTable({
+            "aaSorting": [],
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
