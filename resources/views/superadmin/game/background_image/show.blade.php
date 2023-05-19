@@ -80,6 +80,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger ml-2">Delete</button>
                             </form>
+                            <a href="{{ route('super.stages.create') }}" class="btn btn-success ml-2">Create new stage</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

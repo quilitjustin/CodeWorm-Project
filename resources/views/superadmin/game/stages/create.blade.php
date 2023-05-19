@@ -51,7 +51,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Language</label>
+                                            <label>Language (<a href="{{ route('super.proglangs.create') }}">Create new programming languages</a>)</label>
                                             <select class="select2" style="width: 100%;"
                                                 data-placeholder="Select a Language" id="proglang" name="proglang">
                                                 <option value="">Select a Language</option>
@@ -67,7 +67,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Tasks</label>
+                                            <label>Tasks (<a href="{{ route('super.tasks.create') }}">Create new tasks</a>)</label>
                                             <select class="select2" id="tasks" name="tasks[]" multiple="multiple"
                                                 data-placeholder="Select a State" style="width: 100%;">
 
@@ -78,7 +78,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Background Image</label>
+                                            <label>Background Image (<a href="{{ route('super.bgims.create') }}">Create new background images</a>)</label>
                                             <select class="select2" id="bgims" name="bgim"
                                                 data-placeholder="Select a Background Image" style="width: 100%;">
                                                 <option value="">Select a Background Image</option>
@@ -93,7 +93,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Background Music</label>
+                                            <label>Background Music (<a href="{{ route('super.bgms.create') }}">Create new background music</a>)</label>
                                             <select class="select2" id="bgm" name="bgm"
                                                 data-placeholder="Select a Background Image" style="width: 100%;">
                                                 <option value="">Select a Background Music</option>
@@ -108,7 +108,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Reward (Optional)</label>
+                                            <label>Reward (Optional) (<a href="{{ route('super.badges.create') }}">Create new badges</a>)</label>
                                             <select class="select2" id="reward" name="reward"
                                                 data-placeholder="Select a Badge" style="width: 100%;">
                                                 <option value="">Select a Badge</option>
