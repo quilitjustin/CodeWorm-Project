@@ -153,6 +153,7 @@ height:100vh; width=100%;">
             <h1 class="text-light d-block">Codeworm</h1>
             <h5 class="text-light d-block mb-3">{{ $stage->name . ' - ' . $stage->proglang->name }}</h5>
             <button class="btn btn-primary">Play</button>
+            <a href="#" class="show-help d-block">Show Help</a>
         </div>
     </div>
 
@@ -226,6 +227,9 @@ height:100vh; width=100%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Paused!</h4>
+                <a href="#" class="show-help d-block">
+                    <i class="fas fa-question-circle"></i>
+                </a>
                 {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
@@ -301,6 +305,25 @@ height:100vh; width=100%;">
 </div>
 <!-- /.modal -->
 
+<div class="modal" id="help-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Help</h4>
+                <button type="button" class="close close-help" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!-- jQuery -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -357,7 +380,7 @@ height:100vh; width=100%;">
     let arr = [];
 
     const tasks = {!! $stage->tasks !!};
-console.log(tasks)
+
     let html = '';
     for (let i = 0; i < tasks.length; i++) {
         html +=
@@ -438,12 +461,24 @@ console.log(tasks)
         $("#code-editor").prop("hidden", true);
         $("#game").prop("hidden", true);
         $('.modal').attr('data-backdrop', 'static');
-
+        
         // From bootstrap documentation
         // https://getbootstrap.com/docs/5.1/components/tooltips/
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        $(".show-help").click(function(e){
+            e.preventDefault();
+            $("#pause-modal").modal("hide");
+            $("#help-modal").modal("show");
+        });
+
+        $(".close-help").click(function(e){
+            if($("#game").is(":visible")){
+                $("#pause-modal").modal("show");
+            }
         });
 
         $(".restart").click(function() {
