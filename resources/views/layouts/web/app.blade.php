@@ -103,7 +103,7 @@
 
         var channel = pusher.subscribe('announcement');
         channel.bind('my-event', function(data) {
-            alert()
+            alert(data)
         });
     </script>
 
