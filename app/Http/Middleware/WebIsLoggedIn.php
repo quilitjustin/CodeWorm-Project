@@ -18,13 +18,13 @@ class WebIsLoggedIn
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = Auth::user()->id;
-
         if (!Auth()->check()) {
             return redirect()->route('web.login');
         }
 
-        if (!is_null($id)) {
+        if (!is_null(Auth::user()->id)) {
+            $id = Auth::user()->id;
+
             $status = RequestRegistration::where('user_id', $id)->value('status');
 
             // $id == 1 = to admin / superadmin
