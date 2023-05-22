@@ -47,6 +47,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'register')->name('web.register');
     Route::post('/login/auth', 'authenticate')->name('web.authenticate');
     Route::post('/register/request', 'request_registration')->name('web.auth.request');
+    // I'll put middleware inside the method instead
+    Route::post('/logout', 'logout')->name('web.logout');
 });
 Route::controller(PasswordResetController::class)->group(function () {
     Route::get('/password/forgot', 'index')->name('password.forgot');
@@ -80,7 +82,6 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::get('/profile/edit', 'profile')->name('web.profile');
         Route::put('/profile/{user}', 'profile_update')->name('web.profile_update');
         Route::get('/profile/upload_picture', 'upload_picture')->name('web.profile.upload_picture');
-        Route::post('/logout', 'logout')->name('web.logout');
     });
 
     Route::controller(PlayController::class)->group(function () {
@@ -97,11 +98,11 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
 
     Route::get('/verify_email', function () {
         return view('web.email_verify');
-    });
+    })->name('web.email_verify');
 
-    Route::get('/verify_success', function () {
+    Route::get('/verify_email/success', function () {
         return view('web.email_verify_success');
-    });
+    })->name('web.email_verify.success');
 
     // Route::get('play', function () {
     //     return view('layouts.play');

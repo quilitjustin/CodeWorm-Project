@@ -9,20 +9,22 @@
                     <h1 class="font-weight-bold">
                         Registration Success!</h1>
                     <p class="lead">
-                        Please verify your email. Once that's done, the admin will review your request and determine whether to accept it or not.                    </p>
+                        Please verify your email. Once that's done, the admin will review your request and determine whether
+                        to accept it or not.</p>
                 </div>
             </div>
             <div class="col-sm-12">
-                
+
             </div>
             <div class="col-sm-12 text-center">
-                <a href="{{ route('web.login') }}" class="btn btn-outline-primary">
-                    Go Back</a>
+                <form method="POST" action="{{ route('web.logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-primary">
+                        Logout
+                    </button>
+                </form>
             </div>
             <!-- /.col -->
         </div>
     </div>
 @endsection
-
-
-

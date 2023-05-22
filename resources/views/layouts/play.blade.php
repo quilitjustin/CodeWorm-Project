@@ -34,9 +34,9 @@ height:100vh; width=100%;">
     <div id="game">
         <div id="con" class="d-flex justify-content-center">
             <canvas id="canvas1"></canvas>
-            <img id="playerImage" class="d-none" src="{{ asset('demo/player.png') }}" alt="player">
+            <img id="playerImage" class="d-none" src="{{ asset('demo/player2.png') }}" alt="player">
             <img id="backgroundImage" class="d-none" src="{{ asset($stage->bgim->path) }}" alt="bg-image">
-            <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy_1.png') }}" alt="enemy">
+            <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy2.png') }}" alt="enemy">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
             <audio id="bgm" class="d-none" src="{{ asset($stage->bgm->path) }}" controls loop></audio>
             <audio id="clap" class="d-none" src="{{ asset('js/clap.wav') }}" controls></audio>

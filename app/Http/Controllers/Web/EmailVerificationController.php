@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ChangeEmailVerifiedMail;
+use Illuminate\Support\Facades\Auth;
 
 class EmailVerificationController extends Controller
 {
@@ -29,14 +30,14 @@ class EmailVerificationController extends Controller
         }
 
         $user->markEmailAsVerified();
-        
+
         event(new Verified($user));
 
         event(new \App\Events\UserRequestRegistration('Hello World'));
 
-        return redirect()
-            ->route('web.login')
-            ->with('msg', 'Your email address has been verified.');
+        Auth::login($user);
+
+        return redirect()->route('web.play.index');
     }
 
     public function update_verify(Request $request)
@@ -45,8 +46,8 @@ class EmailVerificationController extends Controller
 
         // Check if the token in the request matches the expected token
         $expectedToken = hash_hmac('sha256', $user->id . $request['email'], env('APP_KEY'));
-      
-        $actualToken = $request['token']; 
+
+        $actualToken = $request['token'];
         if (!hash_equals($expectedToken, $actualToken)) {
             return redirect()
                 ->route('web.login')
@@ -65,8 +66,10 @@ class EmailVerificationController extends Controller
 
         Mail::to($old_email)->send(new ChangeEmailVerifiedMail($user->l_name));
 
+        Auth::login($user);
+
         return redirect()
-            ->route('web.login')
-            ->with('msg', 'Your email address has been verified.');
+            ->route('web.play.index')
+            ->with('msg', 'Your new email address has been verified.');
     }
 }

@@ -339,13 +339,13 @@ window.addEventListener("load", function () {
         constructor(gameWith, gameHeight) {
             this.gameWith = gameWith;
             this.gameHeight = gameHeight;
-            this.width = 200;
-            this.height = 200;
+            this.width = 107;
+            this.height = 170;
             this.x = 0;
             this.y = this.gameHeight - this.height;
             this.image = document.getElementById("playerImage");
             this.frameX = 0;
-            this.maxFrame = 8;
+            this.maxFrame = 18;
             this.franeY = 0;
             this.fps = 20;
             this.frameTimer = 0;
@@ -504,7 +504,7 @@ window.addEventListener("load", function () {
             } else {
                 this.vy = 0;
                 this.frameY = 0;
-                this.maxFrame = 8;
+                this.maxFrame = 18;
             }
             if (this.y > this.gameHeight - this.height) {
                 this.y = this.gameHeight - this.height;
@@ -546,8 +546,8 @@ window.addEventListener("load", function () {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
             this.gameHeight = gameHeight;
-            this.width = 160;
-            this.height = 119;
+            this.width = 1214;
+            this.height = 787;
             this.image = document.getElementById("enemyImage");
             this.x = this.gameWidth - this.width;
             this.y = this.gameHeight - this.height;

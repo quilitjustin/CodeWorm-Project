@@ -27,7 +27,7 @@
                         <div class="row">
                             <!-- /.col -->
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-block mb-2">Login</button>
+                                <button type="submit" class="btn btn-primary btn-block mb-2">Reset Password</button>
                             </div>
                             <!-- /.col -->
                             <div class="mt-3">

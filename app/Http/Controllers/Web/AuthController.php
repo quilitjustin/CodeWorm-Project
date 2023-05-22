@@ -67,6 +67,11 @@ class AuthController extends Controller
 
             $req_registration->user_id = $user->id;
         } else {
+            if ($req_registration->status == 'pending') {
+                return redirect()
+                    ->back()
+                    ->with(['error' => 'Currently have a pending request!']);
+            }
             $req_registration->user_id = $user->id;
         }
 
@@ -91,13 +96,16 @@ class AuthController extends Controller
 
         // event(new \App\Events\UserRequestRegistration('Hello World'));
 
-        return redirect()
-            ->route('web.login')
-            ->with(['msg' => 'Registered Successfully']);
+        Auth::login($user);
+
+        return redirect()->route('web.play.index');
     }
 
     public function authenticate(LoginRequest $request)
     {
+        if (Auth::check()) {
+            return redirect()->route('web.announcements.index');
+        }
         $credentials = $request->validated();
         if (Auth::attempt($credentials)) {
             if (!is_null(Auth::user()->suspended_until)) {
@@ -106,15 +114,17 @@ class AuthController extends Controller
                     ->route('web.login')
                     ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until, '.']);
             }
-          
+
             if (is_null(Auth::user()->email_verified_at)) {
                 Auth::logout();
                 return redirect()
                     ->route('web.login')
                     ->with(['error' => 'You must verify your email first.']);
             }
-          
-            $req = RequestRegistration::select('status')->where('user_id', Auth::user()->id)->first();
+
+            $req = RequestRegistration::select('status')
+                ->where('user_id', Auth::user()->id)
+                ->first();
 
             if ($req->status != 'accepted' && Auth::user()->role != 'superadmin') {
                 Auth::logout();
@@ -241,6 +251,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->route('web.login');
+        }
         Auth::logout();
 
         $request->session()->invalidate();

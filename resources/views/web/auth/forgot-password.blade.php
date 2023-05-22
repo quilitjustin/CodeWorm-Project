@@ -26,6 +26,7 @@
                             <!-- /.col -->
                             <div class="col-12 text-center">
                                 <button id="submit-btn" type="submit" class="btn btn-primary btn-block mb-2">Send Verification link</button>
+                                <a href="{{ route('web.login') }}">Go back to login</a>
                             </div>
                             <!-- /.col -->
                             <div class="mt-3 col-12">
@@ -58,7 +59,7 @@
                         </a>
                     </div> --}}
 
-                    <a href="{{ route('web.login') }}" class="text-center">Go back to login</a>
+                    
                 </div>
                 <!-- /.form-box -->
             </div><!-- /.card -->

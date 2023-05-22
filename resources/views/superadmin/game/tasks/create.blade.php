@@ -64,7 +64,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Language (<a href="{{ route('super.proglangs.create') }}">Create new programming languages</a>)</label>
+                                            <label>Language (<a href="{{ route('super.proglangs.create') }}">Create new programming language</a>)</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
                                                 @forelse ($proglangs as $proglang)

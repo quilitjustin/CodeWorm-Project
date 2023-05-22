@@ -55,7 +55,7 @@
                                             <label>Language</label>
                                             <select class="select2" style="width: 100%;"
                                                 data-placeholder="Select a Language" id="proglang" name="proglang">
-                                                <option value="">Select a Language</option>
+                                                <option value="">Select a Language (<a href="{{ route('super.proglangs.create') }}">Create new programming language</a>)</option>
                                                @forelse($proglangs as $proglang)
                                                <option value="{{ $proglang->encrypted_id }}" {{ $proglang->id == $stage->proglang_id ? 'selected' : '' }}>{{ $proglang->name }}</option>
                                                @empty
@@ -67,7 +67,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Tasks</label>
+                                            <label>Tasks (<a href="{{ route('super.tasks.create') }}">Create new task</a>)</label>
                                             <select class="select2" id="tasks" name="tasks[]" multiple="multiple"
                                                 data-placeholder="Select a State" style="width: 100%;">
                                                 @forelse($tasks as $task)
@@ -81,7 +81,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Background Image</label>
+                                            <label>Background Image (<a href="{{ route('super.bgims.create') }}">Create new background image</a>)</label>
                                             <select class="select2" id="bgims" name="bgim"
                                                 data-placeholder="Select a Background Image" style="width: 100%;">
                                                 @forelse($bgims as $bgim)
@@ -98,7 +98,7 @@
                                             <label>Background Music</label>
                                             <select class="select2" id="bgm" name="bgm"
                                                 data-placeholder="Select a Background Image" style="width: 100%;">
-                                                <option value="">Select a Background Music</option>
+                                                <option value="">Select a Background Music (<a href="{{ route('super.bgms.create') }}">Create new background music</a>)</option>
                                                 @forelse($bgms as $bgm)
                                                 <option value="{{ $bgm->encrypted_id }}" {{ $bgm->id == $stage->bgim_id ? 'selected' : '' }}>{{ $bgm->name }}</option>
                                                 @empty
@@ -110,7 +110,7 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Reward (Optional)</label>
+                                            <label>Reward (Optional) (<a href="{{ route('super.badges.create') }}">Create new badge</a>)</label>
                                             <select class="select2" id="reward" name="reward"
                                                 data-placeholder="Select a Badge" style="width: 100%;">
                                                 <option value="">Select a Badge</option>

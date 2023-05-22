@@ -45,6 +45,11 @@
                                             <td>********</td>
                                             <td><i class="fas fa-arrow-right"></i></td>
                                         </tr>
+                                        <tr onclick="window.location.href = '{{ route('public_profile.show', Auth::user()->encrypted_id) }}';">
+                                            <th scope="row">Public portfolio</th>
+                                            <td>View your public portfolio</td>
+                                            <td><i class="fas fa-arrow-right"></i></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div id="target-content">

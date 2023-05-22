@@ -113,16 +113,25 @@
 
                 if (contentHeight > maxContentHeight) {
                     $(this).css('max-height', maxContentHeight + 'px');
+                    $(this).append("<a href='#' class='read-less'>Read Less</a>");
                     $(this).children('.read-more').removeClass("d-none");
                     $(this).children('.read-more').addClass("d-flex");
                 }
+            });
+
+            $('.read-less').click(function(e){
+                e.preventDefault();
+                $(this).parent().css('max-height', maxContentHeight + 'px');
+                $(this).parent().children(".read-more").removeClass("d-none");
+                $(this).parent().children(".read-more").addClass("d-flex");
             });
 
             $('.read-more button').click(function(e) {
                 e.preventDefault();
                 let $content = $(this).parent().parent();
                 $content.css('max-height', 'none');
-                $(this).parent().remove();
+                $(this).parent().removeClass("d-flex");
+                $(this).parent().addClass("d-none");
             });
         });
     </script>

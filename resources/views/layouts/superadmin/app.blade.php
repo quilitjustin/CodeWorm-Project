@@ -118,20 +118,21 @@
         });
         let TOTAL_NOTIFICATION = 0;
         let TOTAL_REGISTRATION_REQUEST = 0;
-
-        $.get({
-            url: "{{ route('super.analytics.user_reg_count') }}",
-            data: {
-                _token: "{{ csrf_token() }}",
-            },
-            success: function(response) {
-                // Inside nav.blade.php, in notifications
-                TOTAL_NOTIFICATION = response.count;
-                $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
-                TOTAL_REGISTRATION_REQUEST += response.count;
-                $("#total-notification").text(TOTAL_NOTIFICATION);
-            }
-        });
+        
+        $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
+        // $.get({
+        //     url: "{{ route('super.analytics.user_reg_count') }}",
+        //     data: {
+        //         _token: "{{ csrf_token() }}",
+        //     },
+        //     success: function(response) {
+        //         // Inside nav.blade.php, in notifications
+        //         TOTAL_NOTIFICATION = response.count;
+        //         $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
+        //         TOTAL_REGISTRATION_REQUEST += response.count;
+        //         $("#total-notification").text(TOTAL_NOTIFICATION);
+        //     }
+        // });
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;

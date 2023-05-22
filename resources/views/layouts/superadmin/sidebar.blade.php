@@ -67,7 +67,7 @@
                     <a href="/reqregs" class="nav-link {{ request()->is('reqregs*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Registration
+                            Registration <span class="right badge badge-danger">!</span>
                         </p>
                     </a>
                 </li>

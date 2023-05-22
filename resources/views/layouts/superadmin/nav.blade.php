@@ -27,8 +27,8 @@
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('super.request_registration.index') }}" class="dropdown-item">
                      {{-- This will be updated with ajax inside app.blade.php --}}
-                    <i class="fas fa-users mr-2"></i> <span id="user-reg-count"></span> user registrations
-                    <span class="float-right text-muted text-sm">12 hours</span>
+                    <i class="fas fa-users mr-2"></i> <span id="user-reg-count"></span> User registrations
+                    <span class="float-right text-muted text-sm">{{ \Carbon\Carbon::parse(now())->diffInHours() }} Hour</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 {{-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
