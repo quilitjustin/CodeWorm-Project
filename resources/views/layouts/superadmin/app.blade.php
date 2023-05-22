@@ -107,7 +107,7 @@
     <script src="{{ asset('adminlte/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
-
+    {{-- Pusher --}}
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
     <script>
@@ -118,7 +118,7 @@
         });
         let TOTAL_NOTIFICATION = 0;
         let TOTAL_REGISTRATION_REQUEST = 0;
-        
+
         $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
         // $.get({
         //     url: "{{ route('super.analytics.user_reg_count') }}",

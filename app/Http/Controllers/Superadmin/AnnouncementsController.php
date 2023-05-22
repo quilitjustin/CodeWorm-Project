@@ -77,6 +77,8 @@ class AnnouncementsController extends Controller
         $announcement->created_by = Auth::user()->id;
         $announcement->save();
 
+        event(new \App\Events\Announcement('Hello World'));
+
         return redirect()
             ->route('super.announcements.show', [
                 'announcement' => $announcement->encrypted_id,

@@ -31,7 +31,7 @@
                                 Announcements Details
                             </h3>
                         </div>
-                        <form method="POST" action="{{ route('super.announcements.store') }}" enctype="multipart/form-data">
+                        <form id="announcement-form" method="POST" action="{{ route('super.announcements.store') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">
