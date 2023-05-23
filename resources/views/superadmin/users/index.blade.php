@@ -69,7 +69,7 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <button type="submit" class="text-success">
-                                                            <i class="fas fa-ban"></i> Activate</button>
+                                                            <i class="fas fa-plus"></i> Activate</button>
                                                     </form>
                                                 @endif
                                             </td>

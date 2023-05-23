@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Programming Language</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Programming Language</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -47,6 +47,16 @@
                                             @enderror
                                         </div>
                                         <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Language Key (<a
+                                                    href="https://ce.judge0.com/#statuses-and-languages-language-get"
+                                                    target="_blank">Docs</a>)</label>
+                                            <input class="form-control" type="text" name="key"
+                                                placeholder="Enter key" value="{{ old('key') }}" />
+                                            @error('key')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <!-- /.col -->
                                 </div>
@@ -71,5 +81,4 @@
 @endsection
 
 @section('script')
-
 @endsection

@@ -44,11 +44,19 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Name (<a href="https://codemirror.net/docs/"
-                                                    target="_blank">Docs</a>)</label>
+                                            <label>Name</label>
                                             <input class="form-control" type="text" name="name"
                                                 placeholder="Enter name" value="{{ old('name') }}" />
                                             @error('name')
+                                                <p class="text-danger my-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Language Key (<a href="https://ce.judge0.com/#statuses-and-languages-language-get"
+                                                    target="_blank">Docs</a>)</label>
+                                            <input class="form-control" type="text" name="key"
+                                                placeholder="Enter key" value="{{ old('key') }}" />
+                                            @error('key')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>

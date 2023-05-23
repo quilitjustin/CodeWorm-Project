@@ -38,6 +38,11 @@
                                     <label>Name</label>
                                     <p>{{ $proglang->name }}</p>
                                 </div>
+                                <div class="col-md-4">
+                                    <label>Language Key (<a href="https://ce.judge0.com/#statuses-and-languages-language-get"
+                                        target="_blank">Docs</a>)</label>
+                                    <p>60</p>
+                                </div>
                             </div>
                             <!-- /.row -->
                         </div>
