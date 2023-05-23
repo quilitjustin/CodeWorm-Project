@@ -219,7 +219,7 @@ window.addEventListener("load", function () {
                                         $("#msg").html(
                                             "Wrong Answer<br>Enemy will Attack!"
                                         );
-                                        enemy.damage++;
+                                        enemy.atkCondition = true;
                                     }
                                     $("#err-console").text(
                                         "Output: " + response["result"]
@@ -234,7 +234,7 @@ window.addEventListener("load", function () {
                                     $("#msg").html(
                                         "There's an error<br>Enemy will Attack!"
                                     );
-                                    enemy.damage++;
+                                    enemy.atkCondition = true;
                                 }
                             },
                             error: function (xhr, status, error) {
@@ -248,7 +248,7 @@ window.addEventListener("load", function () {
                                 $("#msg").html(
                                     "There's an error<br>Enemy will Attack!"
                                 );
-                                enemy.damage++;
+                                enemy.atkCondition = true;
                             },
                         });
                         $("#msg").fadeIn();
@@ -281,7 +281,7 @@ window.addEventListener("load", function () {
                                 $("#msg").html(
                                     "Wrong Answer<br>Enemy will Attack!"
                                 );
-                                enemy.damage++;
+                                enemy.atkCondition = true;
                             }
                             $("#err-console").text("Output: " + $log);
                         } catch (error) {
@@ -294,7 +294,7 @@ window.addEventListener("load", function () {
                             $("#msg").html(
                                 "There's an error<br>Enemy will Attack!"
                             );
-                            enemy.damage++;
+                            enemy.atkCondition = true;
                         }
                         $("#msg").fadeIn();
                         setTimeout(function () {
@@ -372,7 +372,7 @@ window.addEventListener("load", function () {
                                             $("#msg").html(
                                                 "Wrong Answer<br>Enemy will Attack!"
                                             );
-                                            enemy.damage++;
+                                            enemy.atkCondition = true;
                                         }
                                         $("#err-console").text(
                                             "Output: " + response.stdout
@@ -388,7 +388,7 @@ window.addEventListener("load", function () {
                                         $("#msg").html(
                                             "There's an error<br>Enemy will Attack!"
                                         );
-                                        enemy.damage++;
+                                        enemy.atkCondition = true;
                                     }
                                     $("#msg").fadeIn();
                                     setTimeout(function () {
@@ -681,7 +681,6 @@ window.addEventListener("load", function () {
                 this.lives = 0;
             }
             if (this.atkCondition) {
-                this.atkTimer = 0;
                 this.speed = 20;
                 this.x -= this.speed;
             }
@@ -711,6 +710,7 @@ window.addEventListener("load", function () {
 
             if (this.x > this.gameWidth) {
                 this.x--;
+                this.atkCondition = false;
             }
             if (this.x < 0) {
                 this.sound.currentTime = 0;

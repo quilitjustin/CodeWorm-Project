@@ -68,7 +68,7 @@
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
                                                 @forelse ($proglangs as $proglang)
-                                                    <option value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
+                                                    <option data-key="{{ $proglang->key }}"; value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
                                                     </option>
                                                 @empty
                                                 @endforelse
@@ -154,10 +154,4 @@
 @section('script')
     @include('layouts.superadmin.inc_compiler')
     @include('superadmin.game.tasks.script')
-    {{-- <script>
-        const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
-        const TOKEN = "{{ csrf_token() }}";
-    </script> --}}
-    {{-- Code execution --}}
-    {{-- <script src="{{ asset('js/rcode.js') }}"></script> --}}
 @endsection
