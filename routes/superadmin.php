@@ -44,8 +44,8 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::post('/env/code_executor/update', 'update_code_executor')->name('super.env.executor.update');
     });
 
-    Route::controller(LoginValidationController::class)->group(function () {
-        Route::get('/login', 'index')
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('/login', 'login')
             ->name('super.login')
             ->withoutMiddleware([SuperIsLoggedIn::class]);
         Route::post('/authenticate', 'authenticate')
@@ -53,6 +53,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
             ->withoutMiddleware([SuperIsLoggedIn::class]);
         Route::get('/profile/edit', 'profile')->name('super.profile');
         Route::put('/profile/{user}', 'profile_update')->name('super.profile_update');
+        Route::get('/profile/upload_picture', 'upload_picture')->name('super.profile.upload_picture');
         Route::post('/logout', 'logout')->name('super.logout');
     });
 

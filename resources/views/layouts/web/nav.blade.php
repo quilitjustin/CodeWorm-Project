@@ -26,7 +26,7 @@
                 <a href="{{ route('web.announcements.index') }}" class="dropdown-item">
                     {{-- This will be updated with ajax inside app.blade.php --}}
                     <i class="fas fa-scroll mr-2"></i> <span id="user-reg-count"></span> New Announcement
-                    <span class="float-right text-muted text-sm">{{ \Carbon\Carbon::parse(now())->diffForHumans() }}</span>
+                    <span class="float-right text-muted text-sm">{{ \Carbon\Carbon::parse(now())->diffInHours() }} Hour</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 {{-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,140 +22,35 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect()->route('web.play.index');
+            return redirect()->route('super.dashboard.index');
         }
-        return view('web.auth.login');
-    }
-
-    public function register()
-    {
-        return view('web.auth.register');
-    }
-
-    public function request_registration(Request $request)
-    {
-        $request->validate([
-            'f_name' => ['required'],
-            'l_name' => ['required'],
-            'email' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if (!strpos($value, '.')) {
-                        $fail('The email must have a valid top-level domain.');
-                    }
-                },
-            ],
-            'password' => ['required', 'min:8', 'confirmed'],
-            'school_id' => ['required'],
-            'terms' => ['required'],
-        ]);
-
-        $email = strip_tags($request['email']);
-        $user = User::select('id')
-            ->where('email', $email)
-            ->first();
-        $req_registration = new RequestRegistration();
-
-        if (is_null($user)) {
-            $user = new User();
-            $user->f_name = strip_tags($request['f_name']);
-            $user->l_name = strip_tags($request['l_name']);
-            $user->email = $email;
-            $user->password = Hash::make($request['password']);
-
-            $user->save();
-
-            $req_registration->user_id = $user->id;
-        } else {
-            if ($req_registration->status == 'pending') {
-                return redirect()
-                    ->back()
-                    ->with(['error' => 'Currently have a pending request!']);
-            }
-            $req_registration->user_id = $user->id;
-        }
-
-        // To avoid having a file with the same name
-        $newImageName = time() . '-' . Str::random(5) . '.' . $request['school_id']->extension();
-        // Where to store the image
-        $path = 'profile/school_id';
-        // Store the image in public directory
-        $request['school_id']->move(public_path($path), $newImageName);
-        // Output would be like: game/BackgroundImage/image.png
-        // So we can just do something like asset($foo['path']) than asset(game/BackgroundImage/$foo['path'])
-        $req_registration->school_id = $path . '/' . $newImageName;
-
-        $req_registration->save();
-
-        $url = route('verification.verify', [
-            'id' => $user->getKey(),
-            'hash' => sha1($user->getEmailForVerification()),
-        ]);
-
-        $user->sendEmailVerificationNotification($url);
-
-        // event(new \App\Events\UserRequestRegistration('Hello World'));
-
-        Auth::login($user);
-
-        return redirect()->route('web.play.index');
+        return view('superadmin.auth.login');
     }
 
     public function authenticate(LoginRequest $request)
     {
         if (Auth::check()) {
-            return redirect()->route('web.play.index');
+            return redirect()->route('super.dashboard');
         }
         $credentials = $request->validated();
         if (Auth::attempt($credentials)) {
-            if (!is_null(Auth::user()->suspended_until)) {
-                Auth::logout();
-                return redirect()
-                    ->route('web.login')
-                    ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until, '.']);
-            }
-
-            if (is_null(Auth::user()->email_verified_at)) {
-                Auth::logout();
-                return redirect()
-                    ->route('web.login')
-                    ->with(['error' => 'You must verify your email first.']);
-            }
-
-            $req = RequestRegistration::select('status')
-                ->where('user_id', Auth::user()->id)
-                ->first();
-
-            if ($req->status != 'accepted' && Auth::user()->role != 'superadmin') {
-                Auth::logout();
-                return redirect()
-                    ->route('web.login')
-                    ->with(['error' => 'The admin must accept your registration first.']);
-            }
-
-            // Check if user has seen tutorial already
-            if (!\Cache::has('tutorial_seen')) {
-                // User hasn't seen tutorial, redirect to tutorial page
-                return redirect()->route('web.narrative');
-            }
-
             return redirect()
-                ->route('web.play.index')
+                ->route('super.dashboard')
                 ->with('msg', 'Login Successfully');
         }
         return redirect()
-            ->route('web.login')
+            ->route('super.login')
             ->withErrors(['Invalid Credentials']);
     }
 
     public function profile()
     {
-        return view('web.auth.profile');
+        return view('superadmin.auth.profile');
     }
 
     public function upload_picture()
     {
-        return view('web.auth.upload_picture');
+        return view('superadmin.auth.upload_picture');
     }
 
     protected function capitalize($data)
@@ -245,14 +140,14 @@ class AuthController extends Controller
             return response()->json(['msg' => 'Updated Successfully']);
         }
         return redirect()
-            ->route('web.profile')
+            ->route('super.profile')
             ->with(['msg' => 'Updated Successfully']);
     }
 
     public function logout(Request $request)
     {
         if (!Auth::check()) {
-            return redirect()->route('web.login');
+            return redirect()->route('super.login');
         }
         Auth::logout();
 
@@ -260,6 +155,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('web.login');
+        return redirect()->route('super.login');
     }
 }

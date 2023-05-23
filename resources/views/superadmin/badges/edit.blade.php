@@ -24,7 +24,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card card-navy">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -88,7 +88,7 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card p-2">
                         <label for="img-preview">Preview</label>
                         <div class="row d-flex justify-content-center">

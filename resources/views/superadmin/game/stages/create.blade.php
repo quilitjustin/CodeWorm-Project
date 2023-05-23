@@ -28,7 +28,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card card-navy">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -95,7 +95,7 @@
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                             <div class="p-3 d-none">
-                                                <img id="bgim-preview" src="#" class="img-fluid" alt="">
+                                                <img id="bgim-preview" src="#" class="img-fluid" style="width: 100%; height: 200px; max-height: 200px">
                                             </div>
                                         </div>
                                         <!-- /.form-group -->

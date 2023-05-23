@@ -6,13 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Profile</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                        <li class="breadcrumb-item active">Settings</li>
-                    </ol>
+                    <h1 class="m-0 text-navy font-weight-bold">Profile</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -25,183 +19,146 @@
             <div class="row">
                 <!-- /.col -->
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#profile"
-                                        data-toggle="tab">Profile</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#security" data-toggle="tab">Security</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
-                                </li>
-                            </ul>
-                        </div><!-- /.card-header -->
+                    <div class="card rounded shadow-sm">
                         <div class="card-body">
-                            <div class="tab-content">
-                                <div class="active tab-pane" id="profile">
-                                    <form class="form-horizontal" method="POST"
+                            <table class="table table-hover" id="settings">
+                                <tbody>
+                                    <tr data-target="#picture" class="settings-option">
+                                        <th scope="row">Photo</th>
+                                        <td>Add a personal touch to your account by uploading a photo.</td>
+                                        <td><i class="fas fa-arrow-right"></i></td>
+                                    </tr>
+                                    <tr data-target="#name" class="settings-option">
+                                        <th scope="row">Name</th>
+                                        <td>{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}</td>
+                                        <td><i class="fas fa-arrow-right"></i></td>
+                                    </tr>
+                                    <tr data-target="#email" class="settings-option">
+                                        <th scope="row">Email</th>
+                                        <td>{{ Auth::user()->email }}</td>
+                                        <td><i class="fas fa-arrow-right"></i></td>
+                                    </tr>
+                                    <tr data-target="#password" class="settings-option">
+                                        <th scope="row">Password</th>
+                                        <td>********</td>
+                                        <td><i class="fas fa-arrow-right"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="target-content">
+                                <div id="picture" class="d-none">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a href="{{ route('super.profile.upload_picture') }}">
+                                                <div class="card p-3 d-flex justify-content-center align-items-center">
+                                                    <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+                                                        style="width:150px; height:150px;">
+                                                        <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                    </div>
+                                                    <p class="text-dark font-weight-bold">Upload Photo</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        {{-- <div class="col-md-6">
+                                                <a href="{{ route('super.profile.upload_picture') }}">
+                                                    <div class="card p-3 d-flex justify-content-center align-items-center">
+                                                        <div class="border border-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+                                                            style="width:150px; height:150px;">
+                                                            <i class="nav-icon fas fa-upload" style="font-size: 80px;"></i>
+                                                        </div>
+                                                        <p class="text-dark font-weight-bold">Take a Photo</p>
+                                                    </div>
+                                                </a>
+                                            </div> --}}
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="button" class="cancel btn btn-warning mr-1">Go Back</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="name" class="d-none">
+                                    <form class="update-form"
                                         action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}"
-                                        enctype="multipart/form-data">
+                                        method="POST">
                                         @csrf
                                         @method('PUT')
-                                        {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
-                                        {{-- So the system would know what kind of update you want to make --}}
-                                        <input type="hidden" value="picture" name="action">
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Profile Picture</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group mb-3">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="image"
-                                                            name="image" accept="image/*">
-                                                        <label class="custom-file-label" for="image"
-                                                            aria-describedby="inputGroupFileAddon02">Choose Image</label>
-                                                    </div>
-                                                    <div class="input-group-append">
-                                                        <button type="button" id="clear"
-                                                            class="btn btn-outline-secondary">Clear</button>
-                                                    </div>
-                                                </div>
-                                                @if ($errors->any())
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li class="text-danger">{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                                <div>
-                                                    <div class="card p-2">
-                                                        <label for="img-preview">Preview</label>
-                                                        <img src="{{ !is_null(Auth::user()->profile_picture) ? asset(Auth::user()->profile_picture) : 'https://ui-avatars.com/api/?name=' . Auth::user()->f_name . '+' . Auth::user()->l_name }}"
-                                                            id="img-preview"
-                                                            style="width: 150px; height: 150px; max-width: 150px; max-height: 150px;"
-                                                            class="img-fluid img-circle mx-auto" alt="preview">
-                                                    </div>
-                                                </div>
-                                                <!-- /.col -->
-                                            </div>
+                                        <input type="hidden" name="action" value="name">
+                                        <span class="text-muted">Changes to your name will be reflected across your
+                                            account.</span>
+                                        <div class="form-group mb-3">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control" name="f_name"
+                                                value="{{ old('f_name', Auth::user()->f_name) }}">
                                         </div>
-
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                            </div>
+                                        <div class="form-group mb-3">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control" name="l_name"
+                                                value="{{ old('l_name', Auth::user()->l_name) }}">
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
-                                <!-- /.tab-pane -->
-
-                                <div class="tab-pane" id="security">
-                                    <form class="form-horizontal" method="POST"
-                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}">
+                                <div id="email" class="d-none">
+                                    <form class="update-form"
+                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}"
+                                        method="POST">
                                         @csrf
                                         @method('PUT')
-                                        {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
-                                        {{-- So the system would know what kind of update you want to make --}}
-                                        <input type="hidden" value="password" name="action">
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Old Password</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control" id="old-password"
-                                                    name="old_password" placeholder="Old Password">
-                                            </div>
+                                        <input type="hidden" name="action" value="email">
+                                        <span class="text-muted">Changes to your email will be reflected across your
+                                            account.</span>
+                                        <div class="form-group mb-3">
+                                            <label>Email</label>
+                                            <input type="text" class="form-control" name="email"
+                                                value="{{ old('email', Auth::user()->email) }}">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" placeholder="Password">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Re-Password</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control" id="re-password"
-                                                    name="password_confirmation" placeholder="Confirm Password">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                            </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
                                         </div>
                                     </form>
-                                    @if ($errors->any())
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li class="text-danger">{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
                                 </div>
-                                <!-- /.tab-pane -->
-
-                                <div class="tab-pane" id="settings">
-                                    <form class="form-horizontal" method="POST"
-                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}">
+                                <div id="password" class="d-none">
+                                    <form class="update-form"
+                                        action="{{ route('super.profile_update', Auth::user()->encrypted_id) }}"
+                                        method="POST">
                                         @csrf
                                         @method('PUT')
-                                        {{-- So the system would know what email it would ignore because email must be unique --}}
-                                        <input type="hidden" name="id" value="{{ Auth::user()->encrypted_id }}">
-                                        {{-- So the system would know what kind of update you want to make --}}
-                                        <input type="hidden" value="details" name="action">
-                                        <div class="form-group row">
-                                            <label for="inputFirsttName" class="col-sm-2 col-form-label">First
-                                                Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputFirstName"
-                                                    placeholder="First Name" name="f-name"
-                                                    value="{{ Auth::user()->f_name }}">
-                                            </div>
+                                        <input type="hidden" name="action" value="password">
+                                        <span class="text-muted">Changes to your password will be reflected across your
+                                            account.</span>
+                                        <div class="form-group mb-3">
+                                            <label>Old Password</label>
+                                            <input type="password" class="form-control" name="old_password"
+                                                value="{{ old('old_password', '') }}">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputLastName"
-                                                    placeholder="Last Name" name="l-name"
-                                                    value="{{ Auth::user()->l_name }}">
-                                            </div>
+                                        <div class="form-group mb-3">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" name="password"
+                                                value="{{ old('password', '') }}">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail"
-                                                    placeholder="Email" name="email"
-                                                    value="{{ Auth::user()->email }}">
-                                            </div>
+                                        <div class="form-group mb-3">
+                                            <label>Confirm Password</label>
+                                            <input type="password" class="form-control" name="password_confirmation"
+                                                value="{{ old('password_confirmation', '') }}">
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                            </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="cancel btn btn-warning mr-1">Cancel</button>
+                                            <button type="submit" class="submit-btn btn btn-primary">Submit</button>
                                         </div>
                                     </form>
-                                    @if ($errors->any())
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li class="text-danger">{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
                                 </div>
-                                <!-- /.tab-pane -->
-
-                                <div class="tab-pane" id="other">
-                                    <label>Public Profile: </label>
-                                    <a class="btn btn-outline-primary d-block"
-                                        href="{{ route('public_profile.show', Auth::user()->encrypted_id) }}">Go and
-                                        see</a>
-                                </div>
-                                <!-- /.tab-pane -->
                             </div>
-                            <!-- /.tab-content -->
-                        </div><!-- /.card-body -->
+
+                            <div class="form-group">
+                                <ul id="errors">
+
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.card -->
                 </div>
                 <!-- /.col -->
             </div>
@@ -213,33 +170,53 @@
 
 @section('script')
     <script>
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
+        $(document).ready(function() {
+            $(".settings-option").click(function() {
+                const target = $(this).data("target");
+                $("#settings").fadeOut("slow", function() {
+                    $("#target-content").children().addClass("d-none");
+                    $(target).removeClass("d-none").fadeIn("fast");
+                });
+            });
 
-        imageFile.on("change", function(e) {
-            // Replace label inside input 
-            const fileName = $(this).val();
-            $(this).next(".custom-file-label").html(fileName);
+            $(".cancel").click(function() {
+                const target = $(this).parent().parent().parent();
+                $(target).fadeOut("slow", function() {
+                    $("#errors").empty();
+                    $("#settings").fadeIn("fast");
+                });
+            });
 
-            // Show image preview
-            const item = e.target.files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function() {
-                preview.attr("src", reader.result);
-                preview.removeClass("d-none");
-            }, false);
-
-            if (item) {
-                reader.readAsDataURL(item);
-            }
-        });
-
-        $("#clear").click(function() {
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
-            preview.addClass("d-none");
-            preview.attr("src", "#");
+            $(".update-form").on("submit", function(e) {
+                e.preventDefault();
+                const formData = $(this).serialize();
+                const route = $(this).attr("action");
+                $.ajax({
+                    url: route,
+                    type: 'PUT',
+                    data: formData,
+                    beforeSend: function() {
+                        $(".submit-btn").prop("disabled", true);
+                    },
+                    complete: function() {
+                        $(".submit-btn").prop("disabled", false);
+                    },
+                    success: function(response) {
+                        toastr.success(response.msg);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(xhr, errorThrown) {
+                        $("#errors").empty();
+                        const errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            $("#errors").append("<li class='text-danger'>" + value +
+                                "</li>");
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endsection
