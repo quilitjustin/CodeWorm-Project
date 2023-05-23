@@ -71,6 +71,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('web.help') }}" class="nav-link {{ request()->is('help*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-question"></i>
+                        <p>
+                            How to Play
+                        </p>
+                    </a>
+                </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('public_profile.index') }}"
                         class="nav-link {{ request()->is('public_profile*') ? 'active' : '' }}">

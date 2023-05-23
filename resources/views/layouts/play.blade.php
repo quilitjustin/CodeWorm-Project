@@ -36,7 +36,7 @@ height:100vh; width=100%;">
             <canvas id="canvas1"></canvas>
             <img id="playerImage" class="d-none" src="{{ asset('demo/player2.png') }}" alt="player">
             <img id="backgroundImage" class="d-none" src="{{ asset($stage->bgim->path) }}" alt="bg-image">
-            <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy2.png') }}" alt="enemy">
+            <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy3.png') }}" alt="enemy">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
             <audio id="bgm" class="d-none" src="{{ asset($stage->bgm->path) }}" controls loop></audio>
             <audio id="clap" class="d-none" src="{{ asset('js/clap.wav') }}" controls></audio>
@@ -153,7 +153,6 @@ height:100vh; width=100%;">
             <h1 class="text-light d-block">Codeworm</h1>
             <h5 class="text-light d-block mb-3">{{ $stage->name . ' - ' . $stage->proglang->name }}</h5>
             <button class="btn btn-primary">Play</button>
-            <a href="#" class="show-help d-block">Show Help</a>
         </div>
     </div>
 
@@ -227,13 +226,6 @@ height:100vh; width=100%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Paused!</h4>
-                <a href="#" class="show-help d-block">
-                    <i class="fas fa-question-circle"></i>
-                </a>
-                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> --}}
-
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -297,25 +289,6 @@ height:100vh; width=100%;">
             <div class="modal-footer justify-content-between">
                 <button class="back-btn btn btn-default">Back</button>
                 <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit </a>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-<div class="modal" id="help-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Help</h4>
-                <button type="button" class="close close-help" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -427,7 +400,7 @@ height:100vh; width=100%;">
         $("#code-editor").prop("hidden", true);
     });
 
-    const phpRoute = "{{ asset('demo/api/v1/php_api.php') }}";
+    const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
     const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
     const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
     const proglang = "{{ $stage->proglang->name }}";
@@ -455,7 +428,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=19') }}"></script>
+<script src="{{ asset('demo/script.js?v=20') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);
@@ -467,18 +440,6 @@ height:100vh; width=100%;">
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-
-        $(".show-help").click(function(e){
-            e.preventDefault();
-            $("#pause-modal").modal("hide");
-            $("#help-modal").modal("show");
-        });
-
-        $(".close-help").click(function(e){
-            if($("#game").is(":visible")){
-                $("#pause-modal").modal("show");
-            }
         });
 
         $(".restart").click(function() {

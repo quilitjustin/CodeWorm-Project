@@ -113,7 +113,7 @@
 
                 if (contentHeight > maxContentHeight) {
                     $(this).css('max-height', maxContentHeight + 'px');
-                    $(this).append("<a href='#' class='read-less'>Read Less</a>");
+                    $(this).append("<a href='#' class='read-less'>Show Less</a>");
                     $(this).children('.read-more').removeClass("d-none");
                     $(this).children('.read-more').addClass("d-flex");
                 }

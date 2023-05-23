@@ -11,7 +11,7 @@
                 <p>
                     Are you sure you want to delete this record?
                     <br>
-                    Important Reminder: Deleting records are extremely risky and not recommended.
+                    Important Reminder: This record will be deleted immediately. You can't undo this action.
                 </p>
 
                 <div class="form-group">

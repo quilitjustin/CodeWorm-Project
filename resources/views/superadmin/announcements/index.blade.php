@@ -48,13 +48,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body" style="">
+                                <div class="card-body" style="overflow:hidden;">
                                     <h5 class="m-0 font-weight-bold">{{ $pin->title }}</h5>
                                     {!! $pin->contents !!}
+                                    <div class="d-none read-more justify-content-center"
+                                        style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
+                                        <button class="btn btn-outline-primary my-2">Show More</button>
+                                    </div>
                                 </div>
                                 <div class="card-footer">
-                                    <a class="text-link" href="{{ route('super.announcements.show', $pin->encrypted_id) }}">
-                                        <i class="far fa-eye"></i> View</a>
                                     <a class="text-success"
                                         href="{{ route('super.announcements.edit', $pin->encrypted_id) }}">
                                         <i class="fas fa-pen-square"></i> Edit</a>
@@ -92,14 +94,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body" style="">
+                            <div class="card-body" style="overflow:hidden;">
                                 <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
                                 {!! $announcement->contents !!}
+                                <div class="d-none read-more justify-content-center"
+                                    style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
+                                    <button class="btn btn-outline-primary my-2">Show More</button>
+                                </div>
                             </div>
                             <div class="card-footer">
-                                <a class="text-link"
-                                    href="{{ route('super.announcements.show', $announcement->encrypted_id) }}">
-                                    <i class="far fa-eye"></i> View</a>
                                 <a class="text-success"
                                     href="{{ route('super.announcements.edit', $announcement->encrypted_id) }}">
                                     <i class="fas fa-pen-square"></i> Edit</a>
@@ -139,4 +142,35 @@
 
 @section('script')
     @include('layouts.superadmin.inc_delete')
+    <script>
+        $(document).ready(function() {
+            const maxContentHeight = 150;
+
+            $('.card-body').each(function() {
+                let contentHeight = $(this).height();
+
+                if (contentHeight > maxContentHeight) {
+                    $(this).css('max-height', maxContentHeight + 'px');
+                    $(this).append("<a href='#' class='read-less'>Show Less</a>");
+                    $(this).children('.read-more').removeClass("d-none");
+                    $(this).children('.read-more').addClass("d-flex");
+                }
+            });
+
+            $('.read-less').click(function(e) {
+                e.preventDefault();
+                $(this).parent().css('max-height', maxContentHeight + 'px');
+                $(this).parent().children(".read-more").removeClass("d-none");
+                $(this).parent().children(".read-more").addClass("d-flex");
+            });
+
+            $('.read-more button').click(function(e) {
+                e.preventDefault();
+                let $content = $(this).parent().parent();
+                $content.css('max-height', 'none');
+                $(this).parent().removeClass("d-flex");
+                $(this).parent().addClass("d-none");
+            });
+        });
+    </script>
 @endsection
