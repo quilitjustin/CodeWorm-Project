@@ -129,8 +129,6 @@
                 </a>
                 <div class="dropdown-divider"></div>`);
         } else {
-            // Enable pusher logging - don't include this in production
-            Pusher.logToConsole = true;
 
             var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
                 cluster: 'ap1'

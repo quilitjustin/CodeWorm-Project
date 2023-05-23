@@ -109,7 +109,6 @@
             $("#announcement-badge").addClass("right badge badge-danger");
             $("#announcement-badge").text("!");
         } else {
-            Pusher.logToConsole = true;
 
             var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
                 cluster: 'ap1'
