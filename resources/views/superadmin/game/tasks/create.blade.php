@@ -67,11 +67,11 @@
                                             <label>Language (<a href="{{ route('super.proglangs.create') }}">Create new programming language</a>)</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
+                                                <option value="">Select a Language</option>
                                                 @forelse ($proglangs as $proglang)
-                                                    <option data-key="{{ $proglang->key }}"; value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
+                                                    <option data-key="{{ $proglang->key }}" value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
                                                     </option>
-                                                @empty
-                                                @endforelse
+                                             
 
                                             </select>
                                             @error('proglang')

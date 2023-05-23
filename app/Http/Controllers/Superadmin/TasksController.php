@@ -140,10 +140,12 @@ class TasksController extends Controller
     {
         //
         $id = decrypt($task);
-        $data = Tasks::with('proglang:id,name')->findorfail($id);
+        $data = Tasks::with('proglang:id')->findorfail($id);
+        $proglangs = Proglang::select('id', 'name', 'key')->get();
 
         return view('superadmin.game.tasks.edit', [
             'task' => $data,
+            'proglangs' => $proglangs
         ]);
     }
 

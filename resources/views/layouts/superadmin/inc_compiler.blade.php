@@ -8,6 +8,14 @@
 <script src="{{ asset('codemirror/mode/clike/clike.js') }}"></script>
 <script src="{{ asset('codemirror/mode/php/php.js') }}"></script>
 <script>
+    // We do this first we don't overwrite the default console.log
+    console.compile = console.log;
+    // Asign the value of console.log to window.$log
+    console.log = function(data) {
+        console.compile(data);
+        window.$log = data;
+    };
+
     // lets make php default
     let LANG_KEY = 68;
     let language = 'php';
@@ -35,11 +43,18 @@
             }
         });
 
-        $("#execute-code").click(function() {
-            switch (language) {
-                let code = editor.getValue();
-                $("#output").html("Loading...");
+        $("#proglang").on("change", function() {
+            const selectedOption = $(this).find('option:selected');
+            LANG_KEY = selectedOption.data('key');
+            const selectedText = selectedOption.text();
+            language = selectedText.trim().toLowerCase();
+            console.log(language)
+        });
 
+        $("#execute-code").click(function() {
+            let code = editor.getValue();
+            $("#output").html("Loading...");
+            switch (language) {
                 case "php":
                     $.post({
                         url: PHP_ROUTE,
@@ -48,10 +63,11 @@
                             data: code,
                         },
                         success: function(response) {
+                            $("#output").text("");
                             $("#output").append(response["result"]);
                         },
                         error: function(xhr, status, error) {
-                            
+
                         },
                     });
 
@@ -61,9 +77,10 @@
                         ("use strict");
                         eval(`${code}`);
 
+                        $("#output").text("");
                         $("#output").append(window.log);
                     } catch (error) {
-                     
+
                     }
 
                     break;
@@ -104,6 +121,7 @@
                             success: function(response) {
                                 $("#output").html(response.stdout);
                                 if (response.stderr) {
+                                    $("#output").text("");
                                     $("#output").append("<br>" + response
                                         .stderr); // append error output
                                 }

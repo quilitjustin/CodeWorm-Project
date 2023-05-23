@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Tasks</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Tasks</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -71,11 +71,17 @@
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <label>Language (<a href="{{ route('super.proglangs.create') }}">Create new programming language</a>)</label>
+                                            <label>Language (<a href="{{ route('super.proglangs.create') }}">Create new
+                                                    programming language</a>)</label>
                                             <select class="form-control select2" style="width: 100%;" id="proglang"
                                                 name="proglang">
-                                                <option value="{{ $task->proglang->encrypted_id }}" selected>
-                                                    {{ $task->proglang->name }}</option>
+                                                <option value="">Select a Language</option>
+                                                @forelse ($proglangs as $proglang)
+                                                    <option data-key="{{ $proglang->key }}"
+                                                        value="{{ $proglang->encrypted_id }}" {{ $task->proglang->id == $proglang->id ? 'selected' : '' }}>
+                                                        {{ $proglang->name }}</option>
+                                                @empty
+                                                @endforelse
                                             </select>
                                             @error('proglang')
                                                 <p class="text-danger my-2">{{ $message }}</p>
@@ -158,11 +164,14 @@
 @section('script')
     @include('layouts.superadmin.inc_compiler')
     @include('superadmin.game.tasks.script')
-    {{-- <script>
-        const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
-        const TOKEN = "{{ csrf_token() }}";
-        const SELECTED_LANGUAGE = "{{ $task->proglang->name }}";
-    </script> --}}
-    {{-- Code execution --}}
-    {{-- <script src="{{ asset('js/rcode.js') }}"></script> --}}
+    <script>
+        $(document).ready(function() {
+            const selected = $("#proglang");
+            const selectedOption = $(selected).find('option:selected');
+            LANG_KEY = selectedOption.data('key');
+            const selectedText = selectedOption.text();
+            language = selectedText.toLowerCase();
+            console.log(language)
+        });
+    </script>
 @endsection
