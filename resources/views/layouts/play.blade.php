@@ -265,7 +265,7 @@ height:100vh; width=100%;">
             </div>
             <div class="modal-footer justify-content-between">
                 <button class="back-btn btn btn-default">Back</button>
-                <a href="#" onclick="location.reload();" class="btn btn-warning">Restart Anyway</a>
+                <a href="#" onclick="location.reload();" class="btn btn-warning">Restart</a>
             </div>
         </div>
         <!-- /.modal-content -->
