@@ -94,9 +94,9 @@
                                             @error('bgim')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
-                                            <div class="p-3 d-none">
+                                            {{-- <div class="p-3 d-none">
                                                 <img id="bgim-preview" src="#" class="img-fluid" style="width: 100%; height: 200px; max-height: 200px">
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
