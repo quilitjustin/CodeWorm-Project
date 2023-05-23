@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserSuspensionMail;
+use App\Mail\UserActivationMail;
 
 class UsersController extends Controller
 {
@@ -212,8 +213,19 @@ class UsersController extends Controller
 
         $data->suspended_until = now();
         $data->save();
-
+        
         Mail::to($data->email)->send(new UserSuspensionMail($data->l_name, $request['reason']));
+
+        return response()->json(['message' => 'Suspended successfully']);
+    }
+
+    public function activate_user(Request $request, $user){
+        $data = $this->findRecord($user);
+
+        $data->suspended_until = null;
+        $data->save();
+        
+        Mail::to($data->email)->send(new UserActivationMail($data->l_name));
 
         return response()->json(['message' => 'Suspended successfully']);
     }

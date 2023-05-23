@@ -64,7 +64,7 @@
                                                     </form>
                                                 @else
                                                     <form class="activate d-inline"
-                                                        action="{{ route('super.users.suspend', $user->encrypted_id) }}"
+                                                        action="{{ route('super.users.activate', $user->encrypted_id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
@@ -145,7 +145,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button id="confirm-suspension-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                    <button id="confirm-activate-btn" type="button" class="btn btn-outline-light">Confirm</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -166,8 +166,6 @@
                 $("#confirm-suspend").modal("show");
                 route = $(this).attr("action");
                 data = $(this).serialize();
-                // Select the parent <tr>
-                toBeRemoved = $(this).parent().parent();
             });
             $("#confirm-suspension-btn").click(function() {
                 $(this).prop("disabled", true);
@@ -188,9 +186,27 @@
                     $("#err-suspend-msg").text("Reason is required.");
                 }
             });
-            $(".activate").click(function(e){
+
+            $(".activate").click(function(e) {
                 e.preventDefault();
+                route = $(this).attr("action");
+                data = $(this).serialize();
                 $("#confirm-activate").modal("show");
+            });
+
+            $("#confirm-activate-btn").click(function() {
+                $(this).prop("disabled", true);
+                $.ajax({
+                    url: route,
+                    method: "PUT",
+                    data: data,
+                    success: function(response) {
+                        toastr.success("Updated Successfully");
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                });
             });
         });
     </script>

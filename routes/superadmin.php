@@ -73,6 +73,7 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
     })->name('super.dashboard');
 
     Route::put('/users/ban/{user}', 'UsersController@suspend_user')->name('super.users.suspend');
+    Route::put('/users/activate/{user}', 'UsersController@activate_user')->name('super.users.activate');
     Route::resource('/users', UsersController::class)->names('super.users');
 
     Route::put('/announcements/pin/{announcement}', 'AnnouncementsController@pin')->name('super.announcements.pin');
