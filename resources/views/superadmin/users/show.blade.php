@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                     <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Users</h1>
+                    <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -71,7 +71,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label class="d-block">Status</label>
-                                            <p class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'Active' : 'Suspended' }}</p>
+                                            <p
+                                                class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">
+                                                {{ is_null($user->suspended_until) ? 'Active' : 'Suspended' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +89,23 @@
                             <!-- /.tab-content -->
                         </div><!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
-                            <a href="{{ route('super.users.index') }}" class="btn btn-warning"><i
+                            <a href="{{ route('super.users.index') }}" class="btn btn-warning mr-2"><i
                                     class="right fas fa-angle-left"></i> Go Back</a>
+                            @if (is_null($user->suspended_until))
+                                <form class="suspend d-inline"
+                                    action="{{ route('super.users.suspend', $user->encrypted_id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-danger">Suspend</button>
+                                </form>
+                            @else
+                                <form class="activate d-inline"
+                                    action="{{ route('super.users.suspend', $user->encrypted_id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-success">Activate</button>
+                                </form>
+                            @endif
                         </div>
                         <!-- /.card-footer -->
                     </div>
@@ -100,7 +117,6 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
 @endsection
 
 @section('script')
@@ -135,7 +151,5 @@
             preview.addClass("d-none");
             preview.attr("src", "#");
         });
-
-        
     </script>
 @endsection

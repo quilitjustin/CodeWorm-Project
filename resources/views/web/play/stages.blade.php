@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <h1 class="m-0 text-navy font-weight-bold d-inline mr-1">Stages</h1>
                         <i class="fas fa-question-circle d-inline" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="You need to complete all stage to be able to compete for the leaderboards<br>Here you would be able to see your best time for all stage so you would be able to know in where stage you would want to grind"></i>      
+                            data-bs-placement="bottom" title="You need to complete all stage to be able to compete for the leaderboards. Here you would be able to see your best time for all stage so you would be able to know in where stage you would want to grind."></i>      
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">

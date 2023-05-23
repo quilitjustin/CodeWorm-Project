@@ -49,7 +49,7 @@
                                     Date of Creation:
                                     <span id="created-at"></span>
                                 </p>
-                                <button id="set-bg" class="btn btn-primary mr-3">Set as Logo</button>
+                                <button id="set-bg" class="btn btn-primary mr-2">Set as Logo</button>
                                 <button id="delete" class="btn btn-outline-danger">Delete</button>
                             </div>
                         </div>
