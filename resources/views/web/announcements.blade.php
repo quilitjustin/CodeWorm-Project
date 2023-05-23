@@ -56,7 +56,7 @@
                             @endforelse
                         </div>
                     @endif
-                    <div class="col-12">
+                    <div class="col-12" id="latest">
                         <h4 class="text-light">Latest Announcements</h4>
                         @forelse($announcements as $announcement)
                             <div class="card">
@@ -105,6 +105,11 @@
 
 @section('script')
     <script>
+        if (cacheValue !== null && cacheValue !== undefined) {
+            localStorage.removeItem('pending_announcement');
+            location.reload();
+        }
+
         $(document).ready(function() {
             const maxContentHeight = 150;
 
@@ -119,7 +124,7 @@
                 }
             });
 
-            $('.read-less').click(function(e){
+            $('.read-less').click(function(e) {
                 e.preventDefault();
                 $(this).parent().css('max-height', maxContentHeight + 'px');
                 $(this).parent().children(".read-more").removeClass("d-none");

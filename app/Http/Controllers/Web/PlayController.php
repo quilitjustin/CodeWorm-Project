@@ -12,6 +12,8 @@ class PlayController extends Controller
     //
     public function index()
     {
+        \Cache::put('tutorial_seen', true, 999999);
+
         $proglangs = \App\Models\ProgrammingLanguages::select('id', 'name')->get();
 
         return view('web.play.index', [

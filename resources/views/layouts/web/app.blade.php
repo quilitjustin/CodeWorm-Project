@@ -95,16 +95,42 @@
             }
         });
 
-        Pusher.logToConsole = true;
+        const cacheValue = localStorage.getItem('pending_announcement');
+        if (cacheValue !== null && cacheValue !== undefined) {
+            $("#total-notification").addClass("badge badge-warning navbar-badge");
+            $("#total-notification").text("!");
+            $("#notif-parent").append(`   <div class="dropdown-divider"></div>
+                <a href="{{ route('web.announcements.index') . '#latest' }}" class="dropdown-item">
+                    {{-- This will be updated with ajax inside app.blade.php --}}
+                    <i class="fas fa-scroll mr-2"></i> <span id="user-reg-count"></span> New Announcement
+                    <span class="float-right text-muted text-sm"></span>
+                </a>
+                <div class="dropdown-divider"></div>`);
+            $("#announcement-badge").addClass("right badge badge-danger");
+            $("#announcement-badge").text("!");
+        } else {
+            Pusher.logToConsole = true;
 
-        var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
-            cluster: 'ap1'
-        });
+            var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
+                cluster: 'ap1'
+            });
 
-        var channel = pusher.subscribe('announcement');
-        channel.bind('my-event', function(data) {
-            alert(data)
-        });
+            var channel = pusher.subscribe('announcement');
+            channel.bind('my-event', function(data) {
+                localStorage.setItem('pending_announcement', true);
+                $("#total-notification").addClass("badge badge-warning navbar-badge");
+                $("#total-notification").text("!");
+                $("#notif-parent").append(`   <div class="dropdown-divider"></div>
+        <a href="{{ route('web.announcements.index') . '#latest' }}" class="dropdown-item">
+            {{-- This will be updated with ajax inside app.blade.php --}}
+            <i class="fas fa-scroll mr-2"></i> <span id="user-reg-count"></span> New Announcement
+            <span class="float-right text-muted text-sm"></span>
+        </a>
+        <div class="dropdown-divider"></div>`);
+                $("#announcement-badge").addClass("right badge badge-danger");
+                $("#announcement-badge").text("!");
+            });
+        }
     </script>
 
     @yield('script')

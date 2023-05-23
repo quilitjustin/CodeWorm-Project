@@ -12,6 +12,7 @@ window.addEventListener("load", function () {
     let timer = 0;
     let formatTimer = "";
     let TASK_TIMER = 0;
+    let TOTAL_TIMER = [];
     let interval;
     let start = false;
     let bgm = document.getElementById("bgm");
@@ -114,7 +115,7 @@ window.addEventListener("load", function () {
                 setTimeout(function () {
                     $("#msg").fadeOut();
                     GOKU.pause();
-                }, 2000);
+                }, 1000);
             });
 
             $("#heal").click(function () {
@@ -208,12 +209,15 @@ window.addEventListener("load", function () {
                                         player.sp += STAKE;
                                         $("#tasks").prop("hidden", false);
                                         $("#code-editor").prop("hidden", true);
+                                        stopTimer();
+                                        TOTAL_TIMER.push(TASK_TIMER);
+                                        TASK_TIMER = 0;
                                     } else {
                                         DOH.currentTime = 0;
                                         DOH.volume = sfxVolume;
                                         DOH.play();
                                         $("#msg").html(
-                                             "Wrong Answer<br>Enemy will Attack!"
+                                            "Wrong Answer<br>Enemy will Attack!"
                                         );
                                         enemy.damage++;
                                     }
@@ -228,7 +232,7 @@ window.addEventListener("load", function () {
                                         "Syntax error: " + response["result"]
                                     );
                                     $("#msg").html(
-                                         "There's an error<br>Enemy will Attack!"
+                                        "There's an error<br>Enemy will Attack!"
                                     );
                                     enemy.damage++;
                                 }
@@ -242,7 +246,7 @@ window.addEventListener("load", function () {
                                     "Error: Did not follow the given format"
                                 );
                                 $("#msg").html(
-                                     "There's an error<br>Enemy will Attack!"
+                                    "There's an error<br>Enemy will Attack!"
                                 );
                                 enemy.damage++;
                             },
@@ -274,7 +278,9 @@ window.addEventListener("load", function () {
                                 DOH.currentTime = 0;
                                 DOH.volume = sfxVolume;
                                 DOH.play();
-                                $("#msg").html( "Wrong Answer<br>Enemy will Attack!");
+                                $("#msg").html(
+                                    "Wrong Answer<br>Enemy will Attack!"
+                                );
                                 enemy.damage++;
                             }
                             $("#err-console").text("Output: " + $log);
@@ -285,7 +291,9 @@ window.addEventListener("load", function () {
                             $("#err-console").text(
                                 "Syntax error: " + error.message
                             );
-                            $("#msg").html( "There's an error<br>Enemy will Attack!");
+                            $("#msg").html(
+                                "There's an error<br>Enemy will Attack!"
+                            );
                             enemy.damage++;
                         }
                         $("#msg").fadeIn();
@@ -362,7 +370,7 @@ window.addEventListener("load", function () {
                                             DOH.volume = sfxVolume;
                                             DOH.play();
                                             $("#msg").html(
-                                                 "Wrong Answer<br>Enemy will Attack!"
+                                                "Wrong Answer<br>Enemy will Attack!"
                                             );
                                             enemy.damage++;
                                         }
@@ -378,7 +386,7 @@ window.addEventListener("load", function () {
                                             "Syntax error: " + response.stderr
                                         );
                                         $("#msg").html(
-                                             "There's an error<br>Enemy will Attack!"
+                                            "There's an error<br>Enemy will Attack!"
                                         );
                                         enemy.damage++;
                                     }
@@ -805,26 +813,33 @@ window.addEventListener("load", function () {
             ctx.font = "40px Helvetica";
             ctx.fillText("You Win!", canvas.width / 2 + 2, 202);
             $("#game *").prop("enabled", true);
-            let proglangId = "";
-            if (language.toLowerCase() == "php") {
-                proglangId = 1;
-            } else if (language.toLowerCase() == "javascript") {
-                proglangId = 2;
-            }
+
+            let totalTime = 0;
+            TOTAL_TIMER.forEach((time) => {
+                totalTime += time;
+            });
+            const displayTotal = formatTime(totalTime);
 
             $.post({
                 url: storeRoute,
                 data: {
                     _token: CSRF_TOKEN,
-                    record: timer,
+                    record: totalTime,
                     proglangId: PROGLANG_ID,
                     badgeId: BADGE_ID,
                     stageId: STAGE_ID,
                 },
                 dataType: "json",
                 success: function (response) {
+                    CLAP_SFX.currentTime = 0;
+                    CLAP_SFX.volume = sfxVolume;
+                    CLAP_SFX.play();
+                    setTimeout(function () {
+                        CLAP_SFX.pause();
+                    }, 5000);
+
                     $("#win-modal").modal("show");
-                    $("#total-time").text("Time: " + formatTimer);
+                    $("#total-time").text("Time: " + displayTotal);
                 },
                 error: function (request, status, error) {
                     // console.log(request.responseText);

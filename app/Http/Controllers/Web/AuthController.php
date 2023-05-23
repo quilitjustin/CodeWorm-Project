@@ -115,23 +115,23 @@ class AuthController extends Controller
                     ->with(['error' => 'Suspended until ' . Auth::user()->suspended_until, '.']);
             }
 
-            if (is_null(Auth::user()->email_verified_at)) {
-                Auth::logout();
-                return redirect()
-                    ->route('web.login')
-                    ->with(['error' => 'You must verify your email first.']);
-            }
+            // if (is_null(Auth::user()->email_verified_at)) {
+            //     Auth::logout();
+            //     return redirect()
+            //         ->route('web.login')
+            //         ->with(['error' => 'You must verify your email first.']);
+            // }
 
-            $req = RequestRegistration::select('status')
-                ->where('user_id', Auth::user()->id)
-                ->first();
+            // $req = RequestRegistration::select('status')
+            //     ->where('user_id', Auth::user()->id)
+            //     ->first();
 
-            if ($req->status != 'accepted' && Auth::user()->role != 'superadmin') {
-                Auth::logout();
-                return redirect()
-                    ->route('web.login')
-                    ->with(['error' => 'The admin must accept your registration first.']);
-            }
+            // if ($req->status != 'accepted' && Auth::user()->role != 'superadmin') {
+            //     Auth::logout();
+            //     return redirect()
+            //         ->route('web.login')
+            //         ->with(['error' => 'The admin must accept your registration first.']);
+            // }
 
             // Check if user has seen tutorial already
             if (!\Cache::has('tutorial_seen')) {

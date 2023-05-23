@@ -116,39 +116,41 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        let TOTAL_NOTIFICATION = 0;
-        let TOTAL_REGISTRATION_REQUEST = 0;
 
-        $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
-        // $.get({
-        //     url: "{{ route('super.analytics.user_reg_count') }}",
-        //     data: {
-        //         _token: "{{ csrf_token() }}",
-        //     },
-        //     success: function(response) {
-        //         // Inside nav.blade.php, in notifications
-        //         TOTAL_NOTIFICATION = response.count;
-        //         $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
-        //         TOTAL_REGISTRATION_REQUEST += response.count;
-        //         $("#total-notification").text(TOTAL_NOTIFICATION);
-        //     }
-        // });
+        const cacheValue = localStorage.getItem('pending_registration');
+        if (cacheValue !== null && cacheValue !== undefined) {
+            $("#total-notification").addClass("badge badge-warning navbar-badge");
+            $("#total-notification").text("!");
+            $("#registration-badge").addClass("right badge badge-danger");
+            $("#registration-badge").text("!");
+            $("#notif-parent").append(`              <div class="dropdown-divider"></div>
+                <a href="{{ route('super.request_registration.index') }}" class="dropdown-item">
+                    <i class="fas fa-users mr-2"></i></span> New registration requests
+                </a>
+                <div class="dropdown-divider"></div>`);
+        } else {
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
 
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
+            var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
+                cluster: 'ap1'
+            });
 
-        var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
-            cluster: 'ap1'
-        });
+            var channel = pusher.subscribe('user-request-registration');
+            channel.bind('my-event', function(data) {
+                localStorage.setItem('pending_registration', true);
 
-        var channel = pusher.subscribe('user-request-registration');
-        channel.bind('my-event', function(data) {
-            TOTAL_REGISTRATION_REQUEST += 1;
-            TOTAL_NOTIFICATION += 1;
-
-            $("#user-reg-count").text(TOTAL_REGISTRATION_REQUEST);
-            $("#total-notification").text(TOTAL_NOTIFICATION);
-        });
+                $("#total-notification").addClass("badge badge-warning navbar-badge");
+                $("#total-notification").text("!");
+                $("#registration-badge").addClass("right badge badge-danger");
+                $("#registration-badge").text("!");
+                $("#notif-parent").append(`              <div class="dropdown-divider"></div>
+                <a href="{{ route('super.request_registration.index') }}" class="dropdown-item">
+                    <i class="fas fa-users mr-2"></i></span> New registration requests
+                </a>
+                <div class="dropdown-divider"></div>`);
+            });
+        }
     </script>
 
     @yield('script')

@@ -43,7 +43,8 @@
                     <a href="/announcements" class="nav-link {{ request()->is('announcements*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-scroll"></i>
                         <p>
-                            Announcements <span class="right badge badge-danger">!</span>
+                            {{-- right badge badge-danger --}}
+                            Announcements <span id="announcement-badge" class=""></span>
                         </p>
                     </a>
                 </li>

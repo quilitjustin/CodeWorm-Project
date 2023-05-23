@@ -112,6 +112,11 @@
 @section('script')
     @include('layouts.superadmin.index_component')
     <script>
+        if (cacheValue !== null && cacheValue !== undefined) {
+            localStorage.removeItem('pending_registration');
+            location.reload();
+        }
+
         $(document).ready(function() {
             let route = "";
             let data = "";
