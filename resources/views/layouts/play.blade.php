@@ -49,7 +49,7 @@ height:100vh; width=100%;">
             <button hidden id="fullScreenButton">Full Screen</button>
             <div id="overlay" class="d-flex justify-content-center">
                 <div class="text-center">
-                    <h1 id="msg" class="text-light shadow">
+                    <h1 id="msg" class="text-dark">
 
                     </h1>
                 </div>
