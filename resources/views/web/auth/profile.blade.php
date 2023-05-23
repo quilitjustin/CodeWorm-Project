@@ -97,6 +97,11 @@
                                                     value="{{ old('f_name', Auth::user()->f_name) }}">
                                             </div>
                                             <div class="form-group mb-3">
+                                                <label>Middle Name (Optional)</label>
+                                                <input type="text" class="form-control" name="m_name"
+                                                    value="{{ old('m_name', Auth::user()->m_name) }}">
+                                            </div>
+                                            <div class="form-group mb-3">
                                                 <label>Last Name</label>
                                                 <input type="text" class="form-control" name="l_name"
                                                     value="{{ old('l_name', Auth::user()->l_name) }}">
