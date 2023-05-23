@@ -11,12 +11,11 @@ use App\Models\ProgrammingLanguages as Proglang;
 class LeaderBoardController extends Controller
 {
     //
-    protected function formatTime($time)
+    protected function formatTime($seconds)
     {
-        $timeInSeconds = round($time / 1000);
-        $hours = floor($timeInSeconds / 3600);
-        $minutes = floor(($timeInSeconds % 3600) / 60);
-        $seconds = $timeInSeconds % 60;
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        $seconds = $seconds % 60;
         return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
     }
 
@@ -34,12 +33,10 @@ class LeaderBoardController extends Controller
         $proglang_id = decrypt($request['id']);
 
         $data = GameRecord::select('user_id')
-        // MAX(id) as id, may not be the actual id of the row
-            ->selectRaw('MAX(id) as id, SUM(record) as total_time')
+            ->selectRaw('MAX(id) as id, SUM(record) as total_time, COUNT(DISTINCT stage_id) as total_stages_cleared')
             ->where('proglang_id', $proglang_id)
             ->groupBy('user_id')
-            ->havingRaw('COUNT(DISTINCT stage_id) = ?', [Stages::where('proglang_id', $proglang_id)->count()])
-            ->orderBy('total_time', 'asc')
+            ->orderByRaw('total_stages_cleared DESC, total_time ASC') 
             ->with('users:id,f_name,l_name,profile_picture')
             ->limit(100)
             ->get()
@@ -47,7 +44,7 @@ class LeaderBoardController extends Controller
                 $item->total_time = $this->formatTime($item->total_time);
                 return $item;
             });
-
+        
         return response()->json($data);
     }
 }

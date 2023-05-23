@@ -136,7 +136,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12">
-                        <a href="{{ route('web.play.index') }}" class="text-light">
+                        <a href="{{ route('web.profile') }}" class="text-light">
                             <i class="right fas fa-angle-left"></i> Go
                             Back</a>
                     </div>

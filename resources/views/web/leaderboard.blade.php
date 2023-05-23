@@ -60,7 +60,7 @@
                                 <tr>
                                     <th>Rank</th>
                                     <th>Name</th>
-                                    <th>Highest Stage</th>
+                                    <th>Highest Stage Cleared</th>
                                     <th>Time</th>
                                 </tr>
                             </thead>
@@ -124,6 +124,7 @@
         // Datatable
         $(function() {
             $("#data-table").DataTable({
+                "aaSorting": [],
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
@@ -164,7 +165,7 @@
                                     "' class='img-circle mr-2' style='width: 35px; height: 35px; max-width: 35px; max-height: 35px;' />" +
                                     record.users.f_name + " " + record.users
                                     .l_name + "</a>",
-                                    "Stage 1",
+                                    record.total_stages_cleared + " Stages",
                                     record.total_time
                                 ]).draw(false).node();
                             });

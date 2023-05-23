@@ -93,8 +93,8 @@
                                             <br>
                                             <img src="{{ asset('assets/help/h12.png') }}" alt="" style="max-width: 800px">
                                         </li>
-                                        <li>
-                                            <br>The moment you win, a popup will appear displaying your total time along with any rewards you may have earned. You will have the option to try again to improve your time, quit, proceed to the next stage (if available), or access the leaderboards (if no more stages are available).
+                                        <li>The moment you win, a popup will appear displaying your total time along with any rewards you may have earned. You will have the option to try again to improve your time, quit, proceed to the next stage (if available), or access the leaderboards (if no more stages are available).
+                                            <br>
                                             <img src="{{ asset('assets/help/h13.png') }}" alt="" style="max-width: 800px">
                                         </li>
                                     </ol>
