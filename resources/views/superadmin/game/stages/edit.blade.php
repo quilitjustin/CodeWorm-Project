@@ -100,7 +100,7 @@
                                                 data-placeholder="Select a Background Image" style="width: 100%;">
                                                 <option value="">Select a Background Music (<a href="{{ route('super.bgms.create') }}">Create new background music</a>)</option>
                                                 @forelse($bgms as $bgm)
-                                                <option value="{{ $bgm->encrypted_id }}" {{ $bgm->id == $stage->bgim_id ? 'selected' : '' }}>{{ $bgm->name }}</option>
+                                                <option value="{{ $bgm->encrypted_id }}" {{ $bgm->id == $stage->bgm_id ? 'selected' : '' }}>{{ $bgm->name }}</option>
                                                 @empty
                                                 @endforelse
                                             </select>
