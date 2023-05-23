@@ -72,33 +72,6 @@
                                         {{ $task->answer }}
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <hr class="border border-primary w-100">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Created By</label>
-                                    <br>
-                                    <a
-                                        href="{{ is_null($task->created_by_user) ? '#' : route('super.users.show', $task->created_by_user->encrypted_id) }}">{{ is_null($task->created_by_user) ? '' : $task->created_by_user->f_name . ' ' . $task->created_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Created</label>
-                                    <br>
-                                    <p>{{ \Carbon\Carbon::parse($task->created_at)->diffForHumans() }}</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Updated By</label>
-                                    <br>
-                                    {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($task->updated_by_user) ? '#' : route('super.users.show', $task->updated_by_user->encrypted_id) }}">{{ is_null($task->updated_by_user) ? '' : $task->updated_by_user->f_name . ' ' . $task->updated_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Updated</label>
-                                    <br>
-                                    <p>{{ is_null($task->updated_by) ? '' : \Carbon\Carbon::parse($task->updated_at)->diffForHumans() }}
-                                    </p>
-                                </div>
                             </div>
                             <!-- /.row -->
                         </div>

@@ -70,38 +70,10 @@
                                             <p>{{ $user->role }}</p>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Status</label>
-                                            <p>{{ $user->status }}</p>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <hr class="border border-primary w-100">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Created By</label>
-                                            <br>
-                                            <a
-                                                href="{{ is_null($user->created_by_user) ? '#' : route('super.users.show', $user->created_by_user->encrypted_id) }}">{{ is_null($user->created_by_user) ? '' : $user->created_by_user->f_name . ' ' . $user->created_by_user->l_name }}</a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Date Created</label>
-                                            <br>
-                                            <p>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</p>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Updated By</label>
-                                            <br>
-                                            {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                            <a
-                                                href="{{ is_null($user->updated_by_user) ? '#' : route('super.users.show', $user->updated_by_user->encrypted_id) }}">{{ is_null($user->updated_by_user) ? '' : $user->updated_by_user->f_name . ' ' . $user->updated_by_user->l_name }}</a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Date Updated</label>
-                                            <br>
-                                            <p>{{ is_null($user->updated_by) ? '' : \Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}
-                                            </p>
+                                            <label class="d-block">Status</label>
+                                            <p class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'Active' : 'Suspended' }}</p>
                                         </div>
                                     </div>
-
                                 </div>
                                 <!-- /.tab-pane -->
 

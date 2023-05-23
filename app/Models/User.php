@@ -61,4 +61,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
+
+    public function request_registrations(){
+        return $this->hasOne(RequestRegistration::class, 'user_id');
+    }
 }

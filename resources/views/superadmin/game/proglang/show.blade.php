@@ -38,33 +38,6 @@
                                     <label>Name</label>
                                     <p>{{ $proglang->name }}</p>
                                 </div>
-                                <div class="col-sm-12">
-                                    <hr class="border border-primary w-100">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Created By</label>
-                                    <br>
-                                    <a
-                                        href="{{ is_null($proglang->created_by_user) ? '#' : route('super.users.show', $proglang->created_by_user->encrypted_id) }}">{{ is_null($proglang->created_by_user) ? '' : $proglang->created_by_user->f_name . ' ' . $proglang->created_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Created</label>
-                                    <br>
-                                    <p>{{ \Carbon\Carbon::parse($proglang->created_at)->diffForHumans() }}</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Updated By</label>
-                                    <br>
-                                    {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($proglang->updated_by_user) ? '#' : route('super.users.show', $proglang->updated_by_user->encrypted_id) }}">{{ is_null($proglang->updated_by_user) ? '' : $proglang->updated_by_user->f_name . ' ' . $proglang->updated_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Updated</label>
-                                    <br>
-                                    <p>{{ is_null($proglang->updated_by) ? '' : \Carbon\Carbon::parse($proglang->updated_at)->diffForHumans() }}
-                                    </p>
-                                </div>
                             </div>
                             <!-- /.row -->
                         </div>

@@ -38,34 +38,6 @@
                                     <label>Name</label>
                                     <p>{{ $bgm->name }}</p>
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-sm-12">
-                                    <hr class="border border-primary w-100">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Created By</label>
-                                    <br>
-                                    <a
-                                        href="{{ is_null($bgm->created_by_user) ? '#' : route('super.users.show', $bgm->created_by_user->encrypted_id) }}">{{ is_null($bgm->created_by_user) ? '' : $bgm->created_by_user->f_name . ' ' . $bgm->created_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Created</label>
-                                    <br>
-                                    <p>{{ \Carbon\Carbon::parse($bgm->created_at)->diffForHumans() }}</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Updated By</label>
-                                    <br>
-                                    {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($bgm->updated_by_user) ? '#' : route('super.users.show', $bgm->updated_by_user->encrypted_id) }}">{{ is_null($bgm->updated_by_user) ? '' : $bgm->updated_by_user->f_name . ' ' . $bgm->updated_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Updated</label>
-                                    <br>
-                                    <p>{{ is_null($bgm->updated_by) ? '' : \Carbon\Carbon::parse($bgm->updated_at)->diffForHumans() }}
-                                    </p>
-                                </div>
                             </div>
                             <!-- /.row -->
                         </div>

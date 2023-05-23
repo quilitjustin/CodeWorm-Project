@@ -12,7 +12,15 @@ class AnaliticsDashboardController extends Controller
     //
     public function index()
     {
-        $data = User::all()->count();
+        $data = User::where([
+            // Don't show the current user because he can edit his details in his own settings
+            // We only have 1 admin anyway
+            ['id', '!=', 1],
+        ])
+            ->whereHas('request_registrations', function ($query) {
+                $query->where('status', 'accepted');
+            })
+            ->count();
 
         return response()->json($data);
     }

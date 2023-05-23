@@ -39,11 +39,10 @@ class UsersController extends Controller
             ->where([
                 // Don't show the current user because he can edit his details in his own settings
                 ['id', '!=', Auth::user()->id],
-                // Don't get the superadmin
-                // This user should be the only superadmin so there is no need for this statement
-                // Actually this is better since we can also see if there would be another superadmin that shouldn't exist (backdoor for example)
-                // ['role', '!=', 'superadmin'],
             ])
+            ->whereHas('request_registrations', function ($query) {
+                $query->where('status', 'accepted');
+            })
             ->get();
 
         return view('superadmin.users.index', [
@@ -102,11 +101,11 @@ class UsersController extends Controller
     public function show($user)
     {
         $id = decrypt($user);
-        if(Auth::user()->id == $id){
+        if (Auth::user()->id == $id) {
             return redirect()->route('super.profile');
         }
         $data = User::with('created_by_user:id,f_name,l_name', 'updated_by_user:id,f_name,l_name')->findorfail($id);
-        
+
         return view('superadmin.users.show', [
             'user' => $data,
         ]);
@@ -185,7 +184,7 @@ class UsersController extends Controller
         // ]);
 
         $data = $this->findRecord($user);
-        
+
         // $carbon = new \Carbon\Carbon();
         // switch ($request['duration']) {
         //     case 'hour':
@@ -210,7 +209,7 @@ class UsersController extends Controller
         //         $data->banned_until = null;
         //         break;
         // }
-        
+
         $data->suspended_until = now();
         $data->save();
 
@@ -230,7 +229,7 @@ class UsersController extends Controller
         //
         // $data = $this->findRecord($user);
         $id = decrypt($user);
-        if($id == 1){
+        if ($id == 1) {
             return 403;
         }
         $data = User::findorfail($id);

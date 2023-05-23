@@ -33,33 +33,6 @@
                                 <div class="col-sm-12">
                                     {!! $announcement->contents !!}
                                 </div>
-                                <div class="col-sm-12">
-                                    <hr class="border border-primary w-100">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Created By</label>
-                                    <br>
-                                    <a
-                                        href="{{ is_null($announcement->created_by_user) ? '#' : route('super.users.show', $announcement->created_by_user->encrypted_id) }}">{{ is_null($announcement->created_by_user) ? '' : $announcement->created_by_user->f_name . ' ' . $announcement->created_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Created</label>
-                                    <br>
-                                    <p>{{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Updated By</label>
-                                    <br>
-                                    {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($announcement->updated_by_user) ? '#' : route('super.users.show', $announcement->updated_by_user->encrypted_id) }}">{{ is_null($announcement->updated_by_user) ? '' : $announcement->updated_by_user->f_name . ' ' . $announcement->updated_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Updated</label>
-                                    <br>
-                                    <p>{{ is_null($announcement->updated_by) ? '' : \Carbon\Carbon::parse($announcement->updated_at)->diffForHumans() }}
-                                    </p>
-                                </div>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-end">

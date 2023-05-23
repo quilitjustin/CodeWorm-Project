@@ -35,7 +35,6 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Status</th>
-                                        <th class="d-none d-md-table-cell">Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -50,9 +49,6 @@
                                             <td class="text-center"><span
                                                     class="badge {{ is_null($user->suspended_until) ? 'bg-success' : 'bg-danger' }}">{{ is_null($user->suspended_until) ? 'active' : 'suspended' }}</span>
                                             </td>
-                                            <td class="text-center">
-                                                {{ $user['role'] }}
-                                            </td>
                                             <td class="">
                                                 <a class="text-link"
                                                     href="{{ route('super.users.show', $user->encrypted_id) }}">
@@ -65,6 +61,15 @@
                                                         @method('PUT')
                                                         <button type="submit" class="text-danger">
                                                             <i class="fas fa-ban"></i> Suspend</button>
+                                                    </form>
+                                                @else
+                                                    <form class="activate d-inline"
+                                                        action="{{ route('super.users.suspend', $user->encrypted_id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="text-success">
+                                                            <i class="fas fa-ban"></i> Activate</button>
                                                     </form>
                                                 @endif
                                             </td>
@@ -124,6 +129,30 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <div class="modal fade" id="confirm-activate">
+        <div class="modal-dialog">
+            <div class="modal-content bg-success">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Activation</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to activate this user again?
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button id="confirm-suspension-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('script')
@@ -158,6 +187,10 @@
                 } else {
                     $("#err-suspend-msg").text("Reason is required.");
                 }
+            });
+            $(".activate").click(function(e){
+                e.preventDefault();
+                $("#confirm-activate").modal("show");
             });
         });
     </script>

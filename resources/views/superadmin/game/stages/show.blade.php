@@ -94,33 +94,6 @@
                                     <a class="d-block mb-3"
                                         href="{{ is_null($stage->badges) ? '#' : route('super.badges.show', $stage->badges->encrypted_id) }}">{{ is_null($stage->badges) ? '' : $stage->badges->name }}</a>
                                 </div>
-                                <div class="col-sm-12">
-                                    <hr class="border border-primary w-100">
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Created By</label>
-                                    <br>
-                                    <a
-                                        href="{{ is_null($stage->created_by_user) ? '#' : route('super.users.show', $stage->created_by_user->encrypted_id) }}">{{ is_null($stage->created_by_user) ? '' : $stage->created_by_user->f_name . ' ' . $stage->created_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Created</label>
-                                    <br>
-                                    <p>{{ \Carbon\Carbon::parse($stage->created_at)->diffForHumans() }}</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Updated By</label>
-                                    <br>
-                                    {{-- Because updated_by can have null value, we must first check if the value is null to avoid error --}}
-                                    <a
-                                        href="{{ is_null($stage->updated_by_user) ? '#' : route('super.users.show', $stage->updated_by_user->encrypted_id) }}">{{ is_null($stage->updated_by_user) ? '' : $stage->updated_by_user->f_name . ' ' . $stage->updated_by_user->l_name }}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Date Updated</label>
-                                    <br>
-                                    <p>{{ is_null($stage->updated_by) ? '' : \Carbon\Carbon::parse($stage->updated_at)->diffForHumans() }}
-                                    </p>
-                                </div>
                             </div>
                             <!-- /.row -->
                         </div>
