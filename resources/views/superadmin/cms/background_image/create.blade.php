@@ -87,7 +87,6 @@
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.inc_component')
     <script>
         const imageFile = $("#image");
         const preview = $("#img-preview");

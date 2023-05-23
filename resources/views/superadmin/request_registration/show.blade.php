@@ -76,11 +76,11 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer d-flex justify-content-end">
-                            <button id="cancel" class="btn btn-warning"><i
+                            <button id="cancel" class="btn btn-warning mr-2"><i
                                     class="right fas fa-angle-left"></i> Go Back
                             </button>
                             @if ($reqreg->status == 'pending')
-                                <form class="registration-update-form" action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
+                                <form class="registration-update-form mr-2" action="{{ route('super.request_registration.update', $reqreg->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="decision" value="approved">

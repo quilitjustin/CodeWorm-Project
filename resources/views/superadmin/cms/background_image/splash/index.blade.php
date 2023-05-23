@@ -25,6 +25,7 @@
 @section('script')
     {{-- @include('layouts.superadmin.delete') --}}
     <script>
+        const index_route = "{{ route('super.cms.bgim.splash.index') }}";
         const route = "{{ route('super.cms.bgim.splash.set') }}";
     </script>
     @include('superadmin.cms.background_image.script')
