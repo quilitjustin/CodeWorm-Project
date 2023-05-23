@@ -347,7 +347,7 @@ window.addEventListener("load", function () {
             this.frameX = 0;
             this.maxFrame = 18;
             this.franeY = 0;
-            this.fps = 20;
+            this.fps = 30;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
             this.speed = 0;
@@ -546,8 +546,8 @@ window.addEventListener("load", function () {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
             this.gameHeight = gameHeight;
-            this.width = 1214;
-            this.height = 787;
+            this.width = 273;
+            this.height = 282;
             this.image = document.getElementById("enemyImage");
             this.x = this.gameWidth - this.width;
             this.y = this.gameHeight - this.height;

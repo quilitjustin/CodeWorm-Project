@@ -59,35 +59,35 @@ height:100vh; width=100%;">
             <div id="content" class="row">
                 <div class="col-md-3 bg-blurr rounded flex-column justify-content-between" style="padding: 0;">
                     <div class="">
-                        <button id="tackle" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
+                        <button id="tackle" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
                                 DMG 50 SP 50
                             </span>
                         </button>
-                        <button id="heal" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
+                        <button id="heal" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Heal
                             <br>
                             <span class="font-weight-normal">
                                 HP 100 SP 100
                             </span>
                         </button>
-                        <button id="supreme" class="skills btn btn-primary w-100 shadow-sm font-weight-bold">
+                        <button id="supreme" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
                                 DMG 500 SP 100
                             </span>
                         </button>
-                        <button id="elixir" class="skills btn btn-success w-100 shadow-sm font-weight-bold">
+                        <button id="elixir" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Elixir
                             <br>
                             <span class="font-weight-normal">
                                 HP 500 SP 450
                             </span>
                         </button>
-                        <button id="super" class="skills btn btn-warning w-100 shadow-sm font-weight-bold">
+                        <button id="super" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Super Science!
                             <br>
                             <span class="font-weight-normal">
@@ -96,7 +96,7 @@ height:100vh; width=100%;">
                         </button>
                     </div>
                     <div>
-                        <button class="pause-btn btn btn-danger w-100 shadow-sm font-weight-bold">Pause/Menu</button>
+                        <button class="pause-btn btn btn-danger w-100 border border-dark shadow-sm font-weight-bold">Pause/Menu</button>
                     </div> 
                 </div>
                 <div id="main-controls" class="col-md-6 p-0" style="height: 350px; background: #080c16;">
@@ -455,7 +455,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=18') }}"></script>
+<script src="{{ asset('demo/script.js?v=19') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);
