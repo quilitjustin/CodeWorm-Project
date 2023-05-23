@@ -93,6 +93,9 @@ class AuthController extends Controller
                     'l_name' => ['required'],
                 ]);
                 $user->f_name = $this->capitalize($request['f_name']);
+                if(!is_null($request['m_name'])){
+                    $user->m_name = $this->capitalize($request['m_name']);
+                }
                 $user->l_name = $this->capitalize($request['l_name']);
                 break;
             case 'email':

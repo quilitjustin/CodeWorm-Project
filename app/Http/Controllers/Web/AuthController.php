@@ -54,23 +54,27 @@ class AuthController extends Controller
         $user = User::select('id')
             ->where('email', $email)
             ->first();
-        $req_registration = new RequestRegistration();
-
+        
         if (is_null($user)) {
             $user = new User();
             $user->f_name = strip_tags($request['f_name']);
+            if(!is_null($request['m_name'])){
+                $user->m_name = $this->capitalize($request['m_name']);
+            }
             $user->l_name = strip_tags($request['l_name']);
             $user->email = $email;
             $user->password = Hash::make($request['password']);
 
             $user->save();
 
+            $req_registration = new RequestRegistration();
             $req_registration->user_id = $user->id;
         } else {
+            $req_registration = RequestRegistration::select('status')->where('user_id', $user->id)->first();
             if ($req_registration->status == 'pending') {
                 return redirect()
                     ->back()
-                    ->with(['error' => 'Currently have a pending request!']);
+                    ->with(['error' => 'Currently have an ongoing request!']);
             }
             $req_registration->user_id = $user->id;
         }
@@ -198,6 +202,9 @@ class AuthController extends Controller
                     'l_name' => ['required'],
                 ]);
                 $user->f_name = $this->capitalize($request['f_name']);
+                if(!is_null($request['m_name'])){
+                    $user->m_name = $this->capitalize($request['m_name']);
+                }
                 $user->l_name = $this->capitalize($request['l_name']);
                 break;
             case 'email':

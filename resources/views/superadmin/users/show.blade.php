@@ -58,6 +58,10 @@
                                             <p>{{ $user->f_name }}</p>
                                         </div>
                                         <div class="col-md-4">
+                                            <label>Middle Name</label>
+                                            <p>{{ $user->m_name }}</p>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label>Last Name</label>
                                             <p>{{ $user->l_name }}</p>
                                         </div>

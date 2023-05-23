@@ -54,11 +54,14 @@ class ProgrammingLanguageController extends Controller
         //
         $request->validate([
             'name' => ['required', 'unique:programming_languages', 'max:255'],
+            'key' => ['required', 'integer']
         ]);
 
         $proglang = new ProgLang();
         $proglang->name = strip_tags($request['name']);
-
+        if(!is_null($request['key'])){
+            $proglang->key = $request['key'];
+        }
         $proglang->created_by = Auth::user()->id;
         $proglang->save();
 
@@ -112,11 +115,14 @@ class ProgrammingLanguageController extends Controller
         //
         $request->validate([
             'name' => ['required', 'unique:programming_languages', 'max:255'],
+            'key' => ['required', 'integer']
         ]);
         $data = $this->findRecord($proglang);
 
         $data->name = strip_tags($request->name);
-
+        if(!is_null($request['key'])){
+            $proglang->key = $request['key'];
+        }
         $data->updated_by = Auth::user()->id;
 
         $data->save();
