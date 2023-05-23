@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center p-3"
-        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
+        style="height: 100%; min-height: 100vh; background-image: url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <div class="row">
             <div class="col-sm-12">
                 <div class="text-center text-light mt-4">
@@ -60,6 +60,7 @@
                                 <tr>
                                     <th>Rank</th>
                                     <th>Name</th>
+                                    <th>Highest Stage</th>
                                     <th>Time</th>
                                 </tr>
                             </thead>
@@ -163,6 +164,7 @@
                                     "' class='img-circle mr-2' style='width: 35px; height: 35px; max-width: 35px; max-height: 35px;' />" +
                                     record.users.f_name + " " + record.users
                                     .l_name + "</a>",
+                                    "Stage 1",
                                     record.total_time
                                 ]).draw(false).node();
                             });

@@ -44,7 +44,7 @@
                                         <a href="{{ route('web.play.start', $stage->encrypted_id) }}">
                                             <img src="{{ asset($stage->bgim->path) }}" alt="img"
                                                 style="width:100%; max-width: 100%; height: 200px; max-height: 200px; box-shadow: 10px 10px 5px #ccc; -moz-box-shadow: 10px 10px 5px #ccc; -webkit-box-shadow: 10px 10px 5px #ccc; -khtml-box-shadow: 10px 10px 5px #ccc;">
-                                            <h3 class="text-dark font-weight-bold"
+                                            <h3 class="text-dark text-center font-weight-bold"
                                                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 2px 2px 0px #FFFFFF;">
                                                 {{ $stage->name }}<br><span>{{ empty($stage->game_records_users[0]) ? '' : $stage->game_records_users[0]->record }}</span>
                                             </h3>
