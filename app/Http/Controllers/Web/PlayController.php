@@ -95,7 +95,7 @@ class PlayController extends Controller
             $user = \App\Models\User::findorfail($uid);
             $badge = \App\Models\Badges::findorfail($badge_id);
 
-            $user->badges()->attach($badge);
+            $user->badges()->syncWithoutDetaching($badge);
         }
 
         return response()->json(['message' => 'success']);
