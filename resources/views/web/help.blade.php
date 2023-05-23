@@ -34,7 +34,28 @@
                                 </h3>
                             </div>
                             <div class="card-body">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <p>
+                                    <b>Introduction:</b><br>
+                                    Welcome to Codeworm! an exciting adventure that will test your skills and immerse you
+                                    in a thrilling virtual world. Prepare yourself for an epic journey filled with
+                                    challenges, mysteries, and endless fun. Are you ready to embark on this unforgettable
+                                    adventure?
+                                </p>
+                                <p>
+                                    <b>How to Play:</b><br>
+                                    <ol>
+                                        <li>Select play from the sidebar on the left side or Click <a href="{{ route('web.play.index') }}" target="_blank">here</a>.</li>
+                                        <li>Select programming language you wish to challenge. For example here we want to challenge PHP.
+                                            <br>
+                                            <img src="{{ asset('assets/help/h1.png') }}" alt="" style="max-width: 800px">
+                                        </li>
+                                        <li>Select stage For example here we want to challenge Stage 1.
+                                            <br>
+                                            <img src="{{ asset('assets/help/h2.png') }}" alt="" style="max-width: 800px">
+                                        </li>
+                                        <li>Click start <button></button></li>
+                                    </ol>
+                                </p>
                             </div>
                         </div>
                         <!-- /.card -->
