@@ -9,7 +9,7 @@ function run_code($data)
 {
     try {
         ob_start();
-        eval($data);
+        eval('?>' . $data);
         $reponse['result'] = ob_get_contents();
         ob_end_clean();
         $reponse['success'] = true;
