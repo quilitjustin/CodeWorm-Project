@@ -213,7 +213,7 @@ window.addEventListener("load", function () {
                                         DOH.volume = sfxVolume;
                                         DOH.play();
                                         $("#msg").html(
-                                            "Wrong Answer!<br>Enemy DMG +1"
+                                             "Wrong Answer<br>Enemy will Attack!"
                                         );
                                         enemy.damage++;
                                     }
@@ -228,7 +228,7 @@ window.addEventListener("load", function () {
                                         "Syntax error: " + response["result"]
                                     );
                                     $("#msg").html(
-                                        "There's an error!<br>Enemy DMG +1"
+                                         "There's an error<br>Enemy will Attack!"
                                     );
                                     enemy.damage++;
                                 }
@@ -242,7 +242,7 @@ window.addEventListener("load", function () {
                                     "Error: Did not follow the given format"
                                 );
                                 $("#msg").html(
-                                    "There's an error!<br>Enemy DMG +1"
+                                     "There's an error<br>Enemy will Attack!"
                                 );
                                 enemy.damage++;
                             },
@@ -274,7 +274,7 @@ window.addEventListener("load", function () {
                                 DOH.currentTime = 0;
                                 DOH.volume = sfxVolume;
                                 DOH.play();
-                                $("#msg").html("Wrong Answer!<br>Enemy DMG +1");
+                                $("#msg").html( "Wrong Answer<br>Enemy will Attack!");
                                 enemy.damage++;
                             }
                             $("#err-console").text("Output: " + $log);
@@ -285,7 +285,7 @@ window.addEventListener("load", function () {
                             $("#err-console").text(
                                 "Syntax error: " + error.message
                             );
-                            $("#msg").html("There's an error!<br>Enemy DMG +1");
+                            $("#msg").html( "There's an error<br>Enemy will Attack!");
                             enemy.damage++;
                         }
                         $("#msg").fadeIn();
@@ -362,7 +362,7 @@ window.addEventListener("load", function () {
                                             DOH.volume = sfxVolume;
                                             DOH.play();
                                             $("#msg").html(
-                                                "Wrong Answer!<br>Enemy DMG +1"
+                                                 "Wrong Answer<br>Enemy will Attack!"
                                             );
                                             enemy.damage++;
                                         }
@@ -378,7 +378,7 @@ window.addEventListener("load", function () {
                                             "Syntax error: " + response.stderr
                                         );
                                         $("#msg").html(
-                                            "There's an error!<br>Enemy DMG +1"
+                                             "There's an error<br>Enemy will Attack!"
                                         );
                                         enemy.damage++;
                                     }
