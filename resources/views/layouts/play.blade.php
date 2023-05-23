@@ -106,13 +106,13 @@ height:100vh; width=100%;">
 
                     </div>
                     <div id="description" class="h-100 text-light" hidden>
-                        <div class="h-75 p-3" style="overflow: auto;">
+                        <div class="p-3" style="overflow: auto; height: 90%">
                             <h5 style="mb-3">Task Description:</h5>
                             <div id="task-description">
                                 
                             </div>
                         </div>
-                        <div class="h-25 d-flex align-items-end">
+                        <div class="d-flex align-items-end" style="height: 10%">
                             <div class="btn-group w-100" role="group" style="z-index: 1;">
                                 {{-- <button id="cancel-task" class="skills btn btn-warning w-25">Cancel</button> --}}
                                 <button id="start-coding" class="btn btn-success w-100">Start Coding</button>

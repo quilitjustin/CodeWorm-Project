@@ -53,7 +53,10 @@
                                             <br>
                                             <img src="{{ asset('assets/help/h2.png') }}" alt="" style="max-width: 800px">
                                         </li>
-                                        <li>Click start <button></button></li>
+                                        <li>Click start button
+                                            <br>
+                                            <img src="{{ asset('assets/help/h3.png') }}" alt="" style="max-width: 800px">
+                                        </li>
                                     </ol>
                                 </p>
                             </div>
