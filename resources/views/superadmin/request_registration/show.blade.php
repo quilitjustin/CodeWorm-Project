@@ -41,17 +41,22 @@
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-4">
-                                    <label>First Name</label>
+                                    <label>Middle Name</label>
+                                    <p>{{ $reqreg->users->m_name }}</p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Last Name</label>
                                     <p>{{ $reqreg->users->l_name }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-4">
-                                    <label>First Name</label>
+                                    <label>Email</label>
                                     <p>{{ $reqreg->users->email }}</p>
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-4">
-                                    <label>Status</label>
+                                    <label>Request Status</label>
                                     <p>{{ $reqreg->status }}</p>
                                 </div>
                                 <!-- /.col -->

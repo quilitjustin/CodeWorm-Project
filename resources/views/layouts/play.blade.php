@@ -365,6 +365,7 @@ height:100vh; width=100%;">
     }
     let STAKE = 0;
 
+
     function showTask(idx) {
         $("#tasks").prop("hidden", true);
         $("#description").prop("hidden", false);
@@ -384,6 +385,12 @@ height:100vh; width=100%;">
     };
 
     $("#tasks").append(html);
+    
+    $("#tasks button").on("click", function() {
+    $(this).remove();
+});
+
+
     $("#re-description").click(function() {
         $("#description").prop("hidden", false);
         $("#code-editor").prop("hidden", true);
@@ -428,7 +435,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=24') }}"></script>
+<script src="{{ asset('demo/script.js?v=25') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

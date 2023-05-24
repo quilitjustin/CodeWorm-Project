@@ -71,7 +71,8 @@
                                                 @forelse ($proglangs as $proglang)
                                                     <option data-key="{{ $proglang->key }}" value="{{ $proglang->encrypted_id }}">{{ $proglang->name }}
                                                     </option>
-                                             
+                                                @empty
+                                                @endforelse
 
                                             </select>
                                             @error('proglang')

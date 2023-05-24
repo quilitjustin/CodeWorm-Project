@@ -74,7 +74,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree" checked>
                                 <label for="agreeTerms">
                                     I agree to the <a href="#" id="terms">terms</a>
                                 </label>
@@ -141,7 +141,6 @@
                     </ol>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button id="confirm-btn" type="button" class="btn btn-primary">Confirm</button>
                 </div>
             </div>
@@ -173,6 +172,11 @@
 
         $("#registration-form").on("submit", function(e){
             $("#submit-btn").prop("disabled", true); 
+        });
+        
+        $("#confirm-btn").click(function(){
+             $("#agreeTerms").prop("checked", true);
+              $("#terms-modal").modal("hide");
         });
     </script>
 @endsection

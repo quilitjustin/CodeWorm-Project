@@ -29,7 +29,7 @@ class RequestRegistrationController extends Controller
 
     public function show($id)
     {
-        $data = RequestRegistration::with('users:id,f_name,l_name,email')->findorfail($id);
+        $data = RequestRegistration::with('users:id,f_name,m_name,l_name,email')->findorfail($id);
 
         return view('superadmin.request_registration.show', [
             'reqreg' => $data,
