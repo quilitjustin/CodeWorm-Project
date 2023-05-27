@@ -21,12 +21,11 @@ class PlayController extends Controller
         ]);
     }
 
-    protected function formatTime($time)
+    protected function formatTime($seconds)
     {
-        $timeInSeconds = round($time / 1000);
-        $hours = floor($timeInSeconds / 3600);
-        $minutes = floor(($timeInSeconds % 3600) / 60);
-        $seconds = $timeInSeconds % 60;
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        $seconds = $seconds % 60;
         return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
     }
 

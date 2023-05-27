@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center p-3"
-        style="height: 100%; min-height: 100vh; background-image: url('{{ asset('assets/bgim/stalk.png') . '?v=' . filemtime(public_path('assets/bgim/stalk.png')) }}')">
+        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}');)">
 
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center display-4 text-navy font-weight-bold">Search For Someone</h2>
+                <h2 class="text-center display-4 text-white font-weight-bold">Search For Someone</h2>
             </div>
             <div class="col-12">
                 <div class="row">
@@ -27,6 +27,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 text-center">
+                <a href="{{ route('web.play.index') }}" class="btn btn-dark mt-3">Go
+                    Back</a>
             </div>
         </div>
     </div>
