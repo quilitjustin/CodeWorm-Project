@@ -50,7 +50,7 @@ height:100vh; width=100%;">
             <button hidden id="fullScreenButton">Full Screen</button>
             <div id="overlay" class="d-flex justify-content-center">
                 <div class="text-center">
-                    <h1 id="msg" class="text-dark">
+                    <h1 id="msg" class="text-dark" style="mix-blend-mode: difference;">
 
                     </h1>
                 </div>
@@ -447,7 +447,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=26') }}"></script>
+<script src="{{ asset('demo/script.js?v=32') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

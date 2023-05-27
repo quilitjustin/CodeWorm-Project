@@ -88,6 +88,17 @@ window.addEventListener("load", function () {
         setAtkCondition(enemy);
       }, 30000); // Call setAtkCondition every 30 seconds (30,000 milliseconds)
     }
+    let countdown = 30;
+    function countdownEndGame() {
+      intervalId = setInterval(function() {
+        countdown--;
+        $("#msg").fadeIn();
+        $("#msg").html("Game is about to end <br>" + countdown);
+        if(countdown < 0){
+            GAME_OVER = true;
+        }
+      }, 1000); 
+    }
     
     function stopEnemyAtk() {
       clearInterval(intervalId); // Stop the interval
@@ -116,7 +127,6 @@ window.addEventListener("load", function () {
                 }, 2000);
                 setTimeout(function () {
                     ENABLED_CONTROLS = true;
-                    $("#msg").fadeOut();
                     startTimer();
                     startEnemyAtk(enemy);
                 }, 3000);
@@ -215,6 +225,7 @@ window.addEventListener("load", function () {
                                 // console.log(response);
                                 if (response["success"] == true) {
                                     if (response["result"] == RIGHT_ANSWER) {
+                                         clearInterval(intervalId); // Stop the interval
                                         CLAP_SFX.currentTime = 0;
                                         CLAP_SFX.volume = sfxVolume;
                                         CLAP_SFX.play();
@@ -230,6 +241,9 @@ window.addEventListener("load", function () {
                                         stopTimer();
                                         TOTAL_TIMER.push(TASK_TIMER);
                                         TASK_TIMER = 0;
+                                        if(maxTask <= 0){
+                                            countdownEndGame();
+                                        }
                                     } else {
                                         DOH.currentTime = 0;
                                         DOH.volume = sfxVolume;
@@ -282,6 +296,7 @@ window.addEventListener("load", function () {
                             eval(`${code}`);
 
                             if (window.$log == RIGHT_ANSWER) {
+                                 clearInterval(intervalId); // Stop the interval
                                 CLAP_SFX.currentTime = 0;
                                 CLAP_SFX.volume = sfxVolume;
                                 CLAP_SFX.play();
@@ -292,6 +307,9 @@ window.addEventListener("load", function () {
                                 $("#tasks").prop("hidden", false);
                                 $("#code-editor").prop("hidden", true);
                                 player.sp += STAKE;
+                                 if(maxTask <= 0){
+                                            countdownEndGame();
+                                        }
                             } else {
                                 DOH.currentTime = 0;
                                 DOH.volume = sfxVolume;
@@ -365,6 +383,7 @@ window.addEventListener("load", function () {
 
                                     if (response.stdout) {
                                         if (response.stdout == RIGHT_ANSWER) {
+                                             clearInterval(intervalId); // Stop the interval
                                             CLAP_SFX.currentTime = 0;
                                             CLAP_SFX.volume = sfxVolume;
                                             CLAP_SFX.play();
@@ -383,6 +402,9 @@ window.addEventListener("load", function () {
                                                 "hidden",
                                                 true
                                             );
+                                             if(maxTask <= 0){
+                                            countdownEndGame();
+                                        }
                                         } else {
                                             DOH.currentTime = 0;
                                             DOH.volume = sfxVolume;
@@ -418,7 +440,6 @@ window.addEventListener("load", function () {
                             });
                         });
                 }
-                endCountdown();
             });
         }
     }
