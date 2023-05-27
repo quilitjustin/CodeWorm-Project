@@ -121,7 +121,7 @@ class ProgrammingLanguageController extends Controller
 
         $data->name = strip_tags($request->name);
         if(!is_null($request['key'])){
-            $proglang->key = $request['key'];
+            $data->key = $request['key'];
         }
         $data->updated_by = Auth::user()->id;
 

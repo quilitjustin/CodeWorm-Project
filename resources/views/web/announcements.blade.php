@@ -48,7 +48,7 @@
                                         {!! $pin->contents !!}
                                         <div class="d-none read-more justify-content-center"
                                             style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
-                                            <button class="btn btn-outline-primary my-2">Show More</button>
+                                            <button class="btn btn-secondary my-2">Show More</button>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                     {!! $announcement->contents !!}
                                     <div class="d-none read-more justify-content-center"
                                         style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
-                                        <button class="btn btn-outline-primary my-2">Show More</button>
+                                        <button class="btn btn-secondary my-2">Show More</button>
                                     </div>
                                 </div>
                             </div>

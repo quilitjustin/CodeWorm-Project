@@ -9,7 +9,8 @@
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
 
-                <form id="registration-form" action="{{ route('web.auth.request') }}" method="POST" enctype="multipart/form-data">
+                <form id="registration-form" action="{{ route('web.auth.request') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="First name" name="f_name">
@@ -89,7 +90,7 @@
                             <a href="{{ route('password.forgot') }}">Forgot Password?</a>
                         </div>
                         <!-- /.col -->
-                        <div class="mt-3">
+                        <div class="col-12 mt-3">
                             @if ($errors->any())
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -114,7 +115,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 500px; overflow: auto;">
                     <p>By using this website, you agree to be bound by the following terms and conditions:</p>
                     <ol>
                         <li>You agree to comply with all applicable laws and regulations</li>
@@ -138,6 +139,34 @@
                             such
                             cases, the email address associated with your account may be permanently banned from use on the
                             site.</li>
+                        <li>You agree not to misuse or abuse the reporting system provided on this
+                            website. This includes, but is not limited to, filing false or malicious reports, repeatedly
+                            filing
+                            frivolous reports, or using the reporting system for personal vendettas or harassment.</li>
+
+                        <li>Any abuse or misuse of the reporting system may result in appropriate
+                            actions, including but not limited to warnings, temporary suspension of reporting privileges, or
+                            permanent termination of access to the reporting system and the website.</li>
+
+                        <li>Reports should be made in good faith, based on genuine concerns and factual
+                            information available to you. Deliberate misuse of the reporting system may undermine its
+                            integrity
+                            and effectiveness, and may lead to the loss of reporting privileges.</li>
+
+                        <li>Making false accusations or knowingly providing false information in reports is
+                            strictly prohibited and may result in disciplinary actions, legal consequences, or other
+                            appropriate
+                            measures.</li>
+
+                        <li>Any information obtained through the reporting system, including the
+                            identity of reporters, will be handled in accordance with applicable privacy laws and
+                            organizational
+                            policies. Any attempts to reveal the identity of a reporter or misuse confidential information
+                            obtained through the reporting system may result in severe consequences.</li>
+
+                        <li>The organization is committed to protecting individuals who make reports in good
+                            faith. Retaliation against individuals who report in good faith is strictly prohibited and may
+                            result in disciplinary actions against the perpetrator.</li>
                     </ol>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -170,13 +199,14 @@
             $("#terms-modal").modal("show");
         });
 
-        $("#registration-form").on("submit", function(e){
-            $("#submit-btn").prop("disabled", true); 
+        $("#registration-form").on("submit", function(e) {
+            $("#submit-btn").prop("disabled", true);
+            $("#loading-modal").modal("show");
         });
-        
-        $("#confirm-btn").click(function(){
-             $("#agreeTerms").prop("checked", true);
-              $("#terms-modal").modal("hide");
+
+        $("#confirm-btn").click(function() {
+            $("#agreeTerms").prop("checked", true);
+            $("#terms-modal").modal("hide");
         });
     </script>
 @endsection

@@ -88,6 +88,8 @@
     {{-- Pusher --}}
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
+    @include('layouts.loading')
+
     <script>
         $.ajaxSetup({
             headers: {
@@ -121,8 +123,7 @@
                 $("#total-notification").text("!");
                 $("#notif-parent").append(`   <div class="dropdown-divider"></div>
         <a href="{{ route('web.announcements.index') . '#latest' }}" class="dropdown-item">
-            {{-- This will be updated with ajax inside app.blade.php --}}
-            <i class="fas fa-scroll mr-2"></i> <span id="user-reg-count"></span> New Announcement
+            <i class="fas fa-scroll mr-2"></i> New Announcement
             <span class="float-right text-muted text-sm"></span>
         </a>
         <div class="dropdown-divider"></div>`);

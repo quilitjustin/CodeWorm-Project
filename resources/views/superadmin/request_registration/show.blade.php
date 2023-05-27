@@ -126,6 +126,7 @@
         });
 
         $(".registration-update-form").on("submit", function(e) {
+            $("#loading-modal").modal("show");
             $(".registration-update-form").find("button").prop("disabled", true);
             $("#cancel").prop("disabled", true);
         });

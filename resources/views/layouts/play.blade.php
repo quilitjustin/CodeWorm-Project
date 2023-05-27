@@ -23,8 +23,9 @@ height:100vh; width=100%;">
         <!-- Preloader -->
         <div class="preloader">
             <div style="margin: auto;">
-                <img class="d-block" src="{{ asset('assets/logo/logo.png') . '?v=' . filemtime(public_path('assets/logo/logo.png')) }}" alt="logo" height="150"
-                    width="150">
+                <img class="d-block"
+                    src="{{ asset('assets/logo/logo.png') . '?v=' . filemtime(public_path('assets/logo/logo.png')) }}"
+                    alt="logo" height="150" width="150">
                 <div class="spinner-border mt-3 d-block mx-auto" style="" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -59,35 +60,40 @@ height:100vh; width=100%;">
             <div id="content" class="row">
                 <div class="col-md-3 bg-blurr rounded flex-column justify-content-between" style="padding: 0;">
                     <div class="">
-                        <button id="tackle" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
+                        <button id="tackle"
+                            class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Tackle
                             <br>
                             <span class="font-weight-normal">
                                 DMG 50 SP 50
                             </span>
                         </button>
-                        <button id="heal" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
+                        <button id="heal"
+                            class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Heal
                             <br>
                             <span class="font-weight-normal">
                                 HP 100 SP 100
                             </span>
                         </button>
-                        <button id="supreme" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
+                        <button id="supreme"
+                            class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
                                 DMG 500 SP 100
                             </span>
                         </button>
-                        <button id="elixir" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
+                        <button id="elixir"
+                            class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Elixir
                             <br>
                             <span class="font-weight-normal">
                                 HP 500 SP 450
                             </span>
                         </button>
-                        <button id="super" class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
+                        <button id="super"
+                            class="skills btn bg-light w-100 border border-dark shadow-sm font-weight-bold">
                             Super Science!
                             <br>
                             <span class="font-weight-normal">
@@ -96,8 +102,9 @@ height:100vh; width=100%;">
                         </button>
                     </div>
                     <div>
-                        <button class="pause-btn btn btn-danger w-100 border border-dark shadow-sm font-weight-bold">Pause/Menu</button>
-                    </div> 
+                        <button
+                            class="pause-btn btn btn-danger w-100 border border-dark shadow-sm font-weight-bold">Pause/Menu</button>
+                    </div>
                 </div>
                 <div id="main-controls" class="col-md-6 p-0" style="height: 350px; background: #080c16;">
                     {{-- <div id="editor" class="row rounded" style="height: 330px; z-index: -10; background: #080c16;">
@@ -109,7 +116,7 @@ height:100vh; width=100%;">
                         <div class="p-3" style="overflow: auto; height: 90%">
                             <h5 style="mb-3">Task Description:</h5>
                             <div id="task-description">
-                                
+
                             </div>
                         </div>
                         <div class="d-flex align-items-end" style="height: 10%">
@@ -152,6 +159,7 @@ height:100vh; width=100%;">
         <div class="text-center">
             <h1 class="text-light d-block">Codeworm</h1>
             <h5 class="text-light d-block mb-3">{{ $stage->name . ' - ' . $stage->proglang->name }}</h5>
+            <a class="btn btn-danger mr-2" href="{{ route('web.play.index') }}">Exit</a>
             <button class="btn btn-primary">Play</button>
         </div>
     </div>
@@ -288,7 +296,7 @@ height:100vh; width=100%;">
             </div>
             <div class="modal-footer justify-content-between">
                 <button class="back-btn btn btn-default">Back</button>
-                <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit </a>
+                <a href="{{ route('web.play.index') }}" class="btn btn-danger">Quit</a>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -353,9 +361,10 @@ height:100vh; width=100%;">
     let arr = [];
 
     const tasks = {!! $stage->tasks !!};
+    let maxTask = tasks.length;
 
     let html = '';
-    for (let i = 0; i < tasks.length; i++) {
+    for (let i = 0; i < maxTask; i++) {
         html +=
             `<button onclick="showTask(` + i +
             `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` +
@@ -363,8 +372,12 @@ height:100vh; width=100%;">
             tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>` +
             `</button>`;
     }
+    
+    $("#tasks").append(html);
+
     let STAKE = 0;
 
+    $("#tasks").attr("style", "overflow:hidden;");
 
     function showTask(idx) {
         $("#tasks").prop("hidden", true);
@@ -375,20 +388,19 @@ height:100vh; width=100%;">
         RIGHT_ANSWER = tasks[idx]["answer"];
         STAKE = tasks[idx]["reward"];
         editor.setValue("");
-        if(tasks[idx]["snippet"]){
+        if (tasks[idx]["snippet"]) {
             const parser = new DOMParser();
             const parsed = parser.parseFromString(tasks[idx]["snippet"], "text/html");
             const text = parsed.documentElement.textContent;
             editor.setValue(text);
         }
-        
+
     };
 
-    $("#tasks").append(html);
-    
     $("#tasks button").on("click", function() {
-    $(this).remove();
-});
+        maxTask--;
+        $(this).remove();
+    });
 
 
     $("#re-description").click(function() {
@@ -435,13 +447,13 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=25') }}"></script>
+<script src="{{ asset('demo/script.js?v=26') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);
         $("#game").prop("hidden", true);
         $('.modal').attr('data-backdrop', 'static');
-        
+
         // From bootstrap documentation
         // https://getbootstrap.com/docs/5.1/components/tooltips/
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

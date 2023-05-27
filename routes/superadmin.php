@@ -123,6 +123,12 @@ Route::middleware([SuperIsLoggedIn::class])->group(function () {
         Route::delete('/cms/splash/destroy/{id}', 'destroy')->name('super.cms.splash.destroy');
     });
 
+    Route::controller(ReportController::class)->group(function() {
+        Route::get('/reports/list', 'index')->name('super.reports.index');
+        Route::get('/reports/show/{id}', 'show')->name('super.reports.show');
+        Route::put('reports/respond/{id}', 'respond')->name('super.reports.respond');
+    });
+
     Route::controller(RequestRegistrationController::class)->group(function () {
         Route::get('/reqregs', 'index')->name('super.request_registration.index');
         Route::get('/reqregs/show/{id}', 'show')->name('super.request_registration.show');

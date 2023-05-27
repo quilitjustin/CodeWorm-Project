@@ -77,7 +77,7 @@
                 <!-- /.card -->
             </div>
             <div class="col-sm-12">
-                <a href="{{ route('web.play.index') }}" class="text-light">
+                <a href="{{ route('web.play.index') }}" class="btn btn-dark">
                     <i class="right fas fa-angle-left"></i> Go
                     Back</a>
             </div>

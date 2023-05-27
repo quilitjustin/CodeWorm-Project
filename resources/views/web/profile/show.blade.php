@@ -136,7 +136,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12">
-                        <a href="{{ route('web.profile') }}" class="text-light">
+                        <a href="{{ route('web.profile') }}" class="btn btn-dark">
                             <i class="right fas fa-angle-left"></i> Go
                             Back</a>
                     </div>

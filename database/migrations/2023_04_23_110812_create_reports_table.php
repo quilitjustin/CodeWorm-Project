@@ -18,19 +18,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('picture')->nullable();
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
-        });
-
-        Schema::table('reports', function (Blueprint $table) {
-            $table->foreign('created_by')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-            $table->foreign('updated_by')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
         });
     }
 

@@ -37,7 +37,7 @@ class RegistrationAccepted extends Mailable
      */
     public function envelope()
     {
-        return new Envelope(subject: 'Registration Accepted Mail');
+        return new Envelope(subject: 'Registration ' . ucwords(strtolower($this->status)) . ' Mail');
     }
 
     /**

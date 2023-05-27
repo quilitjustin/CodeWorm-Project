@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
                 'l_name' => $faker->lastName,
                 // Trick to avoid constraint violation
                 'email' => preg_replace('/@example\..*/', '@domain.com', $faker->unique()->safeEmail),
-                'role' => $faker->randomElement(['admin', 'user']),
+                'role' => $faker->randomElement(['user']),
                 'password' => Hash::make('password'),
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),

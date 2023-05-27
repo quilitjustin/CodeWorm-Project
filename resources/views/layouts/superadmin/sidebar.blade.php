@@ -79,6 +79,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('super.reports.index') }}" class="nav-link {{ request()->is('reports*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-flag"></i>
+                        <p>
+                            Reports <span id="reports-badge" class="">
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item {{ request()->is('cms*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('cms*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder"></i>

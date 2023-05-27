@@ -84,8 +84,6 @@
     </div>
     <!-- ./wrapper -->
 
-
-
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -109,6 +107,8 @@
     <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
     {{-- Pusher --}}
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+
+    @include('layouts.loading')
 
     <script>
         $.ajaxSetup({
@@ -147,6 +147,39 @@
                     <i class="fas fa-users mr-2"></i></span> New registration requests
                 </a>
                 <div class="dropdown-divider"></div>`);
+            });
+        }
+
+        const cacheReports = localStorage.getItem('pending_reports');
+        if (cacheReports !== null && cacheReports !== undefined) {
+            $("#total-notification").addClass("badge badge-warning navbar-badge");
+            $("#total-notification").text("!");
+            $("#notif-parent").append(`   <div class="dropdown-divider"></div>
+                <a href="{{ route('super.reports.index') . '#latest' }}" class="dropdown-item">
+                    <i class="fas fa-flag mr-2"></i> New Reports
+                    <span class="float-right text-muted text-sm"></span>
+                </a>
+                <div class="dropdown-divider"></div>`);
+            $("#reports-badge").addClass("right badge badge-danger");
+            $("#reports-badge").text("!");
+        } else {
+            var pusher = new Pusher('e32d80a9a34cf1f5eaa9', {
+                cluster: 'ap1'
+            });
+
+            var channel = pusher.subscribe('reports');
+            channel.bind('my-event', function(data) {
+                localStorage.setItem('pending_reports', true);
+                $("#total-notification").addClass("badge badge-warning navbar-badge");
+                $("#total-notification").text("!");
+                $("#notif-parent").append(`   <div class="dropdown-divider"></div>
+                <a href="{{ route('super.reports.index') }}" class="dropdown-item">
+                    <i class="fas fa-flag mr-2"></i> New Reports
+                    <span class="float-right text-muted text-sm"></span>
+                </a>
+                <div class="dropdown-divider"></div>`);
+                $("#reports-badge").addClass("right badge badge-danger");
+                $("#reports-badge").text("!");
             });
         }
     </script>

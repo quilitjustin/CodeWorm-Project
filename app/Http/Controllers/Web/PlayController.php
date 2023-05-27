@@ -52,7 +52,15 @@ class PlayController extends Controller
     public function game_start($id)
     {
         $id = decrypt($id);
-        $stage = Stages::with('proglang:id,name,key', 'tasks', 'badges:id,name,path', 'bgim:id,path', 'bgm:id,path')->findOrFail($id, ['id', 'name', 'proglang_id', 'bgm_id', 'bgim_id', 'badge_id', 'player_base_hp', 'player_base_sp', 'enemy_base_hp', 'enemy_base_dmg']);
+        $stage = Stages::with([
+            'proglang:id,name,key',
+            'tasks' => function ($query) {
+                $query->inRandomOrder();
+            },
+            'badges:id,name,path',
+            'bgim:id,path',
+            'bgm:id,path',
+        ])->findOrFail($id, ['id', 'name', 'proglang_id', 'bgm_id', 'bgim_id', 'badge_id', 'player_base_hp', 'player_base_sp', 'enemy_base_hp', 'enemy_base_dmg']);
         $next_stage = Stages::select('id', 'name')
             ->where('id', '>', $id)
             ->where('proglang_id', $stage->proglang_id)

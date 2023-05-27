@@ -55,6 +55,8 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
 
+    @include('layouts.loading')
+    
     <script>
         $.ajaxSetup({
             headers: {

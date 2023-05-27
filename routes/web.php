@@ -100,6 +100,11 @@ Route::middleware([WebIsLoggedIn::class])->group(function () {
         Route::get('/stories/{id}', 'show')->name('web.stories.show');
     });
 
+    Route::controller(ReportController::class)->group(function(){
+        Route::get('/reports/submission', 'index')->name('web.reports.index');
+        Route::post('reports/store', 'store')->name('web.reports.store');
+    });
+
     Route::get('/verify_email', function () {
         return view('web.email_verify');
     })->name('web.email_verify');
