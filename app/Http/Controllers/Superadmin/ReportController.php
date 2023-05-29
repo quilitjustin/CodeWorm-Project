@@ -45,7 +45,7 @@ class ReportController extends Controller
         $data = Report::with('created_by_user:id,f_name,l_name')->findOrFail($id);
 
         if(!is_null($data->uid)){
-            $user = \App\Models\User::select('id', 'f_name', 'l_name')->first();
+            $user = \App\Models\User::select('id', 'f_name', 'l_name')->where('id', $data->uid)->first();
         }
         return view('superadmin.reports.show', [
             'report' => $data,
