@@ -65,4 +65,8 @@ class User extends Authenticatable
     public function request_registrations(){
         return $this->hasOne(RequestRegistration::class, 'user_id');
     }
+
+    public function game_records(){
+        return $this->hasMany(GameRecord::class, 'user_id');
+    }
 }

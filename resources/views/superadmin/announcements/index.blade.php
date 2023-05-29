@@ -26,8 +26,9 @@
                 <div class="col-12 pb-4">
                     <a href="{{ route('super.announcements.create') }}" class="btn btn-success">Create new Announcement</a>
                 </div>
-                @if (!is_null($pinned))
+                @if ($pinned->isNotEmpty())
                     <div class="col-12">
+                        <h4 class="text-navy">Pinned Announcements</h4>
                         @forelse($pinned as $pin)
                             <div class="card">
                                 <div class="card-header">
@@ -53,7 +54,7 @@
                                     {!! $pin->contents !!}
                                     <div class="d-none read-more justify-content-center"
                                         style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
-                                        <button class="btn btn-outline-primary my-2">Show More</button>
+                                        <button class="btn btn-secondary my-2">Show More</button>
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -73,54 +74,57 @@
                         @endforelse
                     </div>
                 @endif
-                <div class="col-12">
-                    @forelse($announcements as $announcement)
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-11 text-muted">
-                                        <p class="m-0">Posted By: <span
-                                                class="badge badge-secondary">{{ $announcement->created_by_user->f_name . ' ' . $announcement->created_by_user->l_name }}</span>
-                                            {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}</p>
-                                    </div>
-                                    <div class="col-1 text-right">
-                                        <form action="{{ route('super.announcements.pin', $announcement->encrypted_id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit"><i
-                                                    class="fas fa-thumbtack {{ $announcement->is_pinned ? 'text-primary' : '' }}"></i></button>
-                                        </form>
+                @if ($announcements->isNotEmpty())
+                    <div class="col-12">
+                        <h4 class="text-navy">Latest Announcements</h4>
+                        @forelse($announcements as $announcement)
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-11 text-muted">
+                                            <p class="m-0">Posted By: <span
+                                                    class="badge badge-secondary">{{ $announcement->created_by_user->f_name . ' ' . $announcement->created_by_user->l_name }}</span>
+                                                {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}</p>
+                                        </div>
+                                        <div class="col-1 text-right">
+                                            <form
+                                                action="{{ route('super.announcements.pin', $announcement->encrypted_id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit"><i
+                                                        class="fas fa-thumbtack {{ $announcement->is_pinned ? 'text-primary' : '' }}"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body" style="overflow:hidden;">
-                                <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
-                                {!! $announcement->contents !!}
-                                <div class="d-none read-more justify-content-center"
-                                    style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
-                                    <button class="btn btn-outline-primary my-2">Show More</button>
+                                <div class="card-body" style="overflow:hidden;">
+                                    <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
+                                    {!! $announcement->contents !!}
+                                    <div class="d-none read-more justify-content-center"
+                                        style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
+                                        <button class="btn btn-secondary my-2">Show More</button>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <a class="text-success"
+                                        href="{{ route('super.announcements.edit', $announcement->encrypted_id) }}">
+                                        <i class="fas fa-pen-square"></i> Edit</a>
+                                    <form class="delete d-inline"
+                                        action="{{ route('super.announcements.destroy', $announcement->encrypted_id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-danger">
+                                            <i class="fas fa-trash"></i> Delete</button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <a class="text-success"
-                                    href="{{ route('super.announcements.edit', $announcement->encrypted_id) }}">
-                                    <i class="fas fa-pen-square"></i> Edit</a>
-                                <form class="delete d-inline"
-                                    action="{{ route('super.announcements.destroy', $announcement->encrypted_id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-danger">
-                                        <i class="fas fa-trash"></i> Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    @empty
-                        No Announcements as of late!
-                    @endforelse
-                </div>
-                <!-- /.col-md-6 -->
+                        @empty
+                            No Announcements as of late!
+                        @endforelse
+                    </div>
+                @endif
             </div>
             <!-- /.row -->
             {{-- <div class="row mt-3">
@@ -152,6 +156,7 @@
                 if (contentHeight > maxContentHeight) {
                     $(this).css('max-height', maxContentHeight + 'px');
                     $(this).append("<a href='#' class='read-less'>Show Less</a>");
+                    $(this).css("overflow", "hidden");
                     $(this).children('.read-more').removeClass("d-none");
                     $(this).children('.read-more').addClass("d-flex");
                 }

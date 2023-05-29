@@ -171,6 +171,7 @@
                 $(this).prop("disabled", true);
                 const reason = $("#reason").val();
                 if (reason) {
+                    $("#loading-modal").modal("show");
                     $.ajax({
                         url: route,
                         method: "PUT",
@@ -196,6 +197,7 @@
 
             $("#confirm-activate-btn").click(function() {
                 $(this).prop("disabled", true);
+                $("#loading-modal").modal("show");
                 $.ajax({
                     url: route,
                     method: "PUT",

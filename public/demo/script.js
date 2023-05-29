@@ -116,10 +116,10 @@ window.addEventListener("load", function () {
             $("#start-coding").click(function () {
                 ENABLED_CONTROLS = false;
                 $("#msg").fadeIn();
-                $("#msg").text("Get Set");
+                $("#msg").text("Ready");
                 setTimeout(function () {
                     $("#msg").fadeIn();
-                    $("#msg").text("Ready");
+                    $("#msg").text("Get Set");
                 }, 1000);
                 setTimeout(function () {
                     $("#msg").fadeIn();
@@ -127,6 +127,7 @@ window.addEventListener("load", function () {
                 }, 2000);
                 setTimeout(function () {
                     ENABLED_CONTROLS = true;
+                    $("#msg").fadeOut();
                     startTimer();
                     startEnemyAtk(enemy);
                 }, 3000);
@@ -488,11 +489,11 @@ window.addEventListener("load", function () {
             // for(let i = 0; i < this.lives; i++){
             //     if(i > 2){
             ctx.textAlign = "start";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, 20, 80);
             ctx.textAlign = "start";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, 20, 82);
             //         break;
@@ -500,11 +501,11 @@ window.addEventListener("load", function () {
             //     ctx.drawImage(this.heart, 20 * i + 20, 60, 25, 25);
             // }
             ctx.textAlign = "start";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("SP: " + this.sp, 20, 105);
             ctx.textAlign = "start";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("SP: " + this.sp, 20, 107);
         }
@@ -695,11 +696,11 @@ window.addEventListener("load", function () {
             //     if(i > 2){
 
             ctx.textAlign = "end";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, canvas.width - 20, 80);
             ctx.textAlign = "end";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, canvas.width - 22, 82);
             //         break;
@@ -708,11 +709,11 @@ window.addEventListener("load", function () {
             // }
 
             ctx.textAlign = "white";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText("Damage: " + this.damage, canvas.width - 20, 100);
             ctx.textAlign = "end";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("Damage: " + this.damage, canvas.width - 22, 102);
         }
@@ -802,28 +803,28 @@ window.addEventListener("load", function () {
     }
     function displayStatusText(ctx) {
         ctx.textAlign = "start";
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "black";
         ctx.font = "30px Helvetica";
         ctx.fillText(name, 20, 50);
         ctx.textAlign = "start";
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#FFFF00";
         ctx.font = "30px Helvetica";
         ctx.fillText(name, 22, 52);
         ctx.textAlign = "end";
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "black";
         ctx.font = "30px Helvetica";
         ctx.fillText(enemyName, canvas.width - 20, 50);
         ctx.textAlign = "end";
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#FFFF00";
         ctx.font = "30px Helvetica";
         ctx.fillText(enemyName, canvas.width - 22, 52);
 
         if (GAME_OVER) {
             ctx.textAlign = "center";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "40px Helvetica";
             ctx.fillText("Game Over", canvas.width / 2, 200);
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "40px Helvetica";
             ctx.fillText("Game Over", canvas.width / 2 + 2, 202);
             $("#game *").prop("disabled", true);
@@ -832,10 +833,10 @@ window.addEventListener("load", function () {
 
         if (paused) {
             ctx.textAlign = "center";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "40px Helvetica";
             ctx.fillText("Paused", canvas.width / 2, 200);
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "40px Helvetica";
             ctx.fillText("Paused", canvas.width / 2 + 2, 202);
             $("#game *").prop("disabled", true);
@@ -846,10 +847,10 @@ window.addEventListener("load", function () {
 
         if (WIN) {
             ctx.textAlign = "center";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "40px Helvetica";
             ctx.fillText("You Win!", canvas.width / 2, 200);
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "40px Helvetica";
             ctx.fillText("You Win!", canvas.width / 2 + 2, 202);
             $("#game *").prop("enabled", true);
@@ -991,22 +992,22 @@ window.addEventListener("load", function () {
         }
 
         ctx.textAlign = "center";
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "black";
         ctx.font = "20px Helvetica";
         ctx.fillText(STAGE_NAME, canvas.width / 2, 50);
         ctx.textAlign = "center";
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#FFFF00";
         ctx.font = "20px Helvetica";
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
         if (!paused) {
             formatTimer = formatTime(TASK_TIMER);
 
             ctx.textAlign = "center";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
             ctx.fillText(formatTimer, canvas.width / 2, 70);
             ctx.textAlign = "center";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText(formatTimer, canvas.width / 2, 72);
         } else {

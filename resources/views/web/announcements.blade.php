@@ -26,7 +26,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    @if (!is_null($pinned))
+                    @if ($pinned->isNotEmpty())
                         <div class="col-12">
                             <h4 class="text-light">Pinned Announcements</h4>
                             @forelse($pinned as $pin)
@@ -56,33 +56,35 @@
                             @endforelse
                         </div>
                     @endif
-                    <div class="col-12" id="latest">
-                        <h4 class="text-light">Latest Announcements</h4>
-                        @forelse($announcements as $announcement)
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-11 text-muted">
-                                            <p class="m-0">Posted By: <span
-                                                    class="badge badge-secondary">{{ $announcement->created_by_user->f_name . ' ' . $announcement->created_by_user->l_name }}</span>
-                                                {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}</p>
+                    @if ($announcements->isNotEmpty())
+                        <div class="col-12" id="latest">
+                            <h4 class="text-light">Latest Announcements</h4>
+                            @forelse($announcements as $announcement)
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-11 text-muted">
+                                                <p class="m-0">Posted By: <span
+                                                        class="badge badge-secondary">{{ $announcement->created_by_user->f_name . ' ' . $announcement->created_by_user->l_name }}</span>
+                                                    {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="">
+                                        <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
+                                        {!! $announcement->contents !!}
+                                        <div class="d-none read-more justify-content-center"
+                                            style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
+                                            <button class="btn btn-secondary my-2">Show More</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body" style="">
-                                    <h5 class="m-0 font-weight-bold">{{ $announcement->title }}</h5>
-                                    {!! $announcement->contents !!}
-                                    <div class="d-none read-more justify-content-center"
-                                        style="position: absolute; bottom: 0; left: 0; background-color: rgba(255, 255, 255, 0.7); width: 100%;">
-                                        <button class="btn btn-secondary my-2">Show More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            No Announcements as of late!
-                        @endforelse
-                    </div>
-                    <!-- /.col-md-6 -->
+                            @empty
+                                No Announcements as of late!
+                            @endforelse
+                        </div>
+                    @endif
                 </div>
                 <!-- /.row -->
                 {{-- <div class="row mt-3">
@@ -119,6 +121,7 @@
                 if (contentHeight > maxContentHeight) {
                     $(this).css('max-height', maxContentHeight + 'px');
                     $(this).append("<a href='#' class='read-less'>Show Less</a>");
+                    $(this).css("overflow", "hidden");
                     $(this).children('.read-more').removeClass("d-none");
                     $(this).children('.read-more').addClass("d-flex");
                 }

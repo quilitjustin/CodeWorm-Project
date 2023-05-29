@@ -19,21 +19,27 @@ class ReportController extends Controller
     {
         $request->validate([
             'content' => ['required', 'max:255'],
-            'image' => ['required'],
+            // 'image' => ['required'],
             'image.*' => ['mimes:jpg,png,jpeg'],
         ]);
         $report = new Report();
         $report->content = $request['content'];
         $arr = [];
-        foreach ($request['image'] as $img) {
-            // To avoid having a file with the same name
-            $newImageName = time() . $img->extension();
-            // Where to store the image
-            $path = 'reports';
-            // Store the image in public directory
-            $img->move(public_path($path), $newImageName);
-            // Change to path later
-            array_push($arr, $path . '/' . $newImageName);
+        if(isset($request['image'])){
+            foreach ($request['image'] as $img) {
+                // To avoid having a file with the same name
+                $newImageName = time() . $img->extension();
+                // Where to store the image
+                $path = 'reports';
+                // Store the image in public directory
+                $img->move(public_path($path), $newImageName);
+                // Change to path later
+                array_push($arr, $path . '/' . $newImageName);
+            }
+        }
+        if(isset($request['uid'])){
+            $id = decrypt($request['uid']);
+            $report->uid = $id;
         }
         $report->picture = json_encode($arr);
         $report->created_by = Auth::user()->id;

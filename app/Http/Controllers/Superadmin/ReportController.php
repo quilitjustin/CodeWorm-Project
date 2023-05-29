@@ -26,7 +26,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::with('created_by_user:id,f_name,l_name')->select('id', 'created_by', 'created_at')->where('status', 'pending')->get();
+        $reports = Report::with('created_by_user:id,f_name,l_name')->select('id', 'created_by', 'created_at')->where('status', 'pending')->orderBy('created_at', 'desc')->get();
 
         return view('superadmin.reports.index', [
             'reports' => $reports

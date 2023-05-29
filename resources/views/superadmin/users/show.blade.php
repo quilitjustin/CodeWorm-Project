@@ -32,6 +32,9 @@
                                         data-toggle="tab">Profile</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Details</a>
                                 </li>
+                                <li class="nav-item"><a class="nav-link" href="#request" data-toggle="tab">Registration
+                                        Data</a>
+                                </li>
                                 <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Others</a>
                                 </li>
                             </ul>
@@ -83,6 +86,18 @@
                                 </div>
                                 <!-- /.tab-pane -->
 
+                                <div class="tab-pane" id="request">
+                                    <div class="mb-3">
+                                        <label>Date Accepted: </label>
+                                        <p>{{ $user->request_registrations->updated_at->format('Y-m-d H:i:s') }}</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>School ID: </label>
+                                        <img src="{{ asset($user->request_registrations->school_id) }}" alt="school id" class="img-fluid">
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+
                                 <div class="tab-pane" id="other">
                                     <h5>Public Profile: </h5>
                                     <a class="btn btn-outline-primary"
@@ -121,39 +136,119 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <div class="modal fade" id="confirm-suspend">
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Suspension</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to suspend this user?
+                        <br>
+                        Please specify the reason.
+                    </p>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="reason" placeholder="Reason" />
+                        <span id="err-suspend-msg"></span>
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button id="confirm-suspension-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="confirm-activate">
+        <div class="modal-dialog">
+            <div class="modal-content bg-success">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Activation</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to activate this user again?
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button id="confirm-activate-btn" type="button" class="btn btn-outline-light">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('script')
-    @include('layouts.superadmin.inc_component')
-    @include('layouts.superadmin.inc_delete')
     <script>
-        const imageFile = $("#image");
-        const preview = $("#img-preview");
+        $(document).ready(function() {
+            let route = "";
+            let data = "";
+            $(".suspend").submit(function(e) {
+                e.preventDefault();
+                $("#err-msg").text("");
+                $("#confirm-suspend").modal("show");
+                route = $(this).attr("action");
+                data = $(this).serialize();
+            });
+            $("#confirm-suspension-btn").click(function() {
+                $(this).prop("disabled", true);
+                const reason = $("#reason").val();
+                if (reason) {
+                    $("#loading-modal").modal("show");
+                    $.ajax({
+                        url: route,
+                        method: "PUT",
+                        data: data + "&reason=" + reason,
+                        success: function(response) {
+                            toastr.success("Updated Successfully");
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 1500);
+                        },
+                    });
+                } else {
+                    $("#err-suspend-msg").text("Reason is required.");
+                }
+            });
 
-        imageFile.on("change", function(e) {
-            // Replace label inside input 
-            const fileName = $(this).val();
-            $(this).next(".custom-file-label").html(fileName);
+            $(".activate").click(function(e) {
+                e.preventDefault();
+                route = $(this).attr("action");
+                data = $(this).serialize();
+                $("#confirm-activate").modal("show");
+            });
 
-            // Show image preview
-            const item = e.target.files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function() {
-                preview.attr("src", reader.result);
-                preview.removeClass("d-none");
-            }, false);
-
-            if (item) {
-                reader.readAsDataURL(item);
-            }
-        });
-
-        $("#clear").click(function() {
-            imageFile.val("");
-            imageFile.next(".custom-file-label").html("Choose Image");
-            preview.addClass("d-none");
-            preview.attr("src", "#");
+            $("#confirm-activate-btn").click(function() {
+                $(this).prop("disabled", true);
+                $("#loading-modal").modal("show");
+                $.ajax({
+                    url: route,
+                    method: "PUT",
+                    data: data,
+                    success: function(response) {
+                        toastr.success("Updated Successfully");
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                });
+            });
         });
     </script>
 @endsection

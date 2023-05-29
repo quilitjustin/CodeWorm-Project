@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="p-3" style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
+    <div class="p-3"
+        style="height: 100%; min-height: 100vh; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('{{ asset('assets/bgim/leaderboard.png') . '?v=' . filemtime(public_path('assets/bgim/leaderboard.png')) }}'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-size: cover;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -39,10 +40,14 @@
                                 </h3>
 
                                 <p class="text-muted text-center">
-                                    {{ $user->role == 'user' ? 'student' : $user->role }}
+                                    {{ $user->role == 'user' ? 'Student' : $user->role }}
                                     <br>
                                     {{ $user['email'] }}
                                 </p>
+                                <div class="text-center">
+                                    <button id="report" class="btn btn-danger"><i
+                                            class="fas fa-exclamation-triangle"></i> Report</button>
+                                </div>
 
                                 {{-- <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
@@ -119,7 +124,7 @@
                                                     <div class="text-center">
                                                         <h3 class="font-weight-bold">{{ $badge->name }}</h3>
                                                         <span>Date Earned:
-                                                            {{ $badge->created_at }}</span>
+                                                            {{ $badge->created_at->format('Y-m-d H:i:s') }}</span>
                                                     </div>
                                                 </div>
                                             @empty
@@ -146,10 +151,73 @@
         </section>
         <!-- /.content -->
     </div>
+
+    <div class="modal fade" id="confirm-report">
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Please select a problem
+                        <br>
+                        If someone is in immediate danger, please seek help immediately without waiting for something to
+                        happen.
+                    </p>
+                    <form id="report-form" action="{{ route('web.reports.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="uid" value="{{ $user->encrypted_id }}">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio" checked>
+                                <label for="customRadio1" class="custom-control-label">Pretending to be someone</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio">
+                                <label for="customRadio2" class="custom-control-label">Cheating</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input class="custom-control-input" type="radio" id="else" name="customRadio">
+                                <label for="else" class="custom-control-label">Something Else</label>
+                                <input type="text" class="d-none form-control" id="reason" name="reason" placeholder="Your report">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button id="confirm-btn" type="button" class="btn btn-outline-light">Submit</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 @section('script')
     <script>
-        // Code Goes here	
+        $(document).ready(function() {
+            $("#report").click(function() {
+                $("#confirm-report").modal("show");
+            });
+
+            $('#else').on("change", function() {
+                if ($(this).is(':checked')) {
+                    $("#reason").removeClass("d-none");
+                } else {
+                    alert();
+                }
+            });
+
+            $("#confirm-btn").click(function(){
+                $("#report-form").submit();
+            });
+        });
     </script>
 @endsection
