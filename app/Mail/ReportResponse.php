@@ -47,7 +47,7 @@ class ReportResponse extends Mailable
      */
     public function content()
     {
-        return new Content(markdown: 'mail.report');
+        return new Content(markdown: 'mail.response');
     }
 
     /**

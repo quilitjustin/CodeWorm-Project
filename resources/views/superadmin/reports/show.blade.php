@@ -38,6 +38,13 @@
                                     <a
                                         href="{{ route('super.users.show', $report->created_by_user->encrypted_id) }}">{{ $report->created_by_user->f_name . ' ' . $report->created_by_user->l_name }}</a>
                                 </div>
+                                @if(!is_null($user))
+                                <div class="col-md-12 mb-3">
+                                    <label>Who is being reported</label><br>
+                                    <a
+                                        href="{{ route('super.users.show', $user->encrypted_id) }}">{{ $user->f_name . ' ' . $user->l_name }}</a>
+                                </div>
+                                @endif
                                 <div class="col-md-12 mb-3">
                                     <label>Message</label>
                                     <p>{{ $report->content }}</p>

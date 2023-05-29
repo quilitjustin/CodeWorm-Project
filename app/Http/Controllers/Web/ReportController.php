@@ -23,7 +23,12 @@ class ReportController extends Controller
             'image.*' => ['mimes:jpg,png,jpeg'],
         ]);
         $report = new Report();
-        $report->content = $request['content'];
+        if($request['content'] != 'Something Else'){
+            $report->content = $request['content'];
+        } else {
+            $report->content = $request['reason'];
+        }
+        
         $arr = [];
         if(isset($request['image'])){
             foreach ($request['image'] as $img) {

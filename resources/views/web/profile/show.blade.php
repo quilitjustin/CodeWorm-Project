@@ -173,15 +173,15 @@
                         <input type="hidden" name="uid" value="{{ $user->encrypted_id }}">
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio" checked>
+                                <input class="custom-control-input" type="radio" id="customRadio1" name="content" value="Pretending to be someone" checked>
                                 <label for="customRadio1" class="custom-control-label">Pretending to be someone</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio">
+                                <input class="custom-control-input" type="radio" id="customRadio2" name="content" value="Cheating">
                                 <label for="customRadio2" class="custom-control-label">Cheating</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="else" name="customRadio">
+                                <input class="custom-control-input" type="radio" id="else" name="content" value="Something Else">
                                 <label for="else" class="custom-control-label">Something Else</label>
                                 <input type="text" class="d-none form-control" id="reason" name="reason" placeholder="Your report">
                             </div>
