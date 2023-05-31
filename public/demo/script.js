@@ -250,9 +250,9 @@ window.addEventListener("load", function () {
                                         DOH.volume = sfxVolume;
                                         DOH.play();
                                         $("#msg").html(
-                                            "Wrong Answer<br>Enemy will Attack!"
+                                            "Wrong Answer"
                                         );
-                                        enemy.atkCondition = true;
+                                      
                                     }
                                     $("#err-console").text(
                                         "Output: " + response["result"]
@@ -265,9 +265,9 @@ window.addEventListener("load", function () {
                                         "Syntax error: " + response["result"]
                                     );
                                     $("#msg").html(
-                                        "There's an error<br>Enemy will Attack!"
+                                        "There's an error"
                                     );
-                                    enemy.atkCondition = true;
+                                
                                 }
                             },
                             error: function (xhr, status, error) {
@@ -279,9 +279,9 @@ window.addEventListener("load", function () {
                                     "Error: Did not follow the given format"
                                 );
                                 $("#msg").html(
-                                    "There's an error<br>Enemy will Attack!"
+                                    "There's an error"
                                 );
-                                enemy.atkCondition = true;
+                              
                             },
                         });
                         $("#msg").fadeIn();
@@ -316,9 +316,9 @@ window.addEventListener("load", function () {
                                 DOH.volume = sfxVolume;
                                 DOH.play();
                                 $("#msg").html(
-                                    "Wrong Answer<br>Enemy will Attack!"
+                                    "Wrong Answer"
                                 );
-                                enemy.atkCondition = true;
+                         
                             }
                             $("#err-console").text("Output: " + $log);
                         } catch (error) {
@@ -329,7 +329,7 @@ window.addEventListener("load", function () {
                                 "Syntax error: " + error.message
                             );
                             $("#msg").html(
-                                "There's an error<br>Enemy will Attack!"
+                                "There's an error"
                             );
                             enemy.atkCondition = true;
                         }
@@ -411,9 +411,9 @@ window.addEventListener("load", function () {
                                             DOH.volume = sfxVolume;
                                             DOH.play();
                                             $("#msg").html(
-                                                "Wrong Answer<br>Enemy will Attack!"
+                                                "Wrong Answer"
                                             );
-                                            enemy.atkCondition = true;
+                                           
                                         }
                                         $("#err-console").text(
                                             "Output: " + response.stdout
@@ -427,9 +427,9 @@ window.addEventListener("load", function () {
                                             "Syntax error: " + response.stderr
                                         );
                                         $("#msg").html(
-                                            "There's an error<br>Enemy will Attack!"
+                                            "There's an error"
                                         );
-                                        enemy.atkCondition = true;
+                            
                                     }
                                     $("#msg").fadeIn();
                                     setTimeout(function () {
