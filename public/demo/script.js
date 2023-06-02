@@ -551,17 +551,10 @@ window.addEventListener("load", function () {
             } else {
                 $("#tackle").prop("disabled", true);
             }
-            if (this.sp > 99) {
-                $("#heal").prop("disabled", false);
+            if (this.sp > 499) {
                 $("#supreme").prop("disabled", false);
             } else {
-                $("#heal").prop("disabled", true);
                 $("#supreme").prop("disabled", true);
-            }
-            if (this.sp > 449) {
-                $("#elixir").prop("disabled", false);
-            } else {
-                $("#elixir").prop("disabled", true);
             }
             if (this.sp > 999) {
                 $("#super").prop("disabled", false);
