@@ -88,20 +88,20 @@ window.addEventListener("load", function () {
         setAtkCondition(enemy);
       }, 30000); // Call setAtkCondition every 30 seconds (30,000 milliseconds)
     }
-    let countdown = 30;
+    let countdown = 10;
     function countdownEndGame() {
       intervalId = setInterval(function() {
         countdown--;
         $("#msg").fadeIn();
         $("#msg").html("Game is about to end <br>" + countdown);
+        $("#msg").fadeOut();
         if(countdown < 0){
             GAME_OVER = true;
         }
       }, 1000); 
-    }
-    
-    function stopEnemyAtk() {
-      clearInterval(intervalId); // Stop the interval
+      setInterval(function(){
+        clearInterval(intervalId);
+      }, 1000);
     }
     
     function setAtkCondition(enemy) {
@@ -152,8 +152,8 @@ window.addEventListener("load", function () {
                 HEAL.volume = sfxVolume;
                 HEAL.play();
                 player.lives += 100;
-                player.sp -= 100;
-                $("#msg").html("Heal has been used!<br>HP + 100");
+                TOTAL_TIMER.push(10);
+                $("#msg").html("Heal has been used!<br>HP + 100 <br>Total Time +10s");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
@@ -166,8 +166,8 @@ window.addEventListener("load", function () {
                 HEAL.volume = sfxVolume;
                 HEAL.play();
                 player.lives += 500;
-                player.sp -= 450;
-                $("#msg").html("Elixir has been used!<br>HP + 500");
+                TOTAL_TIMER.push(50);
+                $("#msg").html("Elixir has been used!<br>HP + 500 <br>Total Time +50s");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
@@ -177,16 +177,20 @@ window.addEventListener("load", function () {
 
             $("#supreme").click(function () {
                 player.supreme = true;
+                GOKU.currentTime = 0;
+                GOKU.volume = sfxVolume;
+                GOKU.play();
                 if (enemy.lives > 500) {
                     enemy.lives -= 500;
                 } else {
                     enemy.lives = 0;
                 }
-                player.sp -= 100;
+                player.sp -= 500;
                 $("#msg").html("Supreme has been used!<br>Damage 500");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
+                    GOKU.pause();
                 }, 2000);
             });
             $("#super").click(function () {
@@ -194,13 +198,13 @@ window.addEventListener("load", function () {
                 GOKU.currentTime = 0;
                 GOKU.volume = sfxVolume;
                 GOKU.play();
-                if (enemy.lives > 9999) {
-                    enemy.lives -= 9999;
+                if (enemy.lives > 1000) {
+                    enemy.lives -= 1000;
                 } else {
                     enemy.lives = 0;
                 }
                 player.sp -= 1000;
-                $("#msg").html("Super Science has been used!<br>Damage 9999");
+                $("#msg").html("Super Science has been used!<br>Damage 1000");
                 $("#msg").fadeIn();
                 setTimeout(function () {
                     $("#msg").fadeOut();
@@ -508,6 +512,20 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("SP: " + this.sp, 20, 107);
+
+            let someTime = 0;
+            TOTAL_TIMER.forEach((time) => {
+                someTime += time;
+            });
+
+            ctx.textAlign = "start";
+            ctx.fillStyle = "black";
+            ctx.font = "20px Helvetica";
+            ctx.fillText("Time: " + someTime, 20, 130);
+            ctx.textAlign = "start";
+            ctx.fillStyle = "#FFFF00";
+            ctx.font = "20px Helvetica";
+            ctx.fillText("Time: " + someTime, 20, 132);
         }
         update(input, deltaTime, enemies, explosions) {
             if (this.lives < 0) {

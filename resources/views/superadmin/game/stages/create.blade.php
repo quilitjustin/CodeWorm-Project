@@ -146,17 +146,16 @@
                                         <!-- /.form-group -->
                                     </div>
                                     <!-- /.col -->
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Enemy Base HP</label>
                                             <input class="form-control" type="number" name="enemy-base-hp"
-                                                placeholder="Enter hp" value="{{ old('enemy-base-hp', '') }}" />
+                                                placeholder="Enter hp" value="0" />
                                             @error('enemy-base-hp')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror
                                         </div>
-                                        <!-- /.form-group -->
-                                    </div>
+                                    </div> --}}
                                     <!-- /.col -->
                                     <div class="col-md-6">
                                         <div class="form-group">

@@ -73,7 +73,7 @@ height:100vh; width=100%;">
                             Heal
                             <br>
                             <span class="font-weight-normal">
-                                HP 100 SP 100
+                                HP 100 SEC 10s
                             </span>
                         </button>
                         <button id="supreme"
@@ -81,7 +81,7 @@ height:100vh; width=100%;">
                             I'm Supreme!
                             <br>
                             <span class="font-weight-normal">
-                                DMG 500 SP 100
+                                DMG 500 SP 500
                             </span>
                         </button>
                         <button id="elixir"
@@ -89,7 +89,7 @@ height:100vh; width=100%;">
                             Elixir
                             <br>
                             <span class="font-weight-normal">
-                                HP 500 SP 450
+                                HP 500 SEC 50s
                             </span>
                         </button>
                         <button id="super"
@@ -97,7 +97,7 @@ height:100vh; width=100%;">
                             Super Science!
                             <br>
                             <span class="font-weight-normal">
-                                DMG 9999 SP 1000
+                                DMG 1000 SP 1000
                             </span>
                         </button>
                     </div>
@@ -364,7 +364,9 @@ height:100vh; width=100%;">
     let maxTask = tasks.length;
 
     let html = '';
+    let maxReward = 0;
     for (let i = 0; i < maxTask; i++) {
+        maxReward += tasks[i]["reward"];
         html +=
             `<button onclick="showTask(` + i +
             `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` +
@@ -372,7 +374,7 @@ height:100vh; width=100%;">
             tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>` +
             `</button>`;
     }
-    
+
     $("#tasks").append(html);
 
     let STAKE = 0;
@@ -431,7 +433,7 @@ height:100vh; width=100%;">
     const STAGE_ID = "{{ $stage->encrypted_id }}";
     const PLAYER_HP = {{ $stage->player_base_hp }};
     const PLAYER_SP = {{ $stage->player_base_sp }};
-    const ENEMY_HP = {{ $stage->enemy_base_hp }};
+    const ENEMY_HP = Math.floor((maxReward / 50)) * 50;
     const ENEMY_DMG = {{ $stage->enemy_base_dmg }};
     const BASE_URL = "{{ env('APP_CODE_EXECUTOR') }}";
     const PROGLANG_ID = "{{ $stage->proglang->encrypted_id }}";
@@ -447,7 +449,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=34') }}"></script>
+<script src="{{ asset('demo/script.js?v=36') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

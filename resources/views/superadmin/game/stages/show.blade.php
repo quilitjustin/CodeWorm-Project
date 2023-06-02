@@ -67,16 +67,22 @@
                                     <p>{{ $stage->enemy_base_hp }}</p>
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label>Player Base SP</label>
                                     <p>{{ $stage->player_base_sp }}</p>
-                                </div>
+                                </div> --}}
                                 <!-- /.col -->
                                 <div class="col-md-6">
                                     <label>Enemy Base Damage</label>
                                     <p>{{ $stage->enemy_base_dmg }}</p>
                                 </div>
                                 <!-- /.col -->
+                                <div class="col-md-6">
+                                    <label>Reward</label>
+                                    <a class="d-block mb-3"
+                                        href="{{ is_null($stage->badges) ? '#' : route('super.badges.show', $stage->badges->encrypted_id) }}">{{ is_null($stage->badges) ? '' : $stage->badges->name }}</a>
+                                </div>
+                                  <!-- /.col -->
                                 <div class="col-md-6">
                                     <label>Tasks</label>
                                     <div>
@@ -89,11 +95,6 @@
                                     </div>
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6">
-                                    <label>Reward</label>
-                                    <a class="d-block mb-3"
-                                        href="{{ is_null($stage->badges) ? '#' : route('super.badges.show', $stage->badges->encrypted_id) }}">{{ is_null($stage->badges) ? '' : $stage->badges->name }}</a>
-                                </div>
                             </div>
                             <!-- /.row -->
                         </div>

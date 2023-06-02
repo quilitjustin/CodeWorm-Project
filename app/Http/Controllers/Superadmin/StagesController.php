@@ -69,7 +69,7 @@ class StagesController extends Controller
         //
         $request->validate([
             'name' => ['required', 'max:255'],
-            'tasks' => ['required', 'array', 'size:20'],
+            'tasks' => ['required', 'array', 'size:10'],
             'proglang' => ['required'],
             'bgim' => ['required'],
             'bgm' => ['required'],
@@ -185,7 +185,7 @@ class StagesController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:255'],
-            'tasks' => ['required', 'array', 'size:20'],
+            'tasks' => ['required', 'array', 'size:10'],
             'proglang' => ['required'],
             'bgim' => ['required'],
             'bgm' => ['required'],
