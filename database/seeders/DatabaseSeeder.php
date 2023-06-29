@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SplashPageSeeder::class,
             StorySeeder::class,
+            ProglangSeeder::class,
+            TaskSeeder::class,
+            BackgroundImageSeeder::class,
+            BackgroundMusicSeeder::class,
+            StageSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

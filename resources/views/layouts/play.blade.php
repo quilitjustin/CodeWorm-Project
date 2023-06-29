@@ -422,7 +422,6 @@ height:100vh; width=100%;">
     });
 
     const PHP_ROUTE = "{{ asset('demo/api/v1/php_api.php') }}";
-    const jsRoute = "{{ asset('demo/api/v1/js_api.php') }}";
     const name = '{{ Auth::user()->f_name . ' ' . Auth::user()->l_name }}';
     const proglang = "{{ $stage->proglang->name }}";
     const language = proglang.toLowerCase();
@@ -449,7 +448,7 @@ height:100vh; width=100%;">
     </script>
 @endisset
 {{-- Game --}}
-<script src="{{ asset('demo/script.js?v=37') }}"></script>
+<script src="{{ asset('demo/script.js') }}"></script>
 <script>
     $(document).ready(function() {
         $("#code-editor").prop("hidden", true);

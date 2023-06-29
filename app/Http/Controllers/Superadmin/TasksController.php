@@ -82,7 +82,6 @@ class TasksController extends Controller
         $request->validate([
             'name' => ['required', 'max:255'],
             'difficulty' => ['required', 'in:Easy,Medium,Hard'],
-            'snippet' => ['max:255'],
             'description' => ['required'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
@@ -162,7 +161,6 @@ class TasksController extends Controller
             'name' => ['required', 'max:255'],
             'difficulty' => ['required', 'in:Easy,Medium,Hard'],
             'description' => ['required'],
-            'snippet' => ['max:255'],
             'answer' => ['required', 'max:255'],
             'proglang' => ['required'],
             'reward' => ['required', 'integer'],
@@ -176,9 +174,7 @@ class TasksController extends Controller
         $data->name = strip_tags($request['name']);
         $data->difficulty = strip_tags($request['difficulty']);
         $data->description = $this->sanitize_description($request['description']);
-        if($request['snippet'] != ""){
-            $data->snippet = $this->sanitize_code($request['snippet']);
-        }
+        $data->snippet = $this->sanitize_code($request['snippet']);
         $data->answer = strip_tags($request['answer']);
         $data->reward = strip_tags($request['reward']);
         $data->proglang_id = $proglang_id;

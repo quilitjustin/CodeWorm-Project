@@ -50,11 +50,7 @@
                                     <p>{{ $task->difficulty }}</p>
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6">
-                                    <label>Reward</label>
-                                    <p>{{ $task->reward }}</p>
-                                </div>
-                                <!-- /.col -->
+                      
                                 <div class="col-sm-12">
                                     <label>Description</label>
                                     <div class="px-2 py-1 bg-light">

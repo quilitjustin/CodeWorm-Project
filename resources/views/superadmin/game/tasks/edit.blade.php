@@ -107,11 +107,11 @@
                                             @enderror
                                         </div>
                                         <!-- /.form-group -->
-                                        <div class="form-group">
+                                        <div class="form-group" hidden>
                                             <label>Reward (SP)</label>
                                             <input class="form-control" type="number" name="reward"
                                                 placeholder="Enter Amount of SP"
-                                                value="{{ old('reward', $task->reward) }}" />
+                                                value="0"/>
                                             @error('reward')
                                                 <p class="text-danger my-2">{{ $message }}</p>
                                             @enderror

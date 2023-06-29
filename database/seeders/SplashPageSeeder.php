@@ -20,6 +20,8 @@ class SplashPageSeeder extends Seeder
         DB::table('splash_pages')->insert([
             'content' => $json,
             'created_by' => 1,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
         ]);
     }
 }

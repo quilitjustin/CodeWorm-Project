@@ -7,8 +7,6 @@ window.addEventListener("load", function () {
     let score = 0;
     let paused = false;
     const enemyName = "Codeworm";
-    // let gameOver = false;
-    // let win = false;
     let timer = 0;
     let formatTimer = "";
     let TASK_TIMER = 0;
@@ -703,9 +701,6 @@ window.addEventListener("load", function () {
                 this.height
             );
 
-            // for(let i = 0; i < this.lives; i++){
-            //     if(i > 2){
-
             ctx.textAlign = "end";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";
@@ -714,10 +709,6 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("HP: " + this.lives, canvas.width - 22, 82);
-            //         break;
-            //     }
-            //     ctx.drawImage(this.heart, 20 * i + 20, 60, 25, 25);
-            // }
 
             ctx.textAlign = "white";
             ctx.fillStyle = "black";
@@ -754,12 +745,6 @@ window.addEventListener("load", function () {
                 this.atkCondition = true;
                 this.atkTimer = 0;
             }
-
-            // if (this.x < 0 - this.width) {
-            //     this.markedForDeletion = true;
-            //     score++;
-            // }
-
             if (this.x > this.gameWidth) {
                 this.x--;
                 this.atkCondition = false;
@@ -783,13 +768,6 @@ window.addEventListener("load", function () {
                 this.sp -= 5;
                 this.damage++;
             }
-            // if (this.onHit) {
-            //     explosions[0].update();
-            //     explosions[0].draw();
-            //     explosions.splice(0, 1);
-            //     this.onHit = false;
-            //     $("#tackle").prop("disabled", false);
-            // }
             if (this.lives <= 0) {
                 this.lives = 0;
                 this.markedForDeletion = true;
@@ -798,20 +776,6 @@ window.addEventListener("load", function () {
         }
     }
 
-    function handleEnemies(deltaTime) {
-        enemies.push(new Enemy(canvas.width, canvas.height));
-        // if(enemyTimer > enemyInterval + randomEnemyInterval){
-        //     enemies.push(new Enemy(canvas.width, canvas.height));
-        //     enemyTimer = 0;
-        // } else {
-        //     enemyTimer += deltaTime;
-        // }
-        enemies.forEach((enemy) => {
-            enemy.draw(ctx);
-            enemy.update(deltaTime);
-        });
-        enemies = enemies.filter((enemy) => !enemy.markedForDeletion);
-    }
     function displayStatusText(ctx) {
         ctx.textAlign = "start";
         ctx.fillStyle = "black";
@@ -1001,7 +965,6 @@ window.addEventListener("load", function () {
         if (boom.length < 5) {
             boom.push(new Explotion(enemy.x, enemy.y));
         }
-
         ctx.textAlign = "center";
         ctx.fillStyle = "black";
         ctx.font = "20px Helvetica";

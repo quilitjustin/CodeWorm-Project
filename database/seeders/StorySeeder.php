@@ -45,6 +45,8 @@ class StorySeeder extends Seeder
             powers they had attained were much more than they had ever anticipated, and
             carrying the weight of being the god\'s heirs would be a tremendous load.</p><p></p>',
             'created_by' => 1,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
         ]);
     }
 }
