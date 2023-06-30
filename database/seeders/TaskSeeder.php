@@ -37,5 +37,23 @@ class TaskSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now(),
             ]);
         }
+
+        for ($i = 0; $i < 20; $i++) {
+            $name = $faker->name;
+            DB::table('tasks')->insert([
+                'name' => 'Print ' . $name,
+                'difficulty' => 'Easy',
+                'reward' => 50,
+                'description' => '<p>Print "' . $name . '" using console.log</p><p><b>Example:</b></p><p>console.log("Goodmorning");</p><p>output: Goodmorning</p><p><b>Definition</b></p><p>A message is written to the console using the log() method.</p><p>Testing reasons benefit from the use of the log() method.</p>',
+                'snippet' => '',
+                'answer' => $name,
+                'proglang_id' => 2,
+                'stage_id' => 2,
+                'created_by' => 1,
+                'updated_by' => 1,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ]);
+        }
     }
 }
