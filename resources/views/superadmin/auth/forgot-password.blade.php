@@ -12,7 +12,7 @@
                 <div class="card-body register-card-body">
                     <p class="login-box-msg">Fogot Password</p>
 
-                    <form action="{{ route('super.password.request') }}" method="POST">
+                    <form id="forgot-password-form" action="{{ route('super.password.request') }}" method="POST">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" placeholder="Email" name="email">
@@ -66,4 +66,13 @@
         </div>
         <!-- /.register-box -->
     </div>
+@endsection
+
+@section('script')
+<script>
+    $("#forgot-password-form").on("submit", function(){
+        $("#loading-modal").modal("show");
+        $("#submit-btn").prop("disabled", true);
+    });
+</script>
 @endsection

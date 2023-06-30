@@ -143,7 +143,13 @@
 
     @if (session()->has('error'))
         <script>
-            toastr.error("{{ session()->get('error') }}");
+            @php
+                $error = session()->get('error');
+                if (is_array($error)) {
+                    $error = implode(', ', $error); // Convert array to string
+                }
+            @endphp
+            toastr.error("{{ $error }}");
         </script>
     @endif
 </body>

@@ -71,6 +71,7 @@
 @section('script')
 <script>
     $("#forgot-password-form").on("submit", function(){
+        $("#loading-modal").modal("show");
         $("#submit-btn").prop("disabled", true);
     });
 </script>
