@@ -141,7 +141,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12">
-                        <a href="{{ route('web.profile') }}" class="btn btn-dark">
+                        <a href="{{ route('web.play.index') }}" class="btn btn-dark">
                             <i class="right fas fa-angle-left"></i> Go
                             Back</a>
                     </div>
@@ -156,7 +156,7 @@
         <div class="modal-dialog">
             <div class="modal-content bg-danger">
                 <div class="modal-header">
-                    <h4 class="modal-title">Confirm Deletion</h4>
+                    <h4 class="modal-title">Confirm Report</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -168,22 +168,45 @@
                         If someone is in immediate danger, please seek help immediately without waiting for something to
                         happen.
                     </p>
-                    <form id="report-form" action="{{ route('web.reports.store') }}" method="POST">
+                    <form id="report-form" action="{{ route('web.reports.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="uid" value="{{ $user->encrypted_id }}">
                         <div class="form-group">
+                            <label>Evidence</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image" name="image[]"
+                                        accept="image/*" multiple>
+                                    <label class="custom-file-label" for="image"
+                                        aria-describedby="inputGroupFileAddon02">Choose Image</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" id="clear" class="btn btn-secondary">Clear</button>
+                                </div>
+                            </div>
+                            @error('image')
+                                <p class="text-danger my-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="customRadio1" name="content" value="Pretending to be someone" checked>
+                                <input class="custom-control-input" type="radio" id="customRadio1" name="content"
+                                    value="Pretending to be someone" checked>
                                 <label for="customRadio1" class="custom-control-label">Pretending to be someone</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="customRadio2" name="content" value="Cheating">
+                                <input class="custom-control-input" type="radio" id="customRadio2" name="content"
+                                    value="Cheating">
                                 <label for="customRadio2" class="custom-control-label">Cheating</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" id="else" name="content" value="Something Else">
+                                <input class="custom-control-input" type="radio" id="else" name="content"
+                                    value="Something Else">
                                 <label for="else" class="custom-control-label">Something Else</label>
-                                <input type="text" class="d-none form-control" id="reason" name="reason" placeholder="Your report">
+                                <textarea class="d-none form-control mt-2" id="reason" name="reason"></textarea>
+                                <p id="error" class="text-white"></p>
                             </div>
                         </div>
                     </form>
@@ -207,16 +230,36 @@
                 $("#confirm-report").modal("show");
             });
 
-            $('#else').on("change", function() {
-                if ($(this).is(':checked')) {
+            $("input[type='radio']").on("change", function() {
+                if ($("#else").is(':checked')) {
                     $("#reason").removeClass("d-none");
                 } else {
-                    alert();
+                    $("#reason").addClass("d-none");
                 }
             });
 
-            $("#confirm-btn").click(function(){
+            $("#confirm-btn").click(function(e) {
+                e.preventDefault();
+                if($("#else").is(':checked')){
+                    if($("#reason").val() == ""){
+                        $("#error").text("Please fill out the reason.");
+                        return;
+                    }
+                }
                 $("#report-form").submit();
+            });
+
+            const imageFile = $("#image");
+
+            imageFile.on("change", function(e) {
+                // Replace label inside input 
+                const fileName = $(this).val();
+                $(this).next(".custom-file-label").html(fileName);
+            });
+
+            $("#clear").click(function() {
+                imageFile.val("");
+                imageFile.next(".custom-file-label").html("Choose Image");
             });
         });
     </script>

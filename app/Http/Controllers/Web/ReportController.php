@@ -22,6 +22,18 @@ class ReportController extends Controller
             // 'image' => ['required'],
             'image.*' => ['mimes:jpg,png,jpeg'],
         ]);
+
+        $id = decrypt($request['uid']);
+
+        $count = Report::where('created_by', Auth::user()->id)
+        ->where('status', 'pending')
+        ->where('uid', '=', $id)
+        ->count();
+
+        if($count > 0){
+            return back()->with(['error' => 'You already have a pending report for this user!']);
+        }
+
         $report = new Report();
         if($request['content'] != 'Something Else'){
             $report->content = $request['content'];
@@ -43,7 +55,6 @@ class ReportController extends Controller
             }
         }
         if(isset($request['uid'])){
-            $id = decrypt($request['uid']);
             $report->uid = $id;
         }
         $report->picture = json_encode($arr);

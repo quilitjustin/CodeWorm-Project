@@ -89,7 +89,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('web.reports.index') }}"
                         class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-flag"></i>
@@ -97,7 +97,7 @@
                             Report
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('web.profile') }}"
                         class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">

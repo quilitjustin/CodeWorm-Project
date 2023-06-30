@@ -58,6 +58,15 @@ class ReportController extends Controller
         $data->status = 'done';
         $data->save();
 
+        if($request['content'] == 'ban'){
+            $id = decrypt($request['reported_id']);
+            $user = \App\Models\User::where('id', $id)->first();
+            $user->suspended_until = now();
+            $user->save();
+            
+            Mail::to($user->email)->send(new \App\Mail\UserSuspensionMail($user->l_name, $request['reason']));
+        }
+
         $user = \App\Models\User::select('id', 'l_name', 'email')->where('id', decrypt($request['reporter_id']))->first();
 
         Mail::to($user->email)->send(new ReportResponse($user->f_name, $request['response']));

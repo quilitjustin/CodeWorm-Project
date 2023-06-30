@@ -3,26 +3,21 @@ window.addEventListener("load", function () {
     const ctx = canvas.getContext("2d");
     canvas.width = 800;
     canvas.height = 360;
-    let enemies = [];
-    let score = 0;
     let paused = false;
     const enemyName = "Codeworm";
-    let timer = 0;
     let formatTimer = "";
     let TASK_TIMER = 0;
-    let TOTAL_TIMER = [];
     let interval;
-    let start = false;
     let bgm = document.getElementById("bgm");
     let bgmVolume = 0.1;
     bgm.volume = bgmVolume;
     let sfxVolume = 0.1;
-    const fullScreen = this.document.getElementById("fullScreenButton");
     const CLAP_SFX = document.getElementById("clap");
     const SHEESH_SFX = document.getElementById("sheesh");
     const DOH = document.getElementById("doh");
     const GOKU = document.getElementById("goku");
     const HEAL = document.getElementById("heal-sfx");
+
     // We do this first we don't overwrite the default console.log
     console.compile = console.log;
     // Asign the value of console.log to window.$log
@@ -64,7 +59,6 @@ window.addEventListener("load", function () {
         $("#game").prop("hidden", false);
         $("#playBtn").attr("style", "");
         bgm.play();
-        start = true;
         animate(0);
     });
 
@@ -86,20 +80,22 @@ window.addEventListener("load", function () {
         setAtkCondition(enemy);
       }, 30000); // Call setAtkCondition every 30 seconds (30,000 milliseconds)
     }
+
     let countdown = 10;
+
     function countdownEndGame() {
       intervalId = setInterval(function() {
         countdown--;
         $("#msg").fadeIn();
-        $("#msg").html("Game is about to end <br>" + countdown);
-        $("#msg").fadeOut();
-        if(countdown < 0){
+        $("#msg").html("Game is about to end <br> <span id='myTimer'>" + countdown + "</span>");
+        if(countdown <= 0){
             GAME_OVER = true;
+            clearInterval(intervalId);
         }
+        setInterval(function(){
+            $("#myTimer").fadeOut();
+        }, 900);
       }, 1000); 
-      setInterval(function(){
-        clearInterval(intervalId);
-      }, 1000);
     }
     
     function setAtkCondition(enemy) {
@@ -150,7 +146,7 @@ window.addEventListener("load", function () {
                 HEAL.volume = sfxVolume;
                 HEAL.play();
                 player.lives += 100;
-                TOTAL_TIMER.push(10);
+                TASK_TIMER += 10;
                 $("#msg").html("Heal has been used!<br>HP + 100 <br>Total Time +10s");
                 $("#msg").fadeIn();
                 setTimeout(function () {
@@ -164,7 +160,7 @@ window.addEventListener("load", function () {
                 HEAL.volume = sfxVolume;
                 HEAL.play();
                 player.lives += 500;
-                TOTAL_TIMER.push(50);
+                TASK_TIMER += 50;
                 $("#msg").html("Elixir has been used!<br>HP + 500 <br>Total Time +50s");
                 $("#msg").fadeIn();
                 setTimeout(function () {
@@ -242,8 +238,6 @@ window.addEventListener("load", function () {
                                         $("#tasks").prop("hidden", false);
                                         $("#code-editor").prop("hidden", true);
                                         stopTimer();
-                                        TOTAL_TIMER.push(TASK_TIMER);
-                                        TASK_TIMER = 0;
                                         if(maxTask <= 0){
                                             countdownEndGame();
                                         }
@@ -333,7 +327,6 @@ window.addEventListener("load", function () {
                             $("#msg").html(
                                 "There's an error"
                             );
-                            enemy.atkCondition = true;
                         }
                         $("#msg").fadeIn();
                         setTimeout(function () {
@@ -510,22 +503,9 @@ window.addEventListener("load", function () {
             ctx.fillStyle = "#FFFF00";
             ctx.font = "20px Helvetica";
             ctx.fillText("SP: " + this.sp, 20, 107);
-
-            let someTime = 0;
-            TOTAL_TIMER.forEach((time) => {
-                someTime += time;
-            });
-
-            ctx.textAlign = "start";
-            ctx.fillStyle = "black";
-            ctx.font = "20px Helvetica";
-            ctx.fillText("Time: " + someTime, 20, 130);
-            ctx.textAlign = "start";
-            ctx.fillStyle = "#FFFF00";
-            ctx.font = "20px Helvetica";
-            ctx.fillText("Time: " + someTime, 20, 132);
         }
         update(input, deltaTime, enemies, explosions) {
+            console.log(this.sp)
             if (this.lives < 0) {
                 this.lives = 0;
             }
@@ -584,15 +564,7 @@ window.addEventListener("load", function () {
             } else {
                 this.frameTimer += deltaTime;
             }
-            if (input.keys.indexOf("tackle") > -1) {
-                this.speed = 5;
-            } else if (input.keys.indexOf("ArrowLeft") > -1) {
-                this.speed = -5;
-            } else if (input.keys.indexOf("ArrowUp") > -1 && this.onGround()) {
-                this.vy -= 32;
-            } else {
-                this.speed = 0;
-            }
+
             // Horizontal Movement
             // this.x += this.speed;
             if (this.x < 0) {
@@ -645,19 +617,9 @@ window.addEventListener("load", function () {
         }
         draw(ctx) {
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-            ctx.drawImage(
-                this.image,
-                this.x + this.width - this.speed,
-                this.y,
-                this.width,
-                this.height
-            );
         }
         update() {
-            this.x -= this.speed;
-            if (this.x < 0 - this.width) {
-                this.x = 0;
-            }
+
         }
     }
     class Enemy {
@@ -830,17 +792,13 @@ window.addEventListener("load", function () {
             ctx.fillText("You Win!", canvas.width / 2 + 2, 202);
             $("#game *").prop("enabled", true);
 
-            let totalTime = 0;
-            TOTAL_TIMER.forEach((time) => {
-                totalTime += time;
-            });
-            const displayTotal = formatTime(totalTime);
+            const displayTotal = formatTime(TASK_TIMER);
 
             $.post({
                 url: storeRoute,
                 data: {
                     _token: CSRF_TOKEN,
-                    record: totalTime,
+                    record: TASK_TIMER,
                     proglangId: PROGLANG_ID,
                     badgeId: BADGE_ID,
                     stageId: STAGE_ID,
@@ -863,20 +821,6 @@ window.addEventListener("load", function () {
             });
         }
     }
-
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            canvas.requestFullscreen().catch((err) => {
-                // Template literals
-                alert(`Error, can't enable: ${err.message}`);
-            });
-        } else {
-            document.exitFullscreen();
-        }
-    }
-    fullScreen.addEventListener("click", function () {
-        toggleFullScreen();
-    });
 
     class Explotion {
         constructor(x, y) {
@@ -929,15 +873,10 @@ window.addEventListener("load", function () {
     const enemy = new Enemy(canvas.width, canvas.height);
     const input = new InputHandler(player, enemy);
     const background = new Background(canvas.width, canvas.height);
-    const explosions = new Explotion(enemy.x, enemy.y);
 
     let lastTime = 0;
-    let enemyTimer = 0;
-    let enemyInterval = 1000;
-    let randomEnemyInterval = Math.random() * 1000 + 500;
     let boom = [];
     let animationId;
-    let elapsedTime = 0;
 
     function startTimer() {
         clearInterval(interval);
@@ -957,8 +896,6 @@ window.addEventListener("load", function () {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         background.draw(ctx);
-        // background.update();
-        // handleEnemies(deltaTime);
         enemy.draw(ctx);
         enemy.update(deltaTime, player);
         player.draw(ctx);
@@ -975,7 +912,6 @@ window.addEventListener("load", function () {
         ctx.fillText(STAGE_NAME, canvas.width / 2, 52);
         if (!paused) {
             formatTimer = formatTime(TASK_TIMER);
-
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
             ctx.font = "20px Helvetica";

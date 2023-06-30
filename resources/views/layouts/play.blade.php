@@ -40,11 +40,11 @@ height:100vh; width=100%;">
             <img id="enemyImage" class="d-none" src="{{ asset('demo/enemy3.png') }}" alt="enemy">
             <img id="boom" class="d-none" src="{{ asset('demo/boom.png') }}" alt="boom">
             <audio id="bgm" class="d-none" src="{{ asset($stage->bgm->path) }}" controls loop></audio>
-            <audio id="clap" class="d-none" src="{{ asset('js/clap.wav') }}" controls></audio>
-            <audio id="heal-sfx" class="d-none" src="{{ asset('js/heal.wav') }}" controls></audio>
-            <audio id="doh" class="d-none" src="{{ asset('js/doh.wav') }}" controls></audio>
-            <audio id="goku" class="d-none" src="{{ asset('js/goku.mp3') }}" controls></audio>
-            <audio id="sheesh" class="d-none" src="{{ asset('js/sheesh.mp3') }}" controls></audio>
+            <audio id="clap" class="d-none" src="{{ asset('demo/clap.wav') }}" controls></audio>
+            <audio id="heal-sfx" class="d-none" src="{{ asset('demo/heal.wav') }}" controls></audio>
+            <audio id="doh" class="d-none" src="{{ asset('demo/doh.wav') }}" controls></audio>
+            <audio id="goku" class="d-none" src="{{ asset('demo/goku.mp3') }}" controls></audio>
+            <audio id="sheesh" class="d-none" src="{{ asset('demo/sheesh.mp3') }}" controls></audio>
             <audio id="sfx" class="d-none" src="{{ asset('demo/boom.wav') }}" controls></audio>
             <audio id="sfx2" class="d-none" src="{{ asset('demo/ice.wav') }}" controls></audio>
             <button hidden id="fullScreenButton">Full Screen</button>
@@ -369,8 +369,8 @@ height:100vh; width=100%;">
         maxReward += tasks[i]["reward"];
         html +=
             `<button onclick="showTask(` + i +
-            `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>` +
-            tasks[i]["name"] + `<br><span class="font-weight-normal">Difficulty: ` +
+            `);" class="btn btn-outline-info h-25 w-100" font-weight-bold>Task #` +
+            (i + 1) + `<br><span class="font-weight-normal">Difficulty: ` +
             tasks[i]["difficulty"] + ` Reward: ` + tasks[i]["reward"] + `(SP)</span>` +
             `</button>`;
     }
