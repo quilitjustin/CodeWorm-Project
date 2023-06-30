@@ -314,7 +314,7 @@ window.addEventListener("load", function () {
                                 $("#msg").html(
                                     "Wrong Answer"
                                 );
-                         
+                                ENABLED_CONTROLS = true;
                             }
                             $("#err-console").text("Output: " + $log);
                         } catch (error) {
@@ -327,6 +327,7 @@ window.addEventListener("load", function () {
                             $("#msg").html(
                                 "There's an error"
                             );
+                            ENABLED_CONTROLS = true;
                         }
                         $("#msg").fadeIn();
                         setTimeout(function () {
