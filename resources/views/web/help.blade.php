@@ -73,11 +73,11 @@
                                             <br>
                                             <img src="{{ asset('assets/help/h7.png') }}" alt="" style="max-width: 800px">
                                         </li>
-                                        <li>After gaining an understanding from the description and examples, you can click the Start Coding button to open your code editor and initiate the timer for the task. However, there's no need to worry as the timer only tracks how quickly you can complete the stage and doesn't impose any penalties. Of course, if needed, you can go back and review the description and examples by clicking the Description button.
+                                        <li>After gaining an understanding from the description and examples, you can click the Start Coding button to open your code editor and initiate the timer for the task. However, there's no need to worry as the timer only tracks how quickly you can complete the stage and doesn't impose any penalties. Of course, if needed, you can go back and review the description and examples by clicking the Description button. But be careful once you started codeding, the enemy would begin to attack every 30 seconds.
                                             <br>
                                             <img src="{{ asset('assets/help/h8.png') }}" alt="" style="max-width: 800px">
                                         </li>
-                                        <li>When you are confident with your answer, you can submit it using the Submit button, and you'll be able to see the output of your code in the console located in the bottom left corner. If your answer is correct, you'll gain SP. However, if you answer incorrectly, the enemy will attack.
+                                        <li>When you are confident with your answer, you can submit it using the Submit button, and you'll be able to see the output of your code in the console located in the bottom left corner. If your answer is correct, you'll gain SP.
                                             <br>
                                             <img src="{{ asset('assets/help/h9.png') }}" alt="" style="max-width: 800px">
                                         </li>
